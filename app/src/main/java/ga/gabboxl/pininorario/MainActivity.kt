@@ -92,9 +92,8 @@ class MainActivity : AppCompatActivity() {
 
         Log.e("MOOSECA", "sucsaaaaaaaaaa")
         try {
-            var pInfo: PackageInfo = packageManager.getPackageInfo(packageName, 0)
-            var version: String = pInfo.versionName
-            Log.e("VERZIONE NOME", version)
+            val packageInfoversion = packageManager.getPackageInfo(packageName, 0).versionName
+            Log.e("VERZIONE NOME", packageInfoversion)
 
             var packageInfo: PackageInfo = packageManager.getPackageInfo(this.packageName, 0)
             var curVersionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
