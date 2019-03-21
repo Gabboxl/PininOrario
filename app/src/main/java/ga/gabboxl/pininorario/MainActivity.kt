@@ -286,7 +286,7 @@ class MainActivity : AppCompatActivity() {
 
 
     fun apriOrario() {
-        val file = File("/storage/emulated/0/Download" + "/PininOrari/" + "/" + griglie[posizionespinnerperiodi as Int] + ".png")
+        val file = File("/storage/emulated/0/Download" + "/PininOrari/" + "/" + griglie[posizionespinnerperiodi] + ".png")
         val intent = Intent(Intent.ACTION_VIEW)
         intent.setDataAndType(FileProvider.getUriForFile(applicationContext, BuildConfig.APPLICATION_ID + ".provider", file), "image/png")
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
