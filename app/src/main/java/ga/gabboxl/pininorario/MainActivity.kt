@@ -149,7 +149,6 @@ class MainActivity : AppCompatActivity() {
 
                     if (spinnerClassi.getItemAtPosition(position).toString().startsWith("Selezionate")) {
                         buttonScarica.visibility = View.INVISIBLE
-                        return  //esco dalla funz se no da errore
                     }
 
                     scaricaPeriodi()
