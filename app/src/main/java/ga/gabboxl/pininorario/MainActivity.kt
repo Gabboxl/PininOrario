@@ -147,6 +147,11 @@ class MainActivity : AppCompatActivity() {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     posizionespinnerclassi = position
 
+                    if (spinnerClassi.getItemAtPosition(position).toString().startsWith("Selezionate")) {
+                        buttonScarica.visibility = View.INVISIBLE
+                        return  //esco dalla funz se no da errore
+                    }
+
                     scaricaPeriodi()
 
                     uiThread {
