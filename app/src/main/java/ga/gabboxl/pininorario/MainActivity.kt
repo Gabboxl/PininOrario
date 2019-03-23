@@ -95,8 +95,8 @@ class MainActivity : AppCompatActivity() {
             val packageInfoversion = packageManager.getPackageInfo(packageName, 0).versionName
             Log.e("VERZIONE NOME", packageInfoversion)
 
-            var packageInfo: PackageInfo = packageManager.getPackageInfo(this.packageName, 0)
-            var curVersionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            val packageInfo: PackageInfo = packageManager.getPackageInfo(this.packageName, 0)
+            val curVersionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 packageInfo.longVersionCode
             } else {
                 TODO("VERSION.SDK_INT < P")
