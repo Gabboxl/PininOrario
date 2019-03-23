@@ -166,28 +166,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            /*
-            spinnerPeriodi.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    posizionespinnerperiodi = position
-
-                    if (spinnerPeriodi.selectedItem.toString().startsWith("Selezionate")) {
-                        buttonScarica.visibility = View.INVISIBLE
-                        return  //esco dalla funz se no da errore
-                    }
-
-                    buttonScarica.visibility = View.VISIBLE
-
-                    buttonScarica.setOnClickListener {
-                        scaricaOrario()
-                    }
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                }
-            }
-            */
-
             listviewPeriodi.onItemClickListener = object : AdapterView.OnItemClickListener {
                 override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     posizionespinnerperiodi = position
