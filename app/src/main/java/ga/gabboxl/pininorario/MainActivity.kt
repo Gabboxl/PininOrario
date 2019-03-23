@@ -154,8 +154,6 @@ class MainActivity : AppCompatActivity() {
                     scaricaPeriodi()
 
                     uiThread {
-                        // val adapter2 = ArrayAdapter(applicationContext, R.layout.support_simple_spinner_dropdown_item, periodi)
-                        // spinnerPeriodi.adapter = adapter2
                         val adattatore = ArrayAdapter(applicationContext, R.layout.listview_row, R.id.textviewperiodi_row, periodi)
                         listviewPeriodi.adapter = adattatore
                     }
