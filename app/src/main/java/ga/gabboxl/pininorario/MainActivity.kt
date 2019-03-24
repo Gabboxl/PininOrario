@@ -246,22 +246,26 @@ class MainActivity : AppCompatActivity() {
 
             val downloadManager: DownloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
-            val urlfoto: String = if (checkboxNomi.isChecked){
-                "http://intranet.itispininfarina.it/orarioint/classi/"
+            var urlfoto: String
+            var nomeFoto: String
+            if (checkboxNomi.isChecked){
+                urlfoto = "http://intranet.itispininfarina.it/orarioint/classi/"
+                nomeFoto = griglie[posizionespinnerperiodi] + "prof"
             } else{
-                "http://intranet.itispininfarina.it/orario/classi/"
+                urlfoto = "http://intranet.itispininfarina.it/orario/classi/"
+                nomeFoto = griglie[posizionespinnerperiodi]
             }
-            val downloadUrl = Uri.parse(urlfoto + griglie[posizionespinnerperiodi] + ".png")
+            val downloadUrl = Uri.parse(urlfoto + nomeFoto + ".png")
 
             val request = DownloadManager.Request(downloadUrl)
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
             request.setAllowedOverRoaming(false)
-            request.setTitle("PininOrario - Scaricando " + griglie[posizionespinnerperiodi] + ".png")
-            request.setDescription("In download " + griglie[posizionespinnerperiodi] + ".png")
+            request.setTitle("PininOrario - Scaricando " + nomeFoto + ".png")
+            request.setDescription("In download " + nomeFoto + ".png")
             request.setVisibleInDownloadsUi(true)
             request.setDestinationInExternalPublicDir(
                 Environment.DIRECTORY_DOWNLOADS,
-                "/PininOrari/" + "/" + griglie[posizionespinnerperiodi] + ".png"
+                "/PininOrari/" + "/" + nomeFoto + ".png"
             )
 
             @Suppress("UNUSED_VARIABLE") var refid = downloadManager.enqueue(request)
