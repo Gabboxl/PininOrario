@@ -245,11 +245,11 @@ class MainActivity : AppCompatActivity() {
 
 
             val downloadManager: DownloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-            var urlfoto: String
-            if (checkboxNomi.isChecked){
-                urlfoto = "http://intranet.itispininfarina.it/orarioint/classi/"
+
+            val urlfoto: String = if (checkboxNomi.isChecked){
+                "http://intranet.itispininfarina.it/orarioint/classi/"
             } else{
-                urlfoto = "http://intranet.itispininfarina.it/orario/classi/"
+                "http://intranet.itispininfarina.it/orario/classi/"
             }
             val downloadUrl = Uri.parse(urlfoto + griglie[posizionespinnerperiodi] + ".png")
 
