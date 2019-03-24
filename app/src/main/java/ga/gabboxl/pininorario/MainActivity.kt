@@ -240,7 +240,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             //controllo che il file non sia già stato scaricato e quindi propongo di aprirlo
-            if (File("/storage/emulated/0/Download" + "/PininOrari/" + "/" + nomefileOrario + ".png").exists()) {
+            if (File("/storage/emulated/0/Download/PininOrari//$nomefileOrario.png").exists()) {
                 Snackbar.make(
                     findViewById(R.id.myCoordinatorLayout),
                     "Orario già scaricato -->",
@@ -263,12 +263,12 @@ class MainActivity : AppCompatActivity() {
             val request = DownloadManager.Request(downloadUrl)
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
             request.setAllowedOverRoaming(false)
-            request.setTitle("PininOrario - " + nomefileOrario + ".png")
-            request.setDescription("In download " + nomefileOrario + ".png")
+            request.setTitle("PininOrario - $nomefileOrario.png")
+            request.setDescription("In download $nomefileOrario.png")
             request.setVisibleInDownloadsUi(true)
             request.setDestinationInExternalPublicDir(
                 Environment.DIRECTORY_DOWNLOADS,
-                "/PininOrari/" + "/" + nomefileOrario + ".png"
+                "/PininOrari//$nomefileOrario.png"
             )
 
             @Suppress("UNUSED_VARIABLE") var refid = downloadManager.enqueue(request)
@@ -278,7 +278,7 @@ class MainActivity : AppCompatActivity() {
 
 
     fun apriOrario() {
-        val file = File("/storage/emulated/0/Download" + "/PininOrari/" + "/" + nomefileOrario + ".png")
+        val file = File("/storage/emulated/0/Download/PininOrari//$nomefileOrario.png")
         val intent = Intent(Intent.ACTION_VIEW)
         intent.setDataAndType(FileProvider.getUriForFile(applicationContext, BuildConfig.APPLICATION_ID + ".provider", file), "image/png")
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
