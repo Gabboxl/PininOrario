@@ -56,10 +56,14 @@
                         app:layout_constraintTop_toBottomOf="@+id/buttonScarica"
                         app:layout_constraintVertical_bias="1.0"/>
                 <CheckBox
-                        android:text="CheckBox"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" tools:layout_editor_absoluteY="261dp"
-                        tools:layout_editor_absoluteX="546dp" android:id="@+id/checkboxNomi"/>
+                        android:text="@string/checkboxNomi"
+                        android:layout_width="202dp"
+                        android:layout_height="29dp"
+                        android:id="@+id/checkboxNomi"
+                        app:layout_constraintStart_toEndOf="@+id/spinnerClassi"
+                        android:layout_marginStart="4dp" app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="8dp" android:layout_marginTop="13dp"
+                        app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="1.0"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
