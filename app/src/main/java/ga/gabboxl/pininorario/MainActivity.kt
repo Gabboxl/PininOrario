@@ -245,8 +245,13 @@ class MainActivity : AppCompatActivity() {
 
 
             val downloadManager: DownloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-            val downloadUrl =
-                Uri.parse("http://intranet.itispininfarina.it/orario/classi/" + griglie[posizionespinnerperiodi] + ".png")
+            var urlfoto: String
+            if (checkboxNomi.isChecked){
+                urlfoto = "http://intranet.itispininfarina.it/orarioint/classi/"
+            } else{
+                urlfoto = "http://intranet.itispininfarina.it/orario/classi/"
+            }
+            val downloadUrl = Uri.parse(urlfoto + griglie[posizionespinnerperiodi] + ".png")
 
             val request = DownloadManager.Request(downloadUrl)
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
