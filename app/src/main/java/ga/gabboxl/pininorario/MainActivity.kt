@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
     var classis = arrayListOf<String>()
 
-
+    var nomefileOrario: String = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -221,6 +221,18 @@ class MainActivity : AppCompatActivity() {
     //funzione x scaricare foto dell'orario
     fun scaricaOrario() {
         doAsync {
+            var urlfoto: String
+
+            if (checkboxNomi.isChecked){
+                urlfoto = "http://intranet.itispininfarina.it/orarioint/classi/"
+                nomefileOrario = griglie[posizionespinnerperiodi] + "prof"
+            } else{
+                urlfoto = "http://intranet.itispininfarina.it/orario/classi/"
+                nomefileOrario = griglie[posizionespinnerperiodi]
+            }
+
+
+
             //controllo se il permesso per l'accesso alla memoria sia garantito
             if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 richiediWritePermission()
@@ -228,7 +240,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             //controllo che il file non sia già stato scaricato e quindi propongo di aprirlo
-            if (File("/storage/emulated/0/Download" + "/PininOrari/" + "/" + griglie[posizionespinnerperiodi] + ".png").exists()) {
+            if (File("/storage/emulated/0/Download" + "/PininOrari/" + "/" + nomefileOrario + ".png").exists()) {
                 Snackbar.make(
                     findViewById(R.id.myCoordinatorLayout),
                     "Orario già scaricato -->",
@@ -246,26 +258,17 @@ class MainActivity : AppCompatActivity() {
 
             val downloadManager: DownloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
-            var urlfoto: String
-            var nomeFoto: String
-            if (checkboxNomi.isChecked){
-                urlfoto = "http://intranet.itispininfarina.it/orarioint/classi/"
-                nomeFoto = griglie[posizionespinnerperiodi] + "prof"
-            } else{
-                urlfoto = "http://intranet.itispininfarina.it/orario/classi/"
-                nomeFoto = griglie[posizionespinnerperiodi]
-            }
-            val downloadUrl = Uri.parse(urlfoto + nomeFoto + ".png")
+            val downloadUrl = Uri.parse(urlfoto + griglie[posizionespinnerperiodi] + ".png")
 
             val request = DownloadManager.Request(downloadUrl)
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
             request.setAllowedOverRoaming(false)
-            request.setTitle("PininOrario - Scaricando " + nomeFoto + ".png")
-            request.setDescription("In download " + nomeFoto + ".png")
+            request.setTitle("PininOrario - " + nomefileOrario + ".png")
+            request.setDescription("In download " + nomefileOrario + ".png")
             request.setVisibleInDownloadsUi(true)
             request.setDestinationInExternalPublicDir(
                 Environment.DIRECTORY_DOWNLOADS,
-                "/PininOrari/" + "/" + nomeFoto + ".png"
+                "/PininOrari/" + "/" + nomefileOrario + ".png"
             )
 
             @Suppress("UNUSED_VARIABLE") var refid = downloadManager.enqueue(request)
@@ -275,7 +278,7 @@ class MainActivity : AppCompatActivity() {
 
 
     fun apriOrario() {
-        val file = File("/storage/emulated/0/Download" + "/PininOrari/" + "/" + griglie[posizionespinnerperiodi] + ".png")
+        val file = File("/storage/emulated/0/Download" + "/PininOrari/" + "/" + nomefileOrario + ".png")
         val intent = Intent(Intent.ACTION_VIEW)
         intent.setDataAndType(FileProvider.getUriForFile(applicationContext, BuildConfig.APPLICATION_ID + ".provider", file), "image/png")
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
