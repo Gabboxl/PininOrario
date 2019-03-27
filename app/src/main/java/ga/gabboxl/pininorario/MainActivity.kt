@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()  //necessario??????????????????????????
             StrictMode.setThreadPolicy(policy) // ??????????????????????????????????????????????????????????????????????????????
 
-        //controllo permesso per l'accesso alla memoria rom
+        //controllo permesso per l'accesso alla memoria
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             richiediWritePermission()
         }
@@ -221,6 +221,13 @@ class MainActivity : AppCompatActivity() {
     //funzione x scaricare foto dell'orario
     fun scaricaOrario() {
         doAsync {
+
+            //controllo permesso per l'accesso alla memoria
+            if (ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                richiediWritePermission()
+                return@doAsync
+            }
+
             var urlfoto: String
 
             if (checkboxNomi.isChecked){
@@ -229,14 +236,6 @@ class MainActivity : AppCompatActivity() {
             } else{
                 urlfoto = "http://intranet.itispininfarina.it/orario/classi/"
                 nomefileOrario = griglie[posizionespinnerperiodi]
-            }
-
-
-
-            //controllo se il permesso per l'accesso alla memoria sia garantito
-            if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                richiediWritePermission()
-                return@doAsync
             }
 
             //controllo che il file non sia già stato scaricato e quindi propongo di aprirlo
@@ -300,20 +299,30 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun richiediWritePermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        doAsync {
 
-            AlertDialog.Builder(this)
-                .setTitle("Permesso richiesto")
-                .setMessage("Questa app ha bisogno del permesso WRITE_EXTERNAL_STORAGE per scaricare l'orario!")
-                .setPositiveButton("ok") { _, _ -> ActivityCompat.requestPermissions(  // onlick funzione
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this@MainActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+                var alertpermesso = AlertDialog.Builder(this@MainActivity)
+                    .setTitle("Permesso richiesto")
+                    .setMessage("Questa app ha bisogno del permesso WRITE_EXTERNAL_STORAGE per scaricare l'orario!")
+                    .setPositiveButton("ok") { _, _ ->
+                        ActivityCompat.requestPermissions(  // onlick funzione
+                            this@MainActivity,
+                            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUESTWRITECODE
+                        )
+                    }
+                    .setNegativeButton("indietro") { dialog, _ -> dialog.dismiss() } //onlick funzione
+
+                uiThread {  alertpermesso.create().show()}
+            } else {
+                ActivityCompat.requestPermissions(
                     this@MainActivity,
-                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUESTWRITECODE)
-                }
-                .setNegativeButton("indietro") { dialog, _ -> dialog.dismiss() } //onlick funzione
-                .create().show()
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    REQUESTWRITECODE
+                )
+            }
 
-        } else {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUESTWRITECODE)
         }
     }
 
