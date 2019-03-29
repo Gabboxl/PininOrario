@@ -228,7 +228,7 @@ class MainActivity : AppCompatActivity() {
                 return@doAsync
             }
 
-            var urlfoto: String
+            val urlfoto: String
 
             if (checkboxNomi.isChecked){
                 urlfoto = "http://intranet.itispininfarina.it/orarioint/classi/"
@@ -303,7 +303,7 @@ class MainActivity : AppCompatActivity() {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(this@MainActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
-                var alertpermesso = AlertDialog.Builder(this@MainActivity)
+                val alertpermesso = AlertDialog.Builder(this@MainActivity)
                     .setTitle("Permesso richiesto")
                     .setMessage("Questa app ha bisogno del permesso WRITE_EXTERNAL_STORAGE per scaricare l'orario!")
                     .setPositiveButton("ok") { _, _ ->
