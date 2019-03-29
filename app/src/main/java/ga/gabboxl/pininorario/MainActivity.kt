@@ -53,36 +53,41 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-            val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()  //necessario??????????????????????????
-            StrictMode.setThreadPolicy(policy) // ??????????????????????????????????????????????????????????????????????????????
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()  //necessario??????????????????????????
+        StrictMode.setThreadPolicy(policy) // ??????????????????????????????????????????????????????????????????????????????
 
         //controllo permesso per l'accesso alla memoria
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
             richiediWritePermission()
         }
 
         //registro il ricevitore di eventi sull'azione del download completato in modo da triggerare una funzione una volta che l'evento si verifica
         registerReceiver(onComplete, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
-            //imposto la listview dei periodi su scelta singola
-            listviewPeriodi.choiceMode = ListView.CHOICE_MODE_SINGLE
+        //imposto la listview dei periodi su scelta singola
+        listviewPeriodi.choiceMode = ListView.CHOICE_MODE_SINGLE
 
-            //richiamo la funzione principale
-             prendiOrario()
+        //richiamo la funzione principale
+        prendiOrario()
 
-            swiperefreshlayout.setOnRefreshListener {
-                prendiOrario()
-                swiperefreshlayout.isRefreshing = false
-            }
+        swiperefreshlayout.setOnRefreshListener {
+            prendiOrario()
+            swiperefreshlayout.isRefreshing = false
+        }
 
         buttonPeriodifresh.setOnClickListener {
             doAsync {
                 scaricaPeriodi()
 
                 uiThread {
-                   //  val adapter2 = ArrayAdapter(applicationContext, R.layout.support_simple_spinner_dropdown_item, periodi)
-                   // spinnerPeriodi.adapter = adapter2
-                    val adattatore = ArrayAdapter(applicationContext, R.layout.listview_row, R.id.textviewperiodi_row, periodi)
+                    //  val adapter2 = ArrayAdapter(applicationContext, R.layout.support_simple_spinner_dropdown_item, periodi)
+                    // spinnerPeriodi.adapter = adapter2
+                    val adattatore =
+                        ArrayAdapter(applicationContext, R.layout.listview_row, R.id.textviewperiodi_row, periodi)
                     listviewPeriodi.adapter = adattatore
                 }
 
@@ -129,16 +134,16 @@ class MainActivity : AppCompatActivity() {
 
             var counter = 0
             while ((listResources.length() - 1) >= counter) {
-                if(listResources.optJSONArray(counter).get(0).toString() == "grClasse") {
+                if (listResources.optJSONArray(counter).get(0).toString() == "grClasse") {
                     classis.add(listResources.optJSONArray(counter).get(1).toString())
                 }
                 counter++
             }
 
-                uiThread {
-                    val adapter1 = ArrayAdapter(applicationContext, R.layout.support_simple_spinner_dropdown_item, classis)
-                    spinnerClassi.adapter = adapter1
-                }
+            uiThread {
+                val adapter1 = ArrayAdapter(applicationContext, R.layout.support_simple_spinner_dropdown_item, classis)
+                spinnerClassi.adapter = adapter1
+            }
 
 
             spinnerClassi.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -154,7 +159,8 @@ class MainActivity : AppCompatActivity() {
                     scaricaPeriodi()
 
                     uiThread {
-                        val adattatore = ArrayAdapter(applicationContext, R.layout.listview_row, R.id.textviewperiodi_row, periodi)
+                        val adattatore =
+                            ArrayAdapter(applicationContext, R.layout.listview_row, R.id.textviewperiodi_row, periodi)
                         listviewPeriodi.adapter = adattatore
                     }
 
@@ -191,31 +197,31 @@ class MainActivity : AppCompatActivity() {
 
     //funzione x scaricare dati periodi
     fun scaricaPeriodi() {
-            periodi.clear()
-            var codiceclasse = ""
+        periodi.clear()
+        var codiceclasse = ""
 
-            val apiResponsePeriodi = URL("http://gabboxlbot.altervista.org/pininorario/periodi.php").readText()
-            val jsonPeriodi = JSONArray(Gson().fromJson(apiResponsePeriodi, arrayListOf<String>().javaClass))
+        val apiResponsePeriodi = URL("http://gabboxlbot.altervista.org/pininorario/periodi.php").readText()
+        val jsonPeriodi = JSONArray(Gson().fromJson(apiResponsePeriodi, arrayListOf<String>().javaClass))
 
 
-            var contatore = 0
-            while ((listResources.length() - 1) >= contatore) {
-                if (listResources.optJSONArray(contatore).get(1).toString() == classis[posizionespinnerclassi]) {
-                    codiceclasse = listResources.optJSONArray(contatore).get(2).toString()
-                }
-                contatore++
-            }      //fine while
-
-            var contatore2 = 0
-            griglie = arrayListOf()
-
-            while ((jsonPeriodi.length() - 1) > contatore2) {
-                if (jsonPeriodi.optJSONArray(contatore2).get(0).toString() == codiceclasse) {
-                    periodi.add(jsonPeriodi.optJSONArray(contatore2).get(1).toString()) // aggiungo i periodi "EDT N." all'array
-                    griglie.add(jsonPeriodi.optJSONArray(contatore2).get(2).toString()) //aggiungo i link (semi-link) alle griglie all'array dichiarati ad inizio funzione del bottone
-                }
-                contatore2++
+        var contatore = 0
+        while ((listResources.length() - 1) >= contatore) {
+            if (listResources.optJSONArray(contatore).get(1).toString() == classis[posizionespinnerclassi]) {
+                codiceclasse = listResources.optJSONArray(contatore).get(2).toString()
             }
+            contatore++
+        }      //fine while
+
+        var contatore2 = 0
+        griglie = arrayListOf()
+
+        while ((jsonPeriodi.length() - 1) > contatore2) {
+            if (jsonPeriodi.optJSONArray(contatore2).get(0).toString() == codiceclasse) {
+                periodi.add(jsonPeriodi.optJSONArray(contatore2).get(1).toString()) // aggiungo i periodi "EDT N." all'array
+                griglie.add(jsonPeriodi.optJSONArray(contatore2).get(2).toString()) //aggiungo i link (semi-link) alle griglie all'array dichiarati ad inizio funzione del bottone
+            }
+            contatore2++
+        }
     }
 
     //funzione x scaricare foto dell'orario
@@ -223,17 +229,21 @@ class MainActivity : AppCompatActivity() {
         doAsync {
 
             //controllo permesso per l'accesso alla memoria
-            if (ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(
+                    this@MainActivity,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
                 richiediWritePermission()
                 return@doAsync
             }
 
             val urlfoto: String
 
-            if (checkboxNomi.isChecked){
+            if (checkboxNomi.isChecked) {
                 urlfoto = "http://intranet.itispininfarina.it/orarioint/classi/"
                 nomefileOrario = griglie[posizionespinnerperiodi] + "prof"
-            } else{
+            } else {
                 urlfoto = "http://intranet.itispininfarina.it/orario/classi/"
                 nomefileOrario = griglie[posizionespinnerperiodi]
             }
@@ -275,33 +285,40 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     fun apriOrario() {
         val file = File("/storage/emulated/0/Download/PininOrari//$nomefileOrario.png")
         val intent = Intent(Intent.ACTION_VIEW)
-        intent.setDataAndType(FileProvider.getUriForFile(applicationContext, BuildConfig.APPLICATION_ID + ".provider", file), "image/png")
+        intent.setDataAndType(
+            FileProvider.getUriForFile(
+                applicationContext,
+                BuildConfig.APPLICATION_ID + ".provider",
+                file
+            ), "image/png"
+        )
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         startActivity(intent)
     }
 
 
-
     private var onComplete = object : BroadcastReceiver() {
         override fun onReceive(contxt: Context?, intent: Intent?) {
             Snackbar.make(findViewById(R.id.myCoordinatorLayout), "Download completato.", Snackbar.LENGTH_INDEFINITE)
-                    .setAction("Apri") {
-                        apriOrario()
-                    }
-                    .show()
+                .setAction("Apri") {
+                    apriOrario()
+                }
+                .show()
         }
     }
-
 
 
     private fun richiediWritePermission() {
         doAsync {
 
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this@MainActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this@MainActivity,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+            ) {
 
                 val alertpermesso = AlertDialog.Builder(this@MainActivity)
                     .setTitle("Permesso richiesto")
@@ -314,7 +331,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     .setNegativeButton("indietro") { dialog, _ -> dialog.dismiss() } //onlick funzione
 
-                uiThread {  alertpermesso.create().show()}
+                uiThread { alertpermesso.create().show() }
             } else {
                 ActivityCompat.requestPermissions(
                     this@MainActivity,
@@ -335,7 +352,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 
 
 }
