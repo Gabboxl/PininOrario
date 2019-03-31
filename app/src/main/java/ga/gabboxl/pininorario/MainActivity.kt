@@ -26,6 +26,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -84,8 +85,6 @@ class MainActivity : AppCompatActivity() {
                 scaricaPeriodi()
 
                 uiThread {
-                    //  val adapter2 = ArrayAdapter(applicationContext, R.layout.support_simple_spinner_dropdown_item, periodi)
-                    // spinnerPeriodi.adapter = adapter2
                     val adattatore =
                         ArrayAdapter(applicationContext, R.layout.listview_row, R.id.textviewperiodi_row, periodi)
                     listviewPeriodi.adapter = adattatore
@@ -345,10 +344,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         if (requestCode == REQUESTWRITECODE) {
+            Toasty.Config.reset()
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permission GRANTED", Toast.LENGTH_SHORT).show()
+                Toasty.success(this@MainActivity, "Permission GRANTED", Toast.LENGTH_SHORT, true).show()
             } else {
-                Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show()
+                Toasty.warning(this@MainActivity, "Permission DENIED", Toast.LENGTH_SHORT, true).show()
+                //Toast.makeText(this, "Permission DENIED1", Toast.LENGTH_SHORT).show()
             }
         }
     }

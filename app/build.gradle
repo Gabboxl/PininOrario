@@ -39,4 +39,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'org.jetbrains.anko:anko:0.10.7'
+    implementation 'com.github.GrenderG:Toasty:1.4.1'
 }
