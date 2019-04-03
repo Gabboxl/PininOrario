@@ -185,8 +185,7 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     val text = "Hai selezionato: " + listviewPeriodi.getItemAtPosition(position).toString()
-                    val toast = Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT)
-                    toast.show()
+                    Toasty.info(this@MainActivity, text, Toast.LENGTH_SHORT, true).show()
                 }
             }
 
