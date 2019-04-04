@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
     var classis = arrayListOf<String>()
 
     var nomefileOrario: String = ""
+    var codiceclasse = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,7 +95,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        Log.e("MOOSECA", "sucsaaaaaaaaaa")
         try {
             val packageInfoversion = packageManager.getPackageInfo(packageName, 0).versionName
             Log.e("VERZIONE NOME", packageInfoversion)
@@ -110,14 +110,6 @@ class MainActivity : AppCompatActivity() {
             e.printStackTrace()
         }
     }
-
-
-    /*
-    override fun onDestroy() {
-        super.onDestroy()
-        unregisterReceiver(onComplete)
-    }
-    */
 
 
     private fun prendiOrario() {
@@ -149,18 +141,25 @@ class MainActivity : AppCompatActivity() {
                 //variabili da inizializzare per poi essere utilizzate in modo globale nel codice
 
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    posizionespinnerclassi = position
+                    doAsync {
+                        posizionespinnerclassi = position
 
-                    if (spinnerClassi.getItemAtPosition(position).toString().startsWith("Selezionate")) {
-                        buttonScarica.visibility = View.INVISIBLE
-                    }
+                        if (spinnerClassi.getItemAtPosition(position).toString().startsWith("Selezionate")) {
+                            buttonScarica.visibility = View.INVISIBLE
+                        }
 
-                    scaricaPeriodi()
+                        scaricaPeriodi()
 
-                    uiThread {
-                        val adattatore =
-                            ArrayAdapter(applicationContext, R.layout.listview_row, R.id.textviewperiodi_row, periodi)
-                        listviewPeriodi.adapter = adattatore
+                        uiThread {
+                            val adattatore =
+                                ArrayAdapter(
+                                    applicationContext,
+                                    R.layout.listview_row,
+                                    R.id.textviewperiodi_row,
+                                    periodi
+                                )
+                            listviewPeriodi.adapter = adattatore
+                        }
                     }
 
                 }
@@ -196,7 +195,6 @@ class MainActivity : AppCompatActivity() {
     //funzione x scaricare dati periodi
     fun scaricaPeriodi() {
         periodi.clear()
-        var codiceclasse = ""
 
         val apiResponsePeriodi = URL("http://gabboxlbot.altervista.org/pininorario/periodi.php").readText()
         val jsonPeriodi = JSONArray(Gson().fromJson(apiResponsePeriodi, arrayListOf<String>().javaClass))
@@ -348,7 +346,6 @@ class MainActivity : AppCompatActivity() {
                 Toasty.success(this@MainActivity, "Permission GRANTED", Toast.LENGTH_SHORT, true).show()
             } else {
                 Toasty.warning(this@MainActivity, "Permission DENIED", Toast.LENGTH_SHORT, true).show()
-                //Toast.makeText(this, "Permission DENIED1", Toast.LENGTH_SHORT).show()
             }
         }
     }
