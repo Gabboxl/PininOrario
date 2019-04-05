@@ -15,6 +15,8 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.StrictMode
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -24,6 +26,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.github.javiersantos.appupdater.AppUpdater
+import com.github.javiersantos.appupdater.enums.Display
+import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import es.dmoral.toasty.Toasty
@@ -54,6 +59,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
 
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()  //necessario??????????????????????????
         StrictMode.setThreadPolicy(policy) // ??????????????????????????????????????????????????????????????????????????????
@@ -109,6 +116,15 @@ class MainActivity : AppCompatActivity() {
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }
+
+
+
+        AppUpdater(this)
+            .setDisplay(Display.DIALOG)
+            .setUpdateFrom(UpdateFrom.GITHUB)
+            .setGitHubUserAndRepo("Gabboxl", "PininOrario")
+            .showEvery(5)
+            .start()
     }
 
 

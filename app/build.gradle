@@ -40,4 +40,5 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'org.jetbrains.anko:anko:0.10.7'
     implementation 'com.github.GrenderG:Toasty:1.4.1'
+    implementation 'com.github.javiersantos:AppUpdater:2.7'
 }
