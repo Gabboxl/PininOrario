@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/options_settings"
+          android:title="Impostazioni"
+          app:showAsAction="never"/>
+
+    <item android:id="@+id/options_updateapp"
+          android:title="Aggiorna app"
+          app:showAsAction="never"/>
+
+    <item android:id="@+id/options_about"
+          android:title="Crediti"
+          app:showAsAction="never"/>
+
+</menu>

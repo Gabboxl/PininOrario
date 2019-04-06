@@ -60,10 +60,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()  //necessario??????????????????????????
         StrictMode.setThreadPolicy(policy) // ??????????????????????????????????????????????????????????????????????????????
+
 
         //controllo permesso per l'accesso alla memoria
         if (ContextCompat.checkSelfPermission(
@@ -125,6 +124,28 @@ class MainActivity : AppCompatActivity() {
             .setGitHubUserAndRepo("Gabboxl", "PininOrario")
             .showEvery(5)
             .start()
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.options_settings -> {
+            Toasty.info(applicationContext, "hai clikkato le impostazionis", Toast.LENGTH_SHORT, true).show() //non dimenticare la fun show() asd
+            true
+        }
+
+
+        else -> {
+            // If we got here, the user's action was not recognized.
+            // Invoke the superclass to handle it.
+            super.onOptionsItemSelected(item)
+        }
     }
 
 
