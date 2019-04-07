@@ -5,12 +5,8 @@
           android:title="Impostazioni"
           app:showAsAction="never"/>
 
-    <item android:id="@+id/options_updateapp"
-          android:title="Aggiorna app"
-          app:showAsAction="never"/>
-
     <item android:id="@+id/options_about"
-          android:title="Crediti"
+          android:title="Info app"
           app:showAsAction="never"/>
 
 </menu>

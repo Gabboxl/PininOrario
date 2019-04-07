@@ -18,10 +18,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -124,6 +121,7 @@ class MainActivity : AppCompatActivity() {
             .setGitHubUserAndRepo("Gabboxl", "PininOrario")
             .showEvery(5)
             .start()
+
     }
 
 
@@ -140,6 +138,11 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        R.id.options_about -> {
+            val intent: Intent = Intent(this, AboutActivity::class.java)
+            startActivity(intent)
+            true
+        }
 
         else -> {
             // If we got here, the user's action was not recognized.
