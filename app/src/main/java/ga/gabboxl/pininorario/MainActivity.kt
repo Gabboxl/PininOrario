@@ -55,6 +55,11 @@ class MainActivity : AppCompatActivity() {
     var nomefileOrario: String = ""
     var codiceclasse = ""
 
+    override fun onStop() {
+        unregisterReceiver(onComplete)
+        super.onStop()
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
