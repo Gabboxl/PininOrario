@@ -5,4 +5,6 @@
     <string name="ricarica_periodi">ricarica periodi</string>
     <string name="checkboxNomi">Visualizza nomi professori</string>
     <string name="title_activity_about">About</string>
+    <string name="version_about">Versione</string>
+    <string name="credits_about">App creata da Gabboxl</string>
 </resources>

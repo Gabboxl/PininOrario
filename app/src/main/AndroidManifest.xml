@@ -21,7 +21,7 @@
                 android:name=".AboutActivity"
                 android:label="@string/title_activity_about"
                 android:parentActivityName=".MainActivity"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:theme="@style/AppTheme.MaterialAboutActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="ga.gabboxl.pininorario.MainActivity"/>

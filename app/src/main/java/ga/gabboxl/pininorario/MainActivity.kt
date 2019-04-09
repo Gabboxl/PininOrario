@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
+        //controllo se sono disponibili aggiornamenti
         AppUpdater(this)
             .setDisplay(Display.DIALOG)
             .setUpdateFrom(UpdateFrom.GITHUB)
