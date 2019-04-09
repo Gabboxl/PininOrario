@@ -4,4 +4,5 @@
     <string name="scarica_orario">Download timetable</string>
     <string name="ricarica_periodi">reload periods</string>
     <string name="checkboxNomi">Show professors names</string>
+    <string name="title_activity_about">About</string>
 </resources>
