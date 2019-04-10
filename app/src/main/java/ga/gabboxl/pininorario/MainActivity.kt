@@ -55,8 +55,15 @@ class MainActivity : AppCompatActivity() {
     var nomefileOrario: String = ""
     var codiceclasse = ""
 
+
+    override fun onStart() {
+        //registro il ricevitore di eventi sull'azione del download completato in modo da triggerare una funzione una volta che l'evento si verifica
+        registerReceiver(onCompleteDownloadPhoto, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
+        super.onStart()
+    }
+
     override fun onStop() {
-        unregisterReceiver(onComplete)
+        unregisterReceiver(onCompleteDownloadPhoto)
         super.onStop()
     }
 
@@ -77,9 +84,6 @@ class MainActivity : AppCompatActivity() {
         ) {
             richiediWritePermission()
         }
-
-        //registro il ricevitore di eventi sull'azione del download completato in modo da triggerare una funzione una volta che l'evento si verifica
-        registerReceiver(onComplete, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
         //imposto la listview dei periodi su scelta singola
         listviewPeriodi.choiceMode = ListView.CHOICE_MODE_SINGLE
@@ -344,7 +348,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private var onComplete = object : BroadcastReceiver() {
+    private var onCompleteDownloadPhoto = object : BroadcastReceiver() {
         override fun onReceive(contxt: Context?, intent: Intent?) {
             Snackbar.make(findViewById(R.id.myCoordinatorLayout), "Download completato.", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Apri") {
