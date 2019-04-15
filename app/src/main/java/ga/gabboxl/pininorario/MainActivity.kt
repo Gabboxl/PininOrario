@@ -15,6 +15,8 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.StrictMode
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -24,6 +26,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.github.javiersantos.appupdater.AppUpdater
+import com.github.javiersantos.appupdater.enums.Display
+import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import es.dmoral.toasty.Toasty
@@ -48,6 +53,19 @@ class MainActivity : AppCompatActivity() {
     var classis = arrayListOf<String>()
 
     var nomefileOrario: String = ""
+    var codiceclasse = ""
+
+
+    override fun onStart() {
+        //registro il ricevitore di eventi sull'azione del download completato in modo da triggerare una funzione una volta che l'evento si verifica
+        registerReceiver(onCompleteDownloadPhoto, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
+        super.onStart()
+    }
+
+    override fun onStop() {
+        unregisterReceiver(onCompleteDownloadPhoto)
+        super.onStop()
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +75,7 @@ class MainActivity : AppCompatActivity() {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()  //necessario??????????????????????????
         StrictMode.setThreadPolicy(policy) // ??????????????????????????????????????????????????????????????????????????????
 
+
         //controllo permesso per l'accesso alla memoria
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -65,9 +84,6 @@ class MainActivity : AppCompatActivity() {
         ) {
             richiediWritePermission()
         }
-
-        //registro il ricevitore di eventi sull'azione del download completato in modo da triggerare una funzione una volta che l'evento si verifica
-        registerReceiver(onComplete, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
         //imposto la listview dei periodi su scelta singola
         listviewPeriodi.choiceMode = ListView.CHOICE_MODE_SINGLE
@@ -94,7 +110,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        Log.e("MOOSECA", "sucsaaaaaaaaaa")
         try {
             val packageInfoversion = packageManager.getPackageInfo(packageName, 0).versionName
             Log.e("VERZIONE NOME", packageInfoversion)
@@ -109,15 +124,44 @@ class MainActivity : AppCompatActivity() {
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }
+
+
+        //controllo se sono disponibili aggiornamenti
+        AppUpdater(this)
+            .setDisplay(Display.DIALOG)
+            .setUpdateFrom(UpdateFrom.GITHUB)
+            .setGitHubUserAndRepo("Gabboxl", "PininOrario")
+            .showEvery(5)
+            .start()
+
     }
 
 
-    /*
-    override fun onDestroy() {
-        super.onDestroy()
-        unregisterReceiver(onComplete)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
-    */
+
+
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.options_settings -> {
+            Toasty.info(applicationContext, "hai clikkato le impostazionis", Toast.LENGTH_SHORT, true).show() //non dimenticare la fun show() asd
+            true
+        }
+
+        R.id.options_about -> {
+            val intent: Intent = Intent(this, AboutActivity::class.java)
+            startActivity(intent)
+            true
+        }
+
+        else -> {
+            // If we got here, the user's action was not recognized.
+            // Invoke the superclass to handle it.
+            super.onOptionsItemSelected(item)
+        }
+    }
 
 
     private fun prendiOrario() {
@@ -149,18 +193,25 @@ class MainActivity : AppCompatActivity() {
                 //variabili da inizializzare per poi essere utilizzate in modo globale nel codice
 
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    posizionespinnerclassi = position
+                    doAsync {
+                        posizionespinnerclassi = position
 
-                    if (spinnerClassi.getItemAtPosition(position).toString().startsWith("Selezionate")) {
-                        buttonScarica.visibility = View.INVISIBLE
-                    }
+                        if (spinnerClassi.getItemAtPosition(position).toString().startsWith("Selezionate")) {
+                            buttonScarica.visibility = View.INVISIBLE
+                        }
 
-                    scaricaPeriodi()
+                        scaricaPeriodi()
 
-                    uiThread {
-                        val adattatore =
-                            ArrayAdapter(applicationContext, R.layout.listview_row, R.id.textviewperiodi_row, periodi)
-                        listviewPeriodi.adapter = adattatore
+                        uiThread {
+                            val adattatore =
+                                ArrayAdapter(
+                                    applicationContext,
+                                    R.layout.listview_row,
+                                    R.id.textviewperiodi_row,
+                                    periodi
+                                )
+                            listviewPeriodi.adapter = adattatore
+                        }
                     }
 
                 }
@@ -185,8 +236,7 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     val text = "Hai selezionato: " + listviewPeriodi.getItemAtPosition(position).toString()
-                    val toast = Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT)
-                    toast.show()
+                    Toasty.info(this@MainActivity, text, Toast.LENGTH_SHORT, true).show()
                 }
             }
 
@@ -197,7 +247,6 @@ class MainActivity : AppCompatActivity() {
     //funzione x scaricare dati periodi
     fun scaricaPeriodi() {
         periodi.clear()
-        var codiceclasse = ""
 
         val apiResponsePeriodi = URL("http://gabboxlbot.altervista.org/pininorario/periodi.php").readText()
         val jsonPeriodi = JSONArray(Gson().fromJson(apiResponsePeriodi, arrayListOf<String>().javaClass))
@@ -299,7 +348,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private var onComplete = object : BroadcastReceiver() {
+    private var onCompleteDownloadPhoto = object : BroadcastReceiver() {
         override fun onReceive(contxt: Context?, intent: Intent?) {
             Snackbar.make(findViewById(R.id.myCoordinatorLayout), "Download completato.", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Apri") {
@@ -349,7 +398,6 @@ class MainActivity : AppCompatActivity() {
                 Toasty.success(this@MainActivity, "Permission GRANTED", Toast.LENGTH_SHORT, true).show()
             } else {
                 Toasty.warning(this@MainActivity, "Permission DENIED", Toast.LENGTH_SHORT, true).show()
-                //Toast.makeText(this, "Permission DENIED1", Toast.LENGTH_SHORT).show()
             }
         }
     }

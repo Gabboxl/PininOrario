@@ -10,8 +10,8 @@ android {
         applicationId "ga.gabboxl.pininorario"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 1
-        versionName '1.0.0'
+        versionCode 110
+        versionName '1.1.0'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -40,4 +40,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'org.jetbrains.anko:anko:0.10.7'
     implementation 'com.github.GrenderG:Toasty:1.4.1'
+    implementation 'com.github.javiersantos:AppUpdater:2.7'
+    implementation 'androidx.core:core-ktx:1.0.1'
+    implementation 'com.github.daniel-stoneuk:material-about-library:2.4.2'
 }
