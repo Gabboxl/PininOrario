@@ -28,6 +28,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.github.javiersantos.appupdater.AppUpdater
 import com.github.javiersantos.appupdater.enums.Display
+import com.github.javiersantos.appupdater.enums.Duration
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
@@ -128,7 +129,8 @@ class MainActivity : AppCompatActivity() {
 
         //controllo se sono disponibili aggiornamenti
         AppUpdater(this)
-            .setDisplay(Display.DIALOG)
+            .setDisplay(Display.SNACKBAR)
+            .setDuration(Duration.INDEFINITE)
             .setUpdateFrom(UpdateFrom.GITHUB)
             .setGitHubUserAndRepo("Gabboxl", "PininOrario")
             .showEvery(5)
@@ -151,7 +153,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         R.id.options_about -> {
-            val intent: Intent = Intent(this, AboutActivity::class.java)
+            val intent = Intent(this, AboutActivity::class.java)
             startActivity(intent)
             true
         }

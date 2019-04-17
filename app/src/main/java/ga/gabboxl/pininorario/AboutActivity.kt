@@ -33,6 +33,7 @@ class AboutActivity : MaterialAboutActivity() {
                     .setUpdateFrom(UpdateFrom.GITHUB)
                     .setGitHubUserAndRepo("Gabboxl", "PininOrario")
                     .showAppUpdated(true)
+                    .setButtonDoNotShowAgain("")
                     .start()
             }
             .build())
