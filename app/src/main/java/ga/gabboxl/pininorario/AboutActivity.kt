@@ -15,7 +15,7 @@ import com.github.javiersantos.appupdater.enums.UpdateFrom
 class AboutActivity : MaterialAboutActivity() {
     override fun getMaterialAboutList(context: Context): MaterialAboutList {
 
-        var miscCardBuilder: MaterialAboutCard.Builder = MaterialAboutCard.Builder()
+        val miscCardBuilder: MaterialAboutCard.Builder = MaterialAboutCard.Builder()
         buildMisc(context, miscCardBuilder)
 
 
