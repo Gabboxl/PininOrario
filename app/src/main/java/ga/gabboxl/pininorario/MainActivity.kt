@@ -129,8 +129,7 @@ class MainActivity : AppCompatActivity() {
 
         //controllo se sono disponibili aggiornamenti
         AppUpdater(this)
-            .setDisplay(Display.SNACKBAR)
-            .setDuration(Duration.INDEFINITE)
+            .setDisplay(Display.DIALOG)
             .setUpdateFrom(UpdateFrom.GITHUB)
             .setGitHubUserAndRepo("Gabboxl", "PininOrario")
             .showEvery(5)
@@ -148,7 +147,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.options_settings -> {
-            Toasty.info(applicationContext, "hai clikkato le impostazionis", Toast.LENGTH_SHORT, true).show() //non dimenticare la fun show() asd
+            Toasty.info(applicationContext, "wip", Toast.LENGTH_SHORT, true).show() //non dimenticare la fun show() asd
             true
         }
 
