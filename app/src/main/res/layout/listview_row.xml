@@ -10,6 +10,6 @@
             android:layout_height="wrap_content"
             android:text="" android:padding="10dip"
             android:background="?android:attr/activatedBackgroundIndicator"
-            android:textSize="20sp"/>
+            android:textSize="17sp"/>
 
 </LinearLayout>
