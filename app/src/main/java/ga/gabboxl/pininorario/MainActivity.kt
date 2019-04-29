@@ -95,6 +95,7 @@ class MainActivity : AppCompatActivity() {
 
         swiperefreshlayout.setOnRefreshListener {
             prendiOrario()
+            checkboxNomi.isEnabled = true
             swiperefreshlayout.isRefreshing = false
         }
 
