@@ -38,6 +38,7 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import org.json.JSONArray
 import java.io.File
+import java.net.HttpURLConnection
 import java.net.URL
 
 
@@ -229,6 +230,18 @@ class MainActivity : AppCompatActivity() {
                         buttonScarica.visibility = View.INVISIBLE
                         return  //esco dalla funz se no da errore
                     }
+
+                    //controllo se è disponibile l'orario con i nomi
+                    var url = URL("http://intranet.itispininfarina.it/orarioint/classi/" + griglie[posizionespinnerperiodi] + ".png")
+                    var connection = url.openConnection() as HttpURLConnection
+                    connection.requestMethod = "GET"
+                    connection.connect()
+
+                    if(connection.responseCode == 404){
+                        checkboxNomi.isChecked = false
+                        checkboxNomi.isEnabled = false
+                    }
+
 
                     buttonScarica.visibility = View.VISIBLE
 
