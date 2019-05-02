@@ -9,57 +9,57 @@
         android:layout_height="match_parent">
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:context=".MainActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".MainActivity">
 
-                <Spinner
-                        android:layout_width="327dp"
-                        android:layout_height="40dp"
-                        android:id="@+id/spinnerClassi"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="44dp"
-                        app:layout_constraintVertical_bias="0.023"/>
+        <Spinner
+                android:layout_width="327dp"
+                android:layout_height="40dp"
+                android:id="@+id/spinnerClassi"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="44dp"
+                app:layout_constraintVertical_bias="0.023"/>
 
-                <ListView
-                        android:id="@+id/listviewPeriodi"
-                        android:layout_width="fill_parent"
-                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintTop_toBottomOf="@+id/spinnerClassi" android:layout_marginBottom="8dp"
-                        app:layout_constraintBottom_toTopOf="@+id/buttonScarica" android:layout_height="330dp"
-                        android:layout_marginTop="8dp">
-                </ListView>
+        <ListView
+                android:id="@+id/listviewPeriodi"
+                android:layout_width="fill_parent"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintTop_toBottomOf="@+id/spinnerClassi" android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/buttonScarica" android:layout_height="330dp"
+                android:layout_marginTop="8dp">
+        </ListView>
 
-                <Button
-                        android:text="@string/scarica_orario"
-                        android:layout_width="wrap_content"
-                        android:layout_height="61dp"
-                        android:id="@+id/buttonScarica"
-                        android:visibility="invisible"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
-                        android:layout_marginStart="8dp" android:layout_marginBottom="152dp"
-                        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.502"/>
-                <Button
-                        android:text="@string/ricarica_periodi"
-                        android:layout_width="148dp"
-                        android:layout_height="52dp"
-                        android:id="@+id/buttonPeriodifresh"
-                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginBottom="92dp"/>
-                <CheckBox
-                        android:text="@string/checkboxNomi"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/checkboxNomi"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:layout_marginStart="40dp" app:layout_constraintEnd_toStartOf="@+id/buttonPeriodifresh"
-                        android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.0"
-                        android:layout_marginBottom="100dp" app:layout_constraintBottom_toBottomOf="parent"/>
+        <Button
+                android:text="@string/scarica_orario"
+                android:layout_width="wrap_content"
+                android:layout_height="61dp"
+                android:id="@+id/buttonScarica"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp" android:layout_marginBottom="152dp"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintHorizontal_bias="0.502"/>
+        <Button
+                android:text="@string/ricarica_periodi"
+                android:layout_width="148dp"
+                android:layout_height="52dp"
+                android:id="@+id/buttonPeriodifresh"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="92dp"/>
+        <CheckBox
+                android:text="@string/checkboxNomi"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkboxNomi"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="40dp" app:layout_constraintEnd_toStartOf="@+id/buttonPeriodifresh"
+                android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginBottom="100dp" app:layout_constraintBottom_toBottomOf="parent"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
