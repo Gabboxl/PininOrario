@@ -1,71 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/swiperefreshlayout"
+        android:id="@+id/myCoordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/myCoordinatorLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:context=".MainActivity">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:context=".MainActivity">
+        <Spinner
+                android:layout_width="327dp"
+                android:layout_height="38dp"
+                android:id="@+id/spinnerClassi"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="212dp"
+                android:layout_marginTop="9dp"/>
+        <ListView
+                android:id="@+id/listviewPeriodi"
+                android:layout_height="257dp"
+                android:layout_width="0dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/spinnerClassi"
+                app:layout_constraintEnd_toStartOf="@+id/buttonPeriodifresh" android:layout_marginEnd="8dp">
+        </ListView>
+        <Button
+                android:text="@string/scarica_orario"
+                android:layout_width="wrap_content"
+                android:layout_height="61dp"
+                android:id="@+id/buttonScarica"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="8dp" app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="196dp"
+        />
+        <Button
+                android:text="@string/ricarica_periodi"
+                android:layout_width="121dp"
+                android:layout_height="52dp"
+                android:id="@+id/buttonPeriodifresh" android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="108dp" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/buttonScarica"
+                app:layout_constraintVertical_bias="1.0"/>
+        <CheckBox
+                android:text="@string/checkboxNomi"
+                android:layout_width="202dp"
+                android:layout_height="29dp"
+                android:id="@+id/checkboxNomi"
+                app:layout_constraintStart_toEndOf="@+id/spinnerClassi"
+                android:layout_marginStart="4dp" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="8dp" android:layout_marginTop="13dp"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="1.0"/>
 
-                <Spinner
-                        android:layout_width="327dp"
-                        android:layout_height="38dp"
-                        android:id="@+id/spinnerClassi"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="212dp"
-                        android:layout_marginTop="9dp"/>
-                <ListView
-                        android:id="@+id/listviewPeriodi"
-                        android:layout_height="257dp"
-                        android:layout_width="0dp"
-                        android:layout_marginBottom="8dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/spinnerClassi"
-                        app:layout_constraintEnd_toStartOf="@+id/buttonPeriodifresh" android:layout_marginEnd="8dp">
-                </ListView>
-                <Button
-                        android:text="@string/scarica_orario"
-                        android:layout_width="wrap_content"
-                        android:layout_height="61dp"
-                        android:id="@+id/buttonScarica"
-                        android:visibility="invisible"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginEnd="8dp" app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginBottom="196dp"
-                />
-                <Button
-                        android:text="@string/ricarica_periodi"
-                        android:layout_width="121dp"
-                        android:layout_height="52dp"
-                        android:id="@+id/buttonPeriodifresh" android:layout_marginEnd="16dp"
-                        app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginBottom="108dp" android:layout_marginTop="8dp"
-                        app:layout_constraintTop_toBottomOf="@+id/buttonScarica"
-                        app:layout_constraintVertical_bias="1.0"/>
-                <CheckBox
-                        android:text="@string/checkboxNomi"
-                        android:layout_width="202dp"
-                        android:layout_height="29dp"
-                        android:id="@+id/checkboxNomi"
-                        app:layout_constraintStart_toEndOf="@+id/spinnerClassi"
-                        android:layout_marginStart="4dp" app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginEnd="8dp" android:layout_marginTop="13dp"
-                        app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="1.0"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
