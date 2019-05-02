@@ -93,11 +93,10 @@ class MainActivity : AppCompatActivity() {
         //richiamo la funzione principale
         prendiOrario()
 
-        swiperefreshlayout.setOnRefreshListener {
-            prendiOrario()
-            checkboxNomi.isEnabled = true
-            swiperefreshlayout.isRefreshing = false
-        }
+
+            //prendiOrario()
+            //checkboxNomi.isEnabled = true
+
 
         buttonPeriodifresh.setOnClickListener {
             doAsync {
