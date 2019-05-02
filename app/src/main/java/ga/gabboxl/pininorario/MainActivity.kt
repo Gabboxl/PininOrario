@@ -240,6 +240,8 @@ class MainActivity : AppCompatActivity() {
                     if(connection.responseCode == 404){
                         checkboxNomi.isChecked = false
                         checkboxNomi.isEnabled = false
+                    }else if (connection.responseCode == 200){
+                        checkboxNomi.isEnabled = true
                     }
 
 
