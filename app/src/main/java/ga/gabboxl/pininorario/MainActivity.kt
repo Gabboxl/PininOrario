@@ -147,7 +147,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.options_settings -> {
-            Toasty.info(applicationContext, "wip", Toast.LENGTH_SHORT, true).show() //non dimenticare la fun show() asd
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
             true
         }
 
