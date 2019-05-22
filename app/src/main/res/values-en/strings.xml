@@ -8,4 +8,6 @@
     <string name="version_about">Version</string>
     <string name="credits_about">App created by Gabboxl</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="orario_apri">Apri</string>
+    <string name="orario_inDownload">In download...</string>
 </resources>

@@ -300,16 +300,16 @@ class MainActivity : AppCompatActivity() {
             if (File("/storage/emulated/0/Download/PininOrari//$nomefileOrario.png").exists()) {
                 Snackbar.make(
                     findViewById(R.id.myCoordinatorLayout),
-                    "Orario già scaricato -->",
+                    getString(R.string.orario_presente),
                     Snackbar.LENGTH_INDEFINITE
                 )
-                    .setAction("Apri") { apriOrario() }
+                    .setAction(getString(R.string.orario_apri)) { apriOrario() }
                     .show()
 
                 return@doAsync
             }
 
-            Snackbar.make(findViewById(R.id.myCoordinatorLayout), "In downloadhhh...", Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(findViewById(R.id.myCoordinatorLayout), getString(R.string.orario_inDownload), Snackbar.LENGTH_INDEFINITE)
                 .show()
 
 
@@ -350,8 +350,8 @@ class MainActivity : AppCompatActivity() {
 
     private var onCompleteDownloadPhoto = object : BroadcastReceiver() {
         override fun onReceive(contxt: Context?, intent: Intent?) {
-            Snackbar.make(findViewById(R.id.myCoordinatorLayout), "Download completato.", Snackbar.LENGTH_INDEFINITE)
-                .setAction("Apri") {
+            Snackbar.make(findViewById(R.id.myCoordinatorLayout), getString(R.string.orario_scaricato), Snackbar.LENGTH_INDEFINITE)
+                .setAction(getString(R.string.orario_apri)) {
                     apriOrario()
                 }
                 .show()
