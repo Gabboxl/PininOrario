@@ -111,22 +111,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        try {
-            val packageInfoversion = packageManager.getPackageInfo(packageName, 0).versionName
-            Log.e("VERZIONE NOME", packageInfoversion)
-
-            val packageInfo: PackageInfo = packageManager.getPackageInfo(this.packageName, 0)
-            val curVersionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                packageInfo.longVersionCode
-            } else {
-                TODO("VERSION.SDK_INT < P")
-            }
-            Log.e("VERZIONE NUMERO a", curVersionCode.toString())
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
-        }
-
-
         //controllo se sono disponibili aggiornamenti
         AppUpdater(this)
             .setDisplay(Display.DIALOG)
