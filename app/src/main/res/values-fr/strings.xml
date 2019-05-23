@@ -9,7 +9,7 @@
     <string name="credits_about">App creata da Gabboxl</string>
     <string name="title_activity_settings">Impostazioni</string>
     <string name="orario_apri">Apri</string>
-    <string name="orario_inDownload">In download...</string>
+    <string name="orario_inDownload">In download…</string>
     <string name="orario_scaricato">Download completato.</string>
     <string name="orario_presente">Orario già scaricato —&gt;</string>
 </resources>
