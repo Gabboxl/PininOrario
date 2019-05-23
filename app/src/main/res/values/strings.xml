@@ -10,5 +10,5 @@
     <string name="orario_apri">Apri</string>
     <string name="orario_inDownload">In download...</string>
     <string name="orario_scaricato">Download completato.</string>
-    <string name="orario_presente"><![CDATA[Orario già scaricato -->]]></string>
+    <string name="orario_presente">Orario già scaricato —></string>
 </resources>
