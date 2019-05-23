@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+            app:title="Varie">
+
+        <SwitchPreferenceCompat
+                app:key="checkupdates_startup"
+                app:title="Controlla aggiornamenti all'avvio"/>
+
+
+    </PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

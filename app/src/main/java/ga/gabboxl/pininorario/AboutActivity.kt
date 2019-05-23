@@ -15,7 +15,7 @@ import com.github.javiersantos.appupdater.enums.UpdateFrom
 class AboutActivity : MaterialAboutActivity() {
     override fun getMaterialAboutList(context: Context): MaterialAboutList {
 
-        var miscCardBuilder: MaterialAboutCard.Builder = MaterialAboutCard.Builder()
+        val miscCardBuilder: MaterialAboutCard.Builder = MaterialAboutCard.Builder()
         buildMisc(context, miscCardBuilder)
 
 
@@ -33,6 +33,7 @@ class AboutActivity : MaterialAboutActivity() {
                     .setUpdateFrom(UpdateFrom.GITHUB)
                     .setGitHubUserAndRepo("Gabboxl", "PininOrario")
                     .showAppUpdated(true)
+                    .setButtonDoNotShowAgain("")
                     .start()
             }
             .build())

@@ -37,6 +37,7 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import org.json.JSONArray
 import java.io.File
+import java.net.HttpURLConnection
 import java.net.URL
 
 
@@ -91,10 +92,10 @@ class MainActivity : AppCompatActivity() {
         //richiamo la funzione principale
         prendiOrario()
 
-        swiperefreshlayout.setOnRefreshListener {
-            prendiOrario()
-            swiperefreshlayout.isRefreshing = false
-        }
+
+            //prendiOrario()
+            //checkboxNomi.isEnabled = true
+
 
         buttonPeriodifresh.setOnClickListener {
             doAsync {
@@ -107,22 +108,6 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
-        }
-
-
-        try {
-            val packageInfoversion = packageManager.getPackageInfo(packageName, 0).versionName
-            Log.e("VERZIONE NOME", packageInfoversion)
-
-            val packageInfo: PackageInfo = packageManager.getPackageInfo(this.packageName, 0)
-            val curVersionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                packageInfo.longVersionCode
-            } else {
-                TODO("VERSION.SDK_INT < P")
-            }
-            Log.e("VERZIONE NUMERO a", curVersionCode.toString())
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
         }
 
 
@@ -146,12 +131,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.options_settings -> {
-            Toasty.info(applicationContext, "hai clikkato le impostazionis", Toast.LENGTH_SHORT, true).show() //non dimenticare la fun show() asd
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
             true
         }
 
         R.id.options_about -> {
-            val intent: Intent = Intent(this, AboutActivity::class.java)
+            val intent = Intent(this, AboutActivity::class.java)
             startActivity(intent)
             true
         }
@@ -229,6 +215,20 @@ class MainActivity : AppCompatActivity() {
                         return  //esco dalla funz se no da errore
                     }
 
+                    //controllo se è disponibile l'orario con i nomi
+                    var url = URL("http://intranet.itispininfarina.it/orarioint/classi/" + griglie[posizionespinnerperiodi] + ".png")
+                    var connection = url.openConnection() as HttpURLConnection
+                    connection.requestMethod = "GET"
+                    connection.connect()
+
+                    if(connection.responseCode == 404){
+                        checkboxNomi.isChecked = false
+                        checkboxNomi.isEnabled = false
+                    }else if (connection.responseCode == 200){
+                        checkboxNomi.isEnabled = true
+                    }
+
+
                     buttonScarica.visibility = View.VISIBLE
 
                     buttonScarica.setOnClickListener {
@@ -300,16 +300,16 @@ class MainActivity : AppCompatActivity() {
             if (File("/storage/emulated/0/Download/PininOrari//$nomefileOrario.png").exists()) {
                 Snackbar.make(
                     findViewById(R.id.myCoordinatorLayout),
-                    "Orario già scaricato -->",
+                    getString(R.string.orario_presente),
                     Snackbar.LENGTH_INDEFINITE
                 )
-                    .setAction("Apri") { apriOrario() }
+                    .setAction(getString(R.string.orario_apri)) { apriOrario() }
                     .show()
 
                 return@doAsync
             }
 
-            Snackbar.make(findViewById(R.id.myCoordinatorLayout), "In downloadhhh...", Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(findViewById(R.id.myCoordinatorLayout), getString(R.string.orario_inDownload), Snackbar.LENGTH_INDEFINITE)
                 .show()
 
 
@@ -350,8 +350,8 @@ class MainActivity : AppCompatActivity() {
 
     private var onCompleteDownloadPhoto = object : BroadcastReceiver() {
         override fun onReceive(contxt: Context?, intent: Intent?) {
-            Snackbar.make(findViewById(R.id.myCoordinatorLayout), "Download completato.", Snackbar.LENGTH_INDEFINITE)
-                .setAction("Apri") {
+            Snackbar.make(findViewById(R.id.myCoordinatorLayout), getString(R.string.orario_scaricato), Snackbar.LENGTH_INDEFINITE)
+                .setAction(getString(R.string.orario_apri)) {
                     apriOrario()
                 }
                 .show()
