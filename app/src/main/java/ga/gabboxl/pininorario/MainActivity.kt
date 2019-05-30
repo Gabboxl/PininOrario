@@ -7,14 +7,12 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.os.StrictMode
-import android.util.Log
+import android.preference.PreferenceManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -86,6 +84,7 @@ class MainActivity : AppCompatActivity() {
             richiediWritePermission()
         }
 
+
         //imposto la listview dei periodi su scelta singola
         listviewPeriodi.choiceMode = ListView.CHOICE_MODE_SINGLE
 
@@ -111,13 +110,16 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        //controllo se sono disponibili aggiornamenti
-        AppUpdater(this)
-            .setDisplay(Display.DIALOG)
-            .setUpdateFrom(UpdateFrom.GITHUB)
-            .setGitHubUserAndRepo("Gabboxl", "PininOrario")
-            .showEvery(5)
-            .start()
+        //controllo stato impostazioni
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        if (sharedPreferences.getBoolean("checkupdates_startup", false)) {
+            //controllo se sono disponibili aggiornamenti
+            AppUpdater(this)
+                .setDisplay(Display.DIALOG)
+                .setUpdateFrom(UpdateFrom.GITHUB)
+                .setGitHubUserAndRepo("Gabboxl", "PininOrario")
+                .start()
+        }
 
     }
 
