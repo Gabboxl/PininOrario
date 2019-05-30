@@ -3,10 +3,7 @@ package ga.gabboxl.pininorario
 import android.Manifest
 import android.app.AlertDialog
 import android.app.DownloadManager
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -53,6 +50,8 @@ class MainActivity : AppCompatActivity() {
 
     var nomefileOrario: String = ""
     var codiceclasse = ""
+
+    val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
 
 
     override fun onStart() {
@@ -111,7 +110,6 @@ class MainActivity : AppCompatActivity() {
 
 
         //controllo stato impostazioni
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         if (sharedPreferences.getBoolean("checkupdates_startup", false)) {
             //controllo se sono disponibili aggiornamenti
             AppUpdater(this)
