@@ -108,7 +108,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
         //controllo stato impostazioni
         if (sharedPreferences.getBoolean("checkupdates_startup", false)) {
             //controllo se sono disponibili aggiornamenti
@@ -216,8 +215,8 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     //controllo se è disponibile l'orario con i nomi
-                    var url = URL("http://intranet.itispininfarina.it/orarioint/classi/" + griglie[posizionespinnerperiodi] + ".png")
-                    var connection = url.openConnection() as HttpURLConnection
+                    val url = URL("http://intranet.itispininfarina.it/orarioint/classi/" + griglie[posizionespinnerperiodi] + ".png")
+                    val connection = url.openConnection() as HttpURLConnection
                     connection.requestMethod = "GET"
                     connection.connect()
 
