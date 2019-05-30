@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
             app:title="Varie">
 
         <SwitchPreferenceCompat
                 app:key="checkupdates_startup"
+                app:defaultValue="true"
                 app:title="Controlla aggiornamenti all'avvio"/>
+
+        <SwitchPreferenceCompat
+                app:key="always_displaynames"
+                app:title="Visualizza sempre nomi nell'orario"/>
 
 
     </PreferenceCategory>
