@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     private var nomefileOrario: String = ""
     var codiceclasse = ""
 
-    private val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+    private lateinit var sharedPreferences: SharedPreferences
 
 
     override fun onStart() {
@@ -107,6 +107,8 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
 
         //controllo stato impostazioni
         if (sharedPreferences.getBoolean("checkupdates_startup", false)) {
