@@ -46,12 +46,12 @@ class MainActivity : AppCompatActivity() {
     var posizionespinnerclassi: Int = 0
     var periodi = arrayListOf<String>()
 
-    var classis = arrayListOf<String>()
+    private var classi = arrayListOf<String>()
 
-    var nomefileOrario: String = ""
+    private var nomefileOrario: String = ""
     var codiceclasse = ""
 
-    val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+    private val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
 
 
     override fun onStart() {
@@ -151,7 +151,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun prendiOrario() {
         doAsync {
-            classis.clear()
+            classi.clear()
 
             /*val url = "http://intranet.itispininfarina.it/orario/_ressource.js"
             FileUtils.copyURLToFile(URL(url), File("/data/user/0/ga.gabboxl.pininorario/cache/classi.js"))*/
@@ -163,13 +163,13 @@ class MainActivity : AppCompatActivity() {
             var counter = 0
             while ((listResources.length() - 1) >= counter) {
                 if (listResources.optJSONArray(counter).get(0).toString() == "grClasse") {
-                    classis.add(listResources.optJSONArray(counter).get(1).toString())
+                    classi.add(listResources.optJSONArray(counter).get(1).toString())
                 }
                 counter++
             }
 
             uiThread {
-                val adapter1 = ArrayAdapter(applicationContext, R.layout.support_simple_spinner_dropdown_item, classis)
+                val adapter1 = ArrayAdapter(applicationContext, R.layout.support_simple_spinner_dropdown_item, classi)
                 spinnerClassi.adapter = adapter1
             }
 
@@ -253,7 +253,7 @@ class MainActivity : AppCompatActivity() {
 
         var contatore = 0
         while ((listResources.length() - 1) >= contatore) {
-            if (listResources.optJSONArray(contatore).get(1).toString() == classis[posizionespinnerclassi]) {
+            if (listResources.optJSONArray(contatore).get(1).toString() == classi[posizionespinnerclassi]) {
                 codiceclasse = listResources.optJSONArray(contatore).get(2).toString()
             }
             contatore++
