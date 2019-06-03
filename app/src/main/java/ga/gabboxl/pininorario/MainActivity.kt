@@ -73,6 +73,9 @@ class MainActivity : AppCompatActivity() {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()  //necessario??????????????????????????
         StrictMode.setThreadPolicy(policy) // ??????????????????????????????????????????????????????????????????????????????
 
+        //salvo in una variabile i valori delle impostazioni dell'app (shared preferences) per poi usufruirne più tardi
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+
 
         //controllo permesso per l'accesso alla memoria
         if (ContextCompat.checkSelfPermission(
@@ -108,7 +111,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        if(sharedPreferences.getBoolean("always_displaynames", false)){
+            checkboxNomi.isEnabled = true
+        }else{
+            checkboxNomi.isEnabled = false
+        }
 
         //controllo stato impostazioni
         if (sharedPreferences.getBoolean("checkupdates_startup", false)) {
