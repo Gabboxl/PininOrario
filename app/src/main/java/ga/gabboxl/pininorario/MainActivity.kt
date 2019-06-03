@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     private var classi = arrayListOf<String>()
 
     private var nomefileOrario: String = ""
-    var codiceclasse = ""
+    private var codiceclasse = ""
 
     private lateinit var sharedPreferences: SharedPreferences
 
