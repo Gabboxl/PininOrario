@@ -111,11 +111,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        if(sharedPreferences.getBoolean("always_displaynames", false)){
-            checkboxNomi.isEnabled = true
-        }else{
-            checkboxNomi.isEnabled = false
-        }
+        checkboxNomi.isEnabled = sharedPreferences.getBoolean("always_displaynames", false)
 
         //controllo stato impostazioni
         if (sharedPreferences.getBoolean("checkupdates_startup", false)) {
