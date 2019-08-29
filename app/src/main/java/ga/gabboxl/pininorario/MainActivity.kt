@@ -158,7 +158,7 @@ class MainActivity : AppCompatActivity() {
         doAsync {
             classi.clear()
 
-            /*val url = "http://intranet.itispininfarina.it/orario/_ressource.js"
+            /*val url = "https://intranet.itispininfarina.it/orario/_ressource.js"
             FileUtils.copyURLToFile(URL(url), File("/data/user/0/ga.gabboxl.pininorario/cache/classi.js"))*/
 
             val apiResponse = URL("http://gabboxlbot.altervista.org/pininorario/classi.php").readText()
@@ -220,7 +220,7 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     //controllo se è disponibile l'orario con i nomi
-                    val url = URL("http://intranet.itispininfarina.it/orarioint/classi/" + griglie[posizionespinnerperiodi] + ".png")
+                    val url = URL("https://intranet.itispininfarina.it/orarioint/classi/" + griglie[posizionespinnerperiodi] + ".png")
                     val connection = url.openConnection() as HttpURLConnection
                     connection.requestMethod = "GET"
                     connection.connect()
@@ -293,10 +293,10 @@ class MainActivity : AppCompatActivity() {
             val urlfoto: String
 
             if (checkboxNomi.isChecked) {
-                urlfoto = "http://intranet.itispininfarina.it/orarioint/classi/"
+                urlfoto = "https://intranet.itispininfarina.it/orarioint/classi/"
                 nomefileOrario = griglie[posizionespinnerperiodi] + "prof"
             } else {
-                urlfoto = "http://intranet.itispininfarina.it/orario/classi/"
+                urlfoto = "https://intranet.itispininfarina.it/orario/classi/"
                 nomefileOrario = griglie[posizionespinnerperiodi]
             }
 
