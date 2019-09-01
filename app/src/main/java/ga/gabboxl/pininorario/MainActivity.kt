@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onStop() {
+        //unregistro i ricevitori di eventi
         unregisterReceiver(onCompleteDownloadPhoto)
         super.onStop()
     }
@@ -99,6 +100,7 @@ class MainActivity : AppCompatActivity() {
 
 
         buttonPeriodifresh.setOnClickListener {
+            buttonPeriodifresh.isEnabled = false
             doAsync {
                 scaricaPeriodi()
 
@@ -106,6 +108,7 @@ class MainActivity : AppCompatActivity() {
                     val adattatore =
                         ArrayAdapter(applicationContext, R.layout.listview_row, R.id.textviewperiodi_row, periodi)
                     listviewPeriodi.adapter = adattatore
+                    buttonPeriodifresh.isEnabled = true
                 }
 
             }
@@ -161,7 +164,7 @@ class MainActivity : AppCompatActivity() {
             /*val url = "https://intranet.itispininfarina.it/orario/_ressource.js"
             FileUtils.copyURLToFile(URL(url), File("/data/user/0/ga.gabboxl.pininorario/cache/classi.js"))*/
 
-            val apiResponse = URL("http://gabboxlbot.altervista.org/pininorario/classi.php").readText()
+            val apiResponse = URL("https://gabboxlbot.altervista.org/pininorario/classi.php").readText()
 
             listResources = JSONArray(Gson().fromJson(apiResponse, arrayListOf<String>().javaClass))
 
@@ -252,7 +255,7 @@ class MainActivity : AppCompatActivity() {
     fun scaricaPeriodi() {
         periodi.clear()
 
-        val apiResponsePeriodi = URL("http://gabboxlbot.altervista.org/pininorario/periodi.php").readText()
+        val apiResponsePeriodi = URL("https://gabboxlbot.altervista.org/pininorario/periodi.php").readText()
         val jsonPeriodi = JSONArray(Gson().fromJson(apiResponsePeriodi, arrayListOf<String>().javaClass))
 
 
