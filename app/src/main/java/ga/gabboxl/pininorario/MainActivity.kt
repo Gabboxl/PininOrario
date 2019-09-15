@@ -101,6 +101,8 @@ class MainActivity : AppCompatActivity() {
 
         buttonPeriodifresh.setOnClickListener {
             buttonPeriodifresh.isEnabled = false
+            listviewPeriodi.visibility = View.INVISIBLE
+            listviewLoadingBar.visibility = View.VISIBLE
             doAsync {
                 scaricaPeriodi()
 
@@ -108,6 +110,8 @@ class MainActivity : AppCompatActivity() {
                     val adattatore =
                         ArrayAdapter(applicationContext, R.layout.listview_row, R.id.textviewperiodi_row, periodi)
                     listviewPeriodi.adapter = adattatore
+                    listviewPeriodi.visibility = View.VISIBLE
+                    listviewLoadingBar.visibility = View.INVISIBLE
                     buttonPeriodifresh.isEnabled = true
                 }
 
