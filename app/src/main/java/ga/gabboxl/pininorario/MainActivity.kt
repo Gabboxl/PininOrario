@@ -95,10 +95,6 @@ class MainActivity : AppCompatActivity() {
         prendiOrario()
 
 
-            //prendiOrario()
-            //checkboxNomi.isEnabled = true
-
-
         buttonPeriodifresh.setOnClickListener {
             buttonPeriodifresh.isEnabled = false
             listviewPeriodi.visibility = View.INVISIBLE
