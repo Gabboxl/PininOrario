@@ -186,6 +186,10 @@ class MainActivity : AppCompatActivity() {
                 //variabili da inizializzare per poi essere utilizzate in modo globale nel codice
 
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+                    listviewPeriodi.visibility = View.INVISIBLE
+                    listviewLoadingBar.visibility = View.VISIBLE
+
                     doAsync {
                         posizionespinnerclassi = position
 
@@ -204,6 +208,8 @@ class MainActivity : AppCompatActivity() {
                                     periodi
                                 )
                             listviewPeriodi.adapter = adattatore
+                            listviewPeriodi.visibility = View.VISIBLE
+                            listviewLoadingBar.visibility = View.INVISIBLE
                         }
                     }
 
