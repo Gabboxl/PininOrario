@@ -234,11 +234,11 @@ class MainActivity : AppCompatActivity() {
                     connection.requestMethod = "GET"
                     connection.connect()
 
-                    if(connection.responseCode == 404){
+                    if (connection.responseCode == 200) {
+                        checkboxNomi.isEnabled = true
+                    } else {
                         checkboxNomi.isChecked = false
                         checkboxNomi.isEnabled = false
-                    }else if (connection.responseCode == 200){
-                        checkboxNomi.isEnabled = true
                     }
 
 
