@@ -259,30 +259,35 @@ class MainActivity : AppCompatActivity() {
 
     //funzione x scaricare dati periodi
     fun scaricaPeriodi() {
-        periodi.clear()
 
-        val apiResponsePeriodi = URL("https://gabboxlbot.altervista.org/pininorario/periodi.php").readText()
-        val jsonPeriodi = JSONArray(Gson().fromJson(apiResponsePeriodi, arrayListOf<String>().javaClass))
+            val apiResponsePeriodi =
+                URL("https://gabboxlbot.altervista.org/pininorario/periodi.php").readText()
+            val jsonPeriodi =
+                JSONArray(Gson().fromJson(apiResponsePeriodi, arrayListOf<String>().javaClass))
 
+            runOnUiThread {
+                periodi.clear()
 
-        var contatore = 0
-        while ((listResources.length() - 1) >= contatore) {
-            if (listResources.optJSONArray(contatore).get(1).toString() == classi[posizionespinnerclassi]) {
-                codiceclasse = listResources.optJSONArray(contatore).get(2).toString()
+                var contatore = 0
+                while ((listResources.length() - 1) >= contatore) {
+                    if (listResources.optJSONArray(contatore).get(1).toString() == classi[posizionespinnerclassi]) {
+                        codiceclasse = listResources.optJSONArray(contatore).get(2).toString()
+                    }
+                    contatore++
+                }      //fine while
+
+                var contatore2 = 0
+                griglie = arrayListOf()
+
+                while ((jsonPeriodi.length() - 1) > contatore2) {
+                    if (jsonPeriodi.optJSONArray(contatore2).get(0).toString() == codiceclasse) {
+                        periodi.add(jsonPeriodi.optJSONArray(contatore2).get(1).toString()) // aggiungo i periodi "EDT N." all'array
+                        griglie.add(jsonPeriodi.optJSONArray(contatore2).get(2).toString()) //aggiungo i link (semi-link) alle griglie all'array dichiarati ad inizio funzione del bottone
+                    }
+                    contatore2++
+                }
             }
-            contatore++
-        }      //fine while
 
-        var contatore2 = 0
-        griglie = arrayListOf()
-
-        while ((jsonPeriodi.length() - 1) > contatore2) {
-            if (jsonPeriodi.optJSONArray(contatore2).get(0).toString() == codiceclasse) {
-                periodi.add(jsonPeriodi.optJSONArray(contatore2).get(1).toString()) // aggiungo i periodi "EDT N." all'array
-                griglie.add(jsonPeriodi.optJSONArray(contatore2).get(2).toString()) //aggiungo i link (semi-link) alle griglie all'array dichiarati ad inizio funzione del bottone
-            }
-            contatore2++
-        }
     }
 
     //funzione x scaricare foto dell'orario
