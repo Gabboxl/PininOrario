@@ -15,14 +15,13 @@ android {
         versionCode 130
         versionName '1.3.0'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
             debuggable false
-            useProguard true
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     productFlavors {
@@ -48,6 +47,7 @@ dependencies {
     implementation 'com.github.daniel-stoneuk:material-about-library:2.4.2'
     implementation 'com.google.firebase:firebase-analytics:17.2.0'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    implementation "androidx.work:work-runtime-ktx:2.2.0"
 }
 
 apply plugin: 'com.google.gms.google-services'
