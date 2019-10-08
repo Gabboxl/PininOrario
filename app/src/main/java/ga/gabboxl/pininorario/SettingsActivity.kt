@@ -1,9 +1,18 @@
 package ga.gabboxl.pininorario
 
+import android.content.Intent
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
+import android.graphics.drawable.Icon
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
+import es.dmoral.toasty.Toasty
+
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -26,9 +35,89 @@ class SettingsActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
     class SettingsFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.app_preferences, rootKey)
+            val listprefshortcut = findPreference<ListPreference>("shortclassi_pref")
+
+            listprefshortcut!!.setOnPreferenceClickListener { Toasty.info(context!!, "wats", Toasty.LENGTH_SHORT).show()
+                false
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+
+                val classiarray = OrariUtils.classi
+                var entryvalues = arrayListOf<String>()
+                var cont = 1
+                while (classiarray.size >= cont) {
+                    entryvalues.add(cont.toString())
+                    cont++
+                }
+                listprefshortcut.entries = classiarray.toTypedArray()
+                listprefshortcut.entryValues = entryvalues.toTypedArray()
+
+                Toasty.success(
+                    this.context!!,
+                    listprefshortcut.entry,
+                    Toasty.LENGTH_SHORT
+                ).show()
+
+
+            } else {
+                listprefshortcut.setOnPreferenceClickListener {
+                    Toasty.success(
+                        this.context!!,
+                        "Disponibile da Android 7.1",
+                        Toasty.LENGTH_SHORT
+                    ).show()
+                    true
+                }
+
+            }
+
+            listprefshortcut.setOnPreferenceChangeListener { preference, newValue ->
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                    val nomeclasseselez = OrariUtils.classi[newValue.toString().toInt() - 1]
+
+                    Toasty.success(
+                        this.context!!,
+                        newValue.toString(),
+                        Toasty.LENGTH_SHORT
+                    ).show()
+
+
+                    val shortcutManager =
+                        getSystemService<ShortcutManager>(
+                            this.context!!,
+                            ShortcutManager::class.java
+                        )
+                    val shortcut = ShortcutInfo.Builder(context, "shortclasse1")
+                        .setShortLabel(nomeclasseselez)
+                        .setLongLabel(nomeclasseselez)
+                        .setIcon(Icon.createWithResource(context, R.drawable.ic_time))
+                        //.setIntent(Intent().setAction(Intent.EXTRA_TEXT).setClass(context!!, MainActivity::class.java).putExtra("classe", OrariUtils.listResources.optJSONArray(listprefshortcut.value.toInt() -1).get(2).toString()))
+                        .setIntent(
+                            Intent().setAction(Intent.EXTRA_TEXT).setClass(
+                                context!!,
+                                MainActivity::class.java
+                            ).putExtra(
+                                "classe",
+                                nomeclasseselez
+                            )
+                        )
+                        .build()
+
+                    shortcutManager!!.dynamicShortcuts = listOf(shortcut)
+
+                    listprefshortcut.summary = "%s"
+                }
+
+
+                true
+            }
+
+
         }
     }
 }
