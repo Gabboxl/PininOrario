@@ -39,11 +39,7 @@ class SettingsActivity : AppCompatActivity() {
     class SettingsFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.app_preferences, rootKey)
-            val listprefshortcut = findPreference<ListPreference>("shortclassi_pref")
-
-            listprefshortcut!!.setOnPreferenceClickListener { Toasty.info(context!!, "wats", Toasty.LENGTH_SHORT).show()
-                false
-            }
+            val listprefshortcut = findPreference<ListPreference>("shortclassi_pref")!!
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
 
@@ -65,15 +61,8 @@ class SettingsActivity : AppCompatActivity() {
 
 
             } else {
-                listprefshortcut.setOnPreferenceClickListener {
-                    Toasty.success(
-                        this.context!!,
-                        "Disponibile da Android 7.1",
-                        Toasty.LENGTH_SHORT
-                    ).show()
-                    true
-                }
-
+                listprefshortcut.isEnabled = false
+                listprefshortcut.summary = "Versione di Android non compatibile"
             }
 
             listprefshortcut.setOnPreferenceChangeListener { preference, newValue ->
