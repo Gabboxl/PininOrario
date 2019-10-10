@@ -53,11 +53,10 @@ class SettingsActivity : AppCompatActivity() {
                 listprefshortcut.entries = classiarray.toTypedArray()
                 listprefshortcut.entryValues = entryvalues.toTypedArray()
 
-                Toasty.success(
-                    this.context!!,
-                    listprefshortcut.entry,
-                    Toasty.LENGTH_SHORT
-                ).show()
+
+                if(listprefshortcut.entry != null){
+                    listprefshortcut.summary = "%s"
+                }
 
 
             } else {
