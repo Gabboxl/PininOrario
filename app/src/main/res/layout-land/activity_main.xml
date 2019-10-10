@@ -9,6 +9,7 @@
         android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".MainActivity">
@@ -59,6 +60,17 @@
                 android:layout_marginStart="4dp" app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="8dp" android:layout_marginTop="13dp"
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="1.0"/>
+
+        <ProgressBar
+                android:id="@+id/listviewLoadingBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/listviewPeriodi"
+                app:layout_constraintEnd_toEndOf="@+id/listviewPeriodi"
+                app:layout_constraintStart_toStartOf="@+id/listviewPeriodi"
+                app:layout_constraintTop_toTopOf="@+id/listviewPeriodi" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

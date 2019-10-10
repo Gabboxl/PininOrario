@@ -3,18 +3,13 @@ package ga.gabboxl.pininorario
 import android.Manifest
 import android.app.AlertDialog
 import android.app.DownloadManager
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.content.pm.PackageInfo
+import android.content.*
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.os.StrictMode
-import android.util.Log
+import android.preference.PreferenceManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -30,12 +25,10 @@ import com.github.javiersantos.appupdater.AppUpdater
 import com.github.javiersantos.appupdater.enums.Display
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.google.android.material.snackbar.Snackbar
-import com.google.gson.Gson
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
-import org.json.JSONArray
 import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
@@ -44,17 +37,13 @@ import java.net.URL
 class MainActivity : AppCompatActivity() {
     private val REQUESTWRITECODE = 777
 
-    private lateinit var listResources: JSONArray
-
-    var griglie = arrayListOf<String>()
     var posizionespinnerperiodi: Int = 0
     var posizionespinnerclassi: Int = 0
-    var periodi = arrayListOf<String>()
 
-    var classis = arrayListOf<String>()
 
-    var nomefileOrario: String = ""
-    var codiceclasse = ""
+    private var nomefileOrario: String = ""
+
+    private lateinit var sharedPreferences: SharedPreferences
 
 
     override fun onStart() {
@@ -64,6 +53,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onStop() {
+        //unregistro i ricevitori di eventi
         unregisterReceiver(onCompleteDownloadPhoto)
         super.onStop()
     }
@@ -76,6 +66,9 @@ class MainActivity : AppCompatActivity() {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()  //necessario??????????????????????????
         StrictMode.setThreadPolicy(policy) // ??????????????????????????????????????????????????????????????????????????????
 
+        //salvo in una variabile i valori delle impostazioni dell'app (shared preferences) per poi usufruirne più tardi
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+
 
         //controllo permesso per l'accesso alla memoria
         if (ContextCompat.checkSelfPermission(
@@ -86,38 +79,129 @@ class MainActivity : AppCompatActivity() {
             richiediWritePermission()
         }
 
+
         //imposto la listview dei periodi su scelta singola
         listviewPeriodi.choiceMode = ListView.CHOICE_MODE_SINGLE
 
+
         //richiamo la funzione principale
-        prendiOrario()
+
+        OrariUtils.prendiOrario()
+        val adapter1 = ArrayAdapter(applicationContext, R.layout.support_simple_spinner_dropdown_item, OrariUtils.classi)
+        spinnerClassi.adapter = adapter1
 
 
-            //prendiOrario()
-            //checkboxNomi.isEnabled = true
+        if(intent.getStringExtra("classe") != null) {
+            spinnerClassi.setSelection(OrariUtils.classi.indexOf(intent.getStringExtra("classe")))
+        }
 
 
         buttonPeriodifresh.setOnClickListener {
+            buttonPeriodifresh.isEnabled = false
+            listviewPeriodi.visibility = View.INVISIBLE
+            listviewLoadingBar.visibility = View.VISIBLE
             doAsync {
-                scaricaPeriodi()
+                OrariUtils.scaricaPeriodi(posizionespinnerclassi)
 
                 uiThread {
                     val adattatore =
-                        ArrayAdapter(applicationContext, R.layout.listview_row, R.id.textviewperiodi_row, periodi)
+                        ArrayAdapter(applicationContext, R.layout.listview_row, R.id.textviewperiodi_row, OrariUtils.periodi)
                     listviewPeriodi.adapter = adattatore
+                    listviewPeriodi.visibility = View.VISIBLE
+                    listviewLoadingBar.visibility = View.INVISIBLE
+                    buttonPeriodifresh.isEnabled = true
                 }
 
             }
         }
 
+        checkboxNomi.isChecked = sharedPreferences.getBoolean("always_displaynames", false)
 
-        //controllo se sono disponibili aggiornamenti
-        AppUpdater(this)
-            .setDisplay(Display.DIALOG)
-            .setUpdateFrom(UpdateFrom.GITHUB)
-            .setGitHubUserAndRepo("Gabboxl", "PininOrario")
-            .showEvery(5)
-            .start()
+        //controllo stato impostazioni
+        if (sharedPreferences.getBoolean("checkupdates_startup", false)) {
+            //controllo se sono disponibili aggiornamenti
+            AppUpdater(this)
+                .setDisplay(Display.DIALOG)
+                .setUpdateFrom(UpdateFrom.GITHUB)
+                .setGitHubUserAndRepo("Gabboxl", "PininOrario")
+                .start()
+        }
+
+
+
+        spinnerClassi.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            //variabili da inizializzare per poi essere utilizzate in modo globale nel codice
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+                posizionespinnerclassi = position
+
+                listviewPeriodi.visibility = View.INVISIBLE
+                listviewLoadingBar.visibility = View.VISIBLE
+                doAsync {
+
+
+                    if (spinnerClassi.getItemAtPosition(position).toString().startsWith("Selezionate")) {
+                        buttonScarica.visibility = View.INVISIBLE
+                    }
+
+                    OrariUtils.scaricaPeriodi(posizionespinnerclassi)
+                    uiThread {
+
+                        val adattatore =
+                            ArrayAdapter(
+                                applicationContext,
+                                R.layout.listview_row,
+                                R.id.textviewperiodi_row,
+                                OrariUtils.periodi
+                            )
+                        listviewPeriodi.adapter = adattatore
+                        listviewPeriodi.visibility = View.VISIBLE
+                        listviewLoadingBar.visibility = View.INVISIBLE
+                    }
+                }
+
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
+
+        listviewPeriodi.onItemClickListener = object : AdapterView.OnItemClickListener {
+            override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+                posizionespinnerperiodi = position
+
+                if (listviewPeriodi.getItemAtPosition(position).toString().startsWith("Selezionate")) {
+                    buttonScarica.visibility = View.INVISIBLE
+                    return  //esco dalla funz se no da errore
+                }
+
+                //controllo se è disponibile l'orario con i nomi
+                val url = URL("https://intranet.itispininfarina.it/orarioint/classi/" + OrariUtils.griglie[position] + ".png")
+                val connection = url.openConnection() as HttpURLConnection
+                connection.requestMethod = "GET"
+                connection.connect()
+
+                if (connection.responseCode == 200) {
+                    checkboxNomi.isEnabled = true
+                } else {
+                    checkboxNomi.isChecked = false
+                    checkboxNomi.isEnabled = false
+                }
+
+
+                buttonScarica.visibility = View.VISIBLE
+
+                buttonScarica.setOnClickListener {
+                    scaricaOrario()
+                }
+
+                val text = "Hai selezionato: " + listviewPeriodi.getItemAtPosition(position).toString()
+                Toasty.info(this@MainActivity, text, Toast.LENGTH_SHORT, true).show()
+            }
+        }
 
     }
 
@@ -150,128 +234,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun prendiOrario() {
-        doAsync {
-            classis.clear()
-
-            /*val url = "http://intranet.itispininfarina.it/orario/_ressource.js"
-            FileUtils.copyURLToFile(URL(url), File("/data/user/0/ga.gabboxl.pininorario/cache/classi.js"))*/
-
-            val apiResponse = URL("http://gabboxlbot.altervista.org/pininorario/classi.php").readText()
-
-            listResources = JSONArray(Gson().fromJson(apiResponse, arrayListOf<String>().javaClass))
-
-            var counter = 0
-            while ((listResources.length() - 1) >= counter) {
-                if (listResources.optJSONArray(counter).get(0).toString() == "grClasse") {
-                    classis.add(listResources.optJSONArray(counter).get(1).toString())
-                }
-                counter++
-            }
-
-            uiThread {
-                val adapter1 = ArrayAdapter(applicationContext, R.layout.support_simple_spinner_dropdown_item, classis)
-                spinnerClassi.adapter = adapter1
-            }
-
-
-            spinnerClassi.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                //variabili da inizializzare per poi essere utilizzate in modo globale nel codice
-
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    doAsync {
-                        posizionespinnerclassi = position
-
-                        if (spinnerClassi.getItemAtPosition(position).toString().startsWith("Selezionate")) {
-                            buttonScarica.visibility = View.INVISIBLE
-                        }
-
-                        scaricaPeriodi()
-
-                        uiThread {
-                            val adattatore =
-                                ArrayAdapter(
-                                    applicationContext,
-                                    R.layout.listview_row,
-                                    R.id.textviewperiodi_row,
-                                    periodi
-                                )
-                            listviewPeriodi.adapter = adattatore
-                        }
-                    }
-
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                }
-            }
-
-            listviewPeriodi.onItemClickListener = object : AdapterView.OnItemClickListener {
-                override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    posizionespinnerperiodi = position
-
-                    if (listviewPeriodi.getItemAtPosition(position).toString().startsWith("Selezionate")) {
-                        buttonScarica.visibility = View.INVISIBLE
-                        return  //esco dalla funz se no da errore
-                    }
-
-                    //controllo se è disponibile l'orario con i nomi
-                    var url = URL("http://intranet.itispininfarina.it/orarioint/classi/" + griglie[posizionespinnerperiodi] + ".png")
-                    var connection = url.openConnection() as HttpURLConnection
-                    connection.requestMethod = "GET"
-                    connection.connect()
-
-                    if(connection.responseCode == 404){
-                        checkboxNomi.isChecked = false
-                        checkboxNomi.isEnabled = false
-                    }else if (connection.responseCode == 200){
-                        checkboxNomi.isEnabled = true
-                    }
-
-
-                    buttonScarica.visibility = View.VISIBLE
-
-                    buttonScarica.setOnClickListener {
-                        scaricaOrario()
-                    }
-
-                    val text = "Hai selezionato: " + listviewPeriodi.getItemAtPosition(position).toString()
-                    Toasty.info(this@MainActivity, text, Toast.LENGTH_SHORT, true).show()
-                }
-            }
-
-
-        }
-    }
-
-    //funzione x scaricare dati periodi
-    fun scaricaPeriodi() {
-        periodi.clear()
-
-        val apiResponsePeriodi = URL("http://gabboxlbot.altervista.org/pininorario/periodi.php").readText()
-        val jsonPeriodi = JSONArray(Gson().fromJson(apiResponsePeriodi, arrayListOf<String>().javaClass))
-
-
-        var contatore = 0
-        while ((listResources.length() - 1) >= contatore) {
-            if (listResources.optJSONArray(contatore).get(1).toString() == classis[posizionespinnerclassi]) {
-                codiceclasse = listResources.optJSONArray(contatore).get(2).toString()
-            }
-            contatore++
-        }      //fine while
-
-        var contatore2 = 0
-        griglie = arrayListOf()
-
-        while ((jsonPeriodi.length() - 1) > contatore2) {
-            if (jsonPeriodi.optJSONArray(contatore2).get(0).toString() == codiceclasse) {
-                periodi.add(jsonPeriodi.optJSONArray(contatore2).get(1).toString()) // aggiungo i periodi "EDT N." all'array
-                griglie.add(jsonPeriodi.optJSONArray(contatore2).get(2).toString()) //aggiungo i link (semi-link) alle griglie all'array dichiarati ad inizio funzione del bottone
-            }
-            contatore2++
-        }
-    }
-
     //funzione x scaricare foto dell'orario
     fun scaricaOrario() {
         doAsync {
@@ -289,11 +251,11 @@ class MainActivity : AppCompatActivity() {
             val urlfoto: String
 
             if (checkboxNomi.isChecked) {
-                urlfoto = "http://intranet.itispininfarina.it/orarioint/classi/"
-                nomefileOrario = griglie[posizionespinnerperiodi] + "prof"
+                urlfoto = "https://intranet.itispininfarina.it/orarioint/classi/"
+                nomefileOrario = OrariUtils.griglie[posizionespinnerperiodi] + "prof"
             } else {
-                urlfoto = "http://intranet.itispininfarina.it/orario/classi/"
-                nomefileOrario = griglie[posizionespinnerperiodi]
+                urlfoto = "https://intranet.itispininfarina.it/orario/classi/"
+                nomefileOrario = OrariUtils.griglie[posizionespinnerperiodi]
             }
 
             //controllo che il file non sia già stato scaricato e quindi propongo di aprirlo
@@ -315,7 +277,7 @@ class MainActivity : AppCompatActivity() {
 
             val downloadManager: DownloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
-            val downloadUrl = Uri.parse(urlfoto + griglie[posizionespinnerperiodi] + ".png")
+            val downloadUrl = Uri.parse(urlfoto + OrariUtils.griglie[posizionespinnerperiodi] + ".png")
 
             val request = DownloadManager.Request(downloadUrl)
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
