@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="ga.gabboxl.pininorario">
+        xmlns:tools="http://schemas.android.com/tools"
+        package="ga.gabboxl.pininorario">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
             android:allowBackup="true"
@@ -16,13 +16,18 @@
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning"
             tools:targetApi="m">
+
+        <meta-data
+                android:name="firebase_crashlytics_collection_enabled"
+                android:value="${crashlyticsCollectionEnabled}" />
+
         <activity
                 android:name=".SettingsActivity"
                 android:label="@string/title_activity_settings"
                 android:parentActivityName=".MainActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="ga.gabboxl.pininorario.MainActivity"/>
+                    android:value="ga.gabboxl.pininorario.MainActivity" />
         </activity>
         <activity
                 android:name=".AboutActivity"
@@ -31,13 +36,13 @@
                 android:theme="@style/AppTheme.MaterialAboutActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="ga.gabboxl.pininorario.MainActivity"/>
+                    android:value="ga.gabboxl.pininorario.MainActivity" />
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
@@ -48,7 +53,7 @@
                 android:grantUriPermissions="true">
             <meta-data
                     android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/provider_paths"/>
+                    android:resource="@xml/provider_paths" />
         </provider>
     </application>
 
