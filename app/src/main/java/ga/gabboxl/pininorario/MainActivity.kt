@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private var nomefileOrario: String = ""
+    private var urlfoto: String = ""
 
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -175,6 +176,7 @@ class MainActivity : AppCompatActivity() {
 
                 if (listviewPeriodi.getItemAtPosition(position).toString().startsWith("Selezionate")) {
                     buttonScarica.visibility = View.INVISIBLE
+                    buttonApri.visibility = View.INVISIBLE
                     return  //esco dalla funz se no da errore
                 }
 
@@ -192,10 +194,30 @@ class MainActivity : AppCompatActivity() {
                 }
 
 
-                buttonScarica.visibility = View.VISIBLE
+                if (checkboxNomi.isChecked) {
+                    urlfoto = "https://intranet.itispininfarina.it/orarioint/classi/"
+                    nomefileOrario = OrariUtils.griglie[posizionespinnerperiodi] + "prof"
+                } else {
+                    urlfoto = "https://intranet.itispininfarina.it/orario/classi/"
+                    nomefileOrario = OrariUtils.griglie[posizionespinnerperiodi]
+                }
 
-                buttonScarica.setOnClickListener {
-                    scaricaOrario()
+                //controllo che il file non sia già stato scaricato e quindi propongo di aprirlo
+                if (File("/storage/emulated/0/Download/PininOrari//$nomefileOrario.png").exists()) {
+                    buttonScarica.visibility = View.INVISIBLE
+                    buttonApri.visibility = View.VISIBLE
+
+                    buttonApri.setOnClickListener {
+                        apriOrario()
+                    }
+
+                } else {
+                    buttonScarica.visibility = View.VISIBLE
+                    buttonApri.visibility = View.INVISIBLE
+
+                    buttonScarica.setOnClickListener {
+                        scaricaOrario()
+                    }
                 }
 
                 val text = "Hai selezionato: " + listviewPeriodi.getItemAtPosition(position).toString()
@@ -248,29 +270,6 @@ class MainActivity : AppCompatActivity() {
                 return@doAsync
             }
 
-            val urlfoto: String
-
-            if (checkboxNomi.isChecked) {
-                urlfoto = "https://intranet.itispininfarina.it/orarioint/classi/"
-                nomefileOrario = OrariUtils.griglie[posizionespinnerperiodi] + "prof"
-            } else {
-                urlfoto = "https://intranet.itispininfarina.it/orario/classi/"
-                nomefileOrario = OrariUtils.griglie[posizionespinnerperiodi]
-            }
-
-            //controllo che il file non sia già stato scaricato e quindi propongo di aprirlo
-            if (File("/storage/emulated/0/Download/PininOrari//$nomefileOrario.png").exists()) {
-                Snackbar.make(
-                    findViewById(R.id.myCoordinatorLayout),
-                    getString(R.string.orario_presente),
-                    Snackbar.LENGTH_INDEFINITE
-                )
-                    .setAction(getString(R.string.orario_apri)) { apriOrario() }
-                    .show()
-
-                return@doAsync
-            }
-
             Snackbar.make(findViewById(R.id.myCoordinatorLayout), getString(R.string.orario_inDownload), Snackbar.LENGTH_INDEFINITE)
                 .show()
 
@@ -317,6 +316,9 @@ class MainActivity : AppCompatActivity() {
                     apriOrario()
                 }
                 .show()
+
+            buttonScarica.visibility = View.INVISIBLE
+            buttonApri.visibility = View.VISIBLE
         }
     }
 
