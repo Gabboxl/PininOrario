@@ -21,6 +21,8 @@ android {
         debug{
             manifestPlaceholders = [crashlyticsCollectionEnabled:"false"]
             ext.enableCrashlytics=false
+
+            versionNameSuffix "-debug"
         }
         release {
             manifestPlaceholders = [crashlyticsCollectionEnabled:"true"]
@@ -31,6 +33,12 @@ android {
         }
     }
     productFlavors {
+    }
+}
+
+android.applicationVariants.all { variant ->
+    if (variant.name == 'debug') {
+        project.tasks.getByName('process' + variant.name.capitalize() + 'GoogleServices').enabled = false
     }
 }
 
