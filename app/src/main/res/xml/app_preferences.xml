@@ -1,34 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.preference.PreferenceScreen
-        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory
-            app:title="Varie">
-
-        <SwitchPreferenceCompat
-                app:key="checkupdates_startup"
-                app:defaultValue="true"
-                app:title="Controlla aggiornamenti all'avvio"/>
-
+    <PreferenceCategory app:title="Orari">
         <SwitchPreferenceCompat
                 app:key="always_displaynames"
-                app:title="Visualizza sempre nomi nell'orario"/>
+                app:title="Visualizza sempre nomi nell'orario"
+                app:singleLineTitle="false"/>
 
         <ListPreference
-            app:key="shortclassi_pref"
-                app:title="Scorciatoia classe app"
-                app:summary="Seleziona una classe"
+                app:defaultValue="0"
                 app:icon="@drawable/ic_launch_black_32dp"
-                app:defaultValue="0">
+                app:key="shortclassi_pref"
+                app:summary="Seleziona una classe"
+                app:title="Scorciatoia classe app">
 
         </ListPreference>
         <Preference
                 app:allowDividerAbove="true"
+                app:icon="@drawable/ic_info_outline_black_24dp"
+                app:key="info_short"
                 app:selectable="false"
-            app:key="info_short"
-            app:summary="Una volta selezionata la classe preferita, potrai utilizzare la relativa scorciatoria tenendo premuto sull'icona di PininOrario! (Solo Android > 7.1.1)"
-                app:icon="@drawable/ic_info_outline_black_24dp"/>
+                app:summary="Una volta selezionata la classe preferita, potrai utilizzare la relativa scorciatoria tenendo premuto sull'icona di PininOrario! (Solo Android >= 7.1.1)" />
 
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Varie">
+
+        <SwitchPreferenceCompat
+                app:defaultValue="true"
+                app:key="checkupdates_startup"
+                app:title="Controlla aggiornamenti all'avvio"
+                app:singleLineTitle="false" />
 
     </PreferenceCategory>
 

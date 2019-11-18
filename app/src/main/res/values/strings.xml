@@ -11,4 +11,5 @@
     <string name="orario_inDownload">In download…</string>
     <string name="orario_scaricato">Download completato.</string>
     <string name="orario_presente">Orario già scaricato —></string>
+    <string name="apri_orario">Apri orario</string>
 </resources>

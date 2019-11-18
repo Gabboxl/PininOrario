@@ -2,7 +2,7 @@
 
 ( ͡° ͜ʖ ͡°)
 
-# Requirements
+## Requirements
 ### Crashlytics
 Put your *google-services.json* file in app/ .
 You can obtain it from your Firebase console by adding you app.
