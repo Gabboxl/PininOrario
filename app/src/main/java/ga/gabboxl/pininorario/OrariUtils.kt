@@ -51,9 +51,6 @@ class OrariUtils {
 
             classi.clear()
 
-            /*val url = "https://intranet.itispininfarina.it/orario/_ressource.js"
-        FileUtils.copyURLToFile(URL(url), File("/data/user/0/ga.gabboxl.pininorario/cache/classi.js"))*/
-
             val apiResponse =
                 URL("https://gabboxlbot.altervista.org/pininorario/classi.php").readText()
 
@@ -62,7 +59,7 @@ class OrariUtils {
                 JSONArray(Gson().fromJson(apiResponse, arrayListOf<String>().javaClass))
 
             var counter = 0
-            while (90 >= counter) {
+            while (listResources.length() - 1 >= counter) {
                 if (listResources.optJSONArray(counter).get(0).toString() == "grClasse") {
                     classi.add(listResources.optJSONArray(counter).get(1).toString())
                 }
