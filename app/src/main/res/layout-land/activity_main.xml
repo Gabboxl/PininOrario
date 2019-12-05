@@ -42,6 +42,18 @@
                 android:layout_marginEnd="8dp" app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="196dp"
         />
+
+        <Button
+                android:id="@+id/buttonApri"
+                android:layout_width="wrap_content"
+                android:layout_height="61dp"
+                android:layout_marginBottom="196dp"
+                android:text="@string/apri_orario"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/buttonScarica"
+                app:layout_constraintStart_toStartOf="@+id/buttonScarica" />
+
         <Button
                 android:text="@string/ricarica_periodi"
                 android:layout_width="121dp"
