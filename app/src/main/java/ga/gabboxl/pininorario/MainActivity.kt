@@ -3,6 +3,7 @@ package ga.gabboxl.pininorario
 import android.Manifest
 import android.app.AlertDialog
 import android.app.DownloadManager
+import android.app.PendingIntent.getActivity
 import android.content.*
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -88,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         //richiamo la funzione principale
 
         OrariUtils.prendiOrario()
-        val adapter1 = ArrayAdapter(applicationContext, R.layout.support_simple_spinner_dropdown_item, OrariUtils.classi)
+        val adapter1 = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, OrariUtils.classi)
         spinnerClassi.adapter = adapter1
 
 
@@ -106,7 +107,7 @@ class MainActivity : AppCompatActivity() {
 
                 uiThread {
                     val adattatore =
-                        ArrayAdapter(applicationContext, R.layout.listview_row, R.id.textviewperiodi_row, OrariUtils.periodi)
+                        ArrayAdapter(baseContext, R.layout.listview_row, R.id.textviewperiodi_row, OrariUtils.periodi) //utilizzo basecontext per utilizzare il contesto iniziale (Mainactivity) siccome sto eseguendo il codice all'interno di un altro contesto asincrono (anko)
                     listviewPeriodi.adapter = adattatore
                     listviewPeriodi.visibility = View.VISIBLE
                     listviewLoadingBar.visibility = View.INVISIBLE
@@ -151,7 +152,7 @@ class MainActivity : AppCompatActivity() {
 
                         val adattatore =
                             ArrayAdapter(
-                                applicationContext,
+                                baseContext,
                                 R.layout.listview_row,
                                 R.id.textviewperiodi_row,
                                 OrariUtils.periodi
