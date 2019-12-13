@@ -10,6 +10,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.preference.ListPreference
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import es.dmoral.toasty.Toasty
 
@@ -37,14 +38,17 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
+
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.app_preferences, rootKey)
+
             val listprefshortcut = findPreference<ListPreference>("shortclassi_pref")!!
+            val modifyloginpref = findPreference<Preference>("modify_login")!!
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
 
                 val classiarray = OrariUtils.classi
-                var entryvalues = arrayListOf<String>()
+                val entryvalues = arrayListOf<String>()
                 var cont = 1
                 while (classiarray.size >= cont) {
                     entryvalues.add(cont.toString())
@@ -54,10 +58,9 @@ class SettingsActivity : AppCompatActivity() {
                 listprefshortcut.entryValues = entryvalues.toTypedArray()
 
 
-                if(listprefshortcut.entry != null){
+                if (listprefshortcut.entry != null) {
                     listprefshortcut.summary = "%s"
                 }
-
 
             } else {
                 listprefshortcut.isEnabled = false
@@ -106,6 +109,19 @@ class SettingsActivity : AppCompatActivity() {
             }
 
 
+
+            modifyloginpref.setOnPreferenceClickListener {
+                openDialog()
+                true
+            }
+
+
+        }
+
+
+        private fun openDialog(){
+            val dialog = LoginDialog()
+            dialog.show(activity!!.supportFragmentManager, "login_dialog")
         }
     }
 }

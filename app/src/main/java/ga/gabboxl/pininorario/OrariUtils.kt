@@ -1,7 +1,11 @@
 package ga.gabboxl.pininorario
 
+import android.content.Context
+import android.preference.PreferenceManager
+import android.util.Base64
 import com.google.gson.Gson
 import org.json.JSONArray
+import java.net.HttpURLConnection
 import java.net.URL
 
 
@@ -67,7 +71,37 @@ class OrariUtils {
                 continue
             }
 
+        }
 
+
+        fun checkLogin(context: Context?, username: String = "", password: String = ""): Boolean{
+
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+            val usernamefinal = if (username.isEmpty()) {
+                sharedPreferences.getString("pinin_username", "")
+            } else {
+                username
+            }
+
+            val passwordfinal = if (username.isEmpty()) {
+                sharedPreferences.getString("pinin_password", "")
+            } else {
+                password
+            }
+
+
+            val intranetUrl = URL("https://intranet.itispininfarina.it/intrane")
+
+            val connection = intranetUrl.openConnection() as HttpURLConnection
+            connection.requestMethod = "GET"
+
+            val encoded: String = Base64.encodeToString("$usernamefinal:$passwordfinal".toByteArray(), Base64.DEFAULT)
+
+            connection.setRequestProperty("Authorization", "Basic $encoded")
+
+            connection.connect()
+
+            return connection.responseCode == 200
         }
     }
 }

@@ -4,8 +4,8 @@
     <PreferenceCategory app:title="Orari">
         <SwitchPreferenceCompat
                 app:key="always_displaynames"
-                app:title="Visualizza sempre nomi nell'orario"
-                app:singleLineTitle="false"/>
+                app:singleLineTitle="false"
+                app:title="Visualizza sempre nomi nell'orario" />
 
         <ListPreference
                 app:defaultValue="0"
@@ -24,13 +24,28 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="Credenziali (per orario interno)">
+
+        <Preference
+                app:key="modify_login"
+                app:selectable="true"
+                app:title="Modifica credenziali"
+                app:summary="*Clicca qui per modificare i dati di accesso*"/>
+        <Preference
+                app:allowDividerAbove="true"
+                app:icon="@drawable/ic_info_outline_black_24dp"
+                app:key="info_login"
+                app:selectable="false"
+                app:summary="L'username e la password vengono salvati solamente sul dispositivo." />
+    </PreferenceCategory>
+
     <PreferenceCategory app:title="Varie">
 
         <SwitchPreferenceCompat
                 app:defaultValue="true"
                 app:key="checkupdates_startup"
-                app:title="Controlla aggiornamenti all'avvio"
-                app:singleLineTitle="false" />
+                app:singleLineTitle="false"
+                app:title="Controlla aggiornamenti all'avvio" />
 
     </PreferenceCategory>
 

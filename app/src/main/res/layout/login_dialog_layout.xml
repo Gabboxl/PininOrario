@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:padding="16dp">
+
+    <EditText
+            android:id="@+id/edit_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="cognome.nome"/>
+
+    <EditText
+            android:id="@+id/edit_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_username"
+            android:hint="Password"
+            android:inputType="textPassword" />
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_info_outline_black_24dp"
+            android:drawablePadding="8dp"
+            android:layout_below="@id/edit_password"
+            android:text="Inserisci il nome utente e password che utilizzi per accedere ai PC scolastici." />
+
+    <ProgressBar
+            android:id="@+id/progressBasic"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/edit_username"
+            android:layout_alignBottom="@+id/edit_username"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="-3dp"
+            android:visibility="invisible" />
+</RelativeLayout>
