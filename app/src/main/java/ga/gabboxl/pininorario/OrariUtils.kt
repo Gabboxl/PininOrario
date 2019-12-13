@@ -1,8 +1,8 @@
 package ga.gabboxl.pininorario
 
 import android.content.Context
-import android.preference.PreferenceManager
 import android.util.Base64
+import androidx.preference.PreferenceManager
 import com.google.gson.Gson
 import org.json.JSONArray
 import java.net.HttpURLConnection

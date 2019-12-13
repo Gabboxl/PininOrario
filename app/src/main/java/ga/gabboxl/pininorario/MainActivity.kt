@@ -3,14 +3,12 @@ package ga.gabboxl.pininorario
 import android.Manifest
 import android.app.AlertDialog
 import android.app.DownloadManager
-import android.app.PendingIntent.getActivity
 import android.content.*
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.os.StrictMode
-import android.preference.PreferenceManager
 import android.util.Base64
 import android.view.Menu
 import android.view.MenuItem
@@ -23,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.preference.PreferenceManager
 import com.github.javiersantos.appupdater.AppUpdater
 import com.github.javiersantos.appupdater.enums.Display
 import com.github.javiersantos.appupdater.enums.UpdateFrom
@@ -100,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 
 
         if(intent.getStringExtra("classe") != null) {
-            spinnerClassi.setSelection(OrariUtils.classi.indexOf(intent.getStringExtra("classe")))
+            spinnerClassi.setSelection(OrariUtils.classi.indexOf(intent.getStringExtra("classe")!!))
         }
 
 
@@ -302,7 +301,6 @@ class MainActivity : AppCompatActivity() {
             request.setAllowedOverRoaming(false)
             request.setTitle("PininOrario - $nomefileOrario.png")
             request.setDescription("In download $nomefileOrario.png")
-            request.setVisibleInDownloadsUi(true)
             request.setDestinationInExternalPublicDir(
                 Environment.DIRECTORY_DOWNLOADS,
                 "/PininOrari//$nomefileOrario.png"
