@@ -3,11 +3,11 @@ package ga.gabboxl.pininorario
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import androidx.fragment.app.DialogFragment
+import androidx.preference.PreferenceManager
 import es.dmoral.toasty.Toasty
 
 class LoginDialog : DialogFragment() {
