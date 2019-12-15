@@ -122,6 +122,22 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        checkboxNomi.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                urlfoto = "https://intranet.itispininfarina.it/intrane/Orario/Interno/classi/"
+                if(OrariUtils.griglie.isNotEmpty()) {
+                    nomefileOrario = OrariUtils.griglie[posizionespinnerperiodi] + "prof"
+                }
+                Toasty.success(applicationContext, "checkato", Toasty.LENGTH_SHORT).show()
+            } else {
+                urlfoto = "https://intranet.itispininfarina.it/orario/classi/"
+                if(OrariUtils.griglie.isNotEmpty()) {
+                    nomefileOrario = OrariUtils.griglie[posizionespinnerperiodi]
+                }
+                Toasty.warning(applicationContext, "non checkato", Toasty.LENGTH_SHORT).show()
+            }
+        }
+
         checkboxNomi.isChecked = sharedPreferences.getBoolean("always_displaynames", false)
 
         //controllo stato impostazioni
