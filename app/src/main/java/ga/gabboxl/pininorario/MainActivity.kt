@@ -46,9 +46,6 @@ class MainActivity : AppCompatActivity() {
     private var urlfoto: String = ""
 
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var pininusername: String
-    private lateinit var pininpassword: String
-
 
 
     override fun onStart() {
@@ -70,8 +67,6 @@ class MainActivity : AppCompatActivity() {
 
         //salvo in una variabile i valori delle impostazioni dell'app (shared preferences) per poi usufruirne più tardi
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        pininusername = sharedPreferences.getString("pinin_username", "")!!
-        pininpassword = sharedPreferences.getString("pinin_password", "")!!
 
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()  //necessario??????????????????????????
         StrictMode.setThreadPolicy(policy) // ??????????????????????????????????????????????????????????????????????????????
@@ -197,6 +192,9 @@ class MainActivity : AppCompatActivity() {
         listviewPeriodi.onItemClickListener = object : AdapterView.OnItemClickListener {
             override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
+                val pininusername = OrariUtils.getUsername(applicationContext)
+                val pininpassword = OrariUtils.getPassword(applicationContext)
+
                 posizionespinnerperiodi = position
 
                 if (listviewPeriodi.getItemAtPosition(position).toString().startsWith("Selezionate")) {
@@ -306,6 +304,9 @@ class MainActivity : AppCompatActivity() {
             val downloadManager: DownloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
             val downloadUrl = Uri.parse(urlfoto + OrariUtils.griglie[posizionespinnerperiodi] + ".png")
+
+            val pininusername = OrariUtils.getUsername(applicationContext)
+            val pininpassword = OrariUtils.getPassword(applicationContext)
 
             val encoded: String = Base64.encodeToString("$pininusername:$pininpassword".toByteArray(), Base64.DEFAULT)
 

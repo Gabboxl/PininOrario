@@ -74,7 +74,7 @@ class OrariUtils {
         }
 
 
-        fun checkLogin(context: Context?, username: String = "", password: String = ""): Boolean{
+        fun checkLogin(context: Context?, username: String = "", password: String = ""): Boolean {
 
             val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
             val usernamefinal = if (username.isEmpty()) {
@@ -95,13 +95,24 @@ class OrariUtils {
             val connection = intranetUrl.openConnection() as HttpURLConnection
             connection.requestMethod = "GET"
 
-            val encoded: String = Base64.encodeToString("$usernamefinal:$passwordfinal".toByteArray(), Base64.DEFAULT)
+            val encoded: String =
+                Base64.encodeToString("$usernamefinal:$passwordfinal".toByteArray(), Base64.DEFAULT)
 
             connection.setRequestProperty("Authorization", "Basic $encoded")
 
             connection.connect()
 
             return connection.responseCode == 200
+        }
+
+        fun getUsername(context: Context?): String? {
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return sharedPreferences.getString("pinin_username", "")
+        }
+
+        fun getPassword(context: Context?): String? {
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return sharedPreferences.getString("pinin_password", "")
         }
     }
 }
