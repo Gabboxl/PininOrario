@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        
+
         buttonApri.setOnClickListener {
             apriOrario()
         }
