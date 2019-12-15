@@ -122,6 +122,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        
+        buttonApri.setOnClickListener {
+            apriOrario()
+        }
+
         checkboxNomi.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 urlfoto = "https://intranet.itispininfarina.it/intrane/Orario/Interno/classi/"
@@ -235,11 +240,6 @@ class MainActivity : AppCompatActivity() {
                 if (File("/storage/emulated/0/Download/PininOrari//$nomefileOrario.png").exists()) {
                     buttonScarica.visibility = View.INVISIBLE
                     buttonApri.visibility = View.VISIBLE
-
-                    buttonApri.setOnClickListener {
-                        apriOrario()
-                    }
-
                 } else {
                     buttonScarica.visibility = View.VISIBLE
                     buttonApri.visibility = View.INVISIBLE
