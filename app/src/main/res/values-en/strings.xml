@@ -11,6 +11,5 @@
     <string name="orario_apri">Open</string>
     <string name="orario_inDownload">Downloading…</string>
     <string name="orario_scaricato">Download completed.</string>
-    <string name="orario_presente">Timetable already downloaded —&gt;</string>
     <string name="apri_orario">Open timetable</string>
 </resources>
