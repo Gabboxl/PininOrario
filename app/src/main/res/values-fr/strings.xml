@@ -10,6 +10,5 @@
     <string name="orario_apri">Ouvert</string>
     <string name="orario_inDownload">Téléchargement en cours…</string>
     <string name="orario_scaricato">Téléchargement complet.</string>
-    <string name="orario_presente">Emploi du temps déjà téléchargé -&gt;</string>
     <string name="apri_orario">Apri orario</string>
 </resources>

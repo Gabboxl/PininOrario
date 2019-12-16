@@ -203,7 +203,7 @@ class MainActivity : AppCompatActivity() {
                     return  //esco dalla funz se no da errore
                 }
 
-                //controllo login per l'orario interno (con i nomi)
+                //controllo login nell'intranet per l'orario interno (con i nomi)
                 if(OrariUtils.checkLogin(applicationContext)) {
                     //controllo se è disponibile l'orario con i nomi
                     val url =
@@ -214,9 +214,9 @@ class MainActivity : AppCompatActivity() {
                     connection.setRequestProperty("Authorization", "Basic $encoded")
                     connection.connect()
 
-                    if (connection.responseCode == 200) {
+                    if (connection.responseCode == 200) {//è disponibile
                         checkboxNomi.isEnabled = true
-                    } else {
+                    } else {//non è disponibile
                         checkboxNomi.isChecked = false
                         checkboxNomi.isEnabled = false
                     }
