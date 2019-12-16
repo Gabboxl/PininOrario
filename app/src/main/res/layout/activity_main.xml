@@ -101,6 +101,36 @@
                 app:layout_constraintStart_toStartOf="@+id/listviewPeriodi"
                 app:layout_constraintTop_toTopOf="@+id/listviewPeriodi" />
 
+        <TextView
+                android:id="@+id/statoStaticText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:text="Stato orario interno (con nomi): "
+                android:textAlignment="center"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkboxNomi"
+                app:layout_constraintVertical_bias="0.364" />
+
+        <TextView
+                android:id="@+id/statoText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="44dp"
+                android:text="seleziona un orario"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/statoStaticText"
+                app:layout_constraintTop_toBottomOf="@+id/buttonPeriodifresh"
+                app:layout_constraintVertical_bias="0.933" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

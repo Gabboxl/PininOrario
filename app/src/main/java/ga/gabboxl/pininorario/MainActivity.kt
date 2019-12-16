@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.app.DownloadManager
 import android.content.*
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -228,13 +229,19 @@ class MainActivity : AppCompatActivity() {
 
                     if (connection.responseCode == 200) {//è disponibile
                         checkboxNomi.isEnabled = true
+                        statoText.setTextColor(Color.GREEN)
+                        statoText.text = "disponibile"
                     } else {//non è disponibile
                         checkboxNomi.isChecked = false
                         checkboxNomi.isEnabled = false
+                        statoText.setTextColor(Color.RED)
+                        statoText.text = "non disponibile"
                     }
                 } else {
                     checkboxNomi.isChecked = false
                     checkboxNomi.isEnabled = false
+                    statoText.setTextColor(Color.RED)
+                    statoText.text = "Login fallito (controlla le credenziali nelle impostazioni)"
                 }
 
 
