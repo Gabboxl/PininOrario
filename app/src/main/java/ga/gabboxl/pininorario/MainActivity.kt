@@ -117,6 +117,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        buttonScarica.setOnClickListener {
+            scaricaOrario()
+        }
 
         buttonApri.setOnClickListener {
             apriOrario()
@@ -133,6 +136,15 @@ class MainActivity : AppCompatActivity() {
                 if(OrariUtils.griglie.isNotEmpty()) {
                     nomefileOrario = OrariUtils.griglie[posizionespinnerperiodi]
                 }
+            }
+
+            //controllo che il file sia già stato scaricato e quindi propongo di aprirlo
+            if (File("/storage/emulated/0/Download/PininOrari//$nomefileOrario.png").exists()) {
+                buttonScarica.visibility = View.INVISIBLE
+                buttonApri.visibility = View.VISIBLE
+            } else {
+                buttonScarica.visibility = View.VISIBLE
+                buttonApri.visibility = View.INVISIBLE
             }
         }
 
@@ -241,10 +253,6 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     buttonScarica.visibility = View.VISIBLE
                     buttonApri.visibility = View.INVISIBLE
-
-                    buttonScarica.setOnClickListener {
-                        scaricaOrario()
-                    }
                 }
 
                 val text = "Hai selezionato: " + listviewPeriodi.getItemAtPosition(position).toString()
