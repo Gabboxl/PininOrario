@@ -103,8 +103,9 @@
                 android:text="Stato orario interno (con nomi): "
                 android:textAlignment="center"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/buttonPeriodifresh"
-                tools:layout_editor_absoluteX="538dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/listviewPeriodi"
+                app:layout_constraintTop_toBottomOf="@+id/buttonPeriodifresh" />
 
         <TextView
                 android:id="@+id/statoText"
