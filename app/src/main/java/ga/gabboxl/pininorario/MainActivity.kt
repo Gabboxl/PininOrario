@@ -152,12 +152,16 @@ class MainActivity : AppCompatActivity() {
         checkboxNomi.isChecked = sharedPreferences.getBoolean("always_displaynames", false)
 
         //controllo stato impostazioni
-        if (sharedPreferences.getBoolean("checkupdates_startup", false)) {
+        if (sharedPreferences.getBoolean("checkupdates_startup", true)) {
             //controllo se sono disponibili aggiornamenti
             AppUpdater(this)
                 .setDisplay(Display.DIALOG)
                 .setUpdateFrom(UpdateFrom.GITHUB)
                 .setGitHubUserAndRepo("Gabboxl", "PininOrario")
+                .setButtonDoNotShowAgainClickListener { dialog, which ->
+                    sharedPreferences.edit().putBoolean("checkupdates_startup", false).apply()
+                    Toasty.info(this, "Puoi modificare la tua scelta nelle Impostazioni.").show()
+                }
                 .start()
         }
 
