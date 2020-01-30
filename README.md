@@ -2,6 +2,9 @@
 
 ( ͡° ͜ʖ ͡°)
 
+# Note:
+Google services are deactivated in *debug* builds (you can modify this in the app's build.gradle file).
+
 ## Requirements
 ### Crashlytics
 Put your *google-services.json* file in app/ .
