@@ -30,8 +30,9 @@ class AboutActivity : MaterialAboutActivity() {
             .setOnClickAction {
                 AppUpdater(this)
                     .setDisplay(Display.DIALOG)
-                    .setUpdateFrom(UpdateFrom.GITHUB)
-                    .setGitHubUserAndRepo("Gabboxl", "PininOrario")
+                    .setUpdateFrom(UpdateFrom.JSON)
+                    .setUpdateJSON("https://pinin.gabboxl.ga/versions/update.json")
+                    .setWebviewChangelog(true)
                     .showAppUpdated(true)
                     .setButtonDoNotShowAgain("")
                     .start()
@@ -40,6 +41,7 @@ class AboutActivity : MaterialAboutActivity() {
             .addItem(MaterialAboutActionItem.Builder()
                 .subText(R.string.credits_about)
                 .build())
+
     }
 
 

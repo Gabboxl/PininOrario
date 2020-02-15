@@ -156,8 +156,9 @@ class MainActivity : AppCompatActivity() {
             //controllo se sono disponibili aggiornamenti
             AppUpdater(this)
                 .setDisplay(Display.DIALOG)
-                .setUpdateFrom(UpdateFrom.GITHUB)
-                .setGitHubUserAndRepo("Gabboxl", "PininOrario")
+                .setUpdateFrom(UpdateFrom.JSON)
+                .setUpdateJSON("https://pinin.gabboxl.ga/versions/update.json")
+                .setWebviewChangelog(true)
                 .setButtonDoNotShowAgainClickListener { dialog, which ->
                     sharedPreferences.edit().putBoolean("checkupdates_startup", false).apply()
                     Toasty.info(this, "Puoi modificare la tua scelta nelle Impostazioni.").show()
