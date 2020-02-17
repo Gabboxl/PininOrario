@@ -22,4 +22,22 @@
     <string name="modifica_credenziali_summary">*Clicca qui per modificare i dati di accesso*</string>
     <string name="controllo_aggiornamenti_title">Controlla aggiornamenti all\'avvio</string>
     <string name="info_credenziali_summary">L\'username e la password vengono salvati solamente sul dispositivo.</string>
+    <string name="info_modifica_scelta_aggiornamenti_toast">Puoi modificare la tua scelta nelle Impostazioni.</string>
+    <string name="orario_interno_disponibile">disponibile</string>
+    <string name="orario_interno_nondisponibile">non disponibile</string>
+    <string name="login_fallito">Login fallito (controlla le credenziali nelle impostazioni)</string>
+    <string name="hai_selezionato_toast">Hai selezionato:</string>
+    <string name="permesso_richiesto">Permesso richiesto</string>
+    <string name="richiesta_permesso_WRITE_EXTERNAL_STORAGE">Questa app ha bisogno del permesso WRITE_EXTERNAL_STORAGE per scaricare l\'orario!</string>
+    <string name="indietro">indietro</string>
+    <string name="ok">ok</string>
+    <string name="autore_card_about">Autore</string>
+    <string name="pinin_orario_su_github_about">PininOrario su Github</string>
+    <string name="login_dialog_title">Login</string>
+    <string name="salva_button">Salva</string>
+    <string name="login_riuscito_toast">Login riuscito</string>
+    <string name="credenziali_errate_toast">Credenziali errate</string>
+    <string name="annulla_button">Annulla</string>
+    <string name="test_login_button">Test login</string>
+    <string name="versione_android_incompatibile">Versione di Android non compatibile</string>
 </resources>

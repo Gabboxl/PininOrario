@@ -161,7 +161,7 @@ class MainActivity : AppCompatActivity() {
                 .setWebviewChangelog(true)
                 .setButtonDoNotShowAgainClickListener { dialog, which ->
                     sharedPreferences.edit().putBoolean("checkupdates_startup", false).apply()
-                    Toasty.info(this, "Puoi modificare la tua scelta nelle Impostazioni.").show()
+                    Toasty.info(this, getString(R.string.info_modifica_scelta_aggiornamenti_toast)).show()
                 }
                 .start()
         }
@@ -235,18 +235,18 @@ class MainActivity : AppCompatActivity() {
                     if (connection.responseCode == 200) {//è disponibile
                         checkboxNomi.isEnabled = true
                         statoText.setTextColor(Color.GREEN)
-                        statoText.text = "disponibile"
+                        statoText.text = getString(R.string.orario_interno_disponibile)
                     } else {//non è disponibile
                         checkboxNomi.isChecked = false
                         checkboxNomi.isEnabled = false
                         statoText.setTextColor(Color.RED)
-                        statoText.text = "non disponibile"
+                        statoText.text = getString(R.string.orario_interno_nondisponibile)
                     }
                 } else {
                     checkboxNomi.isChecked = false
                     checkboxNomi.isEnabled = false
                     statoText.setTextColor(Color.RED)
-                    statoText.text = "Login fallito (controlla le credenziali nelle impostazioni)"
+                    statoText.text = getString(R.string.login_fallito)
                 }
 
 
@@ -267,7 +267,7 @@ class MainActivity : AppCompatActivity() {
                     buttonApri.visibility = View.INVISIBLE
                 }
 
-                val text = "Hai selezionato: " + listviewPeriodi.getItemAtPosition(position).toString()
+                val text = getString(R.string.hai_selezionato_toast) + listviewPeriodi.getItemAtPosition(position).toString()
                 Toasty.info(this@MainActivity, text, Toast.LENGTH_SHORT, true).show()
             }
         }
@@ -385,15 +385,15 @@ class MainActivity : AppCompatActivity() {
             ) {
 
                 val alertpermesso = AlertDialog.Builder(this@MainActivity)
-                    .setTitle("Permesso richiesto")
-                    .setMessage("Questa app ha bisogno del permesso WRITE_EXTERNAL_STORAGE per scaricare l'orario!")
-                    .setPositiveButton("ok") { _, _ ->
+                    .setTitle(getString(R.string.permesso_richiesto))
+                    .setMessage(getString(R.string.richiesta_permesso_WRITE_EXTERNAL_STORAGE))
+                    .setPositiveButton(getString(R.string.ok)) { _, _ ->
                         ActivityCompat.requestPermissions(  // onlick funzione
                             this@MainActivity,
                             arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUESTWRITECODE
                         )
                     }
-                    .setNegativeButton("indietro") { dialog, _ -> dialog.dismiss() } //onlick funzione
+                    .setNegativeButton(getString(R.string.indietro)) { dialog, _ -> dialog.dismiss() } //onlick funzione
 
                 uiThread { alertpermesso.create().show() }
             } else {

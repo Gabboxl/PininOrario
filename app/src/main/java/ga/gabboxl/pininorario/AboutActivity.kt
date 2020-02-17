@@ -53,7 +53,7 @@ class AboutActivity : MaterialAboutActivity() {
     }
 
     private fun buildAuthor(context: Context, authorCardBuilder: MaterialAboutCard.Builder) {
-        authorCardBuilder.title("Autore")
+        authorCardBuilder.title(getString(R.string.autore_card_about))
         authorCardBuilder.addItem(MaterialAboutActionItem.Builder()
             .text("Gabriele")
             .subText("gabboxl")
@@ -67,7 +67,7 @@ class AboutActivity : MaterialAboutActivity() {
                     context.startActivity(i) }
             .build())
             .addItem(MaterialAboutActionItem.Builder()
-                .text("PininOrario su Github")
+                .text(getString(R.string.pinin_orario_su_github_about))
                 .icon(IconicsDrawable(context)
                     .icon(CommunityMaterial.Icon.cmd_github_circle)
                     .color(IconicsColor.colorInt(ContextCompat.getColor(context, R.color.mal_color_icon_light_theme)))
