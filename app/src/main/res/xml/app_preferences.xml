@@ -29,8 +29,8 @@
         <Preference
                 app:key="modify_login"
                 app:selectable="true"
-                app:title="@string/modifica_credenziali_title"
-                app:summary="@string/modifica_credenziali_summary"/>
+                app:summary="@string/modifica_credenziali_summary"
+                app:title="@string/modifica_credenziali_title" />
         <Preference
                 app:allowDividerAbove="true"
                 app:icon="@drawable/ic_info_outline_black_24dp"

@@ -89,13 +89,9 @@ class SettingsActivity : AppCompatActivity() {
                         .setIcon(Icon.createWithResource(context, R.drawable.ic_time))
                         //.setIntent(Intent().setAction(Intent.EXTRA_TEXT).setClass(context!!, MainActivity::class.java).putExtra("classe", OrariUtils.listResources.optJSONArray(listprefshortcut.value.toInt() -1).get(2).toString()))
                         .setIntent(
-                            Intent().setAction(Intent.EXTRA_TEXT).setClass(
-                                context!!,
-                                MainActivity::class.java
-                            ).putExtra(
-                                "classe",
-                                nomeclasseselez
-                            )
+                            Intent().setAction(Intent.EXTRA_TEXT)
+                                .setClass(context!!, MainActivity::class.java)
+                                .putExtra("classe", nomeclasseselez)
                         )
                         .build()
 
