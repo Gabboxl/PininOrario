@@ -161,7 +161,7 @@ class MainActivity : AppCompatActivity() {
                 .setWebviewChangelog(true)
                 .setButtonDoNotShowAgainClickListener { dialog, which ->
                     sharedPreferences.edit().putBoolean("checkupdates_startup", false).apply()
-                    Toasty.info(this, getString(R.string.info_modifica_scelta_aggiornamenti_toast)).show()
+                    Toasty.info(this, getString(R.string.info_modifica_scelta_aggiornamenti)).show()
                 }
                 .start()
         }
@@ -267,7 +267,7 @@ class MainActivity : AppCompatActivity() {
                     buttonApri.visibility = View.INVISIBLE
                 }
 
-                val text = getString(R.string.hai_selezionato_toast) + listviewPeriodi.getItemAtPosition(position).toString()
+                val text = getString(R.string.selezionato_toast) + listviewPeriodi.getItemAtPosition(position).toString()
                 Toasty.info(this@MainActivity, text, Toast.LENGTH_SHORT, true).show()
             }
         }
@@ -317,7 +317,7 @@ class MainActivity : AppCompatActivity() {
                 return@doAsync
             }
 
-            Snackbar.make(findViewById(R.id.myCoordinatorLayout), getString(R.string.orario_inDownload), Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(findViewById(R.id.myCoordinatorLayout), getString(R.string.orario_in_download), Snackbar.LENGTH_INDEFINITE)
                 .show()
 
 

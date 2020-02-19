@@ -64,7 +64,7 @@ class SettingsActivity : AppCompatActivity() {
 
             } else {
                 listprefshortcut.isEnabled = false
-                listprefshortcut.summary = getString(R.string.versione_android_incompatibile)
+                listprefshortcut.summary = getString(R.string.versione_android_noncompatibile)
             }
 
             listprefshortcut.setOnPreferenceChangeListener { preference, newValue ->
