@@ -22,12 +22,12 @@ class LoginDialog : DialogFragment() {
         } catch (e: NullPointerException){ }
 
         val dialog = AlertDialog.Builder(activity).setView(viewLayoutDialog)
-            .setTitle(getString(R.string.login_dialog_title))
+            .setTitle(getString(R.string.login))
             .setNegativeButton(getString(R.string.annulla_button)) { dialog, which ->
 
             }
-            .setNeutralButton(getString(R.string.test_login_button), null)
-            .setPositiveButton(getString(R.string.salva_button)) { dialog, which ->
+            .setNeutralButton(getString(R.string.test_login_btn), null)
+            .setPositiveButton(getString(R.string.salva)) { dialog, which ->
                 sharedPreferences.edit().putString("pinin_username", viewLayoutDialog.findViewById<EditText>(R.id.edit_username).text.toString()).apply()
                 sharedPreferences.edit().putString("pinin_password", viewLayoutDialog.findViewById<EditText>(R.id.edit_password).text.toString()).apply()
             }
@@ -37,7 +37,7 @@ class LoginDialog : DialogFragment() {
             val textusername = viewLayoutDialog.findViewById<EditText>(R.id.edit_username).text.toString()
             val textpassword = viewLayoutDialog.findViewById<EditText>(R.id.edit_password).text.toString()
             if(OrariUtils.checkLogin(context, textusername, textpassword)){
-            Toasty.success(context!!, getString(R.string.login_riuscito_toast), Toasty.LENGTH_SHORT).show()
+            Toasty.success(context!!, getString(R.string.login_riuscito), Toasty.LENGTH_SHORT).show()
         } else{
             Toasty.error(context!!, getString(R.string.credenziali_errate_toast), Toasty.LENGTH_SHORT).show()
         }

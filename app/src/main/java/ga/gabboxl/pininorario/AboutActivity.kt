@@ -33,7 +33,7 @@ class AboutActivity : MaterialAboutActivity() {
     private fun buildMisc(context: Context, miscCardBuilder: MaterialAboutCard.Builder){
         miscCardBuilder.addItem(MaterialAboutActionItem.Builder()
             .icon(ContextCompat.getDrawable(context, R.drawable.ic_update))
-            .text(R.string.version_about)
+            .text(R.string.versione_about)
             .subText(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE+ ")")
             .setOnClickAction {
                 AppUpdater(this)
@@ -67,7 +67,7 @@ class AboutActivity : MaterialAboutActivity() {
                     context.startActivity(i) }
             .build())
             .addItem(MaterialAboutActionItem.Builder()
-                .text(getString(R.string.pinin_orario_su_github_about))
+                .text(getString(R.string.pininorario_su_github_about))
                 .icon(IconicsDrawable(context)
                     .icon(CommunityMaterial.Icon.cmd_github_circle)
                     .color(IconicsColor.colorInt(ContextCompat.getColor(context, R.color.mal_color_icon_light_theme)))
