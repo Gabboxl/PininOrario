@@ -40,4 +40,7 @@
     <string name="annulla_button">Annulla</string>
     <string name="test_login_btn">Test login</string>
     <string name="versione_android_noncompatibile">Versione di Android non compatibile</string>
+    <string name="password_hint">Password</string>
+    <string name="username_hint">cognome.nome</string>
+    <string name="info_login_dialog">Inserisci il nome utente e password che utilizzi per accedere ai PC scolastici.</string>
 </resources>
