@@ -2,13 +2,13 @@
 <resources>
     <string name="scarica_orario">Télécharger emploi du temps</string>
     <string name="ricarica_periodi">recharger périodes</string>
-    <string name="visualizza_nomi_checkbox">Afficher noms des professeurs</string>
+    <string name="visualizza_nomi_checkbox">Visualizza nomi professori</string>
     <string name="title_activity_about">Info appli</string>
-    <string name="versione_about">Version</string>
+    <string name="versione_about">Versione</string>
     <string name="credits_about">Appli créée par Gabboxl</string>
     <string name="title_activity_settings">Paramètres</string>
     <string name="orario_apri">Ouvert</string>
-    <string name="orario_in_download">Téléchargement en cours…</string>
+    <string name="orario_in_download">In download…</string>
     <string name="orario_scaricato">Téléchargement complet.</string>
     <string name="apri_orario_button">Apri orario</string>
     <string name="stato_orario_interno_con_nomi">Stato orario interno (con nomi):</string>
