@@ -67,11 +67,11 @@
 
         <Button
                 android:id="@+id/buttonPeriodifresh"
-                android:layout_width="148dp"
-                android:layout_height="52dp"
+                android:layout_width="167dp"
+                android:layout_height="51dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginBottom="92dp"
+                android:layout_marginBottom="100dp"
                 android:text="@string/ricarica_periodi"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -105,29 +105,26 @@
                 android:id="@+id/statoStaticText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="52dp"
                 android:text="@string/stato_orario_interno_con_nomi"
                 android:textAlignment="center"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkboxNomi"
-                app:layout_constraintVertical_bias="0.364" />
+                app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
                 android:id="@+id/statoText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="27dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/seleziona_un_orario"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="@+id/statoStaticText"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/statoStaticText"
-                app:layout_constraintTop_toBottomOf="@+id/buttonPeriodifresh" />
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/statoStaticText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
