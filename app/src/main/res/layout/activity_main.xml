@@ -39,6 +39,7 @@
 
         <Button
                 android:id="@+id/buttonScarica"
+                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="61dp"
                 android:layout_marginStart="8dp"
@@ -63,11 +64,13 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.502"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                style="?attr/materialButtonOutlinedStyle" />
 
         <Button
                 android:id="@+id/buttonPeriodifresh"
-                android:layout_width="167dp"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
                 android:layout_height="51dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="32dp"
@@ -106,7 +109,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="52dp"
+                android:layout_marginBottom="44dp"
                 android:text="@string/stato_orario_interno_con_nomi"
                 android:textAlignment="center"
                 android:textStyle="bold"
@@ -118,13 +121,16 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:text="@string/seleziona_un_orario"
                 android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="@+id/statoStaticText"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/statoStaticText" />
+                app:layout_constraintStart_toEndOf="@+id/statoStaticText"
+                app:layout_constraintTop_toBottomOf="@+id/buttonPeriodifresh"
+                app:layout_constraintVertical_bias="0.391" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

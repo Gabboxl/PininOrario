@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.EditText
 import androidx.fragment.app.DialogFragment
 import androidx.preference.PreferenceManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import es.dmoral.toasty.Toasty
 
 class LoginDialog : DialogFragment() {
@@ -21,7 +22,8 @@ class LoginDialog : DialogFragment() {
             viewLayoutDialog.findViewById<EditText>(R.id.edit_password).setText(sharedPreferences.getString("pinin_password", ""))
         } catch (e: NullPointerException){ }
 
-        val dialog = AlertDialog.Builder(activity).setView(viewLayoutDialog)
+
+        val dialog = AlertDialog.Builder(context).setView(viewLayoutDialog)
             .setTitle(getString(R.string.login))
             .setNegativeButton(getString(R.string.annulla_button)) { dialog, which ->
 
