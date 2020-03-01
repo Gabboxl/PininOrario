@@ -133,6 +133,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/buttonPeriodifresh"
                 app:layout_constraintVertical_bias="0.391" />
 
+        <ProgressBar
+                android:id="@+id/orarioInternoLoadingBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/statoText"
+                app:layout_constraintEnd_toEndOf="@+id/statoText"
+                app:layout_constraintStart_toStartOf="@+id/statoText"
+                app:layout_constraintTop_toTopOf="@+id/statoText" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

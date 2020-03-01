@@ -221,32 +221,51 @@ class MainActivity : AppCompatActivity() {
                     return  //esco dalla funz se no da errore
                 }
 
-                //controllo login nell'intranet per l'orario interno (con i nomi)
-                if(OrariUtils.checkLogin(applicationContext)) {
-                    //controllo se è disponibile l'orario con i nomi
-                    val url =
-                        URL("https://intranet.itispininfarina.it/intrane/Orario/Interno/classi/" + OrariUtils.griglie[position] + ".png")
-                    val connection = url.openConnection() as HttpURLConnection
-                    connection.requestMethod = "GET"
-                    val encoded: String = Base64.encodeToString("$pininusername:$pininpassword".toByteArray(), Base64.DEFAULT)
-                    connection.setRequestProperty("Authorization", "Basic $encoded")
-                    connection.connect()
 
-                    if (connection.responseCode == 200) {//è disponibile
-                        checkboxNomi.isEnabled = true
-                        statoText.setTextColor(Color.GREEN)
-                        statoText.text = getString(R.string.orario_interno_disponibile)
-                    } else {//non è disponibile
-                        checkboxNomi.isChecked = false
-                        checkboxNomi.isEnabled = false
-                        statoText.setTextColor(Color.RED)
-                        statoText.text = getString(R.string.orario_interno_nondisponibile)
+                orarioInternoLoadingBar.visibility = View.VISIBLE
+                statoText.visibility = View.INVISIBLE
+                doAsync {
+                    //controllo login nell'intranet per l'orario interno (con i nomi)
+                    if (OrariUtils.checkLogin(applicationContext)) {
+                        //controllo se è disponibile l'orario con i nomi
+                        val url =
+                            URL("https://intranet.itispininfarina.it/intrane/Orario/Interno/classi/" + OrariUtils.griglie[position] + ".png")
+                        val connection = url.openConnection() as HttpURLConnection
+                        connection.requestMethod = "GET"
+                        val encoded: String = Base64.encodeToString(
+                            "$pininusername:$pininpassword".toByteArray(),
+                            Base64.DEFAULT
+                        )
+                        connection.setRequestProperty("Authorization", "Basic $encoded")
+                        connection.connect()
+
+                        if (connection.responseCode == 200) {//è disponibile
+                            uiThread {
+                                checkboxNomi.isEnabled = true
+                                statoText.setTextColor(Color.GREEN)
+                                statoText.text = getString(R.string.orario_interno_disponibile)
+                            }
+                        } else {//non è disponibile
+                            uiThread {
+                                checkboxNomi.isChecked = false
+                                checkboxNomi.isEnabled = false
+                                statoText.setTextColor(Color.RED)
+                                statoText.text = getString(R.string.orario_interno_nondisponibile)
+                            }
+                        }
+                    } else {
+                        uiThread {
+                            checkboxNomi.isChecked = false
+                            checkboxNomi.isEnabled = false
+                            statoText.setTextColor(Color.RED)
+                            statoText.text = getString(R.string.login_fallito)
+                        }
                     }
-                } else {
-                    checkboxNomi.isChecked = false
-                    checkboxNomi.isEnabled = false
-                    statoText.setTextColor(Color.RED)
-                    statoText.text = getString(R.string.login_fallito)
+
+                    uiThread {
+                        orarioInternoLoadingBar.visibility = View.INVISIBLE
+                        statoText.visibility = View.VISIBLE
+                    }
                 }
 
 
@@ -258,7 +277,7 @@ class MainActivity : AppCompatActivity() {
                     nomefileOrario = OrariUtils.griglie[posizionespinnerperiodi]
                 }
 
-                //controllo che il file sia già stato scaricato e quindi propongo di aprirlo
+                //se il file non è stato ancora scaricato propongo di aprirlo
                 if (File("/storage/emulated/0/Download/PininOrari//$nomefileOrario.png").exists()) {
                     buttonScarica.visibility = View.INVISIBLE
                     buttonApri.visibility = View.VISIBLE
