@@ -30,7 +30,7 @@
     <string name="permesso_richiesto">Permesso richiesto</string>
     <string name="richiesta_permesso_WRITE_EXTERNAL_STORAGE">Questa app ha bisogno del permesso WRITE_EXTERNAL_STORAGE per scaricare l\'orario!</string>
     <string name="indietro">indietro</string>
-    <string name="ok">ok</string>
+    <string name="ok">OK</string>
     <string name="autore_card_about">Autore</string>
     <string name="pininorario_su_github_about">PininOrario su Github</string>
     <string name="login">Login</string>
