@@ -285,9 +285,6 @@ class MainActivity : AppCompatActivity() {
                     buttonScarica.visibility = View.VISIBLE
                     buttonApri.visibility = View.INVISIBLE
                 }
-
-                val text = getString(R.string.selezionato_toast) + listviewPeriodi.getItemAtPosition(position).toString()
-                Toasty.info(this@MainActivity, text, Toast.LENGTH_SHORT, true).show()
             }
         }
 
