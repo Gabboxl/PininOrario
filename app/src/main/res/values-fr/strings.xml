@@ -26,7 +26,6 @@
     <string name="orario_interno_disponibile">disponibile</string>
     <string name="orario_interno_nondisponibile">non disponibile</string>
     <string name="login_fallito">Login fallito (controlla le credenziali nelle impostazioni)</string>
-    <string name="selezionato_toast">Hai selezionato:</string>
     <string name="permesso_richiesto">Permesso richiesto</string>
     <string name="richiesta_permesso_WRITE_EXTERNAL_STORAGE">Questa app ha bisogno del permesso WRITE_EXTERNAL_STORAGE per scaricare l\'orario!</string>
     <string name="indietro">indietro</string>
