@@ -55,18 +55,16 @@
 
         <Button
                 android:id="@+id/buttonApri"
-                android:layout_width="wrap_content"
-                android:layout_height="61dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="152dp"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="117dp"
+                android:layout_height="0dp"
                 android:text="@string/apri_orario_button"
                 android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/buttonScarica"
+                app:layout_constraintEnd_toEndOf="@+id/buttonScarica"
                 app:layout_constraintHorizontal_bias="0.50"
-                app:layout_constraintStart_toStartOf="parent"
-                style="?attr/materialButtonOutlinedStyle" />
+                app:layout_constraintStart_toStartOf="@+id/buttonScarica"
+                app:layout_constraintTop_toTopOf="@+id/buttonScarica" />
 
         <Button
                 android:id="@+id/buttonPeriodifresh"
@@ -122,15 +120,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/seleziona_un_orario"
                 android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/statoStaticText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/statoStaticText"
-                app:layout_constraintTop_toBottomOf="@+id/buttonPeriodifresh"
+                app:layout_constraintTop_toTopOf="@+id/statoStaticText"
                 app:layout_constraintVertical_bias="0.391" />
 
         <ProgressBar
