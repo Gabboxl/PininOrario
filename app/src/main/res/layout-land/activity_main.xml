@@ -78,13 +78,13 @@
                 android:layout_width="202dp"
                 android:layout_height="29dp"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="13dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/visualizza_nomi_checkbox"
+                app:layout_constraintBottom_toBottomOf="@+id/spinnerClassi"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/spinnerClassi"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/spinnerClassi" />
 
         <ProgressBar
                 android:id="@+id/listviewLoadingBar"
