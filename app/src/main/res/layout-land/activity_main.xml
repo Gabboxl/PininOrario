@@ -40,7 +40,6 @@
                 android:id="@+id/buttonScarica"
                 android:layout_width="wrap_content"
                 android:layout_height="61dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="196dp"
                 android:text="@string/scarica_orario"
                 android:visibility="invisible"
@@ -49,6 +48,7 @@
 
         <Button
                 android:id="@+id/buttonApri"
+                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="61dp"
                 android:layout_marginBottom="196dp"
@@ -60,6 +60,7 @@
 
         <Button
                 android:id="@+id/buttonPeriodifresh"
+                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="121dp"
                 android:layout_height="52dp"
                 android:layout_marginTop="8dp"
@@ -100,7 +101,7 @@
                 android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Stato orario interno (con nomi): "
+                android:text="@string/stato_orario_interno_con_nomi"
                 android:textAlignment="center"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -112,7 +113,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="seleziona un orario"
+                android:text="@string/seleziona_un_orario"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/listviewPeriodi"
