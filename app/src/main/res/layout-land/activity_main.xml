@@ -38,31 +38,32 @@
 
         <Button
                 android:id="@+id/buttonScarica"
-                android:layout_width="wrap_content"
-                android:layout_height="61dp"
+                android:layout_width="133dp"
+                android:layout_height="60dp"
                 android:layout_marginBottom="196dp"
                 android:text="@string/scarica_orario"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/listviewPeriodi" />
 
         <Button
                 android:id="@+id/buttonApri"
                 style="?attr/materialButtonOutlinedStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="117dp"
                 android:layout_height="61dp"
-                android:layout_marginBottom="196dp"
                 android:text="@string/apri_orario_button"
                 android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/buttonScarica"
                 app:layout_constraintEnd_toEndOf="@+id/buttonScarica"
-                app:layout_constraintStart_toStartOf="@+id/buttonScarica" />
+                app:layout_constraintStart_toStartOf="@+id/buttonScarica"
+                app:layout_constraintTop_toTopOf="@+id/buttonScarica" />
 
         <Button
                 android:id="@+id/buttonPeriodifresh"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="121dp"
-                android:layout_height="52dp"
+                android:layout_height="56dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="108dp"
