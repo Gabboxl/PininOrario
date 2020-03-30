@@ -39,13 +39,13 @@
         <Button
                 android:id="@+id/buttonScarica"
                 android:layout_width="133dp"
-                android:layout_height="60dp"
-                android:layout_marginBottom="196dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="@string/scarica_orario"
                 android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/listviewPeriodi" />
+                app:layout_constraintStart_toEndOf="@+id/listviewPeriodi"
+                app:layout_constraintTop_toBottomOf="@+id/checkboxNomi" />
 
         <Button
                 android:id="@+id/buttonApri"
@@ -65,13 +65,10 @@
                 android:layout_width="121dp"
                 android:layout_height="56dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="108dp"
                 android:text="@string/ricarica_periodi"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/buttonScarica"
                 app:layout_constraintStart_toStartOf="@+id/buttonScarica"
-                app:layout_constraintTop_toBottomOf="@+id/buttonScarica"
-                app:layout_constraintVertical_bias="0.92" />
+                app:layout_constraintTop_toBottomOf="@+id/buttonScarica" />
 
         <CheckBox
                 android:id="@+id/checkboxNomi"
@@ -113,7 +110,7 @@
                 android:id="@+id/statoText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:text="@string/seleziona_un_orario"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="@+id/statoStaticText"

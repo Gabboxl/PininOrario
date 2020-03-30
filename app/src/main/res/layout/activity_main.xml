@@ -20,18 +20,18 @@
                 android:layout_width="327dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         <ListView
                 android:id="@+id/listviewPeriodi"
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="24dp"
                 app:layout_constraintBottom_toTopOf="@+id/buttonScarica"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -43,28 +43,26 @@
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="61dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="152dp"
+                android:layout_marginBottom="16dp"
                 android:text="@string/scarica_orario"
                 android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/checkboxNomi"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.50"
+                app:layout_constraintHorizontal_bias="0.502"
                 app:layout_constraintStart_toStartOf="parent" />
 
         <Button
                 android:id="@+id/buttonApri"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="117dp"
-                android:layout_height="0dp"
+                android:layout_height="61dp"
                 android:text="@string/apri_orario_button"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/buttonScarica"
                 app:layout_constraintEnd_toEndOf="@+id/buttonScarica"
-                app:layout_constraintHorizontal_bias="0.50"
                 app:layout_constraintStart_toStartOf="@+id/buttonScarica"
-                app:layout_constraintTop_toTopOf="@+id/buttonScarica" />
+                app:layout_constraintTop_toTopOf="@+id/buttonScarica"
+                app:layout_constraintVertical_bias="1.0" />
 
         <Button
                 android:id="@+id/buttonPeriodifresh"
@@ -72,23 +70,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="51dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="100dp"
                 android:text="@string/ricarica_periodi"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/checkboxNomi"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/checkboxNomi" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/checkboxNomi" />
 
         <CheckBox
                 android:id="@+id/checkboxNomi"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="100dp"
+                android:layout_marginBottom="16dp"
                 android:text="@string/visualizza_nomi_checkbox"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/buttonPeriodifresh"
+                app:layout_constraintBottom_toTopOf="@+id/statoStaticText"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -107,12 +105,14 @@
                 android:id="@+id/statoStaticText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="44dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="40dp"
                 android:text="@string/stato_orario_interno_con_nomi"
                 android:textAlignment="center"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
@@ -120,26 +120,32 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="16dp"
                 android:text="@string/seleziona_un_orario"
                 android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="@+id/statoStaticText"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/statoStaticText"
-                app:layout_constraintTop_toTopOf="@+id/statoStaticText"
-                app:layout_constraintVertical_bias="0.391" />
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/statoStaticText" />
 
         <ProgressBar
                 android:id="@+id/orarioInternoLoadingBar"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginEnd="62dp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/statoText"
                 app:layout_constraintEnd_toEndOf="@+id/statoText"
                 app:layout_constraintStart_toStartOf="@+id/statoText"
                 app:layout_constraintTop_toTopOf="@+id/statoText" />
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
