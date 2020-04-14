@@ -4,7 +4,9 @@ import android.content.Context
 import android.util.Base64
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import java.net.HttpURLConnection
@@ -53,26 +55,26 @@ class OrariUtils {
         }
 
 
-        fun prendiOrario() {
+        suspend fun prendiOrario() {
+            withContext(IO) {
+                classi.clear()
 
-            classi.clear()
-
-            val apiResponse =
-                URL("https://gabboxlbot.altervista.org/pininorario/classi.php").readText()
+                val apiResponse =
+                    URL("https://gabboxlbot.altervista.org/pininorario/classi.php").readText()
 
 
-            listResources =
-                JSONArray(Gson().fromJson(apiResponse, arrayListOf<String>().javaClass))
+                listResources =
+                    JSONArray(Gson().fromJson(apiResponse, arrayListOf<String>().javaClass))
 
-            var counter = 0
-            while (listResources.length() - 1 >= counter) {
-                if (listResources.optJSONArray(counter).get(0).toString() == "grClasse") {
-                    classi.add(listResources.optJSONArray(counter).get(1).toString())
+                var counter = 0
+                while (listResources.length() - 1 >= counter) {
+                    if (listResources.optJSONArray(counter).get(0).toString() == "grClasse") {
+                        classi.add(listResources.optJSONArray(counter).get(1).toString())
+                    }
+                    counter++
+                    continue
                 }
-                counter++
-                continue
             }
-
         }
 
 
@@ -106,7 +108,8 @@ class OrariUtils {
                 connection.setRequestProperty("Authorization", "Basic $encoded")
 
                 connection.connect()
-                return@withContext connection.responseCode == 200
+
+                connection.responseCode == 200
             }
         }
 

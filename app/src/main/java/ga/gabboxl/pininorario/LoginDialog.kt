@@ -7,9 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import es.dmoral.toasty.Toasty
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class LoginDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -36,13 +41,18 @@ class LoginDialog : DialogFragment() {
             .show()
 
         dialog.getButton(Dialog.BUTTON_NEUTRAL).setOnClickListener {
-            val textusername = viewLayoutDialog.findViewById<EditText>(R.id.edit_username).text.toString()
-            val textpassword = viewLayoutDialog.findViewById<EditText>(R.id.edit_password).text.toString()
-            if(OrariUtils.checkLogin(context, textusername, textpassword)){
-            Toasty.success(context!!, getString(R.string.login_riuscito), Toasty.LENGTH_SHORT).show()
-        } else{
-            Toasty.error(context!!, getString(R.string.credenziali_errate_toast), Toasty.LENGTH_SHORT).show()
-        }
+            lifecycleScope.launch(Main) {
+                delay(2000)
+                val textusername =
+                    viewLayoutDialog.findViewById<EditText>(R.id.edit_username).text.toString()
+                val textpassword =
+                    viewLayoutDialog.findViewById<EditText>(R.id.edit_password).text.toString()
+                if (OrariUtils.checkLogin(context, textusername, textpassword)) {
+                    Toasty.success(context!!, getString(R.string.login_riuscito), Toasty.LENGTH_SHORT).show()
+                 } else {
+                    Toasty.error(context!!, getString(R.string.credenziali_errate_toast), Toasty.LENGTH_SHORT).show()
+                 }
+            }.invokeOnCompletion { cause: Throwable? -> println("debug1: sn mort perchè: $cause")  }
         }
 
         return dialog

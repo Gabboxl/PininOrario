@@ -33,6 +33,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -85,13 +86,14 @@ class MainActivity : AppCompatActivity() {
 
         //imposto la listview dei periodi su scelta singola
         listviewPeriodi.choiceMode = ListView.CHOICE_MODE_SINGLE
-
-
+        
         //richiamo la funzione principale
-
-        OrariUtils.prendiOrario()
-        val adapter1 = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, OrariUtils.classi)
-        spinnerClassi.adapter = adapter1
+        CoroutineScope(Main).launch {
+            OrariUtils.prendiOrario()
+            val adapter1 =
+                ArrayAdapter(baseContext, R.layout.support_simple_spinner_dropdown_item, OrariUtils.classi)
+            spinnerClassi.adapter = adapter1
+        }
 
 
         if(intent.getStringExtra("classe") != null) {
