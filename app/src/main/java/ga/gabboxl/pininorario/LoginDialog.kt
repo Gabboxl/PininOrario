@@ -42,7 +42,6 @@ class LoginDialog : DialogFragment() {
 
         dialog.getButton(Dialog.BUTTON_NEUTRAL).setOnClickListener {
             lifecycleScope.launch(Main) {
-                delay(2000)
                 val textusername =
                     viewLayoutDialog.findViewById<EditText>(R.id.edit_username).text.toString()
                 val textpassword =
