@@ -85,7 +85,7 @@ class OrariUtils {
                     username
                 }
 
-                val passwordfinal = if (username.isEmpty()) {
+                val passwordfinal = if (password.isEmpty()) {
                     sharedPreferences.getString("pinin_password", "")
                 } else {
                     password
