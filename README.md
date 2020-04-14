@@ -8,4 +8,4 @@ Google services are deactivated in *debug* builds (you can modify this in the ap
 ## Requirements
 ### Crashlytics
 Put your *google-services.json* file in app/ .
-You can obtain it from your Firebase console by adding you app.
+You can obtain it from the Firebase console by adding your app.
