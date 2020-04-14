@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.Base64
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import java.net.HttpURLConnection
 import java.net.URL
@@ -74,35 +76,38 @@ class OrariUtils {
         }
 
 
-        fun checkLogin(context: Context?, username: String = "", password: String = ""): Boolean {
+        suspend fun checkLogin(context: Context?, username: String = "", password: String = ""): Boolean {
+            return withContext(IO) {
+                val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+                val usernamefinal = if (username.isEmpty()) {
+                    sharedPreferences.getString("pinin_username", "")
+                } else {
+                    username
+                }
 
-            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-            val usernamefinal = if (username.isEmpty()) {
-                sharedPreferences.getString("pinin_username", "")
-            } else {
-                username
+                val passwordfinal = if (username.isEmpty()) {
+                    sharedPreferences.getString("pinin_password", "")
+                } else {
+                    password
+                }
+
+
+                val intranetUrl = URL("https://intranet.itispininfarina.it/intrane")
+
+                val connection = intranetUrl.openConnection() as HttpURLConnection
+                connection.requestMethod = "GET"
+
+                val encoded: String =
+                    Base64.encodeToString(
+                        "$usernamefinal:$passwordfinal".toByteArray(),
+                        Base64.DEFAULT
+                    )
+
+                connection.setRequestProperty("Authorization", "Basic $encoded")
+
+                connection.connect()
+                return@withContext connection.responseCode == 200
             }
-
-            val passwordfinal = if (username.isEmpty()) {
-                sharedPreferences.getString("pinin_password", "")
-            } else {
-                password
-            }
-
-
-            val intranetUrl = URL("https://intranet.itispininfarina.it/intrane")
-
-            val connection = intranetUrl.openConnection() as HttpURLConnection
-            connection.requestMethod = "GET"
-
-            val encoded: String =
-                Base64.encodeToString("$usernamefinal:$passwordfinal".toByteArray(), Base64.DEFAULT)
-
-            connection.setRequestProperty("Authorization", "Basic $encoded")
-
-            connection.connect()
-
-            return connection.responseCode == 200
         }
 
         fun getUsername(context: Context?): String? {

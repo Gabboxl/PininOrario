@@ -29,8 +29,12 @@ import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.google.android.material.snackbar.Snackbar
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.Default
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
@@ -103,10 +107,10 @@ class MainActivity : AppCompatActivity() {
             buttonPeriodifresh.isEnabled = false
             listviewPeriodi.visibility = View.INVISIBLE
             listviewLoadingBar.visibility = View.VISIBLE
-            doAsync {
+            CoroutineScope(IO).launch {
                 OrariUtils.scaricaPeriodi(posizionespinnerclassi)
 
-                uiThread {
+                withContext(Main) {
                     val adattatore =
                         ArrayAdapter(baseContext, R.layout.listview_row, R.id.textviewperiodi_row, OrariUtils.periodi) //utilizzo basecontext per utilizzare il contesto iniziale (Mainactivity) siccome sto eseguendo il codice all'interno di un altro contesto asincrono (anko)
                     listviewPeriodi.adapter = adattatore
@@ -177,7 +181,7 @@ class MainActivity : AppCompatActivity() {
 
                 listviewPeriodi.visibility = View.INVISIBLE
                 listviewLoadingBar.visibility = View.VISIBLE
-                doAsync {
+                CoroutineScope(IO).launch {
 
 
                     if (spinnerClassi.getItemAtPosition(position).toString().startsWith("Selezionate")) {
@@ -185,7 +189,7 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     OrariUtils.scaricaPeriodi(posizionespinnerclassi)
-                    uiThread {
+                    withContext(Main) {
 
                         val adattatore =
                             ArrayAdapter(
@@ -224,7 +228,7 @@ class MainActivity : AppCompatActivity() {
 
                 orarioInternoLoadingBar.visibility = View.VISIBLE
                 statoText.visibility = View.INVISIBLE
-                doAsync {
+                CoroutineScope(IO).launch {
                     //controllo login nell'intranet per l'orario interno (con i nomi)
                     if (OrariUtils.checkLogin(applicationContext)) {
                         //controllo se è disponibile l'orario con i nomi
@@ -240,13 +244,13 @@ class MainActivity : AppCompatActivity() {
                         connection.connect()
 
                         if (connection.responseCode == 200) {//è disponibile
-                            uiThread {
+                            withContext(Main) {
                                 checkboxNomi.isEnabled = true
                                 statoText.setTextColor(Color.GREEN)
                                 statoText.text = getString(R.string.orario_interno_disponibile)
                             }
                         } else {//non è disponibile
-                            uiThread {
+                            withContext(Main) {
                                 checkboxNomi.isChecked = false
                                 checkboxNomi.isEnabled = false
                                 statoText.setTextColor(Color.RED)
@@ -254,7 +258,7 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                     } else {
-                        uiThread {
+                        withContext(Main) {
                             checkboxNomi.isChecked = false
                             checkboxNomi.isEnabled = false
                             statoText.setTextColor(Color.RED)
@@ -262,7 +266,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
 
-                    uiThread {
+                    runOnUiThread {
                         orarioInternoLoadingBar.visibility = View.INVISIBLE
                         statoText.visibility = View.VISIBLE
                     }
@@ -321,7 +325,7 @@ class MainActivity : AppCompatActivity() {
 
     //funzione x scaricare foto dell'orario
     fun scaricaOrario() {
-        doAsync {
+        CoroutineScope(IO).launch {
 
             //controllo permesso per l'accesso alla memoria
             if (ContextCompat.checkSelfPermission(
@@ -330,7 +334,7 @@ class MainActivity : AppCompatActivity() {
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
                 richiediWritePermission()
-                return@doAsync
+                return@launch
             }
 
             Snackbar.make(findViewById(R.id.myCoordinatorLayout), getString(R.string.orario_in_download), Snackbar.LENGTH_INDEFINITE)
@@ -392,8 +396,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun richiediWritePermission() {
-        doAsync {
-
+        CoroutineScope(Default).launch {
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     this@MainActivity,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -411,7 +414,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     .setNegativeButton(getString(R.string.indietro)) { dialog, _ -> dialog.dismiss() } //onlick funzione
 
-                uiThread { alertpermesso.create().show() }
+                withContext(Main) { alertpermesso.create().show() }
             } else {
                 ActivityCompat.requestPermissions(
                     this@MainActivity,
