@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
 
         //imposto la listview dei periodi su scelta singola
         listviewPeriodi.choiceMode = ListView.CHOICE_MODE_SINGLE
-        
+
         //richiamo la funzione principale
         CoroutineScope(Main).launch {
             OrariUtils.prendiOrario()
@@ -102,21 +102,24 @@ class MainActivity : AppCompatActivity() {
 
 
         buttonPeriodifresh.setOnClickListener {
-            buttonPeriodifresh.isEnabled = false
-            listviewPeriodi.visibility = View.INVISIBLE
-            listviewLoadingBar.visibility = View.VISIBLE
-            CoroutineScope(IO).launch {
+            CoroutineScope(Main).launch {
+
+                buttonPeriodifresh.isEnabled = false
+                listviewPeriodi.visibility = View.INVISIBLE
+                listviewLoadingBar.visibility = View.VISIBLE
                 OrariUtils.scaricaPeriodi(posizionespinnerclassi)
 
-                withContext(Main) {
-                    val adattatore =
-                        ArrayAdapter(baseContext, R.layout.listview_row, R.id.textviewperiodi_row, OrariUtils.periodi) //utilizzo basecontext per utilizzare il contesto iniziale (Mainactivity) siccome sto eseguendo il codice all'interno di un altro contesto asincrono (anko)
-                    listviewPeriodi.adapter = adattatore
-                    listviewPeriodi.visibility = View.VISIBLE
-                    listviewLoadingBar.visibility = View.INVISIBLE
-                    buttonPeriodifresh.isEnabled = true
-                }
-
+                val adattatore =
+                    ArrayAdapter(
+                        baseContext,
+                        R.layout.listview_row,
+                        R.id.textviewperiodi_row,
+                        OrariUtils.periodi
+                    ) //utilizzo basecontext per utilizzare il contesto iniziale (Mainactivity) siccome sto eseguendo il codice all'interno di un altro contesto asincrono (anko)
+                listviewPeriodi.adapter = adattatore
+                listviewPeriodi.visibility = View.VISIBLE
+                listviewLoadingBar.visibility = View.INVISIBLE
+                buttonPeriodifresh.isEnabled = true
             }
         }
 

@@ -5,6 +5,7 @@ import android.util.Base64
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -22,36 +23,54 @@ class OrariUtils {
         private var codiceclasse = ""
 
 
-        fun scaricaPeriodi(posizclasse: Int) {
+        suspend fun scaricaPeriodi(posizclasse: Int) {
+            withContext(IO) {
 
-            val apiResponsePeriodi =
-                URL("https://gabboxlbot.altervista.org/pininorario/periodi.php").readText()
-            val jsonPeriodi =
-                JSONArray(Gson().fromJson(apiResponsePeriodi, arrayListOf<String>().javaClass))
+                val apiResponsePeriodi =
+                    URL("https://gabboxlbot.altervista.org/pininorario/periodi.php").readText()
 
-            periodi.clear()
+                withContext(Default) {
 
-            var contatore = 0
-            while ((listResources.length() - 1) >= contatore) {
-                if (listResources.optJSONArray(contatore).get(1).toString() == classi[posizclasse]) {
-                    codiceclasse = listResources.optJSONArray(contatore).get(2).toString()
+                    val jsonPeriodi =
+                        JSONArray(
+                            Gson().fromJson(
+                                apiResponsePeriodi,
+                                arrayListOf<String>().javaClass
+                            )
+                        )
+
+                    periodi.clear()
+
+                    var contatore = 0
+                    while ((listResources.length() - 1) >= contatore) {
+                        if (listResources.optJSONArray(contatore).get(1)
+                                .toString() == classi[posizclasse]
+                        ) {
+                            codiceclasse = listResources.optJSONArray(contatore).get(2).toString()
+                        }
+                        contatore++
+                    }      //fine while
+
+
+                    var contatore2 = 0
+                    griglie = arrayListOf()
+
+                    while ((jsonPeriodi.length() - 1) > contatore2) {
+                        if (jsonPeriodi.optJSONArray(contatore2).get(0)
+                                .toString() == codiceclasse
+                        ) {
+                            periodi.add(
+                                jsonPeriodi.optJSONArray(contatore2).get(1).toString()
+                            ) // aggiungo i periodi "EDT N." all'array
+                            griglie.add(
+                                jsonPeriodi.optJSONArray(contatore2).get(2).toString()
+                            ) //aggiungo i link (semi-link) alle griglie all'array dichiarati ad inizio funzione del bottone
+                        }
+                        contatore2++
+                    }
+
                 }
-                contatore++
-            }      //fine while
-
-
-            var contatore2 = 0
-            griglie = arrayListOf()
-
-            while ((jsonPeriodi.length() - 1) > contatore2) {
-                if (jsonPeriodi.optJSONArray(contatore2).get(0).toString() == codiceclasse) {
-                    periodi.add(jsonPeriodi.optJSONArray(contatore2).get(1).toString()) // aggiungo i periodi "EDT N." all'array
-                    griglie.add(jsonPeriodi.optJSONArray(contatore2).get(2).toString()) //aggiungo i link (semi-link) alle griglie all'array dichiarati ad inizio funzione del bottone
-                }
-                contatore2++
             }
-
-
         }
 
 
