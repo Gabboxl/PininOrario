@@ -2,7 +2,7 @@
 
 ( ͡° ͜ʖ ͡°)
 
-# Note:
+## Note
 Google services are deactivated in *debug* builds (you can modify this in the app's build.gradle file).
 
 ## Requirements
