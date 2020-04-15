@@ -9,7 +9,6 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.os.StrictMode
 import android.util.Base64
 import android.view.Menu
 import android.view.MenuItem
@@ -33,7 +32,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -87,9 +85,9 @@ class MainActivity : AppCompatActivity() {
         //imposto la listview dei periodi su scelta singola
         listviewPeriodi.choiceMode = ListView.CHOICE_MODE_SINGLE
 
-        //richiamo la funzione principale
+        //richiamo la funzione per prendere le classi
         CoroutineScope(Main).launch {
-            OrariUtils.prendiOrario()
+            OrariUtils.prendiClassi()
             val adapter1 =
                 ArrayAdapter(baseContext, R.layout.support_simple_spinner_dropdown_item, OrariUtils.classi)
             spinnerClassi.adapter = adapter1
@@ -107,7 +105,7 @@ class MainActivity : AppCompatActivity() {
                 buttonPeriodifresh.isEnabled = false
                 listviewPeriodi.visibility = View.INVISIBLE
                 listviewLoadingBar.visibility = View.VISIBLE
-                OrariUtils.scaricaPeriodi(posizionespinnerclassi)
+                OrariUtils.prendiPeriodi(posizionespinnerclassi)
 
                 val adattatore =
                     ArrayAdapter(
@@ -189,7 +187,7 @@ class MainActivity : AppCompatActivity() {
                         buttonScarica.visibility = View.INVISIBLE
                     }
 
-                    OrariUtils.scaricaPeriodi(posizionespinnerclassi)
+                    OrariUtils.prendiPeriodi(posizionespinnerclassi)
                     withContext(Main) {
 
                         val adattatore =

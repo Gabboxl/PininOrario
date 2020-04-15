@@ -22,8 +22,29 @@ class OrariUtils {
         var classi = arrayListOf<String>()
         private var codiceclasse = ""
 
+        suspend fun prendiClassi() {
+            withContext(IO) {
+                classi.clear()
 
-        suspend fun scaricaPeriodi(posizclasse: Int) {
+                val apiResponse =
+                    URL("https://gabboxlbot.altervista.org/pininorario/classi.php").readText()
+
+
+                listResources =
+                    JSONArray(Gson().fromJson(apiResponse, arrayListOf<String>().javaClass))
+
+                var counter = 0
+                while (listResources.length() - 1 >= counter) {
+                    if (listResources.optJSONArray(counter).get(0).toString() == "grClasse") {
+                        classi.add(listResources.optJSONArray(counter).get(1).toString())
+                    }
+                    counter++
+                    continue
+                }
+            }
+        }
+
+        suspend fun prendiPeriodi(posizclasse: Int) {
             withContext(IO) {
 
                 val apiResponsePeriodi =
@@ -69,29 +90,6 @@ class OrariUtils {
                         contatore2++
                     }
 
-                }
-            }
-        }
-
-
-        suspend fun prendiOrario() {
-            withContext(IO) {
-                classi.clear()
-
-                val apiResponse =
-                    URL("https://gabboxlbot.altervista.org/pininorario/classi.php").readText()
-
-
-                listResources =
-                    JSONArray(Gson().fromJson(apiResponse, arrayListOf<String>().javaClass))
-
-                var counter = 0
-                while (listResources.length() - 1 >= counter) {
-                    if (listResources.optJSONArray(counter).get(0).toString() == "grClasse") {
-                        classi.add(listResources.optJSONArray(counter).get(1).toString())
-                    }
-                    counter++
-                    continue
                 }
             }
         }
