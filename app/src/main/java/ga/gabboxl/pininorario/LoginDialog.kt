@@ -22,10 +22,8 @@ class LoginDialog : DialogFragment() {
         val inflater: LayoutInflater = activity!!.layoutInflater
         val viewLayoutDialog: View = inflater.inflate(R.layout.login_dialog_layout, null)
 
-        try {
-            viewLayoutDialog.findViewById<EditText>(R.id.edit_username).setText(sharedPreferences.getString("pinin_username", ""))
-            viewLayoutDialog.findViewById<EditText>(R.id.edit_password).setText(sharedPreferences.getString("pinin_password", ""))
-        } catch (e: NullPointerException){ }
+        viewLayoutDialog.findViewById<EditText>(R.id.edit_username).setText(sharedPreferences.getString("pinin_username", ""))
+        viewLayoutDialog.findViewById<EditText>(R.id.edit_password).setText(sharedPreferences.getString("pinin_password", ""))
 
 
         val dialog = AlertDialog.Builder(context).setView(viewLayoutDialog)
