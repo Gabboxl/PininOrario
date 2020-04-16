@@ -83,9 +83,4 @@ class AboutActivity : MaterialAboutActivity() {
     override fun getActivityTitle(): CharSequence? {
         return getString(R.string.title_activity_about)
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
 }
