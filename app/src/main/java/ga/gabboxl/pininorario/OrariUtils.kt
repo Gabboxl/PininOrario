@@ -4,10 +4,8 @@ import android.content.Context
 import android.util.Base64
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import java.net.HttpURLConnection
@@ -18,8 +16,8 @@ class OrariUtils {
     companion object {
         var periodi = arrayListOf<String>()
         var griglie = arrayListOf<String>()
-        lateinit var listResources: JSONArray
         var classi = arrayListOf<String>()
+        private lateinit var listResources: JSONArray
         private var codiceclasse = ""
 
         suspend fun prendiClassi() {

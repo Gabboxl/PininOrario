@@ -323,7 +323,7 @@ class MainActivity : AppCompatActivity() {
 
 
     //funzione x scaricare foto dell'orario
-    fun scaricaOrario() {
+    private fun scaricaOrario() {
         CoroutineScope(IO).launch {
 
             //controllo permesso per l'accesso alla memoria
