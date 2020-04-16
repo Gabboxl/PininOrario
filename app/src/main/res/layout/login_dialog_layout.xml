@@ -8,8 +8,8 @@
             android:id="@+id/edit_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/username_hint"
             android:autofillHints="username"
+            android:hint="@string/username_hint"
             android:inputType="text" />
 
     <EditText
@@ -17,16 +17,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/edit_username"
+            android:autofillHints="password"
             android:hint="@string/password_hint"
-            android:inputType="textPassword"
-            android:autofillHints="password" />
+            android:inputType="textPassword" />
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/edit_password"
             android:drawableStart="@drawable/ic_info_outline_black_24dp"
             android:drawablePadding="8dp"
-            android:layout_below="@id/edit_password"
             android:text="@string/info_login_dialog" />
 
 </RelativeLayout>
