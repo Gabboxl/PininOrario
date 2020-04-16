@@ -8,7 +8,9 @@
             android:id="@+id/edit_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/username_hint"/>
+            android:hint="@string/username_hint"
+            android:autofillHints="username"
+            android:inputType="text" />
 
     <EditText
             android:id="@+id/edit_password"
@@ -16,7 +18,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/edit_username"
             android:hint="@string/password_hint"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:autofillHints="password" />
+
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
