@@ -72,7 +72,7 @@ class SettingsActivity : AppCompatActivity() {
                     val nomeclasseselez = OrariUtils.classi[newValue.toString().toInt() - 1]
 
                     Toasty.success(
-                        this.context!!,
+                        this.requireContext(),
                         newValue.toString(),
                         Toasty.LENGTH_SHORT
                     ).show()
@@ -80,7 +80,7 @@ class SettingsActivity : AppCompatActivity() {
 
                     val shortcutManager =
                         getSystemService<ShortcutManager>(
-                            this.context!!,
+                            this.requireContext(),
                             ShortcutManager::class.java
                         )
                     val shortcut = ShortcutInfo.Builder(context, "shortclasse1")
@@ -90,7 +90,7 @@ class SettingsActivity : AppCompatActivity() {
                         //.setIntent(Intent().setAction(Intent.EXTRA_TEXT).setClass(context!!, MainActivity::class.java).putExtra("classe", OrariUtils.listResources.optJSONArray(listprefshortcut.value.toInt() -1).get(2).toString()))
                         .setIntent(
                             Intent().setAction(Intent.EXTRA_TEXT)
-                                .setClass(context!!, MainActivity::class.java)
+                                .setClass(requireContext(), MainActivity::class.java)
                                 .putExtra("classe", nomeclasseselez)
                         )
                         .build()
@@ -117,7 +117,7 @@ class SettingsActivity : AppCompatActivity() {
 
         private fun openDialog(){
             val dialog = LoginDialog()
-            dialog.show(activity!!.supportFragmentManager, "login_dialog")
+            dialog.show(requireActivity().supportFragmentManager, "login_dialog")
         }
     }
 }
