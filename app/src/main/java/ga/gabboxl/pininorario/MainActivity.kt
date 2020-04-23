@@ -34,6 +34,8 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
@@ -227,22 +229,26 @@ class MainActivity : AppCompatActivity() {
 
                 orarioInternoLoadingBar.visibility = View.VISIBLE
                 statoText.visibility = View.INVISIBLE
-                CoroutineScope(IO).launch {
+                CoroutineScope(Default).launch {
                     //controllo login nell'intranet per l'orario interno (con i nomi)
                     if (OrariUtils.checkLogin(applicationContext)) {
+
                         //controllo se è disponibile l'orario con i nomi
-                        val url =
-                            URL("https://intranet.itispininfarina.it/intrane/Orario/Interno/classi/" + OrariUtils.griglie[position] + ".png")
-                        val connection = url.openConnection() as HttpURLConnection
-                        connection.requestMethod = "GET"
+                        val clientok = OkHttpClient()
+
                         val encoded: String = Base64.encodeToString(
                             "$pininusername:$pininpassword".toByteArray(),
                             Base64.DEFAULT
                         )
-                        connection.setRequestProperty("Authorization", "Basic $encoded")
-                        connection.connect()
 
-                        if (connection.responseCode == 200) {//è disponibile
+                        val reqok = Request.Builder()
+                            .url("https://intranet.itispininfarina.it/intrane/Orario/Interno/classi/" + OrariUtils.griglie[position] + ".png")
+                            .get()
+                            .header("Authorization", "Basic $encoded")
+                            .build()
+                        val respok = withContext(IO) { clientok.newCall(reqok).execute() }
+
+                        if (respok.code == 200) {//è disponibile
                             withContext(Main) {
                                 checkboxNomi.isEnabled = true
                                 statoText.setTextColor(Color.GREEN)
