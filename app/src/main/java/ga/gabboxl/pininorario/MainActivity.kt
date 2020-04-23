@@ -238,7 +238,7 @@ class MainActivity : AppCompatActivity() {
 
                         val encoded: String = Base64.encodeToString(
                             "$pininusername:$pininpassword".toByteArray(),
-                            Base64.DEFAULT
+                            Base64.NO_WRAP
                         )
 
                         val reqok = Request.Builder()
