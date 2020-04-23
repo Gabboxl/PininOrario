@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 class LoginDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val inflater: LayoutInflater = activity!!.layoutInflater
+        val inflater: LayoutInflater = requireActivity().layoutInflater
         val viewLayoutDialog: View = inflater.inflate(R.layout.login_dialog_layout, null)
 
         viewLayoutDialog.findViewById<EditText>(R.id.edit_username).setText(sharedPreferences.getString("pinin_username", ""))
@@ -42,9 +42,9 @@ class LoginDialog : DialogFragment() {
                 val textpassword =
                     viewLayoutDialog.findViewById<EditText>(R.id.edit_password).text.toString()
                 if (OrariUtils.checkLogin(context, textusername, textpassword)) {
-                    Toasty.success(context!!, getString(R.string.login_riuscito), Toasty.LENGTH_SHORT).show()
+                    Toasty.success(requireContext(), getString(R.string.login_riuscito), Toasty.LENGTH_SHORT).show()
                  } else {
-                    Toasty.error(context!!, getString(R.string.credenziali_errate_toast), Toasty.LENGTH_SHORT).show()
+                    Toasty.error(requireContext(), getString(R.string.credenziali_errate_toast), Toasty.LENGTH_SHORT).show()
                  }
             }.invokeOnCompletion { cause: Throwable? -> println("debug1: sn mort perchè: $cause")  }
         }

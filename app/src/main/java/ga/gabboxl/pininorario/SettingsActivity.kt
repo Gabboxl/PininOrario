@@ -79,7 +79,7 @@ class SettingsActivity : AppCompatActivity() {
 
 
                     val shortcutManager =
-                        getSystemService<ShortcutManager>(
+                        getSystemService(
                             this.requireContext(),
                             ShortcutManager::class.java
                         )
