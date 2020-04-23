@@ -37,8 +37,6 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.File
-import java.net.HttpURLConnection
-import java.net.URL
 
 
 class MainActivity : AppCompatActivity() {
@@ -236,7 +234,7 @@ class MainActivity : AppCompatActivity() {
                         //controllo se è disponibile l'orario con i nomi
                         val clientok = OkHttpClient()
 
-                        val encoded: String = Base64.encodeToString(
+                        val encodedlogin: String = Base64.encodeToString(
                             "$pininusername:$pininpassword".toByteArray(),
                             Base64.NO_WRAP
                         )
@@ -244,7 +242,7 @@ class MainActivity : AppCompatActivity() {
                         val reqok = Request.Builder()
                             .url("https://intranet.itispininfarina.it/intrane/Orario/Interno/classi/" + OrariUtils.griglie[position] + ".png")
                             .get()
-                            .header("Authorization", "Basic $encoded")
+                            .header("Authorization", "Basic $encodedlogin")
                             .build()
                         val respok = withContext(IO) { clientok.newCall(reqok).execute() }
 
