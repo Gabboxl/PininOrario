@@ -68,7 +68,7 @@ class AboutActivity : MaterialAboutActivity() {
             .build())
             .addItem(MaterialAboutActionItem.Builder()
                 .text(getString(R.string.pininorario_su_github_about))
-                .icon(IconicsDrawable(this, CommunityMaterial.Icon.cmd_github).apply {
+                .icon(IconicsDrawable(this, CommunityMaterial.Icon2.cmd_github).apply {
                     colorInt = ContextCompat.getColor(context, R.color.mal_color_icon_light_theme)
                     sizeDp = 18
                 })
