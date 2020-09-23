@@ -355,7 +355,7 @@ class MainActivity : AppCompatActivity() {
 
             val request = DownloadManager.Request(downloadUrl)
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
-            request.addRequestHeader("Authorization", "Basic $encoded")
+            //request.addRequestHeader("Authorization", "Basic $encoded")
             request.setAllowedOverRoaming(false)
             request.setTitle("PininOrario - $nomefileOrario.png")
             request.setDescription("In download $nomefileOrario.png")
