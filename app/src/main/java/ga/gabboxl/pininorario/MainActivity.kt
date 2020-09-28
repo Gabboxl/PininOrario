@@ -29,11 +29,13 @@ import com.google.android.material.snackbar.Snackbar
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.File
@@ -89,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(Main).launch {
             OrariUtils.prendiClassi()
             val adapter1 =
-                ArrayAdapter(baseContext, R.layout.support_simple_spinner_dropdown_item, OrariUtils.classi)
+                ArrayAdapter(this@MainActivity, R.layout.support_simple_spinner_dropdown_item, OrariUtils.classi) //this@MainActivity fixes aesthetics problems
             spinnerClassi.adapter = adapter1
 
             //set class if shortcut data is present
@@ -109,7 +111,7 @@ class MainActivity : AppCompatActivity() {
 
                 val adattatore =
                     ArrayAdapter(
-                        baseContext,
+                        this@MainActivity,
                         R.layout.listview_row,
                         R.id.textviewperiodi_row,
                         OrariUtils.periodi
@@ -192,7 +194,7 @@ class MainActivity : AppCompatActivity() {
 
                         val adattatore =
                             ArrayAdapter(
-                                baseContext,
+                                this@MainActivity,
                                 R.layout.listview_row,
                                 R.id.textviewperiodi_row,
                                 OrariUtils.periodi
