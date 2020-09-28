@@ -91,11 +91,11 @@ class MainActivity : AppCompatActivity() {
             val adapter1 =
                 ArrayAdapter(baseContext, R.layout.support_simple_spinner_dropdown_item, OrariUtils.classi)
             spinnerClassi.adapter = adapter1
-        }
 
-
-        if(intent.getStringExtra("classe") != null) {
-            spinnerClassi.setSelection(OrariUtils.classi.indexOf(intent.getStringExtra("classe")!!))
+            //set class if shortcut data is present
+            if(intent.getStringExtra("classe") != null) {
+                spinnerClassi.setSelection(OrariUtils.classi.indexOf(intent.getStringExtra("classe")!!))
+            }
         }
 
 
