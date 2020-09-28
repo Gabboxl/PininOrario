@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
@@ -25,8 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/edit_password"
-            android:drawableStart="@drawable/ic_info_outline_black_24dp"
             android:drawablePadding="8dp"
-            android:text="@string/info_login_dialog" />
+            android:text="@string/info_login_dialog"
+            app:drawableStartCompat="@drawable/ic_info_outline_black_24dp" />
 
 </RelativeLayout>
