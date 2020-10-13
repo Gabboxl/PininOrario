@@ -77,7 +77,7 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:4.9.0"
 
 
-    implementation "com.mikepenz:iconics-core:5.0.3"
+    implementation "com.mikepenz:iconics-core:5.1.0"
     implementation 'com.mikepenz:community-material-typeface:5.3.45.1-kotlin@aar'
 
     testImplementation 'junit:junit:4.13.1'
