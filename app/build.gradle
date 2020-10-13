@@ -78,7 +78,7 @@ dependencies {
 
 
     implementation "com.mikepenz:iconics-core:5.1.0"
-    implementation 'com.mikepenz:community-material-typeface:5.3.45.1-kotlin@aar'
+    implementation 'com.mikepenz:community-material-typeface:5.3.45.2-kotlin@aar'
 
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test:runner:1.3.0'
