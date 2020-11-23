@@ -6,6 +6,6 @@
 Google services are deactivated in *debug* builds (you can modify this in the app's build.gradle file).
 
 ## Requirements
-### Firebase services (Crashlytics, perf)
+### Firebase services (Crashlytics, Perf)
 Put your *google-services.json* file in app/ .
 You can obtain it from the Firebase console by adding your app.
