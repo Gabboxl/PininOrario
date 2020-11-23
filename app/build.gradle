@@ -6,6 +6,8 @@ apply plugin: 'com.google.gms.google-services'
 
 apply plugin: 'com.google.firebase.firebase-perf'
 
+apply plugin: 'com.google.firebase.crashlytics'
+
 android {
     compileSdkVersion 29
     defaultConfig {
@@ -23,7 +25,7 @@ android {
 
     buildTypes {
         debug{
-            manifestPlaceholders = [crashlyticsCollectionEnabled:"false"]
+            /* manifestPlaceholders = [crashlyticsCollectionEnabled:"false"]
             ext.enableCrashlytics=false
 
             FirebasePerformance {
@@ -31,10 +33,12 @@ android {
                 // automatic HTTP/S network request monitoring
                 // for a specific build variant at compile time.
                 instrumentationEnabled false
+            } */
 
             versionNameSuffix "-debug"
         }
         release {
+            //manifestPlaceholders = [crashlyticsCollectionEnabled:"true"]
             debuggable false
             minifyEnabled true
             shrinkResources true
