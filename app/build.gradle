@@ -2,8 +2,6 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'com.google.gms.google-services'
 
 apply plugin: 'com.google.firebase.firebase-perf'
@@ -19,6 +17,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
+    buildFeatures {
+        viewBinding true
+    }
+
     buildTypes {
         debug{
             manifestPlaceholders = [crashlyticsCollectionEnabled:"false"]
@@ -29,16 +31,13 @@ android {
                 // automatic HTTP/S network request monitoring
                 // for a specific build variant at compile time.
                 instrumentationEnabled false
-            }
 
             versionNameSuffix "-debug"
         }
         release {
-            manifestPlaceholders = [crashlyticsCollectionEnabled:"true"]
             debuggable false
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     productFlavors {

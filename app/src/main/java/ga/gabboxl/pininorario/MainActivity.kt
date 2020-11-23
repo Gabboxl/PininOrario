@@ -27,7 +27,7 @@ import com.github.javiersantos.appupdater.enums.Display
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.google.android.material.snackbar.Snackbar
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.activity_main.*
+import ga.gabboxl.pininorario.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Default
@@ -66,10 +66,12 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
     }
 
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         //salvo in una variabile i valori delle impostazioni dell'app (shared preferences) per poi usufruirne più tardi
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
@@ -85,28 +87,28 @@ class MainActivity : AppCompatActivity() {
 
 
         //imposto la listview dei periodi su scelta singola
-        listviewPeriodi.choiceMode = ListView.CHOICE_MODE_SINGLE
+        binding.listviewPeriodi.choiceMode = ListView.CHOICE_MODE_SINGLE
 
         //richiamo la funzione per prendere le classi
         CoroutineScope(Main).launch {
             OrariUtils.prendiClassi()
             val adapter1 =
                 ArrayAdapter(this@MainActivity, R.layout.support_simple_spinner_dropdown_item, OrariUtils.classi) //this@MainActivity fixes aesthetics problems
-            spinnerClassi.adapter = adapter1
+            binding.spinnerClassi.adapter = adapter1
 
             //set class if shortcut data is present
             if(intent.getStringExtra("classe") != null) {
-                spinnerClassi.setSelection(OrariUtils.classi.indexOf(intent.getStringExtra("classe")!!))
+                binding.spinnerClassi.setSelection(OrariUtils.classi.indexOf(intent.getStringExtra("classe")!!))
             }
         }
 
 
-        buttonPeriodifresh.setOnClickListener {
+        binding.buttonPeriodifresh.setOnClickListener {
             CoroutineScope(Main).launch {
 
-                buttonPeriodifresh.isEnabled = false
-                listviewPeriodi.visibility = View.INVISIBLE
-                listviewLoadingBar.visibility = View.VISIBLE
+                binding.buttonPeriodifresh.isEnabled = false
+                binding.listviewPeriodi.visibility = View.INVISIBLE
+                binding.listviewLoadingBar.visibility = View.VISIBLE
                 OrariUtils.prendiPeriodi(posizionespinnerclassi)
 
                 val adattatore =
@@ -116,22 +118,22 @@ class MainActivity : AppCompatActivity() {
                         R.id.textviewperiodi_row,
                         OrariUtils.periodi
                     ) //utilizzo basecontext per utilizzare il contesto iniziale (Mainactivity) siccome sto eseguendo il codice all'interno di un altro contesto asincrono (anko)
-                listviewPeriodi.adapter = adattatore
-                listviewPeriodi.visibility = View.VISIBLE
-                listviewLoadingBar.visibility = View.INVISIBLE
-                buttonPeriodifresh.isEnabled = true
+                binding.listviewPeriodi.adapter = adattatore
+                binding.listviewPeriodi.visibility = View.VISIBLE
+                binding.listviewLoadingBar.visibility = View.INVISIBLE
+                binding.buttonPeriodifresh.isEnabled = true
             }
         }
 
-        buttonScarica.setOnClickListener {
+        binding.buttonScarica.setOnClickListener {
             scaricaOrario()
         }
 
-        buttonApri.setOnClickListener {
+        binding.buttonApri.setOnClickListener {
             apriOrario()
         }
 
-        checkboxNomi.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.checkboxNomi.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 urlfoto = "https://intranet.itispininfarina.it/intrane/Orario/Interno/classi/"
                 if(OrariUtils.griglie.isNotEmpty()) {
@@ -146,15 +148,15 @@ class MainActivity : AppCompatActivity() {
 
             //controllo che il file sia già stato scaricato e quindi propongo di aprirlo
             if (File("/storage/emulated/0/Download/PininOrari//$nomefileOrario.png").exists()) {
-                buttonScarica.visibility = View.INVISIBLE
-                buttonApri.visibility = View.VISIBLE
+                binding.buttonScarica.visibility = View.INVISIBLE
+                binding.buttonApri.visibility = View.VISIBLE
             } else {
-                buttonScarica.visibility = View.VISIBLE
-                buttonApri.visibility = View.INVISIBLE
+                binding.buttonScarica.visibility = View.VISIBLE
+                binding.buttonApri.visibility = View.INVISIBLE
             }
         }
 
-        checkboxNomi.isChecked = sharedPreferences.getBoolean("always_displaynames", false)
+        binding.checkboxNomi.isChecked = sharedPreferences.getBoolean("always_displaynames", false)
 
         //controllo stato impostazioni
         if (sharedPreferences.getBoolean("checkupdates_startup", true)) {
@@ -173,20 +175,20 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        spinnerClassi.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        binding.spinnerClassi.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             //variabili da inizializzare per poi essere utilizzate in modo globale nel codice
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
                 posizionespinnerclassi = position
 
-                listviewPeriodi.visibility = View.INVISIBLE
-                listviewLoadingBar.visibility = View.VISIBLE
+                binding.listviewPeriodi.visibility = View.INVISIBLE
+                binding.listviewLoadingBar.visibility = View.VISIBLE
                 CoroutineScope(IO).launch {
 
 
-                    if (spinnerClassi.getItemAtPosition(position).toString().startsWith("Selezionate")) {
-                        buttonScarica.visibility = View.INVISIBLE
+                    if (binding.spinnerClassi.getItemAtPosition(position).toString().startsWith("Selezionate")) {
+                        binding.buttonScarica.visibility = View.INVISIBLE
                     }
 
                     OrariUtils.prendiPeriodi(posizionespinnerclassi)
@@ -199,9 +201,9 @@ class MainActivity : AppCompatActivity() {
                                 R.id.textviewperiodi_row,
                                 OrariUtils.periodi
                             )
-                        listviewPeriodi.adapter = adattatore
-                        listviewPeriodi.visibility = View.VISIBLE
-                        listviewLoadingBar.visibility = View.INVISIBLE
+                        binding.listviewPeriodi.adapter = adattatore
+                        binding.listviewPeriodi.visibility = View.VISIBLE
+                        binding.listviewLoadingBar.visibility = View.INVISIBLE
                     }
                 }
 
@@ -212,7 +214,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        listviewPeriodi.onItemClickListener = object : AdapterView.OnItemClickListener {
+        binding.listviewPeriodi.onItemClickListener = object : AdapterView.OnItemClickListener {
             override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
                 val pininusername = OrariUtils.getUsername(applicationContext)
@@ -220,15 +222,15 @@ class MainActivity : AppCompatActivity() {
 
                 posizionespinnerperiodi = position
 
-                if (listviewPeriodi.getItemAtPosition(position).toString().startsWith("Selezionate")) {
-                    buttonScarica.visibility = View.INVISIBLE
-                    buttonApri.visibility = View.INVISIBLE
+                if (binding.listviewPeriodi.getItemAtPosition(position).toString().startsWith("Selezionate")) {
+                    binding.buttonScarica.visibility = View.INVISIBLE
+                    binding.buttonApri.visibility = View.INVISIBLE
                     return  //esco dalla funz se no da errore
                 }
 
 
-                orarioInternoLoadingBar.visibility = View.VISIBLE
-                statoText.visibility = View.INVISIBLE
+                binding.orarioInternoLoadingBar.visibility = View.VISIBLE
+                binding.statoText.visibility = View.INVISIBLE
                 CoroutineScope(Default).launch {
                     //controllo login nell'intranet per l'orario interno (con i nomi)
                     if (OrariUtils.checkLogin(applicationContext)) {
@@ -250,35 +252,35 @@ class MainActivity : AppCompatActivity() {
 
                         if (respok.code == 200) {//è disponibile
                             withContext(Main) {
-                                checkboxNomi.isEnabled = true
-                                statoText.setTextColor(Color.GREEN)
-                                statoText.text = getString(R.string.orario_interno_disponibile)
+                                binding.checkboxNomi.isEnabled = true
+                                binding.statoText.setTextColor(Color.GREEN)
+                                binding.statoText.text = getString(R.string.orario_interno_disponibile)
                             }
                         } else {//non è disponibile
                             withContext(Main) {
-                                checkboxNomi.isChecked = false
-                                checkboxNomi.isEnabled = false
-                                statoText.setTextColor(Color.RED)
-                                statoText.text = getString(R.string.orario_interno_nondisponibile)
+                                binding.checkboxNomi.isChecked = false
+                                binding.checkboxNomi.isEnabled = false
+                                binding.statoText.setTextColor(Color.RED)
+                                binding.statoText.text = getString(R.string.orario_interno_nondisponibile)
                             }
                         }
                     } else {
                         withContext(Main) {
-                            checkboxNomi.isChecked = false
-                            checkboxNomi.isEnabled = false
-                            statoText.setTextColor(Color.RED)
-                            statoText.text = getString(R.string.login_fallito)
+                            binding.checkboxNomi.isChecked = false
+                            binding.checkboxNomi.isEnabled = false
+                            binding.statoText.setTextColor(Color.RED)
+                            binding.statoText.text = getString(R.string.login_fallito)
                         }
                     }
 
                     runOnUiThread {
-                        orarioInternoLoadingBar.visibility = View.INVISIBLE
-                        statoText.visibility = View.VISIBLE
+                        binding.orarioInternoLoadingBar.visibility = View.INVISIBLE
+                        binding.statoText.visibility = View.VISIBLE
                     }
                 }
 
 
-                if (checkboxNomi.isChecked) {
+                if (binding.checkboxNomi.isChecked) {
                     urlfoto = "https://intranet.itispininfarina.it/intrane/Orario/Interno/classi/"
                     nomefileOrario = OrariUtils.griglie[posizionespinnerperiodi] + "prof"
                 } else {
@@ -288,11 +290,11 @@ class MainActivity : AppCompatActivity() {
 
                 //se il file non è stato ancora scaricato propongo di aprirlo
                 if (File("/storage/emulated/0/Download/PininOrari//$nomefileOrario.png").exists()) {
-                    buttonScarica.visibility = View.INVISIBLE
-                    buttonApri.visibility = View.VISIBLE
+                    binding.buttonScarica.visibility = View.INVISIBLE
+                    binding.buttonApri.visibility = View.VISIBLE
                 } else {
-                    buttonScarica.visibility = View.VISIBLE
-                    buttonApri.visibility = View.INVISIBLE
+                    binding.buttonScarica.visibility = View.VISIBLE
+                    binding.buttonApri.visibility = View.INVISIBLE
                 }
             }
         }
@@ -394,8 +396,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 .show()
 
-            buttonScarica.visibility = View.INVISIBLE
-            buttonApri.visibility = View.VISIBLE
+            binding.buttonScarica.visibility = View.INVISIBLE
+            binding.buttonApri.visibility = View.VISIBLE
         }
     }
 
