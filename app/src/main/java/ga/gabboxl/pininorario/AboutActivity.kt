@@ -79,7 +79,7 @@ class AboutActivity : MaterialAboutActivity() {
 
 
 
-    override fun getActivityTitle(): CharSequence? {
+    override fun getActivityTitle(): CharSequence {
         return getString(R.string.title_activity_about)
     }
 }
