@@ -36,8 +36,9 @@ import okhttp3.Request
 import java.io.File
 
 
+private const val REQUESTWRITECODE = 777
+
 class MainActivity : AppCompatActivity() {
-    private val REQUESTWRITECODE = 777
 
     var posizionespinnerperiodi: Int = 0
     var posizionespinnerclassi: Int = 0
