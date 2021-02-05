@@ -9,3 +9,6 @@ Google services are deactivated in *debug* builds (you can modify this in the ap
 ### Firebase services (Crashlytics, Perf)
 Put your *google-services.json* file in app/ .
 You can obtain it from the Firebase console by adding your app.
+
+## Roadmap
+You can find this project's roadmap [here](https://github.com/Gabboxl/PininOrario/projects/1). :)
