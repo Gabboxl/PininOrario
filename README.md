@@ -2,6 +2,9 @@
 
 A simpler way to consult ITIS Pininfarina's timetables
 
+## Download
+You can download PininOrario's latest version [here](https://github.com/Gabboxl/PininOrario/releases/tag/1.5.2)! 
+
 ## Note
 Google services are deactivated in *debug* builds (you can modify this in the app's build.gradle file).
 
