@@ -2,8 +2,10 @@ package ga.gabboxl.pininorario
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.toColor
 import com.danielstone.materialaboutlibrary.MaterialAboutActivity
 import com.danielstone.materialaboutlibrary.items.MaterialAboutActionItem
 import com.danielstone.materialaboutlibrary.model.MaterialAboutCard
@@ -13,8 +15,10 @@ import com.github.javiersantos.appupdater.enums.Display
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.community.material.CommunityMaterial
+import com.mikepenz.iconics.utils.color
 import com.mikepenz.iconics.utils.colorInt
 import com.mikepenz.iconics.utils.sizeDp
+import com.mikepenz.iconics.utils.toIconicsColor
 
 
 class AboutActivity : MaterialAboutActivity() {
@@ -57,7 +61,7 @@ class AboutActivity : MaterialAboutActivity() {
             .text("Gabriele")
             .subText("gabboxl")
             .icon(IconicsDrawable(this, CommunityMaterial.Icon.cmd_account).apply {
-                colorInt = ContextCompat.getColor(context, R.color.mal_color_icon_light_theme)
+                //colorInt = ContextCompat.getColor(context, R.color.defaultTextColor) single icon colors are auto-assigned by the library :(
                 sizeDp = 18
             })
             .setOnClickAction{
@@ -68,7 +72,7 @@ class AboutActivity : MaterialAboutActivity() {
             .addItem(MaterialAboutActionItem.Builder()
                 .text(getString(R.string.pininorario_su_github_about))
                 .icon(IconicsDrawable(this, CommunityMaterial.Icon2.cmd_github).apply {
-                    colorInt = ContextCompat.getColor(context, R.color.mal_color_icon_light_theme)
+                    //colorInt = ContextCompat.getColor(context, R.color.defaultTextColor) single icon colors are auto-assigned by the library :(
                     sizeDp = 18
                 })
                 .setOnClickAction{val i = Intent(Intent.ACTION_VIEW)
