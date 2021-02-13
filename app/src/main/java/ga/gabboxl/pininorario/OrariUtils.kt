@@ -109,7 +109,7 @@ class OrariUtils {
                 }
 
 
-                val intranetUrl = URL("https://intranet.itispininfarina.it/intrane")
+                val intranetUrl = URL("https://areariservata.itispininfarina.it/")
 
                 val connection = intranetUrl.openConnection() as HttpURLConnection
                 connection.requestMethod = "GET"

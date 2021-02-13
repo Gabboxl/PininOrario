@@ -136,7 +136,7 @@ class MainActivity : AppCompatActivity() {
                     nomefileOrario = OrariUtils.griglie[posizionespinnerperiodi] + "prof"
                 }
             } else {
-                urlfoto = "https://intranet.itispininfarina.it/orario/classi/"
+                urlfoto = "https://orario.itispininfarina.it/classi/"
                 if(OrariUtils.griglie.isNotEmpty()) {
                     nomefileOrario = OrariUtils.griglie[posizionespinnerperiodi]
                 }
@@ -280,7 +280,7 @@ class MainActivity : AppCompatActivity() {
                     urlfoto = "https://intranet.itispininfarina.it/intrane/Orario/Interno/classi/"
                     nomefileOrario = OrariUtils.griglie[posizionespinnerperiodi] + "prof"
                 } else {
-                    urlfoto = "https://intranet.itispininfarina.it/orario/classi/"
+                    urlfoto = "https://orario.itispininfarina.it/classi/"
                     nomefileOrario = OrariUtils.griglie[posizionespinnerperiodi]
                 }
 
