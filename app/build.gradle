@@ -68,7 +68,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-perf:19.1.1'
     implementation 'com.google.firebase:firebase-crashlytics:17.4.1'
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3-native-mt"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
