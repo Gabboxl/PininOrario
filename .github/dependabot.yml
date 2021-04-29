@@ -1,0 +1,21 @@
+version: 2
+updates:
+- package-ecosystem: gradle
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: org.jetbrains.kotlin:kotlin-stdlib
+    versions:
+    - 1.4.32
+  - dependency-name: org.jetbrains.kotlin:kotlin-gradle-plugin
+    versions:
+    - 1.4.32
+  - dependency-name: com.google.firebase:firebase-crashlytics
+    versions:
+    - 17.4.0
+  - dependency-name: com.google.firebase:firebase-crashlytics-gradle
+    versions:
+    - 2.5.1
