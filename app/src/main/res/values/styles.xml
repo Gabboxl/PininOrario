@@ -1,17 +1,15 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="toolbarStyle">@style/AppTheme.ToolbarStyle</item>
-    </style>
-
-    <style name="AppTheme.ToolbarStyle" parent="ThemeOverlay.MaterialComponents.Toolbar.Surface">
-        <item name="android:background">@color/colorPrimary</item>
+        <item name="actionBarStyle">@style/Widget.MaterialComponents.ActionBar.Primary</item>
+        <!--<item name="colorSurface">#53B284</item> --> <!-- alternative to actionBarStyle to change color -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">#000000</item>
     </style>
 
     <style name="AppTheme.MaterialAboutActivity" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
