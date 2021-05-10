@@ -23,11 +23,23 @@
             android:inputType="textPassword" />
 
     <TextView
+            android:id="@+id/infopswtext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/edit_password"
             android:drawablePadding="8dp"
             android:text="@string/info_login_dialog"
             app:drawableStartCompat="@drawable/ic_info_outline_black_24dp" />
+
+    <TextView
+            android:id="@+id/tempwarninglogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/infopswtext"
+            android:paddingTop="16dp"
+            android:drawablePadding="8dp"
+            android:textColor="#bf5900"
+            android:text="@string/warn_login_dialog"
+            app:drawableStartCompat="@drawable/ic_round_warning_24" />
 
 </RelativeLayout>

@@ -42,4 +42,5 @@
     <string name="password_hint">Password</string>
     <string name="username_hint">surname.name</string>
     <string name="info_login_dialog">Inserisci il nome utente e password che utilizzi per accedere ai PC scolastici.</string>
+    <string name="warn_login_dialog">Gli orari interni potrebbero comunque NON essere disponibili siccome l\'istituto ha bloccato attualmente l\'accesso ad essi tramite intranet.</string>
 </resources>
