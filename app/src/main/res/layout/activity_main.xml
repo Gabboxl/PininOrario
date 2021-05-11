@@ -52,7 +52,7 @@
         <Button
                 android:id="@+id/buttonApri"
                 style="?attr/materialButtonOutlinedStyle"
-                android:layout_width="117dp"
+                android:layout_width="wrap_content"
                 android:layout_height="61dp"
                 android:text="@string/apri_orario_button"
                 android:visibility="invisible"
