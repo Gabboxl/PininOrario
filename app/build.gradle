@@ -1,9 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'com.google.gms.google-services'
-    id 'com.google.firebase.firebase-perf'
-    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -23,8 +20,13 @@ android {
 
     buildTypes {
         debug{
-            manifestPlaceholders = [crashlyticsCollectionEnabled:"false"]
-            ext.enableCrashlytics=false
+
+            apply plugin: 'com.google.gms.google-services'
+            apply plugin: 'com.google.firebase.firebase-perf'
+            apply plugin: 'com.google.firebase.crashlytics'
+
+            manifestPlaceholders = [crashlyticsCollectionEnabled:"true"]
+
 
             FirebasePerformance {
                 // Set this flag to 'false' to disable @AddTrace annotation processing and
@@ -35,15 +37,38 @@ android {
 
             versionNameSuffix "-debug"
         }
+
+        debugNoGms {
+
+            //manifestPlaceholders = [crashlyticsCollectionEnabled:"false"]
+            //ext.enableCrashlytics=false
+
+
+            versionNameSuffix "-debug-clean"
+            debuggable true
+        }
+
         release {
+
+            apply plugin: 'com.google.gms.google-services'
+            apply plugin: 'com.google.firebase.firebase-perf'
+            apply plugin: 'com.google.firebase.crashlytics'
+
             manifestPlaceholders = [crashlyticsCollectionEnabled:"true"]
             debuggable false
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-    productFlavors {
+
+        releaseNoGms{
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            versionNameSuffix "-nogms "
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -51,12 +76,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
-    }
-}
-
-android.applicationVariants.all { variant ->
-    if (variant.name == 'debug') {
-        project.tasks.getByName('process' + variant.name.capitalize() + 'GoogleServices').enabled = false
     }
 }
 
