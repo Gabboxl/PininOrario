@@ -39,7 +39,8 @@ android {
         }
 
         debugNoGms {
-
+            signingConfig signingConfigs.debug
+            
             //manifestPlaceholders = [crashlyticsCollectionEnabled:"false"]
             //ext.enableCrashlytics=false
 
@@ -81,6 +82,7 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
 
     //Firebase dependencies
     implementation 'com.google.firebase:firebase-analytics-ktx:19.0.0'
