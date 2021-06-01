@@ -14,19 +14,51 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
+
     buildFeatures {
         viewBinding true
     }
 
     buildTypes {
-        debug{
+        debug {
+            versionNameSuffix "-debug"
+        }
+
+        release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    flavorDimensions 'gms'
+    productFlavors {
+        full {
+            dimension 'gms'
+
+            apply plugin: 'com.google.gms.google-services'
+            apply plugin: 'com.google.firebase.firebase-perf'
+            apply plugin: 'com.google.firebase.crashlytics'
+        }
+
+        deactivatedGms {
+            dimension 'gms'
 
             apply plugin: 'com.google.gms.google-services'
             apply plugin: 'com.google.firebase.firebase-perf'
             apply plugin: 'com.google.firebase.crashlytics'
 
-            manifestPlaceholders = [crashlyticsCollectionEnabled:"true"]
-
+            manifestPlaceholders = [crashlyticsCollectionEnabled: "true"]
 
             FirebasePerformance {
                 // Set this flag to 'false' to disable @AddTrace annotation processing and
@@ -35,54 +67,22 @@ android {
                 instrumentationEnabled false
             }
 
-            versionNameSuffix "-debug"
+            versionNameSuffix "-deactgms"
         }
 
-        debugNoGms {
-            signingConfig signingConfigs.debug
-            
-            //manifestPlaceholders = [crashlyticsCollectionEnabled:"false"]
-            //ext.enableCrashlytics=false
+        nogms {
+            dimension 'gms'
 
-
-            versionNameSuffix "-debug-clean"
-            debuggable true
+            versionNameSuffix "-nogms"
         }
 
-        release {
-
-            apply plugin: 'com.google.gms.google-services'
-            apply plugin: 'com.google.firebase.firebase-perf'
-            apply plugin: 'com.google.firebase.crashlytics'
-
-            manifestPlaceholders = [crashlyticsCollectionEnabled:"true"]
-            debuggable false
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-
-        releaseNoGms{
-            debuggable false
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
-            versionNameSuffix "-nogms "
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
     }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+    implementation 'com.github.Gabboxl:PininParse:master-SNAPSHOT'
 
     //Firebase dependencies
     implementation 'com.google.firebase:firebase-analytics-ktx:19.0.0'

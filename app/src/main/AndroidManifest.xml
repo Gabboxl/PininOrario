@@ -18,9 +18,9 @@
             tools:ignore="GoogleAppIndexingWarning"
             tools:targetApi="q">
 
-        <meta-data
+        <!--<meta-data
                 android:name="firebase_crashlytics_collection_enabled"
-                android:value="${crashlyticsCollectionEnabled}" />
+                android:value="${crashlyticsCollectionEnabled}" />-->
 
         <activity
                 android:name=".SettingsActivity"
