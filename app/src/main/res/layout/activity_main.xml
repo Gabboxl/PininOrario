@@ -59,7 +59,8 @@
                 app:layout_constraintEnd_toEndOf="@+id/buttonScarica"
                 app:layout_constraintStart_toStartOf="@+id/buttonScarica"
                 app:layout_constraintTop_toTopOf="@+id/buttonScarica"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="1.0"
+                app:icon="@drawable/ic_baseline_open_in_new_24"/>
 
         <Button
                 android:id="@+id/buttonPeriodifresh"
