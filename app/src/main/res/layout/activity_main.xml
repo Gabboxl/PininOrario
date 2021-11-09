@@ -47,7 +47,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/checkboxNomi"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.502"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:icon="@drawable/ic_baseline_get_app_24"/>
 
         <Button
                 android:id="@+id/buttonApri"
