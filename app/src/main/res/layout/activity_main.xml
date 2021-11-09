@@ -71,7 +71,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/checkboxNomi"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toTopOf="@+id/checkboxNomi" />
+                app:layout_constraintTop_toTopOf="@+id/checkboxNomi"
+                app:icon="@drawable/ic_update"/>
 
         <CheckBox
                 android:id="@+id/checkboxNomi"
