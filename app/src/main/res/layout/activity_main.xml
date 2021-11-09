@@ -38,7 +38,6 @@
 
         <Button
                 android:id="@+id/buttonScarica"
-                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="61dp"
                 android:layout_marginBottom="16dp"
@@ -52,7 +51,6 @@
 
         <Button
                 android:id="@+id/buttonApri"
-                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="61dp"
                 android:text="@string/apri_orario_button"
