@@ -6,10 +6,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
-        <item name="actionBarStyle">@style/Widget.MaterialComponents.ActionBar.Primary</item>
-        <!--<item name="colorSurface">#53B284</item> --> <!-- alternative to actionBarStyle to change color -->
-        <item name="android:navigationBarColor" tools:targetApi="lollipop">#000000</item>
     </style>
 
     <style name="AppTheme.MaterialAboutActivity" parent="Theme.Material3.DayNight">
