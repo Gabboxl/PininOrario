@@ -12,7 +12,7 @@
     <string name="orario_scaricato">Download completed.</string>
     <string name="apri_orario_button">Open timetable</string>
     <string name="stato_orario_interno_con_nomi">Internal timetable (with names) status:</string>
-    <string name="seleziona_un_orario">seleziona un orario</string>
+    <string name="seleziona_un_orario">select a timetable</string>
     <string name="visualizza_sempre_nomi_settings_title">Always show names in timetables</string>
     <string name="seleziona_classe_summary">Seleziona una classe</string>
     <string name="scorciatoia_classe_setting_title">Scorciatoia classe app</string>
@@ -22,10 +22,10 @@
     <string name="modifica_credenziali_summary">*Tap here to modify login credentials*</string>
     <string name="controllo_aggiornamenti_title">Check for updates on startup</string>
     <string name="info_credenziali_summary">L\'username e la password vengono salvati solamente sul dispositivo.</string>
-    <string name="info_modifica_scelta_aggiornamenti">Puoi modificare la tua scelta nelle Impostazioni.</string>
+    <string name="info_modifica_scelta_aggiornamenti">You can modify your choice in the settings.</string>
     <string name="orario_interno_disponibile">available</string>
     <string name="orario_interno_nondisponibile">not available</string>
-    <string name="login_fallito">Login fallito (controlla le credenziali nelle impostazioni)</string>
+    <string name="login_fallito">Login failed (check login credentials in the settings)</string>
     <string name="permesso_richiesto">Permission required</string>
     <string name="richiesta_permesso_WRITE_EXTERNAL_STORAGE">Questa app ha bisogno del permesso WRITE_EXTERNAL_STORAGE per scaricare l\'orario!</string>
     <string name="indietro">back</string>
@@ -35,7 +35,7 @@
     <string name="login">Login</string>
     <string name="salva">Save</string>
     <string name="login_riuscito">Login riuscito</string>
-    <string name="credenziali_errate_toast">Credenziali errate</string>
+    <string name="credenziali_errate_toast">Wrong credentials</string>
     <string name="annulla_button">Cancel</string>
     <string name="test_login_btn">Test login</string>
     <string name="versione_android_noncompatibile">Incompatible Android version</string>
