@@ -142,13 +142,17 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            //controllo che il file sia già stato scaricato e quindi propongo di aprirlo
-            if (File("/storage/emulated/0/Download/PininOrari//$nomefileOrario.png").exists()) {
-                binding.buttonScarica.visibility = View.INVISIBLE
-                binding.buttonApri.visibility = View.VISIBLE
-            } else {
-                binding.buttonScarica.visibility = View.VISIBLE
-                binding.buttonApri.visibility = View.INVISIBLE
+            //controllo se e' selezionato un periodo, altrimenti non visualizzo/nascondo il pulsante di download inutilmente senza aver prima selezionato un periodo
+            if(binding.spinnerClassi.selectedItem.toString().startsWith("EDT")) {
+
+                //controllo che il file sia già stato scaricato e quindi propongo di aprirlo
+                if (File("/storage/emulated/0/Download/PininOrari//$nomefileOrario.png").exists()) {
+                    binding.buttonScarica.visibility = View.INVISIBLE
+                    binding.buttonApri.visibility = View.VISIBLE
+                } else {
+                    binding.buttonScarica.visibility = View.VISIBLE
+                    binding.buttonApri.visibility = View.INVISIBLE
+                }
             }
         }
 
