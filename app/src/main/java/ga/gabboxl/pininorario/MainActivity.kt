@@ -105,6 +105,11 @@ class MainActivity : AppCompatActivity() {
                 binding.buttonPeriodifresh.isEnabled = false
                 binding.listviewPeriodi.visibility = View.INVISIBLE
                 binding.listviewLoadingBar.visibility = View.VISIBLE
+
+                //nascondo i pulsanti scarica e apri nel caso
+                binding.buttonScarica.visibility = View.INVISIBLE
+                binding.buttonApri.visibility = View.INVISIBLE
+
                 OrariUtils.prendiPeriodi(posizionespinnerclassi)
 
                 val adattatore =
