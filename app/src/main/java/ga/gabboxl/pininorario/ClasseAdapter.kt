@@ -7,15 +7,9 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.TextView
-import android.widget.Toast
-import androidx.annotation.NonNull
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import kotlin.coroutines.coroutineContext
-
 
 
 class ClasseAdapter : ListAdapter<Classe, ClasseAdapter.ClasseHolder>(ClasseAdapter.DIFF_CALLBACK) {
@@ -39,12 +33,12 @@ class ClasseAdapter : ListAdapter<Classe, ClasseAdapter.ClasseHolder>(ClasseAdap
 
     inner class ClasseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         lateinit var textViewTitle: TextView
-        lateinit var textViewPriority: TextView
+        lateinit var textViewNomeClasse: TextView
         lateinit var optionButton: ImageButton
 
         init {
             textViewTitle = itemView.findViewById(R.id.text_view_title)
-            textViewPriority = itemView.findViewById(R.id.text_view_priority)
+            textViewNomeClasse = itemView.findViewById(R.id.text_view_nomeclasse)
             optionButton = itemView.findViewById(R.id.cardoptionbutton)
 
             //i setonclicklistener si devono implementeare nel viewholder e non nel onbind perche altrimenti verrebbe l'onbind chiamato ogni volta che il recyclerview deve visualizzare un nuovo elemento scorrendo verso il basso/alto, implementandolo nel viewholder viene implementato una sola volta per item
@@ -82,7 +76,7 @@ class ClasseAdapter : ListAdapter<Classe, ClasseAdapter.ClasseHolder>(ClasseAdap
     override fun onBindViewHolder(holder: ClasseHolder, position: Int) {
         val currentClasse : Classe = getItem(position)
         holder.textViewTitle.text = currentClasse.nomeClasse
-        holder.textViewPriority.text = currentClasse.nomeClasse
+        holder.textViewNomeClasse.text = currentClasse.nomeClasse
 
     }
 

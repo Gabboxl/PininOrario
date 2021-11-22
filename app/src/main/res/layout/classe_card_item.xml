@@ -50,10 +50,13 @@
 
         <!-- Title, secondary and supporting text -->
         <TextView
-                android:id="@+id/text_view_priority"
+                android:id="@+id/text_view_nomeclasse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?attr/textAppearanceTitleMedium" />
+                android:fontFamily="@font/roboto_medium"
+                android:text="4AINF-TLC"
+                android:textAppearance="?attr/textAppearanceTitleLarge"
+                android:textSize="20sp" />
 
         <TextView
                 android:id="@+id/text_view_title"
@@ -91,13 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="yoo" />
-
-        <com.google.android.material.button.MaterialButton
-                style="?attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="yoo2" />
+                android:text="Visualizza orari predecenti" />
     </LinearLayout>
 
 
