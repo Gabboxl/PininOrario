@@ -1,32 +1,19 @@
 package ga.gabboxl.pininorario
 
-import android.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.cardview.widget.CardView
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import android.content.DialogInterface
-import android.content.DialogInterface.OnMultiChoiceClickListener
 import android.content.Intent
+import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageButton
-import androidx.compose.ui.input.pointer.PointerEventPass
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.platform.AndroidUiDispatcher.Companion.Main
-import androidx.room.RoomDatabase
-
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import java.security.AccessController.getContext
 
 
 class NewActivity : AppCompatActivity() {
@@ -85,12 +72,13 @@ class NewActivity : AppCompatActivity() {
         extfab.setOnClickListener {
             val alertDialogBuilder: MaterialAlertDialogBuilder = MaterialAlertDialogBuilder(this)
                 .setTitle("Seleziona una classe")
-                    //.setPositiveButton("Aggiungi", null)
+                //.setPositiveButton("Aggiungi", null)
                 .setNeutralButton("Annulla", null)
                 .setSingleChoiceItems(
                     classiutilsarray.toTypedArray(), -1
-                ) {dialoginterface, i ->
-                    Toast.makeText(applicationContext, classiutilsarray[i], Toast.LENGTH_SHORT).show()
+                ) { dialoginterface, i ->
+                    Toast.makeText(applicationContext, classiutilsarray[i], Toast.LENGTH_SHORT)
+                        .show()
 
                     //salvo nel database la classe scelta
                     val nuovaclasse = Classe(0, classiutilsarray[i], listOf())

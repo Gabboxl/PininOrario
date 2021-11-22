@@ -9,23 +9,23 @@ class ClasseViewModel(application: Application) : AndroidViewModel(application) 
     private var allClassi: LiveData<List<Classe>> = repository.getAllClassi()
 
 
-    fun insert(classe: Classe){
+    fun insert(classe: Classe) {
         repository.insert(classe)
     }
 
-    fun update(classe: Classe){
+    fun update(classe: Classe) {
         repository.update(classe)
     }
 
-    fun delete(classe: Classe){
+    fun delete(classe: Classe) {
         repository.delete(classe)
     }
 
-    fun deleteAllClassi(){
+    fun deleteAllClassi() {
         repository.deleteAllClassi()
     }
 
-    fun getAllClassi(): LiveData<List<Classe>>{
+    fun getAllClassi(): LiveData<List<Classe>> {
         return allClassi
     }
 }

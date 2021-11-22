@@ -17,31 +17,31 @@ class ClasseRepository(application: Application) {
         allClasses = classeDao.getAllClassi()
     }
 
-    fun insert(classe: Classe){
-        CoroutineScope(Dispatchers.Default).launch{
+    fun insert(classe: Classe) {
+        CoroutineScope(Dispatchers.Default).launch {
             classeDao.insert(classe)
         }
     }
 
-    fun update(classe: Classe){
-        CoroutineScope(Dispatchers.Default).launch{
+    fun update(classe: Classe) {
+        CoroutineScope(Dispatchers.Default).launch {
             classeDao.update(classe)
         }
     }
 
-    fun delete(classe: Classe){
-        CoroutineScope(Dispatchers.Default).launch{
+    fun delete(classe: Classe) {
+        CoroutineScope(Dispatchers.Default).launch {
             classeDao.delete(classe)
         }
     }
 
-    fun deleteAllClassi(){
-        CoroutineScope(Dispatchers.Default).launch{
+    fun deleteAllClassi() {
+        CoroutineScope(Dispatchers.Default).launch {
             classeDao.deleteAllClassi()
         }
     }
 
-    fun getAllClassi(): LiveData<List<Classe>>{
+    fun getAllClassi(): LiveData<List<Classe>> {
         return allClasses
     }
 

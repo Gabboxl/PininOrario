@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 @Database(entities = [Classe::class], version = 1)
 @TypeConverters(Converters::class)
-abstract class ClasseDatabase: RoomDatabase() {
+abstract class ClasseDatabase : RoomDatabase() {
 
     abstract fun classeDao(): ClasseDao
 
@@ -39,7 +39,7 @@ abstract class ClasseDatabase: RoomDatabase() {
                 super.onCreate(db)
 
                 CoroutineScope(Dispatchers.Default).launch {
-                        instance!!.classeDao().insert(Classe(1, "Classe 1", listOf()))
+                    instance!!.classeDao().insert(Classe(1, "Classe 1", listOf()))
                     instance!!.classeDao().insert(Classe(2, "Classe 2", listOf()))
                     instance!!.classeDao().delete(Classe(3, "Classe 3", listOf()))
 

@@ -16,20 +16,20 @@ class ClasseAdapter : ListAdapter<Classe, ClasseAdapter.ClasseHolder>(ClasseAdap
     private lateinit var listener: OnEliminaClickListener
     var posizioneitem: Int = -1
 
-     companion object{
+    companion object {
 
-         private var DIFF_CALLBACK: DiffUtil.ItemCallback<Classe> = object :
-             DiffUtil.ItemCallback<Classe>() {
-             override fun areItemsTheSame(oldItem: Classe, newItem: Classe): Boolean {
-                 return oldItem.id == newItem.id
-             }
+        private var DIFF_CALLBACK: DiffUtil.ItemCallback<Classe> = object :
+            DiffUtil.ItemCallback<Classe>() {
+            override fun areItemsTheSame(oldItem: Classe, newItem: Classe): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-             override fun areContentsTheSame(oldItem: Classe, newItem: Classe): Boolean {
-                 return oldItem.nomeClasse.equals(newItem.nomeClasse) &&
-                         oldItem.periodiScaricati!! == newItem.periodiScaricati
-             }
-         }
-     }
+            override fun areContentsTheSame(oldItem: Classe, newItem: Classe): Boolean {
+                return oldItem.nomeClasse.equals(newItem.nomeClasse) &&
+                        oldItem.periodiScaricati!! == newItem.periodiScaricati
+            }
+        }
+    }
 
     inner class ClasseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         lateinit var textViewTitle: TextView
@@ -53,11 +53,11 @@ class ClasseAdapter : ListAdapter<Classe, ClasseAdapter.ClasseHolder>(ClasseAdap
                         }
 
                         R.id.deletecardmenuoption -> {
-                                posizioneitem = absoluteAdapterPosition
+                            posizioneitem = absoluteAdapterPosition
                             if (listener != null && posizioneitem != RecyclerView.NO_POSITION) {
                                 listener.onEliminaClick(getItem(posizioneitem))
                             }
-                            }
+                        }
                     }
 
                     true
@@ -69,29 +69,29 @@ class ClasseAdapter : ListAdapter<Classe, ClasseAdapter.ClasseHolder>(ClasseAdap
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClasseHolder {
-        val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.classe_card_item, parent, false)
+        val itemView: View =
+            LayoutInflater.from(parent.context).inflate(R.layout.classe_card_item, parent, false)
         return ClasseHolder((itemView))
     }
 
     override fun onBindViewHolder(holder: ClasseHolder, position: Int) {
-        val currentClasse : Classe = getItem(position)
+        val currentClasse: Classe = getItem(position)
         holder.textViewTitle.text = currentClasse.nomeClasse
         holder.textViewNomeClasse.text = currentClasse.nomeClasse
 
     }
 
-    fun getClasseAt(position: Int): Classe{
+    fun getClasseAt(position: Int): Classe {
         return getItem(position)
     }
 
-    interface OnEliminaClickListener{
+    interface OnEliminaClickListener {
         fun onEliminaClick(classe: Classe)
     }
 
-    fun setOnEliminaClickListener(listener: OnEliminaClickListener){
+    fun setOnEliminaClickListener(listener: OnEliminaClickListener) {
         this.listener = listener
     }
-
 
 
 }
