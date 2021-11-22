@@ -77,8 +77,8 @@ class NewActivity : AppCompatActivity() {
         classeViewModel = ViewModelProvider(this).get(ClasseViewModel::class.java)
         classeViewModel.getAllClassi().observe(this,
             { t ->
-                Toast.makeText(applicationContext, "onChanged", Toast.LENGTH_SHORT).show()
-                adapter.setClassi(t)
+                //Toast.makeText(applicationContext, "onChanged", Toast.LENGTH_SHORT).show()
+                adapter.submitList(t)
             })
 
         val extfab = findViewById<ExtendedFloatingActionButton>(R.id.aggiungi_classe_extfab)

@@ -8,16 +8,34 @@ import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.NonNull
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.coroutines.coroutineContext
 
 
-class ClasseAdapter: RecyclerView.Adapter<ClasseAdapter.ClasseHolder>() {
-    private var classi: List<Classe> = ArrayList()
+
+class ClasseAdapter : ListAdapter<Classe, ClasseAdapter.ClasseHolder>(ClasseAdapter.DIFF_CALLBACK) {
     private lateinit var listener: OnEliminaClickListener
     var posizioneitem: Int = -1
+
+     companion object{
+
+         private var DIFF_CALLBACK: DiffUtil.ItemCallback<Classe> = object :
+             DiffUtil.ItemCallback<Classe>() {
+             override fun areItemsTheSame(oldItem: Classe, newItem: Classe): Boolean {
+                 return oldItem.id == newItem.id
+             }
+
+             override fun areContentsTheSame(oldItem: Classe, newItem: Classe): Boolean {
+                 return oldItem.nomeClasse.equals(newItem.nomeClasse) &&
+                         oldItem.periodiScaricati!! == newItem.periodiScaricati
+             }
+         }
+     }
 
     inner class ClasseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         lateinit var textViewTitle: TextView
@@ -43,7 +61,7 @@ class ClasseAdapter: RecyclerView.Adapter<ClasseAdapter.ClasseHolder>() {
                         R.id.deletecardmenuoption -> {
                                 posizioneitem = absoluteAdapterPosition
                             if (listener != null && posizioneitem != RecyclerView.NO_POSITION) {
-                                listener.onEliminaClick(classi.get(posizioneitem))
+                                listener.onEliminaClick(getItem(posizioneitem))
                             }
                             }
                     }
@@ -62,21 +80,14 @@ class ClasseAdapter: RecyclerView.Adapter<ClasseAdapter.ClasseHolder>() {
     }
 
     override fun onBindViewHolder(holder: ClasseHolder, position: Int) {
-        val currentClasse : Classe = classi.get(position)
+        val currentClasse : Classe = getItem(position)
         holder.textViewTitle.text = currentClasse.nomeClasse
         holder.textViewPriority.text = currentClasse.nomeClasse
 
     }
 
-
-
-    override fun getItemCount(): Int {
-        return classi.size
-    }
-
-    fun setClassi(classi: List<Classe>){
-        this.classi = classi
-        notifyDataSetChanged()
+    fun getClasseAt(position: Int): Classe{
+        return getItem(position)
     }
 
     interface OnEliminaClickListener{
@@ -86,5 +97,7 @@ class ClasseAdapter: RecyclerView.Adapter<ClasseAdapter.ClasseHolder>() {
     fun setOnEliminaClickListener(listener: OnEliminaClickListener){
         this.listener = listener
     }
+
+
 
 }
