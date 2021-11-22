@@ -15,8 +15,13 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.content.DialogInterface
 import android.content.DialogInterface.OnMultiChoiceClickListener
+import android.content.Intent
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.ImageButton
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.platform.AndroidUiDispatcher.Companion.Main
+import androidx.room.RoomDatabase
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
@@ -26,6 +31,31 @@ import java.security.AccessController.getContext
 
 class NewActivity : AppCompatActivity() {
     private lateinit var classeViewModel: ClasseViewModel
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.options_settings -> {
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+            true
+        }
+
+        R.id.options_about -> {
+            val intent = Intent(this, AboutActivity::class.java)
+            startActivity(intent)
+            true
+        }
+
+        else -> {
+            // If we got here, the user's action was not recognized.
+            // Invoke the superclass to handle it.
+            super.onOptionsItemSelected(item)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,12 +75,11 @@ class NewActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         classeViewModel = ViewModelProvider(this).get(ClasseViewModel::class.java)
-        classeViewModel.getAllClassi().observe(this, object : Observer<List<Classe>> {
-            override fun onChanged(t: List<Classe>) {
+        classeViewModel.getAllClassi().observe(this,
+            { t ->
                 Toast.makeText(applicationContext, "onChanged", Toast.LENGTH_SHORT).show()
                 adapter.setClassi(t)
-            }
-        })
+            })
 
         val extfab = findViewById<ExtendedFloatingActionButton>(R.id.aggiungi_classe_extfab)
         extfab.setOnClickListener {
@@ -63,12 +92,23 @@ class NewActivity : AppCompatActivity() {
                 ) {dialoginterface, i ->
                     Toast.makeText(applicationContext, classiutilsarray[i], Toast.LENGTH_SHORT).show()
 
+                    //salvo nel database la classe scelta
                     val nuovaclasse = Classe(0, classiutilsarray[i], listOf())
                     classeViewModel.insert(nuovaclasse)
+
                     dialoginterface.dismiss()
                 }
             alertDialogBuilder.show()
         }
+
+        adapter.setOnEliminaClickListener(object : ClasseAdapter.OnEliminaClickListener {
+            override fun onEliminaClick(classe: Classe) {
+                //Toast.makeText(applicationContext, "onChanged " + adapter.posizioneitem + " " + classe, Toast.LENGTH_SHORT).show()
+                classeViewModel.delete(classe)
+                //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
+            }
+        })
+
 
     }
 }
