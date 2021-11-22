@@ -37,13 +37,7 @@ abstract class ClasseDatabase : RoomDatabase() {
         var roomCallback: RoomDatabase.Callback = object : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
-
-                CoroutineScope(Dispatchers.Default).launch {
-                    instance!!.classeDao().insert(Classe(1, "Classe 1", listOf()))
-                    instance!!.classeDao().insert(Classe(2, "Classe 2", listOf()))
-                    instance!!.classeDao().delete(Classe(3, "Classe 3", listOf()))
-
-                }
+                
             }
         }
     }
