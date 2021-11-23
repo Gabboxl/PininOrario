@@ -3,11 +3,17 @@
     <item
             android:id="@+id/page_1"
             android:enabled="true"
-            android:icon="@drawable/ic_update"
-            android:title="Track"/>
+            android:icon="@drawable/ic_baseline_push_pin_24"
+            android:title="Classi preferite"/>
     <item
             android:id="@+id/page_2"
             android:enabled="true"
-            android:icon="@drawable/ic_baseline_open_in_new_24"
-            android:title="Settings"/>
+            android:icon="@drawable/ic_baseline_reorder_24"
+            android:title="Tutte le classi"/>
+
+    <item
+            android:id="@+id/page_3"
+            android:enabled="true"
+            android:icon="@drawable/ic_baseline_download_done_24"
+            android:title="Orari scaricati"/>
 </menu>

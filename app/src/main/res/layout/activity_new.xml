@@ -8,33 +8,51 @@
 
 
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/aggiungi_classe_extfab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:layout_gravity="bottom|end"
-                android:contentDescription="descrizionenonvisibile"
-                android:text="Aggiungi classe"
-                app:icon="@drawable/ic_baseline_add_24"
-                />
 
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/recycler_view"
                 tools:listitem="@layout/classe_card_item">
-
-
         </androidx.recyclerview.widget.RecyclerView>
 
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/secondcoordlayout"
+                android:layout_weight="1"> <!-- layout_weight e' importante perche' definisce quanto spazio extra dedicare al layout, e a noi serve per la snackbar -->
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                    android:id="@+id/aggiungi_classe_extfab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_gravity="bottom|end"
+                    android:contentDescription="descrizionenonvisibile"
+                    android:text="Aggiungi classe"
+                    app:icon="@drawable/ic_baseline_add_24"
+                    />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
-        <!--  <com.google.android.material.bottomnavigation.BottomNavigationView
-                  android:id="@+id/bottom_navigation"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  app:menu="@menu/bottom_navigation_menu"
-                  android:layout_gravity="bottom"/> -->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:menu="@menu/bottom_navigation_menu"
+                app:layout_insetEdge="bottom"/>
+    </LinearLayout>
+
+
+
+
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
