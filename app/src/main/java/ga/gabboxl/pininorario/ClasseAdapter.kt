@@ -76,7 +76,7 @@ class ClasseAdapter : ListAdapter<Classe, ClasseAdapter.ClasseHolder>(ClasseAdap
 
     override fun onBindViewHolder(holder: ClasseHolder, position: Int) {
         val currentClasse: Classe = getItem(position)
-        holder.textViewTitle.text = currentClasse.nomeClasse
+        holder.textViewTitle.text = currentClasse.periodiDisponibiliSulServer.toString()
         holder.textViewNomeClasse.text = currentClasse.nomeClasse
 
     }

@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [Classe::class], version = 1)
+@Database(entities = [Classe::class], version = 2)
 @TypeConverters(Converters::class)
 abstract class ClasseDatabase : RoomDatabase() {
 
@@ -37,7 +37,7 @@ abstract class ClasseDatabase : RoomDatabase() {
         var roomCallback: RoomDatabase.Callback = object : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
-                
+
             }
         }
     }

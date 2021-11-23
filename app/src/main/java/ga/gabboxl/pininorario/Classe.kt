@@ -8,5 +8,6 @@ data class Classe(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
 
     val nomeClasse: String?,
+    val periodiDisponibiliSulServer: List<String>,
     val periodiScaricati: List<String>?,
 )

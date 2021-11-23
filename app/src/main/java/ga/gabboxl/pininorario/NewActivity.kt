@@ -12,12 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 
 class NewActivity : AppCompatActivity() {
     private lateinit var classeViewModel: ClasseViewModel
+    private val orariutils = OrariUtils
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
@@ -50,9 +52,9 @@ class NewActivity : AppCompatActivity() {
 
         CoroutineScope(Main).launch {
             //inizializzo la lista delle classi
-            OrariUtils.prendiClassi()
+            orariutils.prendiClassi()
         }
-        val classiutilsarray = OrariUtils.classi
+
 
         val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -75,16 +77,26 @@ class NewActivity : AppCompatActivity() {
                 //.setPositiveButton("Aggiungi", null)
                 .setNeutralButton("Annulla", null)
                 .setSingleChoiceItems(
-                    classiutilsarray.toTypedArray(), -1
+                    orariutils.classi.toTypedArray(), -1
                 ) { dialoginterface, i ->
-                    Toast.makeText(applicationContext, classiutilsarray[i], Toast.LENGTH_SHORT)
+                    Toast.makeText(applicationContext, orariutils.classi[i], Toast.LENGTH_SHORT)
                         .show()
 
-                    //salvo nel database la classe scelta
-                    val nuovaclasse = Classe(0, classiutilsarray[i], listOf())
-                    classeViewModel.insert(nuovaclasse)
+                    //Snackbar.make(findViewById(R.id.secondcoordlayout), "Classe aggiunta!", Snackbar.LENGTH_SHORT)
+                    //    .show()
 
-                    dialoginterface.dismiss()
+                    //prendo gli orari relativi alla classe
+                    CoroutineScope(Main).launch {
+                        orariutils.prendiPeriodi(i)
+
+                        //salvo nel database la classe scelta
+                        val nuovaclasse = Classe(0, orariutils.classi[i], orariutils.periodi.toList(), listOf())
+                        classeViewModel.insert(nuovaclasse)
+
+                        dialoginterface.dismiss()
+                    }
+
+
                 }
             alertDialogBuilder.show()
         }
