@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_medium"
-                android:text="4AINF-TLC"
+                android:text="TESTT"
                 android:textAppearance="?attr/textAppearanceTitleLarge"
                 android:textSize="18sp" />
 
@@ -63,6 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:text="TESTT"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textColor="?android:attr/textColorSecondary" />
 
@@ -76,6 +77,8 @@
 
     </LinearLayout>
 
+
+
     <!-- Buttons -->
     <LinearLayout
             android:id="@+id/linlay2"
@@ -88,6 +91,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linlay1">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recyclerview_periodi"
+                tools:listitem="@layout/periodi_card_item">
+        </androidx.recyclerview.widget.RecyclerView>
 
         <com.google.android.material.button.MaterialButton
                 style="?attr/borderlessButtonStyle"

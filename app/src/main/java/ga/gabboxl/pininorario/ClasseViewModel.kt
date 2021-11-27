@@ -7,19 +7,36 @@ import androidx.lifecycle.LiveData
 class ClasseViewModel(application: Application) : AndroidViewModel(application) {
     private var repository: ClasseRepository = ClasseRepository(application)
     private var allClassi: LiveData<List<Classe>> = repository.getAllClassi()
+    private var allPinnedClasses: LiveData<List<Classe>> = repository.getAllPinnedClasses()
 
 
-    fun insert(classe: Classe) {
-        repository.insert(classe)
+    fun insertClasse(classe: Classe) {
+        repository.insertClasse(classe)
     }
 
-    fun update(classe: Classe) {
-        repository.update(classe)
+    fun updateClasse(classe: Classe) {
+        repository.updateClasse(classe)
     }
 
-    fun delete(classe: Classe) {
-        repository.delete(classe)
+    fun deleteClasse(classe: Classe) {
+        repository.deleteClasse(classe)
     }
+
+
+
+    fun insertPeriodo(periodo: Periodo) {
+        repository.insertPeriodo(periodo)
+    }
+
+    fun updatePeriodo(periodo: Periodo) {
+        repository.updatePeriodo(periodo)
+    }
+
+    fun deletePeriodo(periodo: Periodo) {
+        repository.deletePeriodo(periodo)
+    }
+
+
 
     fun deleteAllClassi() {
         repository.deleteAllClassi()
@@ -27,5 +44,9 @@ class ClasseViewModel(application: Application) : AndroidViewModel(application) 
 
     fun getAllClassi(): LiveData<List<Classe>> {
         return allClassi
+    }
+
+    fun getAllPinnedClasses(): LiveData<List<Classe>> {
+        return allPinnedClasses
     }
 }

@@ -6,18 +6,41 @@ import androidx.room.*
 @Dao
 interface ClasseDao {
 
+    //classe
     @Insert
-    fun insert(classe: Classe)
+    fun insertClasse(classe: Classe)
 
     @Update
-    fun update(classe: Classe)
+    fun updateClasse(classe: Classe)
 
     @Delete
-    fun delete(classe: Classe)
+    fun deleteClasse(classe: Classe)
 
-    @Query("DELETE FROM classipreferite")
+    //periodo
+    @Insert
+    fun insertPeriodo(periodo: Periodo)
+
+    @Update
+    fun updatePeriodo(periodo: Periodo)
+
+    @Delete
+    fun deletePeriodo(periodo: Periodo)
+
+    //custom queries
+
+    @Transaction
+    @Query("DELETE FROM TabellaClassi")
     fun deleteAllClassi()
 
-    @Query("SELECT * FROM classipreferite")
+    @Query("SELECT * FROM TabellaClassi")
     fun getAllClassi(): LiveData<List<Classe>>
+
+    @Query("SELECT * FROM TabellaClassi WHERE isPinned = true")
+    fun getAllPinnedClasses(): LiveData<List<Classe>>
+
+    //funzione per prendere una classe con i relativi periodi
+    @Transaction
+    @Query("SELECT * FROM TabellaClassi WHERE codiceClasse = :codiceClasse")
+    fun getClasseWithPeriodi(codiceClasse: String): LiveData<List<ClasseWithPeriodi>>
 }
+

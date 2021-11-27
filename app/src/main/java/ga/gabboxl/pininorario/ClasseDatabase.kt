@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [Classe::class], version = 2)
+@Database(entities = [Classe::class, Periodo::class], version = 5)
 @TypeConverters(Converters::class)
 abstract class ClasseDatabase : RoomDatabase() {
 

@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -50,9 +49,38 @@ class NewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new)
 
+        classeViewModel = ViewModelProvider(this).get(ClasseViewModel::class.java)
+
         CoroutineScope(Main).launch {
-            //inizializzo la lista delle classi
+            //inizializzo i database con le classi e periodi (TO DO)
+
             orariutils.prendiClassi()
+
+
+            var contatorewhileclassi = 0
+            while (contatorewhileclassi < orariutils.classi.size){
+                classeViewModel.insertClasse(Classe(0, orariutils.classi[contatorewhileclassi], orariutils.codiciclassi[contatorewhileclassi], false))
+
+                contatorewhileclassi++
+            }
+
+            var contatorewhileperiodi = 0
+            while (contatorewhileperiodi < orariutils.classi.size){
+                orariutils.prendiPeriodi(contatorewhileperiodi)
+
+
+                var contatorewhileperiodiegriglie2 = 0
+                while(contatorewhileperiodiegriglie2 < orariutils.periodi.size) {
+                    classeViewModel.insertPeriodo(Periodo(0, orariutils.codiciclassi[contatorewhileperiodi], orariutils.periodi[contatorewhileperiodiegriglie2], orariutils.griglie[contatorewhileperiodiegriglie2],
+                        isAvailableOnServer = true,
+                        isDownloaded = false
+                    ))
+
+                    contatorewhileperiodiegriglie2++
+                }
+
+                contatorewhileperiodi++
+            }
         }
 
 
@@ -60,14 +88,13 @@ class NewActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
 
-        val adapter: ClasseAdapter = ClasseAdapter()
-        recyclerView.adapter = adapter
+        val adapterClassi: ClasseAdapter = ClasseAdapter()
+        recyclerView.adapter = adapterClassi
 
-        classeViewModel = ViewModelProvider(this).get(ClasseViewModel::class.java)
-        classeViewModel.getAllClassi().observe(this,
+        classeViewModel.getAllPinnedClasses().observe(this,
             { t ->
                 //Toast.makeText(applicationContext, "onChanged", Toast.LENGTH_SHORT).show()
-                adapter.submitList(t)
+                adapterClassi.submitList(t)
             })
 
         val extfab = findViewById<ExtendedFloatingActionButton>(R.id.aggiungi_classe_extfab)
@@ -87,13 +114,14 @@ class NewActivity : AppCompatActivity() {
 
                     //prendo gli orari relativi alla classe
                     CoroutineScope(Main).launch {
-                        orariutils.prendiPeriodi(i)
+                        //orariutils.prendiPeriodi(i)
 
                         //salvo nel database la classe scelta
-                        val nuovaclasse = Classe(0, orariutils.classi[i], orariutils.periodi.toList(), listOf())
-                        classeViewModel.insert(nuovaclasse)
+                        val updatedpinnedclasse = Classe(i+1, orariutils.classi[i], orariutils.codiciclassi[i], true)
+                        classeViewModel.updateClasse(updatedpinnedclasse)
 
                         dialoginterface.dismiss()
+
                     }
 
 
@@ -101,10 +129,10 @@ class NewActivity : AppCompatActivity() {
             alertDialogBuilder.show()
         }
 
-        adapter.setOnEliminaClickListener(object : ClasseAdapter.OnEliminaClickListener {
+        adapterClassi.setOnEliminaClickListener(object : ClasseAdapter.OnEliminaClickListener {
             override fun onEliminaClick(classe: Classe) {
                 //Toast.makeText(applicationContext, "onChanged " + adapter.posizioneitem + " " + classe, Toast.LENGTH_SHORT).show()
-                classeViewModel.delete(classe)
+                classeViewModel.updateClasse(Classe(classe.id, classe.nomeClasse, classe.codiceClasse, false))
                 //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
             }
         })

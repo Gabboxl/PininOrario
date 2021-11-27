@@ -8,6 +8,7 @@ import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
@@ -25,8 +26,8 @@ class ClasseAdapter : ListAdapter<Classe, ClasseAdapter.ClasseHolder>(ClasseAdap
             }
 
             override fun areContentsTheSame(oldItem: Classe, newItem: Classe): Boolean {
-                return oldItem.nomeClasse.equals(newItem.nomeClasse) &&
-                        oldItem.periodiScaricati!! == newItem.periodiScaricati
+                return oldItem.nomeClasse == newItem.nomeClasse &&
+                        oldItem.codiceClasse == newItem.codiceClasse && oldItem.isPinned == newItem.isPinned
             }
         }
     }
@@ -35,11 +36,13 @@ class ClasseAdapter : ListAdapter<Classe, ClasseAdapter.ClasseHolder>(ClasseAdap
         lateinit var textViewTitle: TextView
         lateinit var textViewNomeClasse: TextView
         lateinit var optionButton: ImageButton
+        lateinit var recyclerViewPeriodi: RecyclerView
 
         init {
             textViewTitle = itemView.findViewById(R.id.text_view_title)
             textViewNomeClasse = itemView.findViewById(R.id.text_view_nomeclasse)
             optionButton = itemView.findViewById(R.id.cardoptionbutton)
+            recyclerViewPeriodi = itemView.findViewById(R.id.recyclerview_periodi)
 
             //i setonclicklistener si devono implementeare nel viewholder e non nel onbind perche altrimenti verrebbe l'onbind chiamato ogni volta che il recyclerview deve visualizzare un nuovo elemento scorrendo verso il basso/alto, implementandolo nel viewholder viene implementato una sola volta per item
             optionButton.setOnClickListener {
@@ -76,8 +79,15 @@ class ClasseAdapter : ListAdapter<Classe, ClasseAdapter.ClasseHolder>(ClasseAdap
 
     override fun onBindViewHolder(holder: ClasseHolder, position: Int) {
         val currentClasse: Classe = getItem(position)
-        holder.textViewTitle.text = currentClasse.periodiDisponibiliSulServer.toString()
+        holder.textViewTitle.text = currentClasse.codiceClasse
         holder.textViewNomeClasse.text = currentClasse.nomeClasse
+
+
+        holder.recyclerViewPeriodi.layoutManager = LinearLayoutManager(holder.itemView.context)
+        holder.recyclerViewPeriodi.setHasFixedSize(true)
+
+       // val periodiadapter: PeriodiAdapter = PeriodiAdapter(currentClasse.periodi)
+       // holder.recyclerViewPeriodi.adapter = periodiadapter
 
     }
 

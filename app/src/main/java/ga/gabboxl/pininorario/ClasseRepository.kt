@@ -9,29 +9,49 @@ import kotlinx.coroutines.launch
 class ClasseRepository(application: Application) {
     private var classeDao: ClasseDao
     private var allClasses: LiveData<List<Classe>>
+    private var allPinnedClasses: LiveData<List<Classe>>
 
 
     init {
         val database: ClasseDatabase = ClasseDatabase.getInstance(application)
         classeDao = database.classeDao()
         allClasses = classeDao.getAllClassi()
+        allPinnedClasses = classeDao.getAllPinnedClasses()
     }
 
-    fun insert(classe: Classe) {
+    fun insertClasse(classe: Classe) {
         CoroutineScope(Dispatchers.Default).launch {
-            classeDao.insert(classe)
+            classeDao.insertClasse(classe)
         }
     }
 
-    fun update(classe: Classe) {
+    fun updateClasse(classe: Classe) {
         CoroutineScope(Dispatchers.Default).launch {
-            classeDao.update(classe)
+            classeDao.updateClasse(classe)
         }
     }
 
-    fun delete(classe: Classe) {
+    fun deleteClasse(classe: Classe) {
         CoroutineScope(Dispatchers.Default).launch {
-            classeDao.delete(classe)
+            classeDao.deleteClasse(classe)
+        }
+    }
+
+    fun insertPeriodo(periodo: Periodo) {
+        CoroutineScope(Dispatchers.Default).launch {
+            classeDao.insertPeriodo(periodo)
+        }
+    }
+
+    fun updatePeriodo(periodo: Periodo) {
+        CoroutineScope(Dispatchers.Default).launch {
+            classeDao.updatePeriodo(periodo)
+        }
+    }
+
+    fun deletePeriodo(periodo: Periodo) {
+        CoroutineScope(Dispatchers.Default).launch {
+            classeDao.deletePeriodo(periodo)
         }
     }
 
@@ -43,6 +63,10 @@ class ClasseRepository(application: Application) {
 
     fun getAllClassi(): LiveData<List<Classe>> {
         return allClasses
+    }
+
+    fun getAllPinnedClasses(): LiveData<List<Classe>> {
+        return allPinnedClasses
     }
 
 
