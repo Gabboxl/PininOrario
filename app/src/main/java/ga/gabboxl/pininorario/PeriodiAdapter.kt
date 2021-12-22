@@ -4,29 +4,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
-import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 
-class PeriodiAdapter constructor(var datiPeriodo: List<ClasseWithPeriodi>) : ListAdapter<Classe, PeriodiAdapter.PeriodiHolder>(PeriodiAdapter.DIFF_CALLBACK) {
+class PeriodiAdapter : ListAdapter<Periodo, PeriodiAdapter.PeriodiHolder>(PeriodiAdapter.DIFF_CALLBACK) {
 
 
     var posizioneitem: Int = -1
 
     companion object {
 
-        private var DIFF_CALLBACK: DiffUtil.ItemCallback<Classe> = object :
-            DiffUtil.ItemCallback<Classe>() {
-            override fun areItemsTheSame(oldItem: Classe, newItem: Classe): Boolean {
+        private var DIFF_CALLBACK: DiffUtil.ItemCallback<Periodo> = object :
+            DiffUtil.ItemCallback<Periodo>() {
+            override fun areItemsTheSame(oldItem: Periodo, newItem: Periodo): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: Classe, newItem: Classe): Boolean {
-                return oldItem.nomeClasse.equals(newItem.nomeClasse) //&&
+            override fun areContentsTheSame(oldItem: Periodo, newItem: Periodo): Boolean {
+                return oldItem.nomePeriodo == newItem.nomePeriodo //&&
                  //       oldItem.periodi!! == newItem.periodi
             }
         }
@@ -50,17 +48,19 @@ class PeriodiAdapter constructor(var datiPeriodo: List<ClasseWithPeriodi>) : Lis
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeriodiHolder {
         val itemView: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.classe_card_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.periodi_card_item, parent, false)
         return PeriodiHolder((itemView))
     }
 
     override fun onBindViewHolder(holder: PeriodiHolder, position: Int) {
-        val currentClasse: Classe = getItem(position)
+        val currentPeriodo: Periodo = getItem(position)
+
+        holder.textViewPeriodo.text = currentPeriodo.nomePeriodo
 
 
     }
 
-    fun getClasseAt(position: Int): Classe {
+    fun getClasseAt(position: Int): Periodo {
         return getItem(position)
     }
 

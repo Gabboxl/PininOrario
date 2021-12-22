@@ -7,7 +7,16 @@ import androidx.lifecycle.LiveData
 class ClasseViewModel(application: Application) : AndroidViewModel(application) {
     private var repository: ClasseRepository = ClasseRepository(application)
     private var allClassi: LiveData<List<Classe>> = repository.getAllClassi()
-    private var allPinnedClasses: LiveData<List<Classe>> = repository.getAllPinnedClasses()
+    private var allPinnedClassesWithPeriodi: LiveData<List<ClasseWithPeriodi>> = repository.getAllPinnedClassesWithPeriodi()
+
+
+    fun doesClasseExist(codiceClasse : String): Boolean {
+        return repository.doesClasseExist(codiceClasse)
+    }
+
+    fun doesPeriodoExist(codiceClassePeriodo : String, nomePeriodo: String): Boolean {
+        return repository.doesPeriodoExist(codiceClassePeriodo, nomePeriodo)
+    }
 
 
     fun insertClasse(classe: Classe) {
@@ -42,11 +51,15 @@ class ClasseViewModel(application: Application) : AndroidViewModel(application) 
         repository.deleteAllClassi()
     }
 
+    fun deleteAllPeriodi() {
+        repository.deleteAllPeriodi()
+    }
+
     fun getAllClassi(): LiveData<List<Classe>> {
         return allClassi
     }
 
-    fun getAllPinnedClasses(): LiveData<List<Classe>> {
-        return allPinnedClasses
+    fun getAllPinnedClassesWithPeriodi(): LiveData<List<ClasseWithPeriodi>> {
+        return allPinnedClassesWithPeriodi
     }
 }

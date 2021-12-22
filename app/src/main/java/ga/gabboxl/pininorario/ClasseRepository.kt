@@ -9,14 +9,24 @@ import kotlinx.coroutines.launch
 class ClasseRepository(application: Application) {
     private var classeDao: ClasseDao
     private var allClasses: LiveData<List<Classe>>
-    private var allPinnedClasses: LiveData<List<Classe>>
+    private var allPinnedClasses: LiveData<List<ClasseWithPeriodi>>
 
 
     init {
         val database: ClasseDatabase = ClasseDatabase.getInstance(application)
         classeDao = database.classeDao()
         allClasses = classeDao.getAllClassi()
-        allPinnedClasses = classeDao.getAllPinnedClasses()
+        allPinnedClasses = classeDao.getAllPinnedClassesWithPeriodi()
+    }
+
+    //check methods
+
+    fun doesClasseExist(codiceClasse : String): Boolean {
+            return classeDao.doesClasseExist(codiceClasse)
+    }
+
+    fun doesPeriodoExist(codiceClassePeriodo : String, nomePeriodo: String): Boolean {
+        return classeDao.doesPeriodoExist(codiceClassePeriodo, nomePeriodo)
     }
 
     fun insertClasse(classe: Classe) {
@@ -61,11 +71,17 @@ class ClasseRepository(application: Application) {
         }
     }
 
+    fun deleteAllPeriodi() {
+        CoroutineScope(Dispatchers.Default).launch {
+            classeDao.deleteAllPeriodi()
+        }
+    }
+
     fun getAllClassi(): LiveData<List<Classe>> {
         return allClasses
     }
 
-    fun getAllPinnedClasses(): LiveData<List<Classe>> {
+    fun getAllPinnedClassesWithPeriodi(): LiveData<List<ClasseWithPeriodi>> {
         return allPinnedClasses
     }
 

@@ -7,36 +7,37 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 
-class ClasseAdapter : ListAdapter<Classe, ClasseAdapter.ClasseHolder>(ClasseAdapter.DIFF_CALLBACK) {
+class ClasseAdapter : ListAdapter<ClasseWithPeriodi, ClasseAdapter.ClasseHolder>(ClasseAdapter.DIFF_CALLBACK) {
     private lateinit var listener: OnEliminaClickListener
     var posizioneitem: Int = -1
 
     companion object {
 
-        private var DIFF_CALLBACK: DiffUtil.ItemCallback<Classe> = object :
-            DiffUtil.ItemCallback<Classe>() {
-            override fun areItemsTheSame(oldItem: Classe, newItem: Classe): Boolean {
-                return oldItem.id == newItem.id
+        private var DIFF_CALLBACK: DiffUtil.ItemCallback<ClasseWithPeriodi> = object :
+            DiffUtil.ItemCallback<ClasseWithPeriodi>() {
+            override fun areItemsTheSame(oldItem: ClasseWithPeriodi, newItem: ClasseWithPeriodi): Boolean {
+                return oldItem.classe.id == newItem.classe.id
             }
 
-            override fun areContentsTheSame(oldItem: Classe, newItem: Classe): Boolean {
-                return oldItem.nomeClasse == newItem.nomeClasse &&
-                        oldItem.codiceClasse == newItem.codiceClasse && oldItem.isPinned == newItem.isPinned
+            override fun areContentsTheSame(oldItem: ClasseWithPeriodi, newItem: ClasseWithPeriodi): Boolean {
+                return oldItem.classe.nomeClasse == newItem.classe.nomeClasse && //da modificare con i dati dei periodi
+                        oldItem.classe.codiceClasse == newItem.classe.codiceClasse && oldItem.classe.isPinned == newItem.classe.isPinned
             }
         }
     }
 
     inner class ClasseHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        lateinit var textViewTitle: TextView
-        lateinit var textViewNomeClasse: TextView
-        lateinit var optionButton: ImageButton
-        lateinit var recyclerViewPeriodi: RecyclerView
+        var textViewTitle: TextView
+        var textViewNomeClasse: TextView
+        var optionButton: ImageButton
+        var recyclerViewPeriodi: RecyclerView
 
         init {
             textViewTitle = itemView.findViewById(R.id.text_view_title)
@@ -57,7 +58,7 @@ class ClasseAdapter : ListAdapter<Classe, ClasseAdapter.ClasseHolder>(ClasseAdap
 
                         R.id.deletecardmenuoption -> {
                             posizioneitem = absoluteAdapterPosition
-                            if (listener != null && posizioneitem != RecyclerView.NO_POSITION) {
+                            if (posizioneitem != RecyclerView.NO_POSITION) {
                                 listener.onEliminaClick(getItem(posizioneitem))
                             }
                         }
@@ -78,25 +79,25 @@ class ClasseAdapter : ListAdapter<Classe, ClasseAdapter.ClasseHolder>(ClasseAdap
     }
 
     override fun onBindViewHolder(holder: ClasseHolder, position: Int) {
-        val currentClasse: Classe = getItem(position)
-        holder.textViewTitle.text = currentClasse.codiceClasse
-        holder.textViewNomeClasse.text = currentClasse.nomeClasse
-
+        val currentClasse: ClasseWithPeriodi = getItem(position)
+        holder.textViewTitle.text = currentClasse.classe.codiceClasse
+        holder.textViewNomeClasse.text = currentClasse.classe.nomeClasse
 
         holder.recyclerViewPeriodi.layoutManager = LinearLayoutManager(holder.itemView.context)
-        holder.recyclerViewPeriodi.setHasFixedSize(true)
 
-       // val periodiadapter: PeriodiAdapter = PeriodiAdapter(currentClasse.periodi)
-       // holder.recyclerViewPeriodi.adapter = periodiadapter
+        val periodiadapter: PeriodiAdapter = PeriodiAdapter()
+        holder.recyclerViewPeriodi.adapter = periodiadapter
+
+        periodiadapter.submitList(currentClasse.periodi)
 
     }
 
-    fun getClasseAt(position: Int): Classe {
+    fun getClasseAt(position: Int): ClasseWithPeriodi {
         return getItem(position)
     }
 
     interface OnEliminaClickListener {
-        fun onEliminaClick(classe: Classe)
+        fun onEliminaClick(classeWithPeriodi: ClasseWithPeriodi)
     }
 
     fun setOnEliminaClickListener(listener: OnEliminaClickListener) {

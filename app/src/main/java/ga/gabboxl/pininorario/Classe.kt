@@ -7,17 +7,16 @@ import androidx.room.Relation
 
 @Entity(tableName = "TabellaClassi")
 data class Classe(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-
+    val id: Int = 0,
     val nomeClasse: String,
-    val codiceClasse: String,
+@PrimaryKey val codiceClasse: String,
     var isPinned: Boolean,
 
 )
 
-@Entity(tableName = "TabellaPeriodi")
+@Entity(tableName = "TabellaPeriodi", primaryKeys = ["codiceClassePeriodo", "nomePeriodo"])
 data class Periodo(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val id: Int = 0,
     var codiceClassePeriodo: String,
     var nomePeriodo: String,
     var periodoSemiLinkImg: String,

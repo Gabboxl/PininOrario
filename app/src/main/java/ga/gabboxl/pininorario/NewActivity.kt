@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.platform.AndroidUiDispatcher.Companion.Main
@@ -12,8 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 
 class NewActivity : AppCompatActivity() {
@@ -51,18 +56,31 @@ class NewActivity : AppCompatActivity() {
 
         classeViewModel = ViewModelProvider(this).get(ClasseViewModel::class.java)
 
-        CoroutineScope(Main).launch {
+        CoroutineScope(Dispatchers.Default).launch {
             //inizializzo i database con le classi e periodi (TO DO)
+
+
+            val snackaggiornamento = Snackbar.make(findViewById(R.id.secondcoordlayout), "Aggiornamento database classi...", Snackbar.LENGTH_INDEFINITE)
+            snackaggiornamento.show()
 
             orariutils.prendiClassi()
 
-
             var contatorewhileclassi = 0
             while (contatorewhileclassi < orariutils.classi.size){
-                classeViewModel.insertClasse(Classe(0, orariutils.classi[contatorewhileclassi], orariutils.codiciclassi[contatorewhileclassi], false))
 
+                if(!classeViewModel.doesClasseExist(orariutils.codiciclassi[contatorewhileclassi])) {
+                    classeViewModel.insertClasse(
+                        Classe(
+                            contatorewhileclassi,
+                            orariutils.classi[contatorewhileclassi],
+                            orariutils.codiciclassi[contatorewhileclassi],
+                            false
+                        )
+                    )
+                }
                 contatorewhileclassi++
             }
+
 
             var contatorewhileperiodi = 0
             while (contatorewhileperiodi < orariutils.classi.size){
@@ -71,16 +89,27 @@ class NewActivity : AppCompatActivity() {
 
                 var contatorewhileperiodiegriglie2 = 0
                 while(contatorewhileperiodiegriglie2 < orariutils.periodi.size) {
-                    classeViewModel.insertPeriodo(Periodo(0, orariutils.codiciclassi[contatorewhileperiodi], orariutils.periodi[contatorewhileperiodiegriglie2], orariutils.griglie[contatorewhileperiodiegriglie2],
-                        isAvailableOnServer = true,
-                        isDownloaded = false
-                    ))
+
+                    if(!classeViewModel.doesPeriodoExist(orariutils.codiciclassi[contatorewhileperiodi], orariutils.periodi[contatorewhileperiodiegriglie2])) {
+                        classeViewModel.insertPeriodo(
+                            Periodo(
+                                contatorewhileperiodi,
+                                orariutils.codiciclassi[contatorewhileperiodi],
+                                orariutils.periodi[contatorewhileperiodiegriglie2],
+                                orariutils.griglie[contatorewhileperiodiegriglie2],
+                                isAvailableOnServer = true,
+                                isDownloaded = false
+                            )
+                        )
+                    }
 
                     contatorewhileperiodiegriglie2++
                 }
 
                 contatorewhileperiodi++
             }
+
+            snackaggiornamento.dismiss()
         }
 
 
@@ -91,7 +120,7 @@ class NewActivity : AppCompatActivity() {
         val adapterClassi: ClasseAdapter = ClasseAdapter()
         recyclerView.adapter = adapterClassi
 
-        classeViewModel.getAllPinnedClasses().observe(this,
+        classeViewModel.getAllPinnedClassesWithPeriodi().observe(this,
             { t ->
                 //Toast.makeText(applicationContext, "onChanged", Toast.LENGTH_SHORT).show()
                 adapterClassi.submitList(t)
@@ -130,9 +159,9 @@ class NewActivity : AppCompatActivity() {
         }
 
         adapterClassi.setOnEliminaClickListener(object : ClasseAdapter.OnEliminaClickListener {
-            override fun onEliminaClick(classe: Classe) {
+            override fun onEliminaClick(classeWithPeriodi: ClasseWithPeriodi) {
                 //Toast.makeText(applicationContext, "onChanged " + adapter.posizioneitem + " " + classe, Toast.LENGTH_SHORT).show()
-                classeViewModel.updateClasse(Classe(classe.id, classe.nomeClasse, classe.codiceClasse, false))
+                classeViewModel.updateClasse(Classe(classeWithPeriodi.classe.id, classeWithPeriodi.classe.nomeClasse, classeWithPeriodi.classe.codiceClasse, false))
                 //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
             }
         })

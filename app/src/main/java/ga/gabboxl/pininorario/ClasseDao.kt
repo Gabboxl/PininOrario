@@ -32,15 +32,28 @@ interface ClasseDao {
     @Query("DELETE FROM TabellaClassi")
     fun deleteAllClassi()
 
+    @Transaction
+    @Query("DELETE FROM TabellaPeriodi")
+    fun deleteAllPeriodi()
+
     @Query("SELECT * FROM TabellaClassi")
     fun getAllClassi(): LiveData<List<Classe>>
 
+    @Transaction
     @Query("SELECT * FROM TabellaClassi WHERE isPinned = true")
-    fun getAllPinnedClasses(): LiveData<List<Classe>>
+    fun getAllPinnedClassesWithPeriodi(): LiveData<List<ClasseWithPeriodi>>
 
     //funzione per prendere una classe con i relativi periodi
     @Transaction
     @Query("SELECT * FROM TabellaClassi WHERE codiceClasse = :codiceClasse")
     fun getClasseWithPeriodi(codiceClasse: String): LiveData<List<ClasseWithPeriodi>>
+
+    //check methods
+
+    @Query("SELECT EXISTS(SELECT * FROM TabellaClassi WHERE codiceClasse = :codiceClasse)")
+    fun doesClasseExist(codiceClasse : String) : Boolean
+
+    @Query("SELECT EXISTS(SELECT * FROM TabellaPeriodi WHERE codiceClassePeriodo = :codiceClassePeriodo AND nomePeriodo = :nomePeriodo)")
+    fun doesPeriodoExist(codiceClassePeriodo : String, nomePeriodo: String) : Boolean
 }
 
