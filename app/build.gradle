@@ -88,7 +88,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.2.1"
 
     //Firebase dependencies
-    implementation 'com.google.firebase:firebase-analytics-ktx:20.0.0'
+    implementation 'com.google.firebase:firebase-analytics-ktx:20.0.2'
     implementation 'com.google.firebase:firebase-perf-ktx:20.0.3'
     implementation 'com.google.firebase:firebase-crashlytics-ktx:18.2.4'
 
