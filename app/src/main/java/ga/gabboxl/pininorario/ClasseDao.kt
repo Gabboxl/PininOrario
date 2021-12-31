@@ -44,7 +44,7 @@ interface ClasseDao {
     fun getAllClassiWithPeriodi(): LiveData<List<ClasseWithPeriodi>>
 
     @Transaction
-    @Query("SELECT * FROM TabellaClassi WHERE isPinned = true")
+    @Query("SELECT * FROM TabellaClassi WHERE isPinned = 1")
     fun getAllPinnedClassesWithPeriodi(): LiveData<List<ClasseWithPeriodi>>
 
     //funzione per prendere una classe con i relativi periodi
