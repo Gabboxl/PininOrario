@@ -25,8 +25,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import com.google.android.material.snackbar.BaseTransientBottomBar
-
-
+import android.view.ViewGroup
 
 
 
@@ -81,7 +80,15 @@ class NewActivity : AppCompatActivity() {
 
             val snackaggiornamento = Snackbar.make(findViewById(R.id.fragmentContainerView), "Aggiornamento database classi...", Snackbar.LENGTH_INDEFINITE)
                 .setBehavior(NoSwipeBehavior())
+
+            var contentLay: ViewGroup = snackaggiornamento.view.findViewById<View>(com.google.android.material.R.id.snackbar_text).parent as ViewGroup
+            val item = ProgressBar(applicationContext).also { it.setPadding(24,24,24,24,) }
+            contentLay.addView(item)
+
             snackaggiornamento.show()
+
+
+
 
             orariutils.prendiClassi()
 
