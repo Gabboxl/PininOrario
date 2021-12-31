@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-            android:id="@+id/page_pinnedclassi"
+            android:id="@+id/pinnedFragment"
             android:enabled="true"
             android:icon="@drawable/ic_baseline_push_pin_24"
             android:title="Classi preferite"/>
     <item
-            android:id="@+id/page_allclassi"
+            android:id="@+id/allFragment"
             android:enabled="true"
             android:icon="@drawable/ic_baseline_reorder_24"
             android:title="Tutte le classi"/>
 
     <item
-            android:id="@+id/page_savedtimetables"
+            android:id="@+id/downloadsFragment"
             android:enabled="true"
             android:icon="@drawable/ic_baseline_download_done_24"
             android:title="Orari scaricati"/>

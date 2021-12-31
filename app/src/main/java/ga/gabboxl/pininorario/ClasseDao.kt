@@ -40,6 +40,10 @@ interface ClasseDao {
     fun getAllClassi(): LiveData<List<Classe>>
 
     @Transaction
+    @Query("SELECT * FROM TabellaClassi")
+    fun getAllClassiWithPeriodi(): LiveData<List<ClasseWithPeriodi>>
+
+    @Transaction
     @Query("SELECT * FROM TabellaClassi WHERE isPinned = true")
     fun getAllPinnedClassesWithPeriodi(): LiveData<List<ClasseWithPeriodi>>
 

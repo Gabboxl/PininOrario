@@ -8,7 +8,7 @@ class ClasseViewModel(application: Application) : AndroidViewModel(application) 
     private var repository: ClasseRepository = ClasseRepository(application)
     private var allClassi: LiveData<List<Classe>> = repository.getAllClassi()
     private var allPinnedClassesWithPeriodi: LiveData<List<ClasseWithPeriodi>> = repository.getAllPinnedClassesWithPeriodi()
-
+    private var allClassiWithPeriodi: LiveData<List<ClasseWithPeriodi>> = repository.getAllClassiWithPeriodi()
 
     fun doesClasseExist(codiceClasse : String): Boolean {
         return repository.doesClasseExist(codiceClasse)
@@ -57,6 +57,10 @@ class ClasseViewModel(application: Application) : AndroidViewModel(application) 
 
     fun getAllClassi(): LiveData<List<Classe>> {
         return allClassi
+    }
+
+    fun getAllClassiWithPeriodi(): LiveData<List<ClasseWithPeriodi>>{
+        return allClassiWithPeriodi
     }
 
     fun getAllPinnedClassesWithPeriodi(): LiveData<List<ClasseWithPeriodi>> {

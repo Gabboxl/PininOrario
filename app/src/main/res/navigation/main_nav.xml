@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main_nav"
+        app:startDestination="@id/pinnedFragment">
+
+    <fragment
+            android:id="@+id/pinnedFragment"
+            android:name="ga.gabboxl.pininorario.PinnedFragment"
+            android:label="fragment_pinned"
+            tools:layout="@layout/fragment_pinned" />
+    <fragment
+            android:id="@+id/allFragment"
+            android:name="ga.gabboxl.pininorario.AllFragment"
+            android:label="fragment_all"
+            tools:layout="@layout/fragment_all" />
+    <fragment
+            android:id="@+id/downloadsFragment"
+            android:name="ga.gabboxl.pininorario.DownloadsFragment"
+            android:label="fragment_downloads"
+            tools:layout="@layout/fragment_downloads" />
+</navigation>

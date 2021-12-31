@@ -10,8 +10,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.platform.AndroidUiDispatcher.Companion.Main
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -19,11 +24,16 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
+import com.google.android.material.snackbar.BaseTransientBottomBar
+
+
+
 
 
 class NewActivity : AppCompatActivity() {
     private lateinit var classeViewModel: ClasseViewModel
     private val orariutils = OrariUtils
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
@@ -54,13 +64,23 @@ class NewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new)
 
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navController: NavController = navHostFragment.navController
+
+        bottomNav.setupWithNavController(navController)
+
+
         classeViewModel = ViewModelProvider(this).get(ClasseViewModel::class.java)
 
         CoroutineScope(Dispatchers.Default).launch {
             //inizializzo i database con le classi e periodi (TO DO)
 
 
-            val snackaggiornamento = Snackbar.make(findViewById(R.id.secondcoordlayout), "Aggiornamento database classi...", Snackbar.LENGTH_INDEFINITE)
+            val snackaggiornamento = Snackbar.make(findViewById(R.id.fragmentContainerView), "Aggiornamento database classi...", Snackbar.LENGTH_INDEFINITE)
+                .setBehavior(NoSwipeBehavior())
             snackaggiornamento.show()
 
             orariutils.prendiClassi()
@@ -112,75 +132,11 @@ class NewActivity : AppCompatActivity() {
             snackaggiornamento.dismiss()
         }
 
+    }
 
-        val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.setHasFixedSize(true)
-
-
-
-        val adapterClassi: ClasseAdapter = ClasseAdapter()
-        recyclerView.adapter = adapterClassi
-
-
-        classeViewModel.getAllPinnedClassesWithPeriodi().observe(this,
-            { t ->
-                //Toast.makeText(applicationContext, "onChanged", Toast.LENGTH_SHORT).show()
-                adapterClassi.submitList(t)
-            })
-
-        val extfab = findViewById<ExtendedFloatingActionButton>(R.id.aggiungi_classe_extfab)
-        extfab.setOnClickListener {
-            val alertDialogBuilder: MaterialAlertDialogBuilder = MaterialAlertDialogBuilder(this)
-                .setTitle("Seleziona una classe")
-                //.setPositiveButton("Aggiungi", null)
-                .setNeutralButton("Annulla", null)
-                .setSingleChoiceItems(
-                    orariutils.classi.toTypedArray(), -1
-                ) { dialoginterface, i ->
-                    Toast.makeText(applicationContext, orariutils.classi[i], Toast.LENGTH_SHORT)
-                        .show()
-
-                    //Snackbar.make(findViewById(R.id.secondcoordlayout), "Classe aggiunta!", Snackbar.LENGTH_SHORT)
-                    //    .show()
-
-                    //prendo gli orari relativi alla classe
-                    CoroutineScope(Main).launch {
-                        //orariutils.prendiPeriodi(i)
-
-                        //salvo nel database la classe scelta
-                        val updatedpinnedclasse = Classe(i+1, orariutils.classi[i], orariutils.codiciclassi[i], true)
-                        classeViewModel.updateClasse(updatedpinnedclasse)
-
-                        dialoginterface.dismiss()
-
-                    }
-
-
-                }
-            alertDialogBuilder.show()
+    class NoSwipeBehavior : BaseTransientBottomBar.Behavior() {
+        override fun canSwipeDismissView(child: View): Boolean {
+            return false
         }
-
-        adapterClassi.setOnEliminaClickListener(object : ClasseAdapter.OnEliminaClickListener {
-            override fun onEliminaClick(classeWithPeriodi: ClasseWithPeriodi) {
-                //Toast.makeText(applicationContext, "onChanged " + adapter.posizioneitem + " " + classe, Toast.LENGTH_SHORT).show()
-                classeViewModel.updateClasse(Classe(classeWithPeriodi.classe.id, classeWithPeriodi.classe.nomeClasse, classeWithPeriodi.classe.codiceClasse, false))
-                //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
-            }
-        })
-
-        adapterClassi.setOnPeriodoButtonClickListener(object : PeriodiAdapter.OnPeriodoButtonClickListener {
-            override fun OnPeriodoButtonClick(periodo: Periodo) {
-                Toast.makeText(applicationContext, "per: " + periodo.nomePeriodo + "\n classe: ", Toast.LENGTH_SHORT).show()
-
-                //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
-            }
-        })
-
-
-
-
-
-
     }
 }
