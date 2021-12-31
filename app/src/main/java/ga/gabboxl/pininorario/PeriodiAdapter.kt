@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class PeriodiAdapter : ListAdapter<Periodo, PeriodiAdapter.PeriodiHolder>(PeriodiAdapter.DIFF_CALLBACK) {
 
-
+    private lateinit var listener: OnPeriodoButtonClickListener
     var posizioneitem: Int = -1
 
     companion object {
@@ -24,8 +24,7 @@ class PeriodiAdapter : ListAdapter<Periodo, PeriodiAdapter.PeriodiHolder>(Period
             }
 
             override fun areContentsTheSame(oldItem: Periodo, newItem: Periodo): Boolean {
-                return oldItem.nomePeriodo == newItem.nomePeriodo //&&
-                 //       oldItem.periodi!! == newItem.periodi
+                return oldItem.nomePeriodo == newItem.nomePeriodo
             }
         }
     }
@@ -38,10 +37,14 @@ class PeriodiAdapter : ListAdapter<Periodo, PeriodiAdapter.PeriodiHolder>(Period
             textViewPeriodo = itemView.findViewById(R.id.textperiodo)
             scaricaButton = itemView.findViewById(R.id.card_periodoscarica)
 
+
             //i setonclicklistener si devono implementeare nel viewholder e non nel onbind perche altrimenti verrebbe l'onbind chiamato ogni volta che il recyclerview deve visualizzare un nuovo elemento scorrendo verso il basso/alto, implementandolo nel viewholder viene implementato una sola volta per item
-            scaricaButton.setOnClickListener {
-                //scarico l'orario
+            scaricaButton.setOnClickListener{
+                posizioneitem = absoluteAdapterPosition
+                listener.OnPeriodoButtonClick(getItem(posizioneitem))
             }
+
+
         }
 
     }
@@ -57,11 +60,19 @@ class PeriodiAdapter : ListAdapter<Periodo, PeriodiAdapter.PeriodiHolder>(Period
 
         holder.textViewPeriodo.text = currentPeriodo.nomePeriodo
 
-
     }
 
     fun getClasseAt(position: Int): Periodo {
         return getItem(position)
+    }
+
+
+    interface OnPeriodoButtonClickListener {
+        fun OnPeriodoButtonClick(periodo: Periodo)
+    }
+
+    fun setOnPeriodoButtonClickListener(listener: OnPeriodoButtonClickListener) {
+        this.listener = listener
     }
 
 }

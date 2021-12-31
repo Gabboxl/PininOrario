@@ -36,16 +36,6 @@
 
     </ImageButton>
 
-
-    <ProgressBar
-            android:id="@+id/progressBarClasse"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="35dp"
-            android:layout_height="34dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
             android:id="@+id/linlay1"
             android:layout_width="match_parent"

@@ -117,8 +117,11 @@ class NewActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
 
+
+
         val adapterClassi: ClasseAdapter = ClasseAdapter()
         recyclerView.adapter = adapterClassi
+
 
         classeViewModel.getAllPinnedClassesWithPeriodi().observe(this,
             { t ->
@@ -165,6 +168,18 @@ class NewActivity : AppCompatActivity() {
                 //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
             }
         })
+
+        adapterClassi.setOnPeriodoButtonClickListener(object : PeriodiAdapter.OnPeriodoButtonClickListener {
+            override fun OnPeriodoButtonClick(periodo: Periodo) {
+                Toast.makeText(applicationContext, "per: " + periodo.nomePeriodo + "\n classe: ", Toast.LENGTH_SHORT).show()
+
+                //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
+            }
+        })
+
+
+
+
 
 
     }
