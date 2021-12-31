@@ -23,11 +23,11 @@ class ClasseRepository(application: Application) {
 
     //check methods
 
-    fun doesClasseExist(codiceClasse : String): Boolean {
-            return classeDao.doesClasseExist(codiceClasse)
+    fun doesClasseExist(codiceClasse: String): Boolean {
+        return classeDao.doesClasseExist(codiceClasse)
     }
 
-    fun doesPeriodoExist(codiceClassePeriodo : String, nomePeriodo: String): Boolean {
+    fun doesPeriodoExist(codiceClassePeriodo: String, nomePeriodo: String): Boolean {
         return classeDao.doesPeriodoExist(codiceClassePeriodo, nomePeriodo)
     }
 

@@ -5,28 +5,19 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.ui.platform.AndroidUiDispatcher.Companion.Main
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import android.view.ViewGroup
-
 
 
 class NewActivity : AppCompatActivity() {
@@ -78,11 +69,16 @@ class NewActivity : AppCompatActivity() {
             //inizializzo i database con le classi e periodi (TO DO)
 
 
-            val snackaggiornamento = Snackbar.make(findViewById(R.id.fragmentContainerView), "Aggiornamento database classi...", Snackbar.LENGTH_INDEFINITE)
+            val snackaggiornamento = Snackbar.make(
+                findViewById(R.id.fragmentContainerView),
+                "Aggiornamento database classi...",
+                Snackbar.LENGTH_INDEFINITE
+            )
                 .setBehavior(NoSwipeBehavior())
 
-            var contentLay: ViewGroup = snackaggiornamento.view.findViewById<View>(com.google.android.material.R.id.snackbar_text).parent as ViewGroup
-            val item = ProgressBar(applicationContext).also { it.setPadding(24,24,24,24,) }
+            var contentLay: ViewGroup =
+                snackaggiornamento.view.findViewById<View>(com.google.android.material.R.id.snackbar_text).parent as ViewGroup
+            val item = ProgressBar(applicationContext).also { it.setPadding(24, 24, 24, 24) }
             contentLay.addView(item)
 
             snackaggiornamento.show()
@@ -93,9 +89,9 @@ class NewActivity : AppCompatActivity() {
             orariutils.prendiClassi()
 
             var contatorewhileclassi = 0
-            while (contatorewhileclassi < orariutils.classi.size){
+            while (contatorewhileclassi < orariutils.classi.size) {
 
-                if(!classeViewModel.doesClasseExist(orariutils.codiciclassi[contatorewhileclassi])) {
+                if (!classeViewModel.doesClasseExist(orariutils.codiciclassi[contatorewhileclassi])) {
                     classeViewModel.insertClasse(
                         Classe(
                             contatorewhileclassi,
@@ -110,14 +106,18 @@ class NewActivity : AppCompatActivity() {
 
 
             var contatorewhileperiodi = 0
-            while (contatorewhileperiodi < orariutils.classi.size){
+            while (contatorewhileperiodi < orariutils.classi.size) {
                 orariutils.prendiPeriodi(contatorewhileperiodi)
 
 
                 var contatorewhileperiodiegriglie2 = 0
-                while(contatorewhileperiodiegriglie2 < orariutils.periodi.size) {
+                while (contatorewhileperiodiegriglie2 < orariutils.periodi.size) {
 
-                    if(!classeViewModel.doesPeriodoExist(orariutils.codiciclassi[contatorewhileperiodi], orariutils.periodi[contatorewhileperiodiegriglie2])) {
+                    if (!classeViewModel.doesPeriodoExist(
+                            orariutils.codiciclassi[contatorewhileperiodi],
+                            orariutils.periodi[contatorewhileperiodiegriglie2]
+                        )
+                    ) {
                         classeViewModel.insertPeriodo(
                             Periodo(
                                 contatorewhileperiodi,

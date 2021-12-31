@@ -7,14 +7,16 @@ import androidx.lifecycle.LiveData
 class ClasseViewModel(application: Application) : AndroidViewModel(application) {
     private var repository: ClasseRepository = ClasseRepository(application)
     private var allClassi: LiveData<List<Classe>> = repository.getAllClassi()
-    private var allPinnedClassesWithPeriodi: LiveData<List<ClasseWithPeriodi>> = repository.getAllPinnedClassesWithPeriodi()
-    private var allClassiWithPeriodi: LiveData<List<ClasseWithPeriodi>> = repository.getAllClassiWithPeriodi()
+    private var allPinnedClassesWithPeriodi: LiveData<List<ClasseWithPeriodi>> =
+        repository.getAllPinnedClassesWithPeriodi()
+    private var allClassiWithPeriodi: LiveData<List<ClasseWithPeriodi>> =
+        repository.getAllClassiWithPeriodi()
 
-    fun doesClasseExist(codiceClasse : String): Boolean {
+    fun doesClasseExist(codiceClasse: String): Boolean {
         return repository.doesClasseExist(codiceClasse)
     }
 
-    fun doesPeriodoExist(codiceClassePeriodo : String, nomePeriodo: String): Boolean {
+    fun doesPeriodoExist(codiceClassePeriodo: String, nomePeriodo: String): Boolean {
         return repository.doesPeriodoExist(codiceClassePeriodo, nomePeriodo)
     }
 
@@ -32,7 +34,6 @@ class ClasseViewModel(application: Application) : AndroidViewModel(application) 
     }
 
 
-
     fun insertPeriodo(periodo: Periodo) {
         repository.insertPeriodo(periodo)
     }
@@ -44,7 +45,6 @@ class ClasseViewModel(application: Application) : AndroidViewModel(application) 
     fun deletePeriodo(periodo: Periodo) {
         repository.deletePeriodo(periodo)
     }
-
 
 
     fun deleteAllClassi() {
@@ -59,7 +59,7 @@ class ClasseViewModel(application: Application) : AndroidViewModel(application) 
         return allClassi
     }
 
-    fun getAllClassiWithPeriodi(): LiveData<List<ClasseWithPeriodi>>{
+    fun getAllClassiWithPeriodi(): LiveData<List<ClasseWithPeriodi>> {
         return allClassiWithPeriodi
     }
 

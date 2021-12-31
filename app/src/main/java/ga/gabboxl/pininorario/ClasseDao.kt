@@ -55,9 +55,9 @@ interface ClasseDao {
     //check methods
 
     @Query("SELECT EXISTS(SELECT * FROM TabellaClassi WHERE codiceClasse = :codiceClasse)")
-    fun doesClasseExist(codiceClasse : String) : Boolean
+    fun doesClasseExist(codiceClasse: String): Boolean
 
     @Query("SELECT EXISTS(SELECT * FROM TabellaPeriodi WHERE codiceClassePeriodo = :codiceClassePeriodo AND nomePeriodo = :nomePeriodo)")
-    fun doesPeriodoExist(codiceClassePeriodo : String, nomePeriodo: String) : Boolean
+    fun doesPeriodoExist(codiceClassePeriodo: String, nomePeriodo: String): Boolean
 }
 

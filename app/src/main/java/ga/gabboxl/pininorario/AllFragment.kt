@@ -1,11 +1,11 @@
 package ga.gabboxl.pininorario
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -39,7 +39,6 @@ class AllFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
 
 
-
         val adapterClassi: ClasseAdapter = ClasseAdapter()
         recyclerView.adapter = adapterClassi
 
@@ -54,14 +53,26 @@ class AllFragment : Fragment() {
         adapterClassi.setOnEliminaClickListener(object : ClasseAdapter.OnEliminaClickListener {
             override fun onEliminaClick(classeWithPeriodi: ClasseWithPeriodi) {
                 //Toast.makeText(applicationContext, "onChanged " + adapter.posizioneitem + " " + classe, Toast.LENGTH_SHORT).show()
-                classeViewModel.updateClasse(Classe(classeWithPeriodi.classe.id, classeWithPeriodi.classe.nomeClasse, classeWithPeriodi.classe.codiceClasse, false))
+                classeViewModel.updateClasse(
+                    Classe(
+                        classeWithPeriodi.classe.id,
+                        classeWithPeriodi.classe.nomeClasse,
+                        classeWithPeriodi.classe.codiceClasse,
+                        false
+                    )
+                )
                 //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
             }
         })
 
-        adapterClassi.setOnPeriodoButtonClickListener(object : PeriodiAdapter.OnPeriodoButtonClickListener {
+        adapterClassi.setOnPeriodoButtonClickListener(object :
+            PeriodiAdapter.OnPeriodoButtonClickListener {
             override fun OnPeriodoButtonClick(periodo: Periodo) {
-                Toast.makeText(context, "per: " + periodo.nomePeriodo + "\n classe: ", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    "per: " + periodo.nomePeriodo + "\n classe: ",
+                    Toast.LENGTH_SHORT
+                ).show()
 
                 //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
             }

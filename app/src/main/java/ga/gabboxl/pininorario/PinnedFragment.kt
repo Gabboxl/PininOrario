@@ -40,11 +40,9 @@ class PinnedFragment : Fragment() {
         classeViewModel = ViewModelProvider(this).get(ClasseViewModel::class.java)
 
 
-
         val recyclerView: RecyclerView = fragmentView.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
-
 
 
         val adapterClassi: ClasseAdapter = ClasseAdapter()
@@ -57,49 +55,68 @@ class PinnedFragment : Fragment() {
                 adapterClassi.submitList(t)
             })
 
-        val extfab = fragmentView.findViewById<ExtendedFloatingActionButton>(R.id.aggiungi_classe_extfab)
+        val extfab =
+            fragmentView.findViewById<ExtendedFloatingActionButton>(R.id.aggiungi_classe_extfab)
         extfab.setOnClickListener {
-            val alertDialogBuilder: MaterialAlertDialogBuilder = MaterialAlertDialogBuilder(context!!)
-                .setTitle("Seleziona una classe")
-                //.setPositiveButton("Aggiungi", null)
-                .setNeutralButton("Annulla", null)
-                .setSingleChoiceItems(
-                    orariutils.classi.toTypedArray(), -1
-                ) { dialoginterface, i ->
-                    Toast.makeText(context, orariutils.classi[i], Toast.LENGTH_SHORT)
-                        .show()
+            val alertDialogBuilder: MaterialAlertDialogBuilder =
+                MaterialAlertDialogBuilder(context!!)
+                    .setTitle("Seleziona una classe")
+                    //.setPositiveButton("Aggiungi", null)
+                    .setNeutralButton("Annulla", null)
+                    .setSingleChoiceItems(
+                        orariutils.classi.toTypedArray(), -1
+                    ) { dialoginterface, i ->
+                        Toast.makeText(context, orariutils.classi[i], Toast.LENGTH_SHORT)
+                            .show()
 
-                    //Snackbar.make(findViewById(R.id.secondcoordlayout), "Classe aggiunta!", Snackbar.LENGTH_SHORT)
-                    //    .show()
+                        //Snackbar.make(findViewById(R.id.secondcoordlayout), "Classe aggiunta!", Snackbar.LENGTH_SHORT)
+                        //    .show()
 
-                    //prendo gli orari relativi alla classe
-                    CoroutineScope(AndroidUiDispatcher.Main).launch {
-                        //orariutils.prendiPeriodi(i)
+                        //prendo gli orari relativi alla classe
+                        CoroutineScope(AndroidUiDispatcher.Main).launch {
+                            //orariutils.prendiPeriodi(i)
 
-                        //salvo nel database la classe scelta
-                        val updatedpinnedclasse = Classe(i+1, orariutils.classi[i], orariutils.codiciclassi[i], true)
-                        classeViewModel.updateClasse(updatedpinnedclasse)
+                            //salvo nel database la classe scelta
+                            val updatedpinnedclasse = Classe(
+                                i + 1,
+                                orariutils.classi[i],
+                                orariutils.codiciclassi[i],
+                                true
+                            )
+                            classeViewModel.updateClasse(updatedpinnedclasse)
 
-                        dialoginterface.dismiss()
+                            dialoginterface.dismiss()
+
+                        }
+
 
                     }
-
-
-                }
             alertDialogBuilder.show()
         }
 
         adapterClassi.setOnEliminaClickListener(object : ClasseAdapter.OnEliminaClickListener {
             override fun onEliminaClick(classeWithPeriodi: ClasseWithPeriodi) {
                 //Toast.makeText(applicationContext, "onChanged " + adapter.posizioneitem + " " + classe, Toast.LENGTH_SHORT).show()
-                classeViewModel.updateClasse(Classe(classeWithPeriodi.classe.id, classeWithPeriodi.classe.nomeClasse, classeWithPeriodi.classe.codiceClasse, false))
+                classeViewModel.updateClasse(
+                    Classe(
+                        classeWithPeriodi.classe.id,
+                        classeWithPeriodi.classe.nomeClasse,
+                        classeWithPeriodi.classe.codiceClasse,
+                        false
+                    )
+                )
                 //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
             }
         })
 
-        adapterClassi.setOnPeriodoButtonClickListener(object : PeriodiAdapter.OnPeriodoButtonClickListener {
+        adapterClassi.setOnPeriodoButtonClickListener(object :
+            PeriodiAdapter.OnPeriodoButtonClickListener {
             override fun OnPeriodoButtonClick(periodo: Periodo) {
-                Toast.makeText(context, "per: " + periodo.nomePeriodo + "\n classe: ", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    "per: " + periodo.nomePeriodo + "\n classe: ",
+                    Toast.LENGTH_SHORT
+                ).show()
 
                 //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
             }

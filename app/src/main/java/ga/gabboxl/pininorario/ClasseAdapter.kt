@@ -7,15 +7,14 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.TextView
-import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 
-class ClasseAdapter : ListAdapter<ClasseWithPeriodi, ClasseAdapter.ClasseHolder>(ClasseAdapter.DIFF_CALLBACK) {
+class ClasseAdapter :
+    ListAdapter<ClasseWithPeriodi, ClasseAdapter.ClasseHolder>(ClasseAdapter.DIFF_CALLBACK) {
     private lateinit var listener: OnEliminaClickListener
     private lateinit var listenerScaricaPeriodi: PeriodiAdapter.OnPeriodoButtonClickListener
     var posizioneitem: Int = -1
@@ -24,11 +23,17 @@ class ClasseAdapter : ListAdapter<ClasseWithPeriodi, ClasseAdapter.ClasseHolder>
 
         private var DIFF_CALLBACK: DiffUtil.ItemCallback<ClasseWithPeriodi> = object :
             DiffUtil.ItemCallback<ClasseWithPeriodi>() {
-            override fun areItemsTheSame(oldItem: ClasseWithPeriodi, newItem: ClasseWithPeriodi): Boolean {
+            override fun areItemsTheSame(
+                oldItem: ClasseWithPeriodi,
+                newItem: ClasseWithPeriodi
+            ): Boolean {
                 return oldItem.classe.id == newItem.classe.id
             }
 
-            override fun areContentsTheSame(oldItem: ClasseWithPeriodi, newItem: ClasseWithPeriodi): Boolean {
+            override fun areContentsTheSame(
+                oldItem: ClasseWithPeriodi,
+                newItem: ClasseWithPeriodi
+            ): Boolean {
                 return oldItem.classe.nomeClasse == newItem.classe.nomeClasse &&
                         oldItem.classe.codiceClasse == newItem.classe.codiceClasse && oldItem.classe.isPinned == newItem.classe.isPinned && oldItem.periodi == newItem.periodi //questo check dei periodi controlla che la lista dei periodi a cui sono associati alla classe non siano cambiati, altrimenti aggiorna la lsita dei periodi
             }
@@ -72,8 +77,6 @@ class ClasseAdapter : ListAdapter<ClasseWithPeriodi, ClasseAdapter.ClasseHolder>
             }
 
 
-
-
         }
 
     }
@@ -114,7 +117,7 @@ class ClasseAdapter : ListAdapter<ClasseWithPeriodi, ClasseAdapter.ClasseHolder>
         this.listener = listener
     }
 
-    fun setOnPeriodoButtonClickListener(listener: PeriodiAdapter.OnPeriodoButtonClickListener){
+    fun setOnPeriodoButtonClickListener(listener: PeriodiAdapter.OnPeriodoButtonClickListener) {
         this.listenerScaricaPeriodi = listener
     }
 

@@ -9,9 +9,8 @@ import androidx.room.Relation
 data class Classe(
     val id: Int = 0,
     val nomeClasse: String,
-@PrimaryKey val codiceClasse: String,
+    @PrimaryKey val codiceClasse: String,
     var isPinned: Boolean,
-
 )
 
 @Entity(tableName = "TabellaPeriodi", primaryKeys = ["codiceClassePeriodo", "nomePeriodo"])
@@ -22,7 +21,6 @@ data class Periodo(
     var periodoSemiLinkImg: String,
     var isAvailableOnServer: Boolean,
     var isDownloaded: Boolean,
-
 )
 
 
