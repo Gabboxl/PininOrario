@@ -78,7 +78,7 @@ class OrariUtils {
 
                     while ((jsonPeriodi.length() - 1) > contatore2) {
                         if (jsonPeriodi.optJSONArray(contatore2).get(0)
-                                .toString() == codiceclasse
+                                .toString() == codiceclasse && !jsonPeriodi.optJSONArray(contatore2).get(1).toString().startsWith("Selezionate il periodo")
                         ) {
                             periodi.add(
                                 jsonPeriodi.optJSONArray(contatore2).get(1).toString()
