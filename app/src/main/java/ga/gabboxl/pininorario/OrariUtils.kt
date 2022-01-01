@@ -22,7 +22,7 @@ class OrariUtils {
         private var codiceclasse = ""
 
         suspend fun prendiClassi() {
-            withContext(IO) {
+            withContext(Default) {
                 classi.clear()
 
                 val apiResponse =
@@ -45,7 +45,7 @@ class OrariUtils {
         }
 
         suspend fun prendiPeriodi(posizclasse: Int) {
-            withContext(IO) {
+            withContext(Default) {
 
                 val apiResponsePeriodi =
                     URL("https://gabboxlbot.altervista.org/pininorario/periodi.php").readText()
