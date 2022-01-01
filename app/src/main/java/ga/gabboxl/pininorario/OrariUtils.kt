@@ -14,10 +14,10 @@ import java.net.URL
 
 class OrariUtils {
     companion object {
-        var periodi = arrayListOf<String>()
-        var griglie = arrayListOf<String>()
         var classi = arrayListOf<String>()
         var codiciclassi = arrayListOf<String>()
+        var periodi = arrayListOf<String>()
+        var griglie = arrayListOf<String>()
         private lateinit var listResources: JSONArray
         private var codiceclasse = ""
 
@@ -32,7 +32,7 @@ class OrariUtils {
                 listResources =
                     JSONArray(Gson().fromJson(apiResponse, arrayListOf<String>().javaClass))
 
-                var counter = 0
+                var counter = 1 //inizio dal secondo elemento siccome il primo contiene il testo "Selezionate una classe"...
                 while (listResources.length() - 1 >= counter) {
                     if (listResources.optJSONArray(counter).get(0).toString() == "grClasse") {
                         classi.add(listResources.optJSONArray(counter).get(1).toString())
