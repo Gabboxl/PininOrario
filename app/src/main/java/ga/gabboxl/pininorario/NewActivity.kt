@@ -9,13 +9,13 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -65,7 +65,9 @@ class NewActivity : AppCompatActivity() {
 
         classeViewModel = ViewModelProvider(this).get(ClasseViewModel::class.java)
 
-        CoroutineScope(Dispatchers.Default).launch {
+
+
+        classeViewModel.viewModelScope.launch(Dispatchers.Default) {
             //inizializzo i database con le classi e periodi (TO DO)
 
 
