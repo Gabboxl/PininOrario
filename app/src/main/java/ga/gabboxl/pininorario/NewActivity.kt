@@ -76,7 +76,7 @@ class NewActivity : AppCompatActivity() {
             )
                 .setBehavior(NoSwipeBehavior())
 
-            var contentLay: ViewGroup =
+            val contentLay: ViewGroup =
                 snackaggiornamento.view.findViewById<View>(com.google.android.material.R.id.snackbar_text).parent as ViewGroup
             val item = ProgressBar(applicationContext).also { it.setPadding(24, 24, 24, 24) }
             contentLay.addView(item)
