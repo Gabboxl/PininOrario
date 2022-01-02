@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 class ClasseAdapter :
     ListAdapter<ClasseWithPeriodi, ClasseAdapter.ClasseHolder>(ClasseAdapter.DIFF_CALLBACK) {
     private lateinit var listenersClasseAdapter: OnClickListenersClasseAdapter
-    private lateinit var listenerScaricaPeriodi: PeriodiAdapter.OnPeriodoButtonClickListener
+    private lateinit var listenersPeriodoAdapter: PeriodoAdapter.OnClickListenersPeriodoAdapter
     var posizioneitem: Int = -1
 
     companion object {
@@ -111,13 +111,13 @@ class ClasseAdapter :
         holder.popup.menu.findItem(R.id.addcardmenuoption).isVisible = !currentClasse.classe.isPinned //inverto il valore
         holder.popup.menu.findItem(R.id.deletecardmenuoption).isVisible = currentClasse.classe.isPinned
 
-        val periodiadapter: PeriodiAdapter = PeriodiAdapter()
+        val periodiadapter: PeriodoAdapter = PeriodoAdapter()
         holder.recyclerViewPeriodi.adapter = periodiadapter
 
         periodiadapter.submitList(currentClasse.periodi)
 
         //il context per il recyclerview dei periodi nestato lo prendo da holder.itemView.context
-        periodiadapter.setOnPeriodoButtonClickListener(listenerScaricaPeriodi)
+        periodiadapter.setOnClickListenersPeriodoAdapter(listenersPeriodoAdapter)
 
     }
 
@@ -139,8 +139,8 @@ class ClasseAdapter :
 
     //listeners x periodi
 
-    fun setOnPeriodoButtonClickListener(listener: PeriodiAdapter.OnPeriodoButtonClickListener) {
-        this.listenerScaricaPeriodi = listener
+    fun setOnPeriodoButtonClickListener(listenersPeriodoAdapter: PeriodoAdapter.OnClickListenersPeriodoAdapter) {
+        this.listenersPeriodoAdapter = listenersPeriodoAdapter
     }
 
 

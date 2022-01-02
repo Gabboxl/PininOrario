@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 
-class PeriodiAdapter :
-    ListAdapter<Periodo, PeriodiAdapter.PeriodiHolder>(PeriodiAdapter.DIFF_CALLBACK) {
+class PeriodoAdapter :
+    ListAdapter<Periodo, PeriodoAdapter.PeriodiHolder>(PeriodoAdapter.DIFF_CALLBACK) {
 
-    private lateinit var listener: OnPeriodoButtonClickListener
+    private lateinit var listenersPeriodoAdapter: OnClickListenersPeriodoAdapter
     var posizioneitem: Int = -1
 
     companion object {
@@ -42,7 +42,7 @@ class PeriodiAdapter :
             //i setonclicklistener si devono implementeare nel viewholder e non nel onbind perche altrimenti verrebbe l'onbind chiamato ogni volta che il recyclerview deve visualizzare un nuovo elemento scorrendo verso il basso/alto, implementandolo nel viewholder viene implementato una sola volta per item
             scaricaButton.setOnClickListener {
                 posizioneitem = absoluteAdapterPosition
-                listener.OnPeriodoButtonClick(getItem(posizioneitem))
+                listenersPeriodoAdapter.onPeriodoScaricaButtonClick(getItem(posizioneitem))
             }
 
 
@@ -68,12 +68,12 @@ class PeriodiAdapter :
     }
 
 
-    interface OnPeriodoButtonClickListener {
-        fun OnPeriodoButtonClick(periodo: Periodo)
+    interface OnClickListenersPeriodoAdapter {
+        fun onPeriodoScaricaButtonClick(periodo: Periodo)
     }
 
-    fun setOnPeriodoButtonClickListener(listener: OnPeriodoButtonClickListener) {
-        this.listener = listener
+    fun setOnClickListenersPeriodoAdapter(listenersPeriodoAdapter: OnClickListenersPeriodoAdapter) {
+        this.listenersPeriodoAdapter = listenersPeriodoAdapter
     }
 
 }
