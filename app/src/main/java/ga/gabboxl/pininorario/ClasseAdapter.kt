@@ -45,6 +45,8 @@ class ClasseAdapter :
         var textViewNomeClasse: TextView
         var optionButton: ImageButton
         var recyclerViewPeriodi: RecyclerView
+        val popup: PopupMenu
+
 
         init {
             textViewTitle = itemView.findViewById(R.id.text_view_title)
@@ -52,27 +54,35 @@ class ClasseAdapter :
             optionButton = itemView.findViewById(R.id.cardoptionbutton)
             recyclerViewPeriodi = itemView.findViewById(R.id.recyclerview_periodi)
 
-            //i setonclicklistener si devono implementeare nel viewholder e non nel onbind perche altrimenti verrebbe l'onbind chiamato ogni volta che il recyclerview deve visualizzare un nuovo elemento scorrendo verso il basso/alto, implementandolo nel viewholder viene implementato una sola volta per item
-            optionButton.setOnClickListener {
-                val popup: PopupMenu = PopupMenu(itemView.context, optionButton)
-                popup.menuInflater.inflate(R.menu.cardclasse_menu, popup.menu)
 
-                popup.setOnMenuItemClickListener { item ->
-                    when (item.itemId) {
-                        R.id.movecardmenuoption -> {
+            //la creazione del popup meglio lasciarla fuori dall'onclick listener del pulsante opzioni, altrimenti il codice della creazione verrebbe eseguito ogni volta premuto il pulsante. Avviamo soltanto la visualizzazaione piuttosto con il metodo .show()
+            popup = PopupMenu(itemView.context, optionButton)
+            popup.menuInflater.inflate(R.menu.cardclasse_menu, popup.menu)
 
-                        }
+            popup.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.movecardmenuoption -> {
 
-                        R.id.deletecardmenuoption -> {
-                            posizioneitem = absoluteAdapterPosition
-                            if (posizioneitem != RecyclerView.NO_POSITION) {
-                                listener.onEliminaClick(getItem(posizioneitem))
-                            }
-                        }
                     }
 
-                    true
+                    R.id.addcardmenuoption -> {
+
+                    }
+
+                    R.id.deletecardmenuoption -> {
+                        posizioneitem = absoluteAdapterPosition
+                        if (posizioneitem != RecyclerView.NO_POSITION) {
+                            listener.onEliminaClick(getItem(posizioneitem))
+                        }
+                    }
                 }
+
+                true
+            }
+
+            //i setonclicklistener si devono implementeare nel viewholder e non nel onbind perche altrimenti verrebbe l'onbind chiamato ogni volta che il recyclerview deve visualizzare un nuovo elemento scorrendo verso il basso/alto, implementandolo nel viewholder viene implementato una sola volta per item
+            optionButton.setOnClickListener {
+
                 popup.show() //showing popup menu
             }
 
@@ -94,9 +104,10 @@ class ClasseAdapter :
 
         holder.recyclerViewPeriodi.layoutManager = LinearLayoutManager(holder.itemView.context)
 
+        
+
         val periodiadapter: PeriodiAdapter = PeriodiAdapter()
         holder.recyclerViewPeriodi.adapter = periodiadapter
-
 
         periodiadapter.submitList(currentClasse.periodi)
 
