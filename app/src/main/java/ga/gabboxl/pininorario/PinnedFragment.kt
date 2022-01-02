@@ -94,8 +94,8 @@ class PinnedFragment : Fragment() {
             alertDialogBuilder.show()
         }
 
-        adapterClassi.setOnEliminaClickListener(object : ClasseAdapter.OnEliminaClickListener {
-            override fun onEliminaClick(classeWithPeriodi: ClasseWithPeriodi) {
+        adapterClassi.setOnClickListenersClasseAdapter(object : ClasseAdapter.OnClickListenersClasseAdapter {
+            override fun onRimuoviPrefClick(classeWithPeriodi: ClasseWithPeriodi) {
                 //Toast.makeText(applicationContext, "onChanged " + adapter.posizioneitem + " " + classe, Toast.LENGTH_SHORT).show()
                 classeViewModel.updateClasse(
                     Classe(
@@ -106,6 +106,10 @@ class PinnedFragment : Fragment() {
                     )
                 )
                 //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
+            }
+
+            override fun onAggiungiPrefClick(classeWithPeriodi: ClasseWithPeriodi) {
+                //nothing happens here because in the pinned section of the app you shouldn't add classes from a card
             }
         })
 

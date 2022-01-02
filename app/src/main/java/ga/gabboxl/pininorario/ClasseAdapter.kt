@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ClasseAdapter :
     ListAdapter<ClasseWithPeriodi, ClasseAdapter.ClasseHolder>(ClasseAdapter.DIFF_CALLBACK) {
-    private lateinit var listener: OnEliminaClickListener
+    private lateinit var listenersClasseAdapter: OnClickListenersClasseAdapter
     private lateinit var listenerScaricaPeriodi: PeriodiAdapter.OnPeriodoButtonClickListener
     var posizioneitem: Int = -1
 
@@ -66,13 +66,16 @@ class ClasseAdapter :
                     }
 
                     R.id.addcardmenuoption -> {
-
+                        posizioneitem = absoluteAdapterPosition
+                        if (posizioneitem != RecyclerView.NO_POSITION) {
+                            listenersClasseAdapter.onAggiungiPrefClick(getItem(posizioneitem))
+                        }
                     }
 
                     R.id.deletecardmenuoption -> {
                         posizioneitem = absoluteAdapterPosition
                         if (posizioneitem != RecyclerView.NO_POSITION) {
-                            listener.onEliminaClick(getItem(posizioneitem))
+                            listenersClasseAdapter.onRimuoviPrefClick(getItem(posizioneitem))
                         }
                     }
                 }
@@ -104,7 +107,9 @@ class ClasseAdapter :
 
         holder.recyclerViewPeriodi.layoutManager = LinearLayoutManager(holder.itemView.context)
 
-        
+        //imposto la visibilita' del pulsante opzione rimuovi/aggiungi ai preferiti in base alla situazione della classe attuale
+        holder.popup.menu.findItem(R.id.addcardmenuoption).isVisible = !currentClasse.classe.isPinned //inverto il valore
+        holder.popup.menu.findItem(R.id.deletecardmenuoption).isVisible = currentClasse.classe.isPinned
 
         val periodiadapter: PeriodiAdapter = PeriodiAdapter()
         holder.recyclerViewPeriodi.adapter = periodiadapter
@@ -120,13 +125,19 @@ class ClasseAdapter :
         return getItem(position)
     }
 
-    interface OnEliminaClickListener {
-        fun onEliminaClick(classeWithPeriodi: ClasseWithPeriodi)
+
+    //pulsante rimuovi dai preferiti
+    interface OnClickListenersClasseAdapter {
+        fun onRimuoviPrefClick(classeWithPeriodi: ClasseWithPeriodi)
+        fun onAggiungiPrefClick(classeWithPeriodi: ClasseWithPeriodi)
     }
 
-    fun setOnEliminaClickListener(listener: OnEliminaClickListener) {
-        this.listener = listener
+    fun setOnClickListenersClasseAdapter(listenersClasseAdapter: OnClickListenersClasseAdapter) {
+        this.listenersClasseAdapter = listenersClasseAdapter
     }
+
+
+    //listeners x periodi
 
     fun setOnPeriodoButtonClickListener(listener: PeriodiAdapter.OnPeriodoButtonClickListener) {
         this.listenerScaricaPeriodi = listener

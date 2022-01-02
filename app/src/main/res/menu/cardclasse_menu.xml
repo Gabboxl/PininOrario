@@ -5,8 +5,14 @@
             android:title="Muovi card"
             app:showAsAction="never"/>
 
-    <item android:id="@+id/deletecardmenuoption"
-            android:title="Elimina"
-            app:showAsAction="never"/>
+    <item
+            android:id="@+id/addcardmenuoption"
+            android:title="Aggiungi ai preferiti"
+            app:showAsAction="never" />
+
+    <item
+            android:id="@+id/deletecardmenuoption"
+            android:title="Rimuovi dai preferiti"
+            app:showAsAction="never" />
 
 </menu>

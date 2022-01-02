@@ -50,8 +50,8 @@ class AllFragment : Fragment() {
             })
 
 
-        adapterClassi.setOnEliminaClickListener(object : ClasseAdapter.OnEliminaClickListener {
-            override fun onEliminaClick(classeWithPeriodi: ClasseWithPeriodi) {
+        adapterClassi.setOnClickListenersClasseAdapter(object : ClasseAdapter.OnClickListenersClasseAdapter {
+            override fun onRimuoviPrefClick(classeWithPeriodi: ClasseWithPeriodi) {
                 //Toast.makeText(applicationContext, "onChanged " + adapter.posizioneitem + " " + classe, Toast.LENGTH_SHORT).show()
                 classeViewModel.updateClasse(
                     Classe(
@@ -62,6 +62,17 @@ class AllFragment : Fragment() {
                     )
                 )
                 //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
+            }
+
+            override fun onAggiungiPrefClick(classeWithPeriodi: ClasseWithPeriodi) {
+                classeViewModel.updateClasse(
+                    Classe(
+                        classeWithPeriodi.classe.id,
+                        classeWithPeriodi.classe.nomeClasse,
+                        classeWithPeriodi.classe.codiceClasse,
+                        true
+                    )
+                )
             }
         })
 
