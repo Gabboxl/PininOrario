@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import ga.gabboxl.pininorario.adapters.ClasseAdapter
+import ga.gabboxl.pininorario.adapters.PeriodoAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

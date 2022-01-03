@@ -1,4 +1,4 @@
-package ga.gabboxl.pininorario
+package ga.gabboxl.pininorario.adapters
 
 
 import android.view.LayoutInflater
@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import ga.gabboxl.pininorario.ClasseWithPeriodi
+import ga.gabboxl.pininorario.R
 
 
 class ClasseAdapter :
-    ListAdapter<ClasseWithPeriodi, ClasseAdapter.ClasseHolder>(ClasseAdapter.DIFF_CALLBACK) {
+    ListAdapter<ClasseWithPeriodi, ClasseAdapter.ClasseHolder>(DIFF_CALLBACK) {
     private lateinit var listenersClasseAdapter: OnClickListenersClasseAdapter
     private lateinit var listenersPeriodoAdapter: PeriodoAdapter.OnClickListenersPeriodoAdapter
     var posizioneitem: Int = -1
