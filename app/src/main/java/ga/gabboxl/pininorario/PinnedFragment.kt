@@ -113,7 +113,7 @@ class PinnedFragment : Fragment() {
             }
         })
 
-        adapterClassi.setOnPeriodoButtonClickListener(object :
+        adapterClassi.setOnClickListenersPeriodoAdapter(object :
             PeriodoAdapter.OnClickListenersPeriodoAdapter {
             override fun onPeriodoScaricaButtonClick(periodo: Periodo) {
                 Toast.makeText(

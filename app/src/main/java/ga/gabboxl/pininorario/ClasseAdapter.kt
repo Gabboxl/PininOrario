@@ -139,7 +139,7 @@ class ClasseAdapter :
 
     //listeners x periodi
 
-    fun setOnPeriodoButtonClickListener(listenersPeriodoAdapter: PeriodoAdapter.OnClickListenersPeriodoAdapter) {
+    fun setOnClickListenersPeriodoAdapter(listenersPeriodoAdapter: PeriodoAdapter.OnClickListenersPeriodoAdapter) {
         this.listenersPeriodoAdapter = listenersPeriodoAdapter
     }
 
