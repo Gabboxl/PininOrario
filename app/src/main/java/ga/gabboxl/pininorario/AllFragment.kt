@@ -45,11 +45,11 @@ class AllFragment : Fragment() {
         recyclerView.adapter = adapterClassi
 
 
-        classeViewModel.getAllClassiWithPeriodi().observe(viewLifecycleOwner,
-            { t ->
-                //Toast.makeText(applicationContext, "onChanged", Toast.LENGTH_SHORT).show()
-                adapterClassi.submitList(t)
-            })
+        classeViewModel.getAllClassiWithPeriodi().observe(viewLifecycleOwner
+        ) { t ->
+            //Toast.makeText(applicationContext, "onChanged", Toast.LENGTH_SHORT).show()
+            adapterClassi.submitList(t)
+        }
 
 
         adapterClassi.setOnClickListenersClasseAdapter(object : ClasseAdapter.OnClickListenersClasseAdapter {

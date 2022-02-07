@@ -51,17 +51,17 @@ class PinnedFragment : Fragment() {
         recyclerView.adapter = adapterClassi
 
 
-        classeViewModel.getAllPinnedClassesWithPeriodi().observe(viewLifecycleOwner,
-            { t ->
-                //Toast.makeText(applicationContext, "onChanged", Toast.LENGTH_SHORT).show()
-                adapterClassi.submitList(t)
-            })
+        classeViewModel.getAllPinnedClassesWithPeriodi().observe(viewLifecycleOwner
+        ) { t ->
+            //Toast.makeText(applicationContext, "onChanged", Toast.LENGTH_SHORT).show()
+            adapterClassi.submitList(t)
+        }
 
         val extfab =
             fragmentView.findViewById<ExtendedFloatingActionButton>(R.id.aggiungi_classe_extfab)
         extfab.setOnClickListener {
             val alertDialogBuilder: MaterialAlertDialogBuilder =
-                MaterialAlertDialogBuilder(context!!)
+                MaterialAlertDialogBuilder(requireContext())
                     .setTitle("Seleziona una classe")
                     //.setPositiveButton("Aggiungi", null)
                     .setNeutralButton("Annulla", null)
