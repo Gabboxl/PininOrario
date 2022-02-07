@@ -10,6 +10,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ga.gabboxl.pininorario.Periodo
 import ga.gabboxl.pininorario.R
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 
 class PeriodoAdapter :
@@ -61,7 +65,32 @@ class PeriodoAdapter :
     override fun onBindViewHolder(holder: PeriodiHolder, position: Int) {
         val currentPeriodo: Periodo = getItem(position)
 
-        holder.textViewPeriodo.text = currentPeriodo.nomePeriodo
+        var somma = 0
+
+        val cal: Calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"))
+        val sdf = SimpleDateFormat("dd MM yyyy", Locale.ITALY)
+        cal.time = sdf.parse("23 08 2021") // data inizio degli orari
+
+
+        val p: Pattern = Pattern.compile("\\d+")
+        val m: Matcher = p.matcher(currentPeriodo.nomePeriodo)
+
+        while (m.find()) {
+            somma += m.group().toInt()
+        }
+
+        val pattern = "dd/MM/yyyy"
+        val simpleDateFormat = SimpleDateFormat(pattern)
+
+        cal.add(Calendar.WEEK_OF_YEAR, somma)
+        val dateinizio: String = simpleDateFormat.format(cal.time)
+
+        cal.add(Calendar.DAY_OF_YEAR, 5)
+        val datafine: String = simpleDateFormat.format(cal.time)
+
+
+
+        holder.textViewPeriodo.text = "Dal $dateinizio al $datafine"
 
     }
 
