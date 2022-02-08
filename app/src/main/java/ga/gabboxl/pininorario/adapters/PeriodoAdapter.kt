@@ -4,7 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -36,19 +39,56 @@ class PeriodoAdapter :
         }
     }
 
+    // TODO(to rename in PeriodoHolder)
     inner class PeriodiHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         lateinit var textViewPeriodo: TextView
         lateinit var scaricaButton: Button
+        lateinit var apriButton: Button
+        val optionPeriodoButton: ImageButton
+        val popupperiodo: PopupMenu
 
         init {
             textViewPeriodo = itemView.findViewById(R.id.textperiodo)
             scaricaButton = itemView.findViewById(R.id.card_periodoscarica)
+            apriButton = itemView.findViewById(R.id.card_periodoapri)
+            optionPeriodoButton = itemView.findViewById(R.id.periodoButtonOpzioni)
+
 
 
             //i setonclicklistener si devono implementeare nel viewholder e non nel onbind perche altrimenti verrebbe l'onbind chiamato ogni volta che il recyclerview deve visualizzare un nuovo elemento scorrendo verso il basso/alto, implementandolo nel viewholder viene implementato una sola volta per item
             scaricaButton.setOnClickListener {
                 posizioneitem = absoluteAdapterPosition
                 listenersPeriodoAdapter.onPeriodoScaricaButtonClick(getItem(posizioneitem))
+            }
+
+
+            popupperiodo = PopupMenu(itemView.context, optionPeriodoButton)
+            popupperiodo.menuInflater.inflate(R.menu.periodioptions_menu, popupperiodo.menu)
+            popupperiodo.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.condividiperiodo_opt -> {
+
+                    }
+
+                    R.id.salvaingalleriaperiodo_opt -> {
+                        posizioneitem = absoluteAdapterPosition
+                        if (posizioneitem != RecyclerView.NO_POSITION) {
+                        //    listenersClasseAdapter.onAggiungiPrefClick(getItem(posizioneitem))
+                        }
+                    }
+
+                    R.id.eliminaperiodo_opt -> {
+                        posizioneitem = absoluteAdapterPosition
+                        if (posizioneitem != RecyclerView.NO_POSITION) {
+                        //    listenersClasseAdapter.onRimuoviPrefClick(getItem(posizioneitem))
+                        }
+                    }
+                }
+                true
+            }
+            //i setonclicklistener si devono implementeare nel viewholder e non nel onbind perche altrimenti verrebbe l'onbind chiamato ogni volta che il recyclerview deve visualizzare un nuovo elemento scorrendo verso il basso/alto, implementandolo nel viewholder viene implementato una sola volta per item
+            optionPeriodoButton.setOnClickListener {
+                popupperiodo.show() //showing popup menu
             }
 
 
@@ -64,6 +104,9 @@ class PeriodoAdapter :
 
     override fun onBindViewHolder(holder: PeriodiHolder, position: Int) {
         val currentPeriodo: Periodo = getItem(position)
+
+        holder.scaricaButton.isVisible = !currentPeriodo.isDownloaded
+        holder.apriButton.isVisible = currentPeriodo.isDownloaded
 
         var somma = 0
 
