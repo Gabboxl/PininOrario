@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class LoginDialog : DialogFragment() {
     private lateinit var binding: LoginDialogLayoutBinding
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         binding = LoginDialogLayoutBinding.inflate(layoutInflater)
 
         binding.editUsername.setText(sharedPreferences.getString("pinin_username", ""))
@@ -39,7 +39,7 @@ class LoginDialog : DialogFragment() {
                     binding.editUsername.text.toString()
                 val textpassword =
                     binding.editPassword.text.toString()
-                if (OrariUtils.checkLogin(context, textusername, textpassword)) {
+                if (OrariUtils.checkLogin(requireContext(), textusername, textpassword)) {
                     Toasty.success(requireContext(), getString(R.string.login_riuscito), Toasty.LENGTH_SHORT).show()
                  } else {
                     Toasty.error(requireContext(), getString(R.string.credenziali_errate_toast), Toasty.LENGTH_SHORT).show()

@@ -2,6 +2,7 @@ package ga.gabboxl.pininorario
 
 import android.content.Context
 import android.util.Base64
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers.Default
@@ -95,7 +96,7 @@ class OrariUtils {
         }
 
 
-        suspend fun checkLogin(context: Context?, username: String = "", password: String = ""): Boolean {
+        suspend fun checkLogin(context: Context, username: String = "", password: String = ""): Boolean {
             return withContext(IO) {
                 val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
                 val usernamefinal = if (username.isEmpty()) {
@@ -131,12 +132,12 @@ class OrariUtils {
         }
 
         fun getUsername(context: Context?): String? {
-            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context!!)
             return sharedPreferences.getString("pinin_username", "")
         }
 
         fun getPassword(context: Context?): String? {
-            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context!!)
             return sharedPreferences.getString("pinin_password", "")
         }
     }
