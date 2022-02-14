@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/ic_launch_black_32dp.xml" value="0.2755208333333333" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/line.xml" value="0.1205" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/line_drawable.xml" value="0.1205" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/thumb.xml" value="0.1205" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/thumb_drawable.xml" value="0.1205" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/layout/activity_main.xml" value="0.5214659685863874" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/layout/activity_new.xml" value="0.2" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/layout/classe_card_item.xml" value="0.264" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/layout/classe_item.xml" value="0.264" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/layout/fragment_all.xml" value="0.2164855072463768" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/layout/fragment_downloads.xml" value="0.2164855072463768" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/layout/fragment_pinned.xml" value="0.2164855072463768" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/layout/login_dialog_layout.xml" value="0.259375" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/layout/periodi_card_item.xml" value="0.366079703429101" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/layout/settings_activity.xml" value="0.259375" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.264" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/menu/cardclasse_menu.xml" value="0.259375" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/menu/main_menu.xml" value="0.259375" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/menu/periodioptions_menu.xml" value="0.259375" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/xml/app_preferences.xml" value="0.259375" />
+      </map>
+    </option>
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="android.support.annotation.Nullable" />
@@ -27,7 +53,7 @@
     </option>
     <option name="myNotNulls">
       <value>
-        <list size="14">
+        <list size="15">
           <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.NotNull" />
           <item index="1" class="java.lang.String" itemvalue="javax.annotation.Nonnull" />
           <item index="2" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.NonNull" />
@@ -42,6 +68,7 @@
           <item index="11" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.NonNull" />
           <item index="12" class="java.lang.String" itemvalue="io.reactivex.annotations.NonNull" />
           <item index="13" class="java.lang.String" itemvalue="io.reactivex.rxjava3.annotations.NonNull" />
+          <item index="14" class="java.lang.String" itemvalue="lombok.NonNull" />
         </list>
       </value>
     </option>
@@ -51,5 +78,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1" />
+      </ProjectState>
+    </option>
   </component>
 </project>
