@@ -85,7 +85,7 @@ dependencies {
     implementation 'com.github.Gabboxl:PininParse:master-SNAPSHOT'
 
     //Firebase dependencies
-    implementation 'com.google.firebase:firebase-analytics-ktx:20.0.0'
+    implementation 'com.google.firebase:firebase-analytics-ktx:20.1.1'
     implementation 'com.google.firebase:firebase-perf-ktx:20.0.3'
     implementation 'com.google.firebase:firebase-crashlytics-ktx:18.2.4'
 
