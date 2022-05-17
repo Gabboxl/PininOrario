@@ -78,6 +78,7 @@ android {
         }
 
     }
+    namespace 'ga.gabboxl.pininorario'
 }
 
 dependencies {
