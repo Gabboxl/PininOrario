@@ -14,6 +14,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import ga.gabboxl.pininorario.adapters.ClasseAdapter
 import ga.gabboxl.pininorario.adapters.PeriodoAdapter
+import ga.gabboxl.pininparse.PininParse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -21,7 +22,6 @@ class PinnedFragment : Fragment() {
 
     companion object {
         private lateinit var classeViewModel: ClasseViewModel
-        private val orariutils = OrariUtils
     }
 
 
@@ -66,9 +66,9 @@ class PinnedFragment : Fragment() {
                     //.setPositiveButton("Aggiungi", null)
                     .setNeutralButton("Annulla", null)
                     .setSingleChoiceItems(
-                        orariutils.classi.toTypedArray(), -1
+                        PininParse.Classi.listNomiClassi().toTypedArray(), -1
                     ) { dialoginterface, i ->
-                        Toast.makeText(context, orariutils.classi[i], Toast.LENGTH_SHORT)
+                        Toast.makeText(context, PininParse.Classi.list()[i][1], Toast.LENGTH_SHORT)
                             .show()
 
                         //Snackbar.make(findViewById(R.id.secondcoordlayout), "Classe aggiunta!", Snackbar.LENGTH_SHORT)
@@ -81,8 +81,8 @@ class PinnedFragment : Fragment() {
                             //salvo nel database la classe scelta
                             val updatedpinnedclasse = Classe(
                                 i + 1,
-                                orariutils.classi[i],
-                                orariutils.codiciclassi[i],
+                                PininParse.Classi.list()[i][1], //nome classe
+                                PininParse.Classi.list()[i][2], //codice classe
                                 true
                             )
                             classeViewModel.updateClasse(updatedpinnedclasse)

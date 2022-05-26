@@ -51,7 +51,6 @@ class OrariUtils {
                 val apiResponsePeriodi =
                     URL("https://gabboxlbot.altervista.org/pininorario/periodi.php").readText()
 
-                withContext(Default) {
 
                     val jsonPeriodi =
                         JSONArray(
@@ -91,7 +90,7 @@ class OrariUtils {
                         contatore2++
                     }
 
-                }
+
             }
         }
 

@@ -16,13 +16,13 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import ga.gabboxl.pininparse.PininParse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
 class NewActivity : AppCompatActivity() {
     private lateinit var classeViewModel: ClasseViewModel
-    private val orariutils = OrariUtils
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -85,20 +85,19 @@ class NewActivity : AppCompatActivity() {
 
             snackaggiornamento.show()
 
+            PininParse.Classi.init()
+            PininParse.Periodi.init()
 
-
-
-            orariutils.prendiClassi()
 
             var contatorewhileclassi = 0
-            while (contatorewhileclassi < orariutils.classi.size) {
+            while (contatorewhileclassi < PininParse.Classi.list().size) {
 
-                if (!classeViewModel.doesClasseExist(orariutils.codiciclassi[contatorewhileclassi])) {
+                if (!classeViewModel.doesClasseExist(PininParse.Classi.list()[contatorewhileclassi][2])) { //controllo il codice classe
                     classeViewModel.insertClasse(
                         Classe(
                             contatorewhileclassi,
-                            orariutils.classi[contatorewhileclassi],
-                            orariutils.codiciclassi[contatorewhileclassi],
+                            PininParse.Classi.list()[contatorewhileclassi][1], //nome classe
+                            PininParse.Classi.list()[contatorewhileclassi][2], //codice classe
                             false
                         )
                     )
@@ -108,32 +107,24 @@ class NewActivity : AppCompatActivity() {
 
 
             var contatorewhileperiodi = 0
-            while (contatorewhileperiodi < orariutils.classi.size) {
-                orariutils.prendiPeriodi(contatorewhileperiodi)
-
-
-                var contatorewhileperiodiegriglie2 = 0
-                while (contatorewhileperiodiegriglie2 < orariutils.periodi.size) {
+            while (contatorewhileperiodi < PininParse.Periodi.list().size) {
 
                     if (!classeViewModel.doesPeriodoExist(
-                            orariutils.codiciclassi[contatorewhileperiodi],
-                            orariutils.periodi[contatorewhileperiodiegriglie2]
+                            PininParse.Periodi.list()[contatorewhileperiodi][0], //codice classe periodo
+                            PininParse.Periodi.list()[contatorewhileperiodi][1] //nome periodo
                         )
                     ) {
                         classeViewModel.insertPeriodo(
                             Periodo(
                                 contatorewhileperiodi,
-                                orariutils.codiciclassi[contatorewhileperiodi],
-                                orariutils.periodi[contatorewhileperiodiegriglie2],
-                                orariutils.griglie[contatorewhileperiodiegriglie2],
+                                PininParse.Periodi.list()[contatorewhileperiodi][0],
+                                PininParse.Periodi.list()[contatorewhileperiodi][1], //nome periodo
+                                PininParse.Periodi.list()[contatorewhileperiodi][2], //nome griglia
                                 isAvailableOnServer = true,
                                 isDownloaded = false
                             )
                         )
                     }
-
-                    contatorewhileperiodiegriglie2++
-                }
 
                 contatorewhileperiodi++
             }
