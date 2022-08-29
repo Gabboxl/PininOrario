@@ -18,23 +18,35 @@ class OnClickAdaptersImplementations(val context : Context?, private val classeV
             Toast.LENGTH_SHORT
         ).show()
 
+
+        classeViewModel.updatePeriodo(
+            Periodo(
+                periodo.id,
+                periodo.codiceClassePeriodo,
+                periodo.nomePeriodo,
+                periodo.periodoSemiLinkImg,
+                isAvailableOnServer = true,
+                isDownloaded = true
+            )
+        )
+
         //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
     }
 
     override fun onPeriodoApriButtonClick(periodo: Periodo) {
-        TODO("Not yet implemented")
+        Toast.makeText(context, "aprix", Toast.LENGTH_SHORT).show()
     }
 
     override fun onPeriodoCondividiOptionClick(periodo: Periodo) {
-        TODO("Not yet implemented")
+        Toast.makeText(context, "condividix", Toast.LENGTH_SHORT).show()
     }
 
     override fun onPeriodoSalvaOptionClick(periodo: Periodo) {
-        TODO("Not yet implemented")
+        Toast.makeText(context, "salvax", Toast.LENGTH_SHORT).show()
     }
 
     override fun onPeriodoEliminaOptionClick(periodo: Periodo) {
-        TODO("Not yet implemented")
+        Toast.makeText(context, "eliminax", Toast.LENGTH_SHORT).show()
     }
 
     override fun onRimuoviPrefClick(classeWithPeriodi: ClasseWithPeriodi) {
