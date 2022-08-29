@@ -7,17 +7,17 @@
 
     <fragment
             android:id="@+id/pinnedFragment"
-            android:name="ga.gabboxl.pininorario.PinnedFragment"
+            android:name="ga.gabboxl.pininorario.fragments.PinnedFragment"
             android:label="fragment_pinned"
             tools:layout="@layout/fragment_pinned" />
     <fragment
             android:id="@+id/allFragment"
-            android:name="ga.gabboxl.pininorario.AllFragment"
+            android:name="ga.gabboxl.pininorario.fragments.AllFragment"
             android:label="fragment_all"
             tools:layout="@layout/fragment_all" />
     <fragment
             android:id="@+id/downloadsFragment"
-            android:name="ga.gabboxl.pininorario.DownloadsFragment"
+            android:name="ga.gabboxl.pininorario.fragments.DownloadsFragment"
             android:label="fragment_downloads"
             tools:layout="@layout/fragment_downloads" />
 </navigation>
