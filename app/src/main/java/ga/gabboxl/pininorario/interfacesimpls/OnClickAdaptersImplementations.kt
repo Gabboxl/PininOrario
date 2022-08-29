@@ -9,7 +9,7 @@ import ga.gabboxl.pininorario.Periodo
 import ga.gabboxl.pininorario.adapters.ClasseAdapter
 import ga.gabboxl.pininorario.adapters.PeriodoAdapter
 
-class OnClickAdaptersImplementations(val context : Context?, val classeViewModel: ClasseViewModel) : PeriodoAdapter.OnClickListenersPeriodoAdapter, ClasseAdapter.OnClickListenersClasseAdapter {
+class OnClickAdaptersImplementations(val context : Context?, private val classeViewModel: ClasseViewModel) : PeriodoAdapter.OnClickListenersPeriodoAdapter, ClasseAdapter.OnClickListenersClasseAdapter {
 
     override fun onPeriodoScaricaButtonClick(periodo: Periodo) {
         Toast.makeText(
