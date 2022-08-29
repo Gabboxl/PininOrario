@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ga.gabboxl.pininorario.*
 import ga.gabboxl.pininorario.adapters.ClasseAdapter
-import ga.gabboxl.pininorario.adapters.PeriodoAdapter
+import ga.gabboxl.pininorario.interfaces.OnClickAdaptersImplementations
 
 
 class AllFragment : Fragment() {
@@ -63,44 +62,11 @@ class AllFragment : Fragment() {
             }
         }*/
 
-        adapterClassi.setOnClickListenersClasseAdapter(object : ClasseAdapter.OnClickListenersClasseAdapter {
-            override fun onRimuoviPrefClick(classeWithPeriodi: ClasseWithPeriodi) {
-                //Toast.makeText(applicationContext, "onChanged " + adapter.posizioneitem + " " + classe, Toast.LENGTH_SHORT).show()
-                classeViewModel.updateClasse(
-                    Classe(
-                        classeWithPeriodi.classe.id,
-                        classeWithPeriodi.classe.nomeClasse,
-                        classeWithPeriodi.classe.codiceClasse,
-                        false
-                    )
-                )
-                //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
-            }
+        //listeners per gli adapters
 
-            override fun onAggiungiPrefClick(classeWithPeriodi: ClasseWithPeriodi) {
-                classeViewModel.updateClasse(
-                    Classe(
-                        classeWithPeriodi.classe.id,
-                        classeWithPeriodi.classe.nomeClasse,
-                        classeWithPeriodi.classe.codiceClasse,
-                        true
-                    )
-                )
-            }
-        })
+        adapterClassi.setOnClickListenersClasseAdapter(OnClickAdaptersImplementations(context, classeViewModel))
 
-        adapterClassi.setOnClickListenersPeriodoAdapter(object :
-            PeriodoAdapter.OnClickListenersPeriodoAdapter {
-            override fun onPeriodoScaricaButtonClick(periodo: Periodo) {
-                Toast.makeText(
-                    context,
-                    "per: " + periodo.nomePeriodo + "\n classe: ",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
-            }
-        })
+        adapterClassi.setOnClickListenersPeriodoAdapter(OnClickAdaptersImplementations(context, classeViewModel))
 
 
 
