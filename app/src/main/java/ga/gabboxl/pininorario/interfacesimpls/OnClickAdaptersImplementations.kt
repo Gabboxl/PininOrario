@@ -21,6 +21,22 @@ class OnClickAdaptersImplementations(val context : Context?, val classeViewModel
         //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
     }
 
+    override fun onPeriodoApriButtonClick(periodo: Periodo) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPeriodoCondividiOptionClick(periodo: Periodo) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPeriodoSalvaOptionClick(periodo: Periodo) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onPeriodoEliminaOptionClick(periodo: Periodo) {
+        TODO("Not yet implemented")
+    }
+
     override fun onRimuoviPrefClick(classeWithPeriodi: ClasseWithPeriodi) {
         //Toast.makeText(applicationContext, "onChanged " + adapter.posizioneitem + " " + classe, Toast.LENGTH_SHORT).show()
         classeViewModel.updateClasse(

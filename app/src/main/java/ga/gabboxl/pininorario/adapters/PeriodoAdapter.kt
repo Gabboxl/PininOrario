@@ -55,10 +55,16 @@ class PeriodoAdapter :
 
 
 
+
             //i setonclicklistener si devono implementeare nel viewholder e non nel onbind perche altrimenti verrebbe l'onbind chiamato ogni volta che il recyclerview deve visualizzare un nuovo elemento scorrendo verso il basso/alto, implementandolo nel viewholder viene implementato una sola volta per item
             scaricaButton.setOnClickListener {
                 posizioneitem = absoluteAdapterPosition
                 listenersPeriodoAdapter.onPeriodoScaricaButtonClick(getItem(posizioneitem))
+            }
+
+            apriButton.setOnClickListener {
+                posizioneitem = absoluteAdapterPosition
+                listenersPeriodoAdapter.onPeriodoApriButtonClick(getItem(posizioneitem))
             }
 
 
@@ -67,20 +73,23 @@ class PeriodoAdapter :
             popupperiodo.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.condividiperiodo_opt -> {
-
+                        posizioneitem = absoluteAdapterPosition
+                        if (posizioneitem != RecyclerView.NO_POSITION) {
+                            listenersPeriodoAdapter.onPeriodoCondividiOptionClick(getItem(posizioneitem))
+                        }
                     }
 
                     R.id.salvaingalleriaperiodo_opt -> {
                         posizioneitem = absoluteAdapterPosition
                         if (posizioneitem != RecyclerView.NO_POSITION) {
-                        //    listenersClasseAdapter.onAggiungiPrefClick(getItem(posizioneitem))
+                        listenersPeriodoAdapter.onPeriodoSalvaOptionClick(getItem(posizioneitem))
                         }
                     }
 
                     R.id.eliminaperiodo_opt -> {
                         posizioneitem = absoluteAdapterPosition
                         if (posizioneitem != RecyclerView.NO_POSITION) {
-                        //    listenersClasseAdapter.onRimuoviPrefClick(getItem(posizioneitem))
+                        listenersPeriodoAdapter.onPeriodoEliminaOptionClick(getItem(posizioneitem))
                         }
                     }
                 }
@@ -107,6 +116,8 @@ class PeriodoAdapter :
 
         holder.scaricaButton.isVisible = !currentPeriodo.isDownloaded
         holder.apriButton.isVisible = currentPeriodo.isDownloaded
+        holder.optionPeriodoButton.isVisible = currentPeriodo.isDownloaded
+
 
         var somma = 0
 
@@ -144,6 +155,10 @@ class PeriodoAdapter :
 
     interface OnClickListenersPeriodoAdapter {
         fun onPeriodoScaricaButtonClick(periodo: Periodo)
+        fun onPeriodoApriButtonClick(periodo: Periodo)
+        fun onPeriodoCondividiOptionClick(periodo: Periodo)
+        fun onPeriodoSalvaOptionClick(periodo: Periodo)
+        fun onPeriodoEliminaOptionClick(periodo: Periodo)
     }
 
     fun setOnClickListenersPeriodoAdapter(listenersPeriodoAdapter: OnClickListenersPeriodoAdapter) {
