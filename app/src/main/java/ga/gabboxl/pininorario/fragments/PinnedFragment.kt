@@ -16,7 +16,7 @@ import ga.gabboxl.pininorario.Classe
 import ga.gabboxl.pininorario.ClasseViewModel
 import ga.gabboxl.pininorario.R
 import ga.gabboxl.pininorario.adapters.ClasseAdapter
-import ga.gabboxl.pininorario.interfaces.OnClickAdaptersImplementations
+import ga.gabboxl.pininorario.interfacesimpls.OnClickAdaptersImplementations
 import ga.gabboxl.pininparse.PininParse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

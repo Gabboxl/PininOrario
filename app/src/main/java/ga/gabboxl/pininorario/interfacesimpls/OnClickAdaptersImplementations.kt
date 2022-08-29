@@ -1,4 +1,4 @@
-package ga.gabboxl.pininorario.interfaces
+package ga.gabboxl.pininorario.interfacesimpls
 
 import android.content.Context
 import android.widget.Toast
@@ -8,8 +8,6 @@ import ga.gabboxl.pininorario.ClasseWithPeriodi
 import ga.gabboxl.pininorario.Periodo
 import ga.gabboxl.pininorario.adapters.ClasseAdapter
 import ga.gabboxl.pininorario.adapters.PeriodoAdapter
-import ga.gabboxl.pininorario.fragments.AllFragment
-import ga.gabboxl.pininorario.fragments.PinnedFragment
 
 class OnClickAdaptersImplementations(val context : Context?, val classeViewModel: ClasseViewModel) : PeriodoAdapter.OnClickListenersPeriodoAdapter, ClasseAdapter.OnClickListenersClasseAdapter {
 

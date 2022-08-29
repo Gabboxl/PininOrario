@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ga.gabboxl.pininorario.*
 import ga.gabboxl.pininorario.adapters.ClasseAdapter
-import ga.gabboxl.pininorario.interfaces.OnClickAdaptersImplementations
+import ga.gabboxl.pininorario.interfacesimpls.OnClickAdaptersImplementations
 
 
 class AllFragment : Fragment() {
