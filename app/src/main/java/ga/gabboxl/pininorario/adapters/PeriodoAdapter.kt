@@ -112,7 +112,7 @@ class PeriodoAdapter :
 
         val cal: Calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"))
         val sdf = SimpleDateFormat("dd MM yyyy", Locale.ITALY)
-        cal.time = sdf.parse("23 08 2021") // data inizio degli orari
+        cal.time = sdf.parse("23 08 2021") as Date // data inizio degli orari
 
 
         val p: Pattern = Pattern.compile("\\d+")
