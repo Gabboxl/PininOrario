@@ -7,10 +7,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ga.gabboxl.pininorario.adapters.ClasseAdapter
 import ga.gabboxl.pininorario.adapters.PeriodoAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.lang.Thread.sleep
 
 
 class AllFragment : Fragment() {
@@ -32,7 +37,6 @@ class AllFragment : Fragment() {
 
 
 
-
         classeViewModel = ViewModelProvider(this).get(ClasseViewModel::class.java)
 
 
@@ -51,6 +55,17 @@ class AllFragment : Fragment() {
             adapterClassi.submitList(t)
         }
 
+        /*classeViewModel.viewModelScope.launch(Dispatchers.Default){
+            sleep(6000)
+
+            withContext(Dispatchers.Main){
+                classeViewModel.getAllPinnedClassesWithPeriodi().observe(viewLifecycleOwner
+                ) { t ->
+                    //Toast.makeText(applicationContext, "onChanged", Toast.LENGTH_SHORT).show()
+                    adapterClassi.submitList(t)
+                }
+            }
+        }*/
 
         adapterClassi.setOnClickListenersClasseAdapter(object : ClasseAdapter.OnClickListenersClasseAdapter {
             override fun onRimuoviPrefClick(classeWithPeriodi: ClasseWithPeriodi) {
