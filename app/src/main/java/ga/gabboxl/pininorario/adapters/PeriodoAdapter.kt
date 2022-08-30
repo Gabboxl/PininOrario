@@ -1,5 +1,6 @@
 package ga.gabboxl.pininorario.adapters
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,7 +71,16 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodiHold
 
 
             popupperiodo = PopupMenu(itemView.context, optionPeriodoButton)
+            //popupperiodo.setForceShowIcon(true) does not work in API levels <29 so let's use a workaround
             popupperiodo.menuInflater.inflate(R.menu.periodioptions_menu, popupperiodo.menu)
+
+
+            //that's the workaround, it's not ideal/official but it works
+            val pop = PopupMenu::class.java.getDeclaredField("mPopup")
+            pop.isAccessible = true
+            val menupop = pop.get(popupperiodo)
+            menupop.javaClass.getDeclaredMethod("setForceShowIcon", Boolean::class.java).invoke(menupop, true)
+
             popupperiodo.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.condividiperiodo_opt -> {
