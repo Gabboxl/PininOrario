@@ -2,6 +2,9 @@
 
 A simpler way to consult ITIS Pininfarina's timetables
 
+# DISCLAIMER
+### The app is under a huge refactoring right now. You can follow the status on the branch https://github.com/Gabboxl/PininOrario/tree/pininorarioV2!
+
 ## Download
 You can download PininOrario's latest version [here](https://github.com/Gabboxl/PininOrario/releases/tag/1.5.2)! 
 
