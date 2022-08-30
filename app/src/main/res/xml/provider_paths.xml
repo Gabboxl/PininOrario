@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
-    <external-path name="orari" path="."/>
+    <files-path name="orari_interni_app" path="/"/>
+
+    <!-- x aiuto https://stackoverflow.com/questions/42516126/fileprovider-illegalargumentexception-failed-to-find-configured-root -->
 </paths>

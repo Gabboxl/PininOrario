@@ -11,7 +11,9 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import ga.gabboxl.pininorario.ClasseWithPeriodi
 import ga.gabboxl.pininorario.Periodo
+import ga.gabboxl.pininorario.PeriodoWithClasse
 import ga.gabboxl.pininorario.R
 import java.text.SimpleDateFormat
 import java.util.*
@@ -19,22 +21,21 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 
-class PeriodoAdapter :
-    ListAdapter<Periodo, PeriodoAdapter.PeriodiHolder>(DIFF_CALLBACK) {
+class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodiHolder>(DIFF_CALLBACK) {
 
     private lateinit var listenersPeriodoAdapter: OnClickListenersPeriodoAdapter
     var posizioneitem: Int = -1
 
     companion object {
 
-        private var DIFF_CALLBACK: DiffUtil.ItemCallback<Periodo> = object :
-            DiffUtil.ItemCallback<Periodo>() {
-            override fun areItemsTheSame(oldItem: Periodo, newItem: Periodo): Boolean {
-                return oldItem.id == newItem.id
+        private var DIFF_CALLBACK: DiffUtil.ItemCallback<PeriodoWithClasse> = object :
+            DiffUtil.ItemCallback<PeriodoWithClasse>() {
+            override fun areItemsTheSame(oldItem: PeriodoWithClasse, newItem: PeriodoWithClasse): Boolean {
+                return oldItem.periodo.id == newItem.periodo.id
             }
 
-            override fun areContentsTheSame(oldItem: Periodo, newItem: Periodo): Boolean {
-                return oldItem.nomePeriodo == newItem.nomePeriodo
+            override fun areContentsTheSame(oldItem: PeriodoWithClasse, newItem: PeriodoWithClasse): Boolean {
+                return oldItem.periodo.nomePeriodo == newItem.periodo.nomePeriodo
             }
         }
     }
@@ -112,11 +113,11 @@ class PeriodoAdapter :
     }
 
     override fun onBindViewHolder(holder: PeriodiHolder, position: Int) {
-        val currentPeriodo: Periodo = getItem(position)
+        val currentPeriodo: PeriodoWithClasse = getItem(position)
 
-        holder.scaricaButton.isVisible = !currentPeriodo.isDownloaded
-        holder.apriButton.isVisible = currentPeriodo.isDownloaded
-        holder.optionPeriodoButton.isVisible = currentPeriodo.isDownloaded
+        holder.scaricaButton.isVisible = !currentPeriodo.periodo.isDownloaded
+        holder.apriButton.isVisible = currentPeriodo.periodo.isDownloaded
+        holder.optionPeriodoButton.isVisible = currentPeriodo.periodo.isDownloaded
 
 
         var somma = 0
@@ -127,7 +128,7 @@ class PeriodoAdapter :
 
 
         val p: Pattern = Pattern.compile("\\d+")
-        val m: Matcher = p.matcher(currentPeriodo.nomePeriodo)
+        val m: Matcher = p.matcher(currentPeriodo.periodo.nomePeriodo)
 
         while (m.find()) {
             somma += m.group().toInt()
@@ -148,17 +149,17 @@ class PeriodoAdapter :
 
     }
 
-    fun getClasseAt(position: Int): Periodo {
+    fun getPeriodoAt(position: Int): PeriodoWithClasse {
         return getItem(position)
     }
 
 
     interface OnClickListenersPeriodoAdapter {
-        fun onPeriodoScaricaButtonClick(periodo: Periodo)
-        fun onPeriodoApriButtonClick(periodo: Periodo)
-        fun onPeriodoCondividiOptionClick(periodo: Periodo)
-        fun onPeriodoSalvaOptionClick(periodo: Periodo)
-        fun onPeriodoEliminaOptionClick(periodo: Periodo)
+        fun onPeriodoScaricaButtonClick(periodo: PeriodoWithClasse)
+        fun onPeriodoApriButtonClick(periodo: PeriodoWithClasse)
+        fun onPeriodoCondividiOptionClick(periodo: PeriodoWithClasse)
+        fun onPeriodoSalvaOptionClick(periodo: PeriodoWithClasse)
+        fun onPeriodoEliminaOptionClick(periodo: PeriodoWithClasse)
     }
 
     fun setOnClickListenersPeriodoAdapter(listenersPeriodoAdapter: OnClickListenersPeriodoAdapter) {

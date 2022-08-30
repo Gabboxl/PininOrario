@@ -24,10 +24,20 @@ data class Periodo(
 )
 
 
+data class PeriodoWithClasse(
+    @Embedded val periodo: Periodo,
+    @Relation(
+        parentColumn = "codiceClassePeriodo",
+        entityColumn = "codiceClasse"
+    ) val classe: Classe
+)
+
+
 data class ClasseWithPeriodi(
     @Embedded val classe: Classe,
     @Relation(
+        entity = Periodo::class,
         parentColumn = "codiceClasse",
         entityColumn = "codiceClassePeriodo"
-    ) val periodi: List<Periodo>
+    ) val periodi: List<PeriodoWithClasse>
 )

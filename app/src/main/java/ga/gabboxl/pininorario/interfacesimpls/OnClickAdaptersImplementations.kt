@@ -3,7 +3,6 @@ package ga.gabboxl.pininorario.interfacesimpls
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.viewModelScope
 import es.dmoral.toasty.Toasty
@@ -14,7 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.*
 import okio.BufferedSink
-import okio.Okio
 import okio.buffer
 import okio.sink
 import java.io.File
@@ -23,10 +21,10 @@ import java.io.IOException
 
 class OnClickAdaptersImplementations(val context : Context?, private val classeViewModel: ClasseViewModel) : PeriodoAdapter.OnClickListenersPeriodoAdapter, ClasseAdapter.OnClickListenersClasseAdapter {
 
-    override fun onPeriodoScaricaButtonClick(periodo: Periodo) {
+    override fun onPeriodoScaricaButtonClick(periodo: PeriodoWithClasse) {
         Toast.makeText(
             context,
-            "lesgo: " + "\n classe: ",
+            "haha yes: classe: " + periodo.classe.nomeClasse ,
             Toast.LENGTH_SHORT
         ).show()
 
@@ -57,7 +55,7 @@ class OnClickAdaptersImplementations(val context : Context?, private val classeV
             //scarico l'immagine con okhttp
             val clientok = OkHttpClient()
             val reqimg = Request.Builder()
-                .url("https://orario.itispininfarina.it/classi/" + periodo.periodoSemiLinkImg + ".png")
+                .url("https://orario.itispininfarina.it/classi/" + periodo.periodo.periodoSemiLinkImg + ".png")
                 .get()
                 .build()
             val respok = clientok.newCall(reqimg).enqueue(object : Callback{
@@ -67,28 +65,24 @@ class OnClickAdaptersImplementations(val context : Context?, private val classeV
 
                 override fun onResponse(call: Call, response: Response) {
                     val filex = File(context?.filesDir, "darkside.png")
-                    if (filex.exists()) {
+                    //if (filex.exists()) {
                         //nice
-                    }
+                    //}
                     val fileCreated: Boolean = filex.createNewFile()
                     val sink: BufferedSink = filex.sink().buffer()
                     sink.writeAll(response.body!!.source())
                     sink.close()
                 }
-            }
-            )
-
-
-
+            })
         }
 
 
         classeViewModel.updatePeriodo(
             Periodo(
-                periodo.id,
-                periodo.codiceClassePeriodo,
-                periodo.nomePeriodo,
-                periodo.periodoSemiLinkImg,
+                periodo.periodo.id,
+                periodo.periodo.codiceClassePeriodo,
+                periodo.periodo.nomePeriodo,
+                periodo.periodo.periodoSemiLinkImg,
                 isAvailableOnServer = true,
                 isDownloaded = true
             )
@@ -97,19 +91,29 @@ class OnClickAdaptersImplementations(val context : Context?, private val classeV
         //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
     }
 
-    override fun onPeriodoApriButtonClick(periodo: Periodo) {
-        Toast.makeText(context, "aprix", Toast.LENGTH_SHORT).show()
+    override fun onPeriodoApriButtonClick(periodo: PeriodoWithClasse) {
+        val file = File(context?.filesDir, "darkside.png")
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.setDataAndType(
+            FileProvider.getUriForFile(
+                context!!.applicationContext,
+                BuildConfig.APPLICATION_ID + ".provider",
+                file
+            ), "image/png"
+        )
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        context.startActivity(intent)
     }
 
-    override fun onPeriodoCondividiOptionClick(periodo: Periodo) {
+    override fun onPeriodoCondividiOptionClick(periodo: PeriodoWithClasse) {
         Toast.makeText(context, "condividix", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onPeriodoSalvaOptionClick(periodo: Periodo) {
+    override fun onPeriodoSalvaOptionClick(periodo: PeriodoWithClasse) {
         Toast.makeText(context, "salvax", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onPeriodoEliminaOptionClick(periodo: Periodo) {
+    override fun onPeriodoEliminaOptionClick(periodo: PeriodoWithClasse) {
         Toast.makeText(context, "eliminax", Toast.LENGTH_SHORT).show()
     }
 
