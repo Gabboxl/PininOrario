@@ -47,7 +47,7 @@ class ClasseAdapter :
         var textViewNomeClasse: TextView
         var optionButton: ImageButton
         var recyclerViewPeriodi: RecyclerView
-        val popup: PopupMenu
+        val popupclasse: PopupMenu
 
 
         init {
@@ -58,10 +58,17 @@ class ClasseAdapter :
 
 
             //la creazione del popup meglio lasciarla fuori dall'onclick listener del pulsante opzioni, altrimenti il codice della creazione verrebbe eseguito ogni volta premuto il pulsante. Avviamo soltanto la visualizzazaione piuttosto con il metodo .show()
-            popup = PopupMenu(itemView.context, optionButton)
-            popup.menuInflater.inflate(R.menu.cardclasse_menu, popup.menu)
+            popupclasse = PopupMenu(itemView.context, optionButton)
+            popupclasse.menuInflater.inflate(R.menu.cardclasse_menu, popupclasse.menu)
 
-            popup.setOnMenuItemClickListener { item ->
+            //that's the workaround, it's not ideal/official but it works
+            val pop = PopupMenu::class.java.getDeclaredField("mPopup")
+            pop.isAccessible = true
+            val menupop = pop.get(popupclasse)
+            menupop.javaClass.getDeclaredMethod("setForceShowIcon", Boolean::class.java).invoke(menupop, true)
+
+
+            popupclasse.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.movecardmenuoption -> {
 
@@ -88,7 +95,7 @@ class ClasseAdapter :
             //i setonclicklistener si devono implementeare nel viewholder e non nel onbind perche altrimenti verrebbe l'onbind chiamato ogni volta che il recyclerview deve visualizzare un nuovo elemento scorrendo verso il basso/alto, implementandolo nel viewholder viene implementato una sola volta per item
             optionButton.setOnClickListener {
 
-                popup.show() //showing popup menu
+                popupclasse.show() //showing popup menu
             }
 
 
@@ -110,8 +117,8 @@ class ClasseAdapter :
         holder.recyclerViewPeriodi.layoutManager = LinearLayoutManager(holder.itemView.context)
 
         //imposto la visibilita' del pulsante opzione rimuovi/aggiungi ai preferiti in base alla situazione della classe attuale
-        holder.popup.menu.findItem(R.id.addcardmenuoption).isVisible = !currentClasse.classe.isPinned //inverto il valore
-        holder.popup.menu.findItem(R.id.deletecardmenuoption).isVisible = currentClasse.classe.isPinned
+        holder.popupclasse.menu.findItem(R.id.addcardmenuoption).isVisible = !currentClasse.classe.isPinned //inverto il valore
+        holder.popupclasse.menu.findItem(R.id.deletecardmenuoption).isVisible = currentClasse.classe.isPinned
 
         val periodiadapter: PeriodoAdapter = PeriodoAdapter()
         holder.recyclerViewPeriodi.adapter = periodiadapter
