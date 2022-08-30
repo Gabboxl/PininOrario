@@ -3,7 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1905" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1905" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/ic_baseline_delete_forever_24.xml" value="0.1905" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/ic_baseline_done_all_24.xml" value="0.1905" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/ic_baseline_download_done_24.xml" value="0.1905" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/ic_baseline_file_download_done_24.xml" value="0.1905" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/ic_baseline_get_app_24.xml" value="0.1905" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/ic_baseline_ios_share_24.xml" value="0.1905" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.1905" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/ic_baseline_offline_pin_24.xml" value="0.1905" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/ic_baseline_open_in_new_24.xml" value="0.1905" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/ic_baseline_push_pin_24.xml" value="0.1905" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/ic_baseline_reorder_24.xml" value="0.1905" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/ic_info_outline_black_24dp.xml" value="0.1905" />
         <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/ic_launch_black_32dp.xml" value="0.2755208333333333" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1905" />
+        <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/ic_round_warning_24.xml" value="0.1905" />
         <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/line.xml" value="0.1205" />
         <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/line_drawable.xml" value="0.1205" />
         <entry key="..\:/Users/Gabriele/GitHub/PininOrario/app/src/main/res/drawable/thumb.xml" value="0.1205" />
