@@ -3,6 +3,7 @@ package ga.gabboxl.pininorario.interfacesimpls
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.viewModelScope
 import es.dmoral.toasty.Toasty
@@ -106,7 +107,18 @@ class OnClickAdaptersImplementations(val context : Context?, private val classeV
     }
 
     override fun onPeriodoCondividiOptionClick(periodo: PeriodoWithClasse) {
-        Toast.makeText(context, "condividix", Toast.LENGTH_SHORT).show()
+        val file = File(context?.filesDir, periodo.classe.nomeClasse + periodo.periodo.nomePeriodo +".png")
+        val asd = FileProvider.getUriForFile(context!!, context.packageName + ".provider", file)
+        val shareIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_STREAM, asd)
+            //setDataAndType(asd, "image/png")
+            type = "image/png"
+            //flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        }
+        context.startActivity(Intent.createChooser(shareIntent, "Orario " + periodo.classe.nomeClasse))
+
+        //nun si sa se i permessi di accesso al file rimangono all'app di destinazione scelta ma vabb
     }
 
     override fun onPeriodoSalvaOptionClick(periodo: PeriodoWithClasse) {
