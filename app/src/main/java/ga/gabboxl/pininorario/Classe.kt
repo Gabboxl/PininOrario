@@ -31,6 +31,7 @@ data class PeriodoWithClasse(
         entityColumn = "codiceClasse"
     ) val classe: Classe
 )
+/* thx to https://stackoverflow.com/a/68010260/9008381 */
 
 
 data class ClasseWithPeriodi(

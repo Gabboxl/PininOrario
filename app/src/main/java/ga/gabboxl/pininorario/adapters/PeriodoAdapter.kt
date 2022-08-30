@@ -120,7 +120,7 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodiHold
         holder.optionPeriodoButton.isVisible = currentPeriodo.periodo.isDownloaded
 
 
-        var somma = 0
+       /* var somma = 0
 
         val cal: Calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"))
         val sdf = SimpleDateFormat("dd MM yyyy", Locale.ITALY)
@@ -145,7 +145,9 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodiHold
 
 
 
-        holder.textViewPeriodo.text = "Dal $dateinizio al $datafine"
+        holder.textViewPeriodo.text = "Dal $dateinizio al $datafine" */
+
+        holder.textViewPeriodo.text = currentPeriodo.periodo.nomePeriodo
 
     }
 
