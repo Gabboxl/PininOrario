@@ -64,7 +64,7 @@ class OnClickAdaptersImplementations(val context : Context?, private val classeV
                 }
 
                 override fun onResponse(call: Call, response: Response) {
-                    val filex = File(context?.filesDir, "darkside.png")
+                    val filex = File(context?.filesDir, periodo.classe.nomeClasse + periodo.periodo.nomePeriodo +".png")
                     //if (filex.exists()) {
                         //nice
                     //}
@@ -92,7 +92,7 @@ class OnClickAdaptersImplementations(val context : Context?, private val classeV
     }
 
     override fun onPeriodoApriButtonClick(periodo: PeriodoWithClasse) {
-        val file = File(context?.filesDir, "darkside.png")
+        val file = File(context?.filesDir, periodo.classe.nomeClasse + periodo.periodo.nomePeriodo +".png")
         val intent = Intent(Intent.ACTION_VIEW)
         intent.setDataAndType(
             FileProvider.getUriForFile(
