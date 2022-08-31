@@ -1,79 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
-
-    <TextView
-            android:layout_width="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardperiodiwrap"
+            style="?attr/materialCardViewOutlinedStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:id="@+id/textperiodo"
-
-            android:text="Sono un periodo bella"
-            android:textAppearance="?attr/textAppearanceBodyMedium"
-            android:textColor="?android:attr/textColorSecondary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-            android:id="@+id/periodoButtonOpzioni"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Pulsante opzioni card"
-            android:minWidth="32dp"
-            android:minHeight="32dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_baseline_more_vert_24"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/textperiodo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Sono un periodo bella"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="?android:attr/textColorSecondary"
+                    app:layout_constraintStart_toEndOf="@id/periodoButtonAvailability"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.google.android.material.button.MaterialButton
-            android:id="@+id/card_periodoscarica"
-            style="?attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Scarica"
-            android:visibility="visible"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guideline4"
-            app:layout_constraintEnd_toEndOf="@id/guideline4"/>
+            <ImageButton
+                    android:id="@+id/periodoButtonAvailability"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Pulsante opzioni card"
+                    android:minWidth="32dp"
+                    android:minHeight="32dp"
+                    android:src="@drawable/ic_baseline_cloud_24"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.google.android.material.button.MaterialButton
-            android:id="@+id/card_periodoapri"
-            style="?attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Apri"
-            android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@+id/periodoButtonOpzioni"
-            app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/card_periodoapri"
+                    style="?attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Apri"
+                    android:layout_marginRight="8dp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textperiodo" />
 
-    <ProgressBar
-            android:id="@+id/progressBarDownloadPeriodo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@id/card_periodoscarica"
-            app:layout_constraintEnd_toEndOf="@+id/card_periodoscarica"
-            app:layout_constraintStart_toStartOf="@+id/card_periodoscarica"
-            app:layout_constraintTop_toTopOf="@id/card_periodoscarica" />
 
-    <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="@id/card_periodoapri"
-            app:layout_constraintGuide_percent="0.8"
-            app:layout_constraintStart_toStartOf="@id/card_periodoapri" />
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/card_periodoscarica"
+                    style="?attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Scarica"
+                    android:visibility="visible"
+                    android:layout_marginRight="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageButton
+                    android:id="@+id/periodoButtonOpzioni"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Pulsante opzioni card"
+                    android:minWidth="32dp"
+                    android:minHeight="32dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/ic_baseline_more_vert_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/card_periodoapri" />
+
+            <ProgressBar
+                    android:id="@+id/progressBarDownloadPeriodo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@id/card_periodoscarica"
+                    app:layout_constraintEnd_toEndOf="@+id/card_periodoscarica"
+                    app:layout_constraintStart_toStartOf="@+id/card_periodoscarica"
+                    app:layout_constraintTop_toTopOf="@id/card_periodoscarica" />
+
+            <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="@id/card_periodoapri"
+                    app:layout_constraintGuide_percent="0.8"
+                    app:layout_constraintStart_toStartOf="@id/card_periodoapri" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+</LinearLayout>

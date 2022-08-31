@@ -9,4 +9,14 @@
           android:title="@string/title_activity_about"
           app:showAsAction="never"/>
 
+    <item android:id="@+id/appbar_option_checkdataaggiornamentoorari"
+            android:title="Cerca aggiornamenti orari"
+            android:icon="@drawable/ic_baseline_refresh_24"
+            app:showAsAction="always"/>
+
+    <item android:id="@+id/appbar_option_refreshallorari"
+            android:title="Forza ricerca nuovi orari"
+            android:icon="@drawable/ic_baseline_sim_card_download_24"
+            app:showAsAction="always"/>
+
 </menu>

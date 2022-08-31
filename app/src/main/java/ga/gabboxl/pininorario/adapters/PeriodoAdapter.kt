@@ -155,7 +155,7 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodiHold
 
 
 
-        holder.textViewPeriodo.text = "Dal $dateinizio al $datafine"
+        holder.textViewPeriodo.text = "$dateinizio -> $datafine"
 
         //holder.textViewPeriodo.text = currentPeriodo.periodo.nomePeriodo
 
