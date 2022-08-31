@@ -10,7 +10,7 @@
     <item
             android:id="@+id/salvaingalleriaperiodo_opt"
             android:title="Salva nella galleria"
-            android:icon="@drawable/ic_baseline_push_pin_24"
+            android:icon="@drawable/ic_baseline_save_24"
             app:showAsAction="never" />
 
     <item
