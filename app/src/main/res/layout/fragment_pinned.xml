@@ -13,7 +13,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/recycler_view"
-            tools:listitem="@layout/classe_card_item">
+            tools:listitem="@layout/classe_card_item"
+            android:paddingBottom="90dp"
+            android:clipToPadding="false">
     </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
