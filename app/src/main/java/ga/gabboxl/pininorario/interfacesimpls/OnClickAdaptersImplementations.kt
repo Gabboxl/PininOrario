@@ -2,8 +2,8 @@ package ga.gabboxl.pininorario.interfacesimpls
 
 import android.content.Context
 import android.content.Intent
+import android.os.Environment
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.viewModelScope
 import es.dmoral.toasty.Toasty
@@ -122,7 +122,13 @@ class OnClickAdaptersImplementations(val context : Context?, private val classeV
     }
 
     override fun onPeriodoSalvaOptionClick(periodo: PeriodoWithClasse) {
-        Toast.makeText(context, "salvax", Toast.LENGTH_SHORT).show()
+        val destinationFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "/PininOrario/" + periodo.classe.nomeClasse + periodo.periodo.nomePeriodo +".png")
+        val file = File(context?.filesDir, periodo.classe.nomeClasse + periodo.periodo.nomePeriodo +".png")
+            .copyTo(destinationFile)
+
+        //forse aggiornare mediastore per farlo vedere fin da subito nella galleria?
+
+        Toasty.success(context!!, "Orario salvato nella galleria.", Toasty.LENGTH_SHORT).show()
     }
 
     override fun onPeriodoEliminaOptionClick(periodo: PeriodoWithClasse) {
