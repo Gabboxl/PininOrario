@@ -64,9 +64,9 @@ class AllFragment : Fragment() {
 
         //listeners per gli adapters
 
-        adapterClassi.setOnClickListenersClasseAdapter(OnClickAdaptersImplementations(context, classeViewModel))
+        adapterClassi.setOnClickListenersClasseAdapter(OnClickAdaptersImplementations(requireContext(), classeViewModel))
 
-        adapterClassi.setOnClickListenersPeriodoAdapter(OnClickAdaptersImplementations(context, classeViewModel))
+        adapterClassi.setOnClickListenersPeriodoAdapter(OnClickAdaptersImplementations(requireContext(), classeViewModel))
 
 
 

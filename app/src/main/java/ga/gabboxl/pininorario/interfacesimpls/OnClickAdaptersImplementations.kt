@@ -1,17 +1,29 @@
 package ga.gabboxl.pininorario.interfacesimpls
 
+import android.Manifest
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Environment
+import android.provider.MediaStore
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.viewModelScope
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import es.dmoral.toasty.Toasty
 import ga.gabboxl.pininorario.*
 import ga.gabboxl.pininorario.adapters.ClasseAdapter
 import ga.gabboxl.pininorario.adapters.PeriodoAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.*
 import okio.BufferedSink
 import okio.buffer
@@ -20,7 +32,7 @@ import java.io.File
 import java.io.IOException
 
 
-class OnClickAdaptersImplementations(val context : Context?, private val classeViewModel: ClasseViewModel) : PeriodoAdapter.OnClickListenersPeriodoAdapter, ClasseAdapter.OnClickListenersClasseAdapter {
+class OnClickAdaptersImplementations(val context : Context, private val classeViewModel: ClasseViewModel) : PeriodoAdapter.OnClickListenersPeriodoAdapter, ClasseAdapter.OnClickListenersClasseAdapter {
 
     override fun onPeriodoScaricaButtonClick(periodo: PeriodoWithClasse) {
         Toast.makeText(
@@ -61,11 +73,11 @@ class OnClickAdaptersImplementations(val context : Context?, private val classeV
                 .build()
             val respok = clientok.newCall(reqimg).enqueue(object : Callback{
                 override fun onFailure(call: Call, e: IOException) {
-                    Toasty.error(context!!, "haha yes $e", Toasty.LENGTH_SHORT).show()
+                    Toasty.error(context, "Errore: $e", Toasty.LENGTH_SHORT).show()
                 }
 
                 override fun onResponse(call: Call, response: Response) {
-                    val filex = File(context?.filesDir, periodo.classe.nomeClasse + periodo.periodo.nomePeriodo +".png")
+                    val filex = File(context.filesDir, periodo.classe.nomeClasse + periodo.periodo.nomePeriodo +".png")
                     //if (filex.exists()) {
                         //nice
                     //}
@@ -73,31 +85,35 @@ class OnClickAdaptersImplementations(val context : Context?, private val classeV
                     val sink: BufferedSink = filex.sink().buffer()
                     sink.writeAll(response.body!!.source())
                     sink.close()
+
+
+                    //aggiorno il database per il periodo
+                    classeViewModel.updatePeriodo(
+                        Periodo(
+                            periodo.periodo.id,
+                            periodo.periodo.codiceClassePeriodo,
+                            periodo.periodo.nomePeriodo,
+                            periodo.periodo.periodoSemiLinkImg,
+                            isAvailableOnServer = true,
+                            isDownloaded = true
+                        )
+                    )
                 }
             })
         }
 
 
-        classeViewModel.updatePeriodo(
-            Periodo(
-                periodo.periodo.id,
-                periodo.periodo.codiceClassePeriodo,
-                periodo.periodo.nomePeriodo,
-                periodo.periodo.periodoSemiLinkImg,
-                isAvailableOnServer = true,
-                isDownloaded = true
-            )
-        )
+
 
         //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
     }
 
     override fun onPeriodoApriButtonClick(periodo: PeriodoWithClasse) {
-        val file = File(context?.filesDir, periodo.classe.nomeClasse + periodo.periodo.nomePeriodo +".png")
+        val file = File(context.filesDir, periodo.classe.nomeClasse + periodo.periodo.nomePeriodo +".png")
         val intent = Intent(Intent.ACTION_VIEW)
         intent.setDataAndType(
             FileProvider.getUriForFile(
-                context!!.applicationContext,
+                context.applicationContext,
                 BuildConfig.APPLICATION_ID + ".provider",
                 file
             ), "image/png"
@@ -107,8 +123,8 @@ class OnClickAdaptersImplementations(val context : Context?, private val classeV
     }
 
     override fun onPeriodoCondividiOptionClick(periodo: PeriodoWithClasse) {
-        val file = File(context?.filesDir, periodo.classe.nomeClasse + periodo.periodo.nomePeriodo +".png")
-        val asd = FileProvider.getUriForFile(context!!, context.packageName + ".provider", file)
+        val file = File(context.filesDir, periodo.classe.nomeClasse + periodo.periodo.nomePeriodo +".png")
+        val asd = FileProvider.getUriForFile(context, context.packageName + ".provider", file)
         val shareIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(Intent.EXTRA_STREAM, asd)
@@ -122,13 +138,102 @@ class OnClickAdaptersImplementations(val context : Context?, private val classeV
     }
 
     override fun onPeriodoSalvaOptionClick(periodo: PeriodoWithClasse) {
-        val destinationFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "/PininOrario/" + periodo.classe.nomeClasse + periodo.periodo.nomePeriodo +".png")
-        val file = File(context?.filesDir, periodo.classe.nomeClasse + periodo.periodo.nomePeriodo +".png")
-            .copyTo(destinationFile)
 
-        //forse aggiornare mediastore per farlo vedere fin da subito nella galleria?
 
-        Toasty.success(context!!, "Orario salvato nella galleria.", Toasty.LENGTH_SHORT).show()
+        classeViewModel.viewModelScope.launch(Dispatchers.Default) {
+
+
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+
+                //controllo permesso per l'accesso alla memoria
+                if (ContextCompat.checkSelfPermission(
+                        context,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(
+                            context as Activity,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        )
+                    ) {
+
+                        val alertpermesso = MaterialAlertDialogBuilder(context)
+                            .setTitle(context.getString(R.string.permesso_richiesto))
+                            .setMessage(context.getString(R.string.richiesta_permesso_WRITE_EXTERNAL_STORAGE))
+                            .setPositiveButton("Concedi") { _, _ ->
+                                ActivityCompat.requestPermissions(  // onlick funzione
+                                    context,
+                                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                                    777
+                                )
+                            }
+                            .setNegativeButton("Annulla") { dialog, _ -> dialog.dismiss() } //onlick funzione
+
+                        withContext(Dispatchers.Main) { alertpermesso.create().show() }
+                    } else {
+                        ActivityCompat.requestPermissions(
+                            context,
+                            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                            777
+                        )
+                    }
+                }
+            }
+
+            //forse aggiornare mediastore per farlo vedere fin da subito nella galleria?
+
+
+                val destinationFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "/PininOrario/" + periodo.classe.nomeClasse + periodo.periodo.nomePeriodo +".png")
+                //destinationFile.createNewFile() penso sia inutile in ogni caso
+
+                try {
+                    val filecopia = File(context.filesDir, periodo.classe.nomeClasse + periodo.periodo.nomePeriodo + ".png")
+                        .copyTo(destinationFile)
+
+                    //forse aggiornare mediastore per farlo vedere fin da subito nella galleria? solo per API Q?
+
+                    withContext(Dispatchers.Main) { Toasty.success(context, "Orario salvato nella galleria.", Toasty.LENGTH_SHORT).show() }
+
+                }catch (e: FileAlreadyExistsException){
+                    withContext(Dispatchers.Main) { Toasty.info(context, "Orario già salvato in galleria!", Toasty.LENGTH_SHORT).show() }
+                }
+        }
+
+
+/*
+        //For devices running android >= Q
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            //getting the contentResolver
+            context.contentResolver?.also { resolver ->
+
+                //Content resolver will process the contentvalues
+                val contentValues = ContentValues().apply {
+
+                    //putting file information in content values
+                    put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+                    put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
+                    put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+                }
+
+                //Inserting the contentValues to contentResolver and getting the Uri
+                val imageUri: Uri? =
+                    resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+
+                //Opening an outputstream with the Uri that we got
+                fos = imageUri?.let { resolver.openOutputStream(it) }
+            }
+
+
+
+        } else {
+            //These for devices running on android < Q
+            val imagesDir =
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+            val image = File(imagesDir, filename)
+            fos = FileOutputStream(image)
+        }
+
+        */
     }
 
     override fun onPeriodoEliminaOptionClick(periodo: PeriodoWithClasse) {
