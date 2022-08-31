@@ -3,6 +3,7 @@
 
     <item android:id="@+id/movecardmenuoption"
             android:title="Muovi card"
+            android:icon="@drawable/ic_baseline_arrow_outward_24"
             app:showAsAction="never"/>
 
     <item
@@ -14,6 +15,7 @@
     <item
             android:id="@+id/deletecardmenuoption"
             android:title="Rimuovi dai preferiti"
+            android:icon="@drawable/ic_baseline_bookmark_remove_24"
             app:showAsAction="never" />
 
 </menu>
