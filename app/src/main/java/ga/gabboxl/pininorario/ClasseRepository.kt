@@ -17,7 +17,7 @@ class ClasseRepository(application: Application) {
         val database: ClasseDatabase = ClasseDatabase.getInstance(application)
         classeDao = database.classeDao()
         allClasses = classeDao.getAllClassi()
-        allPinnedClasses = classeDao.getAllPinnedClassesWithPeriodi()
+        allPinnedClasses = classeDao.getAllPinnedClassiWithPeriodi()
         allClassiWithPeriodi = classeDao.getAllClassiWithPeriodi()
     }
 
