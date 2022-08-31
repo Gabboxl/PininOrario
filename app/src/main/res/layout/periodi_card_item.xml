@@ -54,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Apri"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginEnd="8dp"
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -63,12 +63,14 @@
 
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/card_periodoscarica"
-                    style="?attr/borderlessButtonStyle"
+                    style="?attr/materialIconButtonFilledTonalStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp"
                     android:text="Scarica"
                     android:visibility="visible"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginEnd="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
 
