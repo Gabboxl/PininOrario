@@ -16,7 +16,9 @@
             app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
             app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"
             app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
-            app:fastScrollVerticalTrackDrawable="@drawable/line_drawable">
+            app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"
+            android:paddingBottom="20dp"
+            android:clipToPadding="false">
     </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
