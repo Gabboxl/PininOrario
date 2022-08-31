@@ -34,13 +34,8 @@ import java.io.IOException
 
 class OnClickAdaptersImplementations(val context : Context, private val classeViewModel: ClasseViewModel) : PeriodoAdapter.OnClickListenersPeriodoAdapter, ClasseAdapter.OnClickListenersClasseAdapter {
 
-    override fun onPeriodoScaricaButtonClick(periodo: PeriodoWithClasse) {
-        Toast.makeText(
-            context,
-            "haha yes: classe: " + periodo.classe.nomeClasse ,
-            Toast.LENGTH_SHORT
-        ).show()
 
+    override fun onPeriodoScaricaButtonClick(periodo: PeriodoWithClasse) {
 
 /*      Con downloadmanager non è possibile salvare nella cartella dedicata dell'app: https://stackoverflow.com/a/71341789/9008381
 
@@ -64,6 +59,8 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
 
         downloadManager.enqueue(request)*/
 
+        val nomefileorario = periodo.classe.nomeClasse + " " + periodo.periodo.nomePeriodo +".png"
+
         classeViewModel.viewModelScope.launch(Dispatchers.Default) {
             //scarico l'immagine con okhttp
             val clientok = OkHttpClient()
@@ -73,11 +70,11 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
                 .build()
             val respok = clientok.newCall(reqimg).enqueue(object : Callback{
                 override fun onFailure(call: Call, e: IOException) {
-                    Toasty.error(context, "Errore: $e", Toasty.LENGTH_SHORT).show()
+                    Toasty.error(context, "Errore: $e", Toasty.LENGTH_LONG).show()
                 }
 
                 override fun onResponse(call: Call, response: Response) {
-                    val filex = File(context.filesDir, periodo.classe.nomeClasse + periodo.periodo.nomePeriodo +".png")
+                    val filex = File(context.filesDir, nomefileorario)
                     //if (filex.exists()) {
                         //nice
                     //}
@@ -109,7 +106,9 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
     }
 
     override fun onPeriodoApriButtonClick(periodo: PeriodoWithClasse) {
-        val file = File(context.filesDir, periodo.classe.nomeClasse + periodo.periodo.nomePeriodo +".png")
+        val nomefileorario = periodo.classe.nomeClasse + " " + periodo.periodo.nomePeriodo +".png"
+
+        val file = File(context.filesDir, nomefileorario)
         val intent = Intent(Intent.ACTION_VIEW)
         intent.setDataAndType(
             FileProvider.getUriForFile(
@@ -123,7 +122,9 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
     }
 
     override fun onPeriodoCondividiOptionClick(periodo: PeriodoWithClasse) {
-        val file = File(context.filesDir, periodo.classe.nomeClasse + periodo.periodo.nomePeriodo +".png")
+        val nomefileorario = periodo.classe.nomeClasse + " " + periodo.periodo.nomePeriodo +".png"
+
+        val file = File(context.filesDir, nomefileorario)
         val asd = FileProvider.getUriForFile(context, context.packageName + ".provider", file)
         val shareIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
