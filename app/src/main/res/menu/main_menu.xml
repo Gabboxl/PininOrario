@@ -15,7 +15,7 @@
             app:showAsAction="always"/>
 
     <item android:id="@+id/appbar_option_refreshallorari"
-            android:title="Forza ricerca nuovi orari"
+            android:title="Forza aggiornamento database orari"
             android:icon="@drawable/ic_baseline_sim_card_download_24"
             app:showAsAction="ifRoom"/>
 
