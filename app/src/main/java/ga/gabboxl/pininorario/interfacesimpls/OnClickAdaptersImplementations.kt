@@ -2,15 +2,11 @@ package ga.gabboxl.pininorario.interfacesimpls
 
 import android.Manifest
 import android.app.Activity
-import android.app.AlertDialog
-import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Environment
-import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -34,6 +30,28 @@ import java.io.IOException
 
 
 class OnClickAdaptersImplementations(val context : Context, private val classeViewModel: ClasseViewModel) : PeriodoAdapter.OnClickListenersPeriodoAdapter, ClasseAdapter.OnClickListenersClasseAdapter {
+
+
+    override fun onPeriodoAvailabilityButtonClick(periodo: PeriodoWithClasse, holder: PeriodoAdapter.PeriodiHolder) {
+        if (periodo.periodo.isAvailableOnServer)
+        {
+            val infoPeriodoDialog = MaterialAlertDialogBuilder(context)
+                .setTitle("Info")
+                .setMessage("Questo periodo è ancora disponibile sul server per il download.")
+                .setPositiveButton("OK") { _, _ ->
+                }
+
+             infoPeriodoDialog.create().show()
+        } else {
+            val infoPeriodoDialog = MaterialAlertDialogBuilder(context)
+                .setTitle("Info")
+                .setMessage("Questo periodo è stato rimosso dal server della scuola, per cui non è più disponibile per il download.")
+                .setPositiveButton("OK") { _, _ ->
+                }
+
+            infoPeriodoDialog.create().show()
+        }
+    }
 
 
     override fun onPeriodoScaricaButtonClick(periodo: PeriodoWithClasse, holder: PeriodoAdapter.PeriodiHolder) {
@@ -244,6 +262,8 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
     override fun onPeriodoEliminaOptionClick(periodo: PeriodoWithClasse) {
         Toast.makeText(context, "eliminax", Toast.LENGTH_SHORT).show()
     }
+
+
 
     override fun onRimuoviPrefClick(classeWithPeriodi: ClasseWithPeriodi) {
         //Toast.makeText(applicationContext, "onChanged " + adapter.posizioneitem + " " + classe, Toast.LENGTH_SHORT).show()

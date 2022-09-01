@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.compose.ui.graphics.Color
+import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -44,6 +47,7 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodiHold
         lateinit var scaricaButton: Button
         lateinit var apriButton: Button
         lateinit var scaricaPeriodoProgressBar: ProgressBar
+        lateinit var periodoButtonAvailability: ImageButton
         val optionPeriodoButton: ImageButton
         val popupperiodo: PopupMenu
 
@@ -53,6 +57,7 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodiHold
             scaricaButton = itemView.findViewById(R.id.card_periodoscarica)
             apriButton = itemView.findViewById(R.id.card_periodoapri)
             optionPeriodoButton = itemView.findViewById(R.id.periodoButtonOpzioni)
+            periodoButtonAvailability = itemView.findViewById(R.id.periodoButtonAvailability)
 
 
 
@@ -69,11 +74,15 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodiHold
                 listenersPeriodoAdapter.onPeriodoApriButtonClick(getItem(posizioneitem))
             }
 
+            periodoButtonAvailability.setOnClickListener{
+                posizioneitem = absoluteAdapterPosition
+                listenersPeriodoAdapter.onPeriodoAvailabilityButtonClick(getItem(posizioneitem), this)
+            }
+
 
             popupperiodo = PopupMenu(itemView.context, optionPeriodoButton)
             //popupperiodo.setForceShowIcon(true) does not work in API levels <29 so let's use a workaround
             popupperiodo.menuInflater.inflate(R.menu.periodioptions_menu, popupperiodo.menu)
-
 
             //that's the workaround, it's not ideal/official but it works
             val pop = PopupMenu::class.java.getDeclaredField("mPopup")
@@ -130,6 +139,19 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodiHold
         holder.optionPeriodoButton.isVisible = currentPeriodo.periodo.isDownloaded
 
 
+        if(currentPeriodo.periodo.isAvailableOnServer) {
+
+            getDrawable(holder.itemView.context, R.drawable.ic_baseline_cloud_queue_24)!!.setTint(getColor(holder.itemView.context, R.color.colorPrimary))
+
+            holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_queue_24)
+        } else {
+            holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_off_24)
+        }
+
+
+
+
+
         var somma = 0
 
         val cal: Calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"))
@@ -173,6 +195,7 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodiHold
         fun onPeriodoCondividiOptionClick(periodo: PeriodoWithClasse)
         fun onPeriodoSalvaOptionClick(periodo: PeriodoWithClasse)
         fun onPeriodoEliminaOptionClick(periodo: PeriodoWithClasse)
+        fun onPeriodoAvailabilityButtonClick(periodo: PeriodoWithClasse, holder: PeriodiHolder)
     }
 
     fun setOnClickListenersPeriodoAdapter(listenersPeriodoAdapter: OnClickListenersPeriodoAdapter) {
