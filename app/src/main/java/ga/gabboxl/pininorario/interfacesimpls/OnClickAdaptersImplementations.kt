@@ -143,7 +143,7 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
     }
 
     override fun onPeriodoSalvaOptionClick(periodo: PeriodoWithClasse) {
-
+        val nomefileorario = periodo.classe.nomeClasse + " " + periodo.periodo.nomePeriodo +".png"
 
         classeViewModel.viewModelScope.launch(Dispatchers.Default) {
 
@@ -188,11 +188,11 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
             //forse aggiornare mediastore per farlo vedere fin da subito nella galleria?
 
 
-                val destinationFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "/PininOrario/" + periodo.classe.nomeClasse + periodo.periodo.nomePeriodo +".png")
+                val destinationFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "/PininOrario/" + nomefileorario)
                 //destinationFile.createNewFile() penso sia inutile in ogni caso
 
                 try {
-                    val filecopia = File(context.filesDir, periodo.classe.nomeClasse + periodo.periodo.nomePeriodo + ".png")
+                    val filecopia = File(context.filesDir, nomefileorario)
                         .copyTo(destinationFile)
 
                     //forse aggiornare mediastore per farlo vedere fin da subito nella galleria? solo per API Q?
