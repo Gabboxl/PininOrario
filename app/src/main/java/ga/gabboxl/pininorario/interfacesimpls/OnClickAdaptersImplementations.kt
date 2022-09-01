@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -35,7 +36,7 @@ import java.io.IOException
 class OnClickAdaptersImplementations(val context : Context, private val classeViewModel: ClasseViewModel) : PeriodoAdapter.OnClickListenersPeriodoAdapter, ClasseAdapter.OnClickListenersClasseAdapter {
 
 
-    override fun onPeriodoScaricaButtonClick(periodo: PeriodoWithClasse) {
+    override fun onPeriodoScaricaButtonClick(periodo: PeriodoWithClasse, holder: PeriodoAdapter.PeriodiHolder) {
 
 /*      Con downloadmanager non è possibile salvare nella cartella dedicata dell'app: https://stackoverflow.com/a/71341789/9008381
 
@@ -61,6 +62,9 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
 
         val nomefileorario = periodo.classe.nomeClasse + " " + periodo.periodo.nomePeriodo +".png"
 
+        holder.scaricaButton.visibility = View.INVISIBLE
+        holder.scaricaPeriodoProgressBar.visibility = View.VISIBLE
+
         classeViewModel.viewModelScope.launch(Dispatchers.Default) {
             //scarico l'immagine con okhttp
             val clientok = OkHttpClient()
@@ -71,6 +75,9 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
             val respok = clientok.newCall(reqimg).enqueue(object : Callback{
                 override fun onFailure(call: Call, e: IOException) {
                     Toasty.error(context, "Errore: $e", Toasty.LENGTH_LONG).show()
+
+                    holder.scaricaButton.visibility = View.VISIBLE
+                    holder.scaricaPeriodoProgressBar.visibility = View.INVISIBLE
                 }
 
                 override fun onResponse(call: Call, response: Response) {
@@ -98,9 +105,6 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
                 }
             })
         }
-
-
-
 
         //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
     }

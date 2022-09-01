@@ -4,10 +4,7 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.PopupMenu
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -46,10 +43,12 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodiHold
         lateinit var textViewPeriodo: TextView
         lateinit var scaricaButton: Button
         lateinit var apriButton: Button
+        lateinit var scaricaPeriodoProgressBar: ProgressBar
         val optionPeriodoButton: ImageButton
         val popupperiodo: PopupMenu
 
         init {
+            scaricaPeriodoProgressBar = itemView.findViewById(R.id.progressBarDownloadPeriodo)
             textViewPeriodo = itemView.findViewById(R.id.textperiodo)
             scaricaButton = itemView.findViewById(R.id.card_periodoscarica)
             apriButton = itemView.findViewById(R.id.card_periodoapri)
@@ -61,7 +60,8 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodiHold
             //i setonclicklistener si devono implementeare nel viewholder e non nel onbind perche altrimenti verrebbe l'onbind chiamato ogni volta che il recyclerview deve visualizzare un nuovo elemento scorrendo verso il basso/alto, implementandolo nel viewholder viene implementato una sola volta per item
             scaricaButton.setOnClickListener {
                 posizioneitem = absoluteAdapterPosition
-                listenersPeriodoAdapter.onPeriodoScaricaButtonClick(getItem(posizioneitem))
+
+                listenersPeriodoAdapter.onPeriodoScaricaButtonClick(getItem(posizioneitem), this)
             }
 
             apriButton.setOnClickListener {
@@ -135,6 +135,7 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodiHold
         val cal: Calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"))
         val sdf = SimpleDateFormat("dd MM yyyy", Locale.ITALY)
         cal.time = sdf.parse("5 07 2021") as Date // data inizio degli orari
+        //TODO("Magari prendere la data di inizio da server in modo da non dover aggiornare l'app in caso di modifica")
 
 
         val p: Pattern = Pattern.compile("\\d+")
@@ -167,7 +168,7 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodiHold
 
 
     interface OnClickListenersPeriodoAdapter {
-        fun onPeriodoScaricaButtonClick(periodo: PeriodoWithClasse)
+        fun onPeriodoScaricaButtonClick(periodo: PeriodoWithClasse, holder: PeriodiHolder)
         fun onPeriodoApriButtonClick(periodo: PeriodoWithClasse)
         fun onPeriodoCondividiOptionClick(periodo: PeriodoWithClasse)
         fun onPeriodoSalvaOptionClick(periodo: PeriodoWithClasse)
