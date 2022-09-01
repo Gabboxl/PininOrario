@@ -166,19 +166,11 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
         classeViewModel.viewModelScope.launch(Dispatchers.Default) {
 
 
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q && (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
 
-                //controllo permesso per l'accesso alla memoria
-                if (ContextCompat.checkSelfPermission(
-                        context,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    if (ActivityCompat.shouldShowRequestPermissionRationale( // questo check si mette per questo motivo https://stackoverflow.com/questions/32347532/android-m-permissions-confused-on-the-usage-of-shouldshowrequestpermissionrati
                             context as Activity,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE
-                        )
-                    ) {
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
                         val alertpermesso = MaterialAlertDialogBuilder(context)
                             .setTitle(context.getString(R.string.permesso_richiesto))
@@ -200,10 +192,9 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
                             777
                         )
                     }
-                }
-            }
 
-            //forse aggiornare mediastore per farlo vedere fin da subito nella galleria?
+            } else {
+                //forse aggiornare mediastore per farlo vedere fin da subito nella galleria?
 
 
                 val destinationFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "/PininOrario/" + nomefileorario)
@@ -220,6 +211,7 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
                 }catch (e: FileAlreadyExistsException){
                     withContext(Dispatchers.Main) { Toasty.info(context, "Orario già salvato in galleria!", Toasty.LENGTH_SHORT).show() }
                 }
+            }
         }
 
 
