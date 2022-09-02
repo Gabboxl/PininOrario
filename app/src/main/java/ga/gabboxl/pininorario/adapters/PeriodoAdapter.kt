@@ -1,19 +1,15 @@
 package ga.gabboxl.pininorario.adapters
 
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ga.gabboxl.pininorario.ClasseWithPeriodi
-import ga.gabboxl.pininorario.Periodo
 import ga.gabboxl.pininorario.PeriodoWithClasse
 import ga.gabboxl.pininorario.R
 import java.text.SimpleDateFormat
@@ -22,7 +18,7 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 
-class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodiHolder>(DIFF_CALLBACK) {
+class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHolder>(DIFF_CALLBACK) {
 
     private lateinit var listenersPeriodoAdapter: OnClickListenersPeriodoAdapter
     var posizioneitem: Int = -1
@@ -41,8 +37,8 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodiHold
         }
     }
 
-    // TODO(to rename in PeriodoHolder)
-    inner class PeriodiHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    inner class PeriodoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         lateinit var textViewPeriodo: TextView
         lateinit var scaricaButton: Button
         lateinit var apriButton: Button
@@ -125,13 +121,13 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodiHold
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeriodiHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeriodoHolder {
         val itemView: View =
             LayoutInflater.from(parent.context).inflate(R.layout.periodi_card_item, parent, false)
-        return PeriodiHolder((itemView))
+        return PeriodoHolder((itemView))
     }
 
-    override fun onBindViewHolder(holder: PeriodiHolder, position: Int) {
+    override fun onBindViewHolder(holder: PeriodoHolder, position: Int) {
         val currentPeriodo: PeriodoWithClasse = getItem(position)
 
         holder.scaricaButton.isVisible = !currentPeriodo.periodo.isDownloaded
@@ -190,12 +186,12 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodiHold
 
 
     interface OnClickListenersPeriodoAdapter {
-        fun onPeriodoScaricaButtonClick(periodo: PeriodoWithClasse, holder: PeriodiHolder)
+        fun onPeriodoScaricaButtonClick(periodo: PeriodoWithClasse, holder: PeriodoHolder)
         fun onPeriodoApriButtonClick(periodo: PeriodoWithClasse)
         fun onPeriodoCondividiOptionClick(periodo: PeriodoWithClasse)
         fun onPeriodoSalvaOptionClick(periodo: PeriodoWithClasse)
         fun onPeriodoEliminaOptionClick(periodo: PeriodoWithClasse)
-        fun onPeriodoAvailabilityButtonClick(periodo: PeriodoWithClasse, holder: PeriodiHolder)
+        fun onPeriodoAvailabilityButtonClick(periodo: PeriodoWithClasse, holder: PeriodoHolder)
     }
 
     fun setOnClickListenersPeriodoAdapter(listenersPeriodoAdapter: OnClickListenersPeriodoAdapter) {

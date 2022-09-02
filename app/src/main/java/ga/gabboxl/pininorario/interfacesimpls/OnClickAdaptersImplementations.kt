@@ -32,7 +32,7 @@ import java.io.IOException
 class OnClickAdaptersImplementations(val context : Context, private val classeViewModel: ClasseViewModel) : PeriodoAdapter.OnClickListenersPeriodoAdapter, ClasseAdapter.OnClickListenersClasseAdapter {
 
 
-    override fun onPeriodoAvailabilityButtonClick(periodo: PeriodoWithClasse, holder: PeriodoAdapter.PeriodiHolder) {
+    override fun onPeriodoAvailabilityButtonClick(periodo: PeriodoWithClasse, holder: PeriodoAdapter.PeriodoHolder) {
         if (periodo.periodo.isAvailableOnServer)
         {
             val infoPeriodoDialog = MaterialAlertDialogBuilder(context)
@@ -54,7 +54,7 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
     }
 
 
-    override fun onPeriodoScaricaButtonClick(periodo: PeriodoWithClasse, holder: PeriodoAdapter.PeriodiHolder) {
+    override fun onPeriodoScaricaButtonClick(periodo: PeriodoWithClasse, holder: PeriodoAdapter.PeriodoHolder) {
 
 /*      Con downloadmanager non è possibile salvare nella cartella dedicata dell'app: https://stackoverflow.com/a/71341789/9008381
 

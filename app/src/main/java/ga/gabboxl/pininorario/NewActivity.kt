@@ -78,7 +78,7 @@ class NewActivity : AppCompatActivity() {
             }else{
                 val snackaggiornamento = Snackbar.make(
                     findViewById(R.id.fragmentContainerView),
-                    "Niente internett",
+                    "Niente internet",
                     Snackbar.LENGTH_INDEFINITE)
                     .setAction("Nice"){}
                     .setBehavior(NoSwipeBehavior())
