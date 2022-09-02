@@ -155,9 +155,7 @@ class PeriodoAdapter() : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHo
             } else {
                 holder.scaricaButton.isEnabled = false
 
-                getDrawable(holder.itemView.context, R.drawable.ic_baseline_cloud_off_24)!!.setTint(
-                    getColor(holder.itemView.context, R.color.colorAccent)
-                )
+                //getDrawable(holder.itemView.context, R.drawable.ic_baseline_cloud_off_24)!!.setTint(getColor(holder.itemView.context, R.color.colorAccent))
 
                 holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_off_24)
             }
