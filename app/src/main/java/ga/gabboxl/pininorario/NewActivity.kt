@@ -1,13 +1,17 @@
 package ga.gabboxl.pininorario
 
+import android.content.Context
 import android.content.Intent
+import android.net.*
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
@@ -66,7 +70,33 @@ class NewActivity : AppCompatActivity() {
         classeViewModel = ViewModelProvider(this).get(ClasseViewModel::class.java)
 
 
+        val connectivity = ConnectivityCheck(this)
+        connectivity.observe(this, Observer {
+                isConnected ->
+            if(isConnected){
+                inizializzaOrari()
+            }else{
+                val snackaggiornamento = Snackbar.make(
+                    findViewById(R.id.fragmentContainerView),
+                    "Niente internett",
+                    Snackbar.LENGTH_INDEFINITE)
+                    .setAction("Nice"){}
+                    .setBehavior(NoSwipeBehavior())
 
+                val contentLay: ViewGroup =
+                    snackaggiornamento.view.findViewById<View>(com.google.android.material.R.id.snackbar_text).parent as ViewGroup
+                contentLay.setPadding(24, 24, 24, 24)
+
+                snackaggiornamento.show()
+            }
+        })
+    }
+
+
+
+
+
+    fun inizializzaOrari() {
         classeViewModel.viewModelScope.launch(Dispatchers.Default) {
             //inizializzo i database con le classi e periodi (TO DO)
 
@@ -109,30 +139,31 @@ class NewActivity : AppCompatActivity() {
             var contatorewhileperiodi = 0
             while (contatorewhileperiodi < PininParse.Periodi.list().size) {
 
-                    if (!classeViewModel.doesPeriodoExist(
-                            PininParse.Periodi.list()[contatorewhileperiodi][0], //codice classe periodo
-                            PininParse.Periodi.list()[contatorewhileperiodi][1] //nome periodo
+                if (!classeViewModel.doesPeriodoExist(
+                        PininParse.Periodi.list()[contatorewhileperiodi][0], //codice classe periodo
+                        PininParse.Periodi.list()[contatorewhileperiodi][1] //nome periodo
+                    )
+                ) {
+                    classeViewModel.insertPeriodo(
+                        Periodo(
+                            contatorewhileperiodi,
+                            PininParse.Periodi.list()[contatorewhileperiodi][0],
+                            PininParse.Periodi.list()[contatorewhileperiodi][1], //nome periodo
+                            PininParse.Periodi.list()[contatorewhileperiodi][2], //nome griglia
+                            isAvailableOnServer = true,
+                            isDownloaded = false
                         )
-                    ) {
-                        classeViewModel.insertPeriodo(
-                            Periodo(
-                                contatorewhileperiodi,
-                                PininParse.Periodi.list()[contatorewhileperiodi][0],
-                                PininParse.Periodi.list()[contatorewhileperiodi][1], //nome periodo
-                                PininParse.Periodi.list()[contatorewhileperiodi][2], //nome griglia
-                                isAvailableOnServer = true,
-                                isDownloaded = false
-                            )
-                        )
-                    }
+                    )
+                }
 
                 contatorewhileperiodi++
             }
 
             snackaggiornamento.dismiss()
         }
-
     }
+
+
 
     class NoSwipeBehavior : BaseTransientBottomBar.Behavior() {
         override fun canSwipeDismissView(child: View): Boolean {
