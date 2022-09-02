@@ -92,13 +92,23 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
                 .build()
             val respok = clientok.newCall(reqimg).enqueue(object : Callback{
                 override fun onFailure(call: Call, e: IOException) {
-                    Toasty.error(context, "Errore: $e", Toasty.LENGTH_LONG).show()
+                    classeViewModel.viewModelScope.launch(Dispatchers.Default) {
+                        withContext(Dispatchers.Main) {
+                            Toasty.error(
+                                context,
+                                "Errore: $e",
+                                Toasty.LENGTH_LONG
+                            ).show()
 
-                    holder.scaricaButton.visibility = View.VISIBLE
-                    holder.scaricaPeriodoProgressBar.visibility = View.INVISIBLE
+
+                            holder.scaricaButton.visibility = View.VISIBLE
+                            holder.scaricaPeriodoProgressBar.visibility = View.INVISIBLE
+                        }
+                    }
                 }
 
                 override fun onResponse(call: Call, response: Response) {
+                    classeViewModel.viewModelScope.launch(Dispatchers.Default) {
                     val filex = File(context.filesDir, nomefileorario)
                     //if (filex.exists()) {
                         //nice
@@ -120,6 +130,7 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
                             isDownloaded = true
                         )
                     )
+                    }
                 }
             })
         }
