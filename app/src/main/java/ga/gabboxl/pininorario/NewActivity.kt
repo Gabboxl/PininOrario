@@ -11,9 +11,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -22,6 +20,7 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import ga.gabboxl.pininparse.PininParse
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 
@@ -70,12 +69,17 @@ class NewActivity : AppCompatActivity() {
         classeViewModel = ViewModelProvider(this).get(ClasseViewModel::class.java)
 
 
-        val connectivity = ConnectivityCheck(this)
-        connectivity.observe(this, Observer {
+        var darkside = MutableLiveData<Boolean>(true)
+        var dark = MutableStateFlow<Boolean>(true)
+
+        ConnectivityUtils.init(this)
+
+
+        ConnectivityUtils.isInternetAvailable.observe(this, Observer {
                 isConnected ->
-            if(isConnected){
+            if(isConnected != null && isConnected){
                 inizializzaOrari()
-            }else{
+            }else if(isConnected == false){
                 val snackaggiornamento = Snackbar.make(
                     findViewById(R.id.fragmentContainerView),
                     "Niente internet",
@@ -90,6 +94,9 @@ class NewActivity : AppCompatActivity() {
                 snackaggiornamento.show()
             }
         })
+
+
+
     }
 
 

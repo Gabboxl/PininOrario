@@ -7,18 +7,20 @@ import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.isVisible
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ga.gabboxl.pininorario.PeriodoWithClasse
-import ga.gabboxl.pininorario.R
+import com.google.android.material.snackbar.Snackbar
+import ga.gabboxl.pininorario.*
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 
-class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHolder>(DIFF_CALLBACK) {
+class PeriodoAdapter() : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHolder>(DIFF_CALLBACK) {
 
     private lateinit var listenersPeriodoAdapter: OnClickListenersPeriodoAdapter
     var posizioneitem: Int = -1
@@ -135,17 +137,31 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
         holder.optionPeriodoButton.isVisible = currentPeriodo.periodo.isDownloaded
 
 
-        if(currentPeriodo.periodo.isAvailableOnServer) {
+        ConnectivityUtils.isInternetAvailable.observe(holder.itemView.context as LifecycleOwner) { isConnected ->
+            if (isConnected) {
+                holder.scaricaButton.isEnabled = true
+                if (currentPeriodo.periodo.isAvailableOnServer) {
 
-            getDrawable(holder.itemView.context, R.drawable.ic_baseline_cloud_queue_24)!!.setTint(getColor(holder.itemView.context, R.color.colorPrimary))
+                    getDrawable(
+                        holder.itemView.context,
+                        R.drawable.ic_baseline_cloud_queue_24
+                    )!!.setTint(getColor(holder.itemView.context, R.color.colorPrimary))
 
-            holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_queue_24)
-        } else {
-            holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_off_24)
+                    holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_queue_24)
+                } else {
+                    holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_off_24)
+                }
+
+            } else {
+                holder.scaricaButton.isEnabled = false
+
+                getDrawable(holder.itemView.context, R.drawable.ic_baseline_cloud_off_24)!!.setTint(
+                    getColor(holder.itemView.context, R.color.colorAccent)
+                )
+
+                holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_off_24)
+            }
         }
-
-
-
 
 
         var somma = 0
