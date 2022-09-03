@@ -145,7 +145,7 @@ class PeriodoAdapter() : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHo
                     getDrawable(
                         holder.itemView.context,
                         R.drawable.ic_baseline_cloud_queue_24
-                    )!!.setTint(getColor(holder.itemView.context, R.color.colorPrimary))
+                    )!!.setTint(getColor(holder.itemView.context, R.color.CustomColor1))
 
                     holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_queue_24)
                 } else {
