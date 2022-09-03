@@ -76,7 +76,7 @@ class PinnedFragment : Fragment() {
                         ) { dialoginterface, i ->
                             Toast.makeText(
                                 context,
-                                PininParse.Classi.list()[i][1],
+                                arrayNomi[i],
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -91,8 +91,8 @@ class PinnedFragment : Fragment() {
                                 //salvo nel database la classe scelta
                                 val updatedpinnedclasse = Classe(
                                     i + 1,
-                                    PininParse.Classi.list()[i][1], //nome classe
-                                    PininParse.Classi.list()[i][2], //codice classe
+                                    arrayNomi[i], //nome classe
+                                    arrayNomi[i], //codice classe
                                     true
                                 )
                                 classeViewModel.updateClasse(updatedpinnedclasse)
