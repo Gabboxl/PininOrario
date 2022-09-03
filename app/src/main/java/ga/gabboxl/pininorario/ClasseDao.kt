@@ -39,6 +39,9 @@ interface ClasseDao {
     @Query("SELECT * FROM TabellaClassi")
     fun getAllClassi(): LiveData<List<Classe>>
 
+    @Query("SELECT nomeClasse FROM TabellaClassi")
+    fun getAllNomiClassi(): LiveData<List<String>> //forse string nun va bene
+
     @Transaction
     @Query("SELECT * FROM TabellaClassi")
     fun getAllClassiWithPeriodi(): LiveData<List<ClasseWithPeriodi>>

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.compose.ui.platform.AndroidUiDispatcher
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -60,43 +61,50 @@ class PinnedFragment : Fragment() {
             adapterClassi.submitList(t)
         }
 
-        val extfab =
-            fragmentView.findViewById<ExtendedFloatingActionButton>(R.id.aggiungi_classe_extfab)
-        extfab.setOnClickListener {
-            val alertDialogBuilder: MaterialAlertDialogBuilder =
-                MaterialAlertDialogBuilder(requireContext())
-                    .setTitle("Seleziona una classe")
-                    //.setPositiveButton("Aggiungi", null)
-                    .setNeutralButton("Annulla", null)
-                    .setSingleChoiceItems(
-                        PininParse.Classi.listNomiClassi().toTypedArray(), -1
-                    ) { dialoginterface, i ->
-                        Toast.makeText(context, PininParse.Classi.list()[i][1], Toast.LENGTH_SHORT)
-                            .show()
 
-                        //Snackbar.make(findViewById(R.id.secondcoordlayout), "Classe aggiunta!", Snackbar.LENGTH_SHORT)
-                        //    .show()
-
-                        //prendo gli orari relativi alla classe
-                        CoroutineScope(AndroidUiDispatcher.Main).launch {
-                            //orariutils.prendiPeriodi(i)
-
-                            //salvo nel database la classe scelta
-                            val updatedpinnedclasse = Classe(
-                                i + 1,
-                                PininParse.Classi.list()[i][1], //nome classe
-                                PininParse.Classi.list()[i][2], //codice classe
-                                true
+        classeViewModel.getAllNomiClassi().observe(viewLifecycleOwner) { arrayNomi ->
+            val extfab =
+                fragmentView.findViewById<ExtendedFloatingActionButton>(R.id.aggiungi_classe_extfab)
+            extfab.setOnClickListener {
+                val alertDialogBuilder: MaterialAlertDialogBuilder =
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle("Seleziona una classe")
+                        //.setPositiveButton("Aggiungi", null)
+                        .setNeutralButton("Annulla", null)
+                        .setSingleChoiceItems(
+                            arrayNomi.toTypedArray(), -1
+                        ) { dialoginterface, i ->
+                            Toast.makeText(
+                                context,
+                                PininParse.Classi.list()[i][1],
+                                Toast.LENGTH_SHORT
                             )
-                            classeViewModel.updateClasse(updatedpinnedclasse)
+                                .show()
 
-                            dialoginterface.dismiss()
+                            //Snackbar.make(findViewById(R.id.secondcoordlayout), "Classe aggiunta!", Snackbar.LENGTH_SHORT)
+                            //    .show()
+
+                            //prendo gli orari relativi alla classe
+                            CoroutineScope(AndroidUiDispatcher.Main).launch {
+                                //orariutils.prendiPeriodi(i)
+
+                                //salvo nel database la classe scelta
+                                val updatedpinnedclasse = Classe(
+                                    i + 1,
+                                    PininParse.Classi.list()[i][1], //nome classe
+                                    PininParse.Classi.list()[i][2], //codice classe
+                                    true
+                                )
+                                classeViewModel.updateClasse(updatedpinnedclasse)
+
+                                dialoginterface.dismiss()
+
+                            }
+
 
                         }
-
-
-                    }
-            alertDialogBuilder.show()
+                alertDialogBuilder.show()
+            }
         }
 
         //listeners per gli adapters

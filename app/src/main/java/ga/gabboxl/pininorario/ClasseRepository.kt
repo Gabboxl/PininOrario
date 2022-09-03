@@ -11,6 +11,7 @@ class ClasseRepository(application: Application) {
     private var allClasses: LiveData<List<Classe>>
     private var allPinnedClasses: LiveData<List<ClasseWithPeriodi>>
     private var allClassiWithPeriodi: LiveData<List<ClasseWithPeriodi>>
+    private var allNomiClassi: LiveData<List<String>>
 
 
     init {
@@ -19,6 +20,7 @@ class ClasseRepository(application: Application) {
         allClasses = classeDao.getAllClassi()
         allPinnedClasses = classeDao.getAllPinnedClassiWithPeriodi()
         allClassiWithPeriodi = classeDao.getAllClassiWithPeriodi()
+        allNomiClassi = classeDao.getAllNomiClassi()
     }
 
     //check methods
@@ -81,6 +83,10 @@ class ClasseRepository(application: Application) {
 
     fun getAllClassi(): LiveData<List<Classe>> {
         return allClasses
+    }
+
+    fun getAllNomiClassi(): LiveData<List<String>> {
+        return allNomiClassi
     }
 
     fun getAllClassiWithPeriodi(): LiveData<List<ClasseWithPeriodi>> {
