@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 class ConnectivityUtils {
     companion object {
-        var isInternetAvailable: MutableLiveData<Boolean> = MutableLiveData(null)
+        var isInternetAvailable: MutableLiveData<Boolean> = MutableLiveData(false)
 
         fun init(context: Context) {
          val connectivityManager =
