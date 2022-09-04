@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.compose.ui.platform.AndroidUiDispatcher
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +17,6 @@ import ga.gabboxl.pininorario.ClasseViewModel
 import ga.gabboxl.pininorario.R
 import ga.gabboxl.pininorario.adapters.ClasseAdapter
 import ga.gabboxl.pininorario.interfacesimpls.OnClickAdaptersImplementations
-import ga.gabboxl.pininparse.PininParse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -62,7 +60,15 @@ class PinnedFragment : Fragment() {
         }
 
 
-        classeViewModel.getAllNomiClassi().observe(viewLifecycleOwner) { arrayNomi ->
+        classeViewModel.getAllClassi().observe(viewLifecycleOwner) { arrayClassi ->
+
+            //da trovare un metodo migliore
+            val customarraynomi = mutableListOf<String>()
+
+            for (i in arrayClassi) {
+                customarraynomi.add(i.nomeClasse)
+            }
+
             val extfab =
                 fragmentView.findViewById<ExtendedFloatingActionButton>(R.id.aggiungi_classe_extfab)
             extfab.setOnClickListener {
@@ -72,11 +78,11 @@ class PinnedFragment : Fragment() {
                         //.setPositiveButton("Aggiungi", null)
                         .setNeutralButton("Annulla", null)
                         .setSingleChoiceItems(
-                            arrayNomi.toTypedArray(), -1
+                            customarraynomi.toTypedArray(), -1
                         ) { dialoginterface, i ->
                             Toast.makeText(
                                 context,
-                                arrayNomi[i],
+                                arrayClassi[i].nomeClasse,
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -91,8 +97,8 @@ class PinnedFragment : Fragment() {
                                 //salvo nel database la classe scelta
                                 val updatedpinnedclasse = Classe(
                                     i + 1,
-                                    arrayNomi[i], //nome classe
-                                    arrayNomi[i], //codice classe
+                                    arrayClassi[i].nomeClasse, //nome classe
+                                    arrayClassi[i].codiceClasse, //codice classe
                                     true
                                 )
                                 classeViewModel.updateClasse(updatedpinnedclasse)
