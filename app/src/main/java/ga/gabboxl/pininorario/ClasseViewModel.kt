@@ -14,6 +14,15 @@ class ClasseViewModel(application: Application) : AndroidViewModel(application) 
 
     private var allNomiClassi: LiveData<List<String>> = repository.getAllNomiClassi()
 
+
+    fun deletePeriodiMorti(){
+        repository.deletePeriodiMorti()
+    }
+
+    fun getPeriodiNonSulServer(periodiScaricati: List<String>): List<Periodo>{
+        return repository.getPeriodiNonSulServer(periodiScaricati)
+    }
+
     fun doesClasseExist(codiceClasse: String): Boolean {
         return repository.doesClasseExist(codiceClasse)
     }

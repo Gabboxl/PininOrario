@@ -55,12 +55,20 @@ interface ClasseDao {
     @Query("SELECT * FROM TabellaClassi WHERE codiceClasse = :codiceClasse")
     fun getClasseWithPeriodi(codiceClasse: String): LiveData<List<ClasseWithPeriodi>>
 
-    //check methods
+    //check methods TODO("Forse da levare perche' si puo' utilizzare il risolutore di conflitti durante l'inserimento di una classe/periodo")
 
     @Query("SELECT EXISTS(SELECT * FROM TabellaClassi WHERE codiceClasse = :codiceClasse)")
     fun doesClasseExist(codiceClasse: String): Boolean
 
     @Query("SELECT EXISTS(SELECT * FROM TabellaPeriodi WHERE codiceClassePeriodo = :codiceClassePeriodo AND nomePeriodo = :nomePeriodo)")
     fun doesPeriodoExist(codiceClassePeriodo: String, nomePeriodo: String): Boolean
+
+    //rip periodi methods
+    @Query("SELECT * FROM TabellaPeriodi WHERE periodoSemiLinkImg NOT IN (:periodiScaricati)")
+    fun getPeriodiNonSulServer(periodiScaricati: List<String>): List<Periodo>
+
+    @Query("DELETE FROM TabellaPeriodi WHERE isAvailableOnServer = 0 AND isDownloaded = 0")
+    fun deletePeriodiMorti()
+
 }
 

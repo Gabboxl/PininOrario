@@ -1,8 +1,6 @@
 package ga.gabboxl.pininorario
 
-import android.content.Context
 import android.content.Intent
-import android.net.*
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -16,12 +14,14 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import ga.gabboxl.pininparse.PininParse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class NewActivity : AppCompatActivity() {
@@ -84,7 +84,7 @@ class NewActivity : AppCompatActivity() {
                     findViewById(R.id.fragmentContainerView),
                     "Niente internet",
                     Snackbar.LENGTH_INDEFINITE)
-                    .setAction("Nice"){}
+                    .setAction("OK"){}
                     .setBehavior(NoSwipeBehavior())
 
                 val contentLay: ViewGroup =
@@ -94,19 +94,20 @@ class NewActivity : AppCompatActivity() {
                 snackaggiornamento.show()
             }
         })
-
-
+        
 
     }
 
 
 
-
-
     fun inizializzaOrari() {
         classeViewModel.viewModelScope.launch(Dispatchers.Default) {
-            //inizializzo i database con le classi e periodi (TO DO)
 
+            //levo i periodi rippati
+            classeViewModel.deletePeriodiMorti()
+
+
+            //inizializzo i database con le classi e periodi (forse utilizzare un metodo migliore per l'aggiunta al database)
 
             val snackaggiornamento = Snackbar.make(
                 findViewById(R.id.fragmentContainerView),
@@ -143,27 +144,71 @@ class NewActivity : AppCompatActivity() {
             }
 
 
-            var contatorewhileperiodi = 0
-            while (contatorewhileperiodi < PininParse.Periodi.list().size) {
+            val listaPeriodi = mutableListOf<String>()
 
+            for ((indexattuale, periodo) in PininParse.Periodi.list().withIndex()) {
                 if (!classeViewModel.doesPeriodoExist(
-                        PininParse.Periodi.list()[contatorewhileperiodi][0], //codice classe periodo
-                        PininParse.Periodi.list()[contatorewhileperiodi][1] //nome periodo
+                        periodo[0], //codice classe periodo
+                        periodo[1] //nome periodo
                     )
                 ) {
                     classeViewModel.insertPeriodo(
                         Periodo(
-                            contatorewhileperiodi,
-                            PininParse.Periodi.list()[contatorewhileperiodi][0],
-                            PininParse.Periodi.list()[contatorewhileperiodi][1], //nome periodo
-                            PininParse.Periodi.list()[contatorewhileperiodi][2], //nome griglia
+                            indexattuale,
+                            periodo[0],
+                            periodo[1], //nome periodo
+                            periodo[2], //nome griglia
                             isAvailableOnServer = true,
                             isDownloaded = false
                         )
                     )
                 }
 
-                contatorewhileperiodi++
+                listaPeriodi.add(periodo[2])
+            }
+
+
+       /*     classeViewModel.insertPeriodo(
+                Periodo(
+                    777,
+                    "oliver",
+                    "heldens", //nome periodo
+                    "jojo", //nome griglia
+                    isAvailableOnServer = true,
+                    isDownloaded = true
+                )
+            ) */
+
+
+            val periodidalevare = classeViewModel.getPeriodiNonSulServer(listaPeriodi)
+
+            //imposto i periodi morti come non piu' disponibili per il download
+            for(periodo in periodidalevare)
+            {
+                classeViewModel.updatePeriodo(
+                    Periodo(
+                        periodo.id,
+                        periodo.codiceClassePeriodo,
+                        periodo.nomePeriodo,
+                        periodo.periodoSemiLinkImg,
+                        isAvailableOnServer = false,
+                        periodo.isDownloaded
+                    )
+                )
+            }
+
+            withContext(Dispatchers.Main) {
+                if(periodidalevare.isNotEmpty())
+                {
+                    val infoRipPeriodoDialog = MaterialAlertDialogBuilder(this@NewActivity)
+                        .setTitle("Info")
+                        .setMessage("Sono stati trovati degli orari non più disponibili sul server per il download. " +
+                                "\nAl prossimo avvio dell'app verranno rimossi dal database soltanto quelli non scaricati." +
+                                "\nQuelli già scaricati rimarranno intatti.")
+                        .setPositiveButton("OK") { _, _ ->
+                        }
+                    infoRipPeriodoDialog.create().show()
+                }
             }
 
             snackaggiornamento.dismiss()

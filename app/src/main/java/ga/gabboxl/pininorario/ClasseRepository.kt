@@ -23,6 +23,18 @@ class ClasseRepository(application: Application) {
         allNomiClassi = classeDao.getAllNomiClassi()
     }
 
+    //rip methods
+    fun getPeriodiNonSulServer(periodiScaricati: List<String>): List<Periodo>{
+        return classeDao.getPeriodiNonSulServer(periodiScaricati)
+    }
+
+    fun deletePeriodiMorti(){
+        CoroutineScope(Dispatchers.Default).launch {
+            classeDao.deletePeriodiMorti()
+        }
+    }
+
+
     //check methods
 
     fun doesClasseExist(codiceClasse: String): Boolean {
