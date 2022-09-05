@@ -33,23 +33,37 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
 
 
     override fun onPeriodoAvailabilityButtonClick(periodo: PeriodoWithClasse, holder: PeriodoAdapter.PeriodoHolder) {
-        if (periodo.periodo.isAvailableOnServer)
-        {
-            val infoPeriodoDialog = MaterialAlertDialogBuilder(context)
-                .setTitle("Info")
-                .setMessage("Questo periodo è ancora disponibile sul server per il download.")
-                .setPositiveButton("OK") { _, _ ->
-                }
+        val isConnected = ConnectivityUtils.isInternetAvailable.value
 
-             infoPeriodoDialog.create().show()
+        if (isConnected!!) {
+
+            if (periodo.periodo.isAvailableOnServer) {
+                val infoPeriodoDialog = MaterialAlertDialogBuilder(context)
+                    .setTitle("Stato periodo")
+                    .setMessage("Questo periodo è ancora disponibile sul server per il download.")
+                    .setPositiveButton("OK") { _, _ ->
+                    }
+
+                infoPeriodoDialog.create().show()
+            } else {
+                val infoPeriodoDialog = MaterialAlertDialogBuilder(context)
+                    .setTitle("Stato periodo")
+                    .setMessage("Questo periodo è stato rimosso dal server della scuola, per cui non è più disponibile per il download.")
+                    .setPositiveButton("OK") { _, _ ->
+                    }
+
+                infoPeriodoDialog.create().show()
+            }
+
         } else {
             val infoPeriodoDialog = MaterialAlertDialogBuilder(context)
-                .setTitle("Info")
-                .setMessage("Questo periodo è stato rimosso dal server della scuola, per cui non è più disponibile per il download.")
+                .setTitle("Stato periodo")
+                .setMessage("Non sei connesso ad internet. Connettiti per controllare lo stato di questo periodo.")
                 .setPositiveButton("OK") { _, _ ->
                 }
 
             infoPeriodoDialog.create().show()
+
         }
     }
 

@@ -157,9 +157,7 @@ class PeriodoAdapter() : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHo
                     val color: Int = typedValue.data
 
                     DrawableCompat.setTint(wrappedDrawable,color)
-
-
-
+                    
 
                     holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_queue_24)
                 } else {
