@@ -81,7 +81,7 @@ class NewActivity : AppCompatActivity() {
             }else if(isConnected == false){
                 val snackaggiornamento = Snackbar.make(
                     findViewById(R.id.fragmentContainerView),
-                    "Niente internet",
+                    "Nessuna connessione ad internet.",
                     Snackbar.LENGTH_INDEFINITE)
                     .setAction("OK"){}
                     .setBehavior(NoSwipeBehavior())
