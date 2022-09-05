@@ -93,16 +93,14 @@ class NewActivity : AppCompatActivity() {
         })
 
 
+        //levo i periodi rippati TODO("forse da mettere in un onStart dell'app ??")
+        classeViewModel.deletePeriodiMorti()
     }
 
 
 
     fun inizializzaOrari() {
         classeViewModel.viewModelScope.launch(Dispatchers.Default) {
-
-            //levo i periodi rippati
-            classeViewModel.deletePeriodiMorti()
-
 
             //inizializzo i database con le classi e periodi (forse utilizzare un metodo migliore per l'aggiunta al database)
 
