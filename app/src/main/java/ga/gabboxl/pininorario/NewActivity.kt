@@ -69,11 +69,8 @@ class NewActivity : AppCompatActivity() {
         classeViewModel = ViewModelProvider(this).get(ClasseViewModel::class.java)
 
 
-        var darkside = MutableLiveData<Boolean>(true)
-        var dark = MutableStateFlow<Boolean>(true)
-
+        //inizializzo il controllo della connettivita'
         ConnectivityUtils.init(this)
-
 
         ConnectivityUtils.isInternetAvailable.observe(this, Observer {
                 isConnected ->
@@ -94,7 +91,7 @@ class NewActivity : AppCompatActivity() {
                 snackaggiornamento.show()
             }
         })
-        
+
 
     }
 
