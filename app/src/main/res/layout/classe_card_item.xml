@@ -37,12 +37,11 @@
 
     </ImageButton>
 
-    <LinearLayout
-            android:id="@+id/linlay1"
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constlay1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
+
             app:layout_constraintBottom_toTopOf="@+id/textviewtitoloperiodi"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +56,25 @@
                 android:fontFamily="@font/roboto_medium"
                 android:text="TESTT"
                 android:textAppearance="?attr/textAppearanceTitleLarge"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"/>
+
+        <ImageButton
+                android:id="@+id/classeButtonAvailability"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Pulsante stato classe"
+                android:minWidth="32dp"
+                android:minHeight="32dp"
+                android:src="@drawable/ic_baseline_cloud_24"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/text_view_nomeclasse"/>
 
         <TextView
                 android:id="@+id/text_view_title"
@@ -66,10 +83,13 @@
                 android:layout_marginTop="8dp"
                 android:text="TESTT"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:textColor="?android:attr/textColorSecondary" />
+                android:textColor="?android:attr/textColorSecondary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_nomeclasse"
+                android:layout_marginStart="16dp"/>
 
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <TextView
@@ -83,7 +103,7 @@
             android:textColor="?android:attr/textColorSecondary"
             app:layout_constraintBottom_toTopOf="@+id/cardperiodiwrap"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linlay1" />
+            app:layout_constraintTop_toBottomOf="@+id/constlay1" />
 
     <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardperiodiwrap"

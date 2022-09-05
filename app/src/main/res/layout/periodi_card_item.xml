@@ -40,7 +40,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="Pulsante opzioni card"
+                    android:contentDescription="Pulsante stato periodo"
                     android:minWidth="32dp"
                     android:minHeight="32dp"
                     android:src="@drawable/ic_baseline_cloud_24"
