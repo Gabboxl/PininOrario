@@ -1,18 +1,20 @@
 package ga.gabboxl.pininorario.adapters
 
+import android.content.res.Resources.Theme
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat.getColor
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.color.MaterialColors
 import ga.gabboxl.pininorario.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -142,20 +144,34 @@ class PeriodoAdapter() : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHo
                 holder.scaricaButton.isEnabled = true
                 if (currentPeriodo.periodo.isAvailableOnServer) {
 
-                    getDrawable(
-                        holder.itemView.context,
-                        R.drawable.ic_baseline_cloud_queue_24
-                    )!!.setTint(getColor(holder.itemView.context, R.color.CustomColor1))
+                    //getDrawable(holder.itemView.context, R.drawable.ic_baseline_cloud_queue_24)!!.setTint(getColor(holder.itemView.context, R.color.md_theme_dark_primary))
+
+                    val unwrappedDrawable = getDrawable(holder.itemView.context, R.drawable.ic_baseline_cloud_queue_24)
+
+                    val wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable!!)
+
+
+                    val typedValue = TypedValue()
+                    val theme: Theme = holder.itemView.context.getTheme()
+                    theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
+                    val color: Int = typedValue.data
+
+                    DrawableCompat.setTint(wrappedDrawable,color)
+
+
+
 
                     holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_queue_24)
                 } else {
+                    getDrawable(holder.itemView.context, R.drawable.ic_baseline_cloud_off_24)!!.setTint(getColor(holder.itemView.context, R.color.md_theme_light_error))
+
                     holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_off_24)
                 }
 
             } else {
                 holder.scaricaButton.isEnabled = false
 
-                //getDrawable(holder.itemView.context, R.drawable.ic_baseline_cloud_off_24)!!.setTint(getColor(holder.itemView.context, R.color.colorAccent))
+                getDrawable(holder.itemView.context, R.drawable.ic_baseline_cloud_off_24)!!.setTint(getColor(holder.itemView.context, R.color.CustomColor1))
 
                 holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_off_24)
             }
