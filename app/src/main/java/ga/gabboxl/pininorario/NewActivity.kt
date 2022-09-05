@@ -75,6 +75,8 @@ class NewActivity : AppCompatActivity() {
         ConnectivityUtils.isInternetAvailable.observe(this, Observer {
                 isConnected ->
             if(isConnected != null && isConnected){
+
+                //TODO("levare inizializzaorari() e mettere una funzione che controlla l'ultima data di aggiornamento del sito cosi' si risparmia energia preziosa")
                 inizializzaOrari()
             }else if(isConnected == false){
                 val snackaggiornamento = Snackbar.make(
@@ -93,7 +95,7 @@ class NewActivity : AppCompatActivity() {
         })
 
 
-        //levo i periodi rippati TODO("forse da mettere in un onStart dell'app ??")
+        //levo i periodi rippati TODO("forse da mettere in un onStart dell'app ?? + un controllo se esistono periodi rippati prima di eseguire?")
         classeViewModel.deletePeriodiMorti()
     }
 
