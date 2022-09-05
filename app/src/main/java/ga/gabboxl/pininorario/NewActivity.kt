@@ -7,9 +7,10 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.*
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -19,7 +20,6 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import ga.gabboxl.pininparse.PininParse
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -72,18 +72,18 @@ class NewActivity : AppCompatActivity() {
         //inizializzo il controllo della connettivita'
         ConnectivityUtils.init(this)
 
-        ConnectivityUtils.isInternetAvailable.observe(this, Observer {
-                isConnected ->
-            if(isConnected != null && isConnected){
+        ConnectivityUtils.isInternetAvailable.observe(this, Observer { isConnected ->
+            if (isConnected != null && isConnected) {
 
                 //TODO("levare inizializzaorari() e mettere una funzione che controlla l'ultima data di aggiornamento del sito cosi' si risparmia energia preziosa")
                 inizializzaOrari()
-            }else if(isConnected == false){
+            } else if (isConnected == false) {
                 val snackaggiornamento = Snackbar.make(
                     findViewById(R.id.fragmentContainerView),
                     "Nessuna connessione ad internet.",
-                    Snackbar.LENGTH_INDEFINITE)
-                    .setAction("OK"){}
+                    Snackbar.LENGTH_INDEFINITE
+                )
+                    .setAction("OK") {}
                     .setBehavior(NoSwipeBehavior())
 
                 val contentLay: ViewGroup =
@@ -98,7 +98,6 @@ class NewActivity : AppCompatActivity() {
         //levo i periodi rippati TODO("forse da mettere in un onStart dell'app ?? + un controllo se esistono periodi rippati prima di eseguire?")
         classeViewModel.deletePeriodiMorti()
     }
-
 
 
     fun inizializzaOrari() {
@@ -165,23 +164,22 @@ class NewActivity : AppCompatActivity() {
             }
 
 
-       /*     classeViewModel.insertPeriodo(
-                Periodo(
-                    777,
-                    "oliver",
-                    "heldens", //nome periodo
-                    "jojo", //nome griglia
-                    isAvailableOnServer = true,
-                    isDownloaded = true
-                )
-            ) */
+            /*     classeViewModel.insertPeriodo(
+                     Periodo(
+                         777,
+                         "oliver",
+                         "heldens", //nome periodo
+                         "jojo", //nome griglia
+                         isAvailableOnServer = true,
+                         isDownloaded = true
+                     )
+                 ) */
 
 
             val periodidalevare = classeViewModel.getPeriodiNonSulServer(listaPeriodi)
 
             //imposto i periodi morti come non piu' disponibili per il download
-            for(periodo in periodidalevare)
-            {
+            for (periodo in periodidalevare) {
                 classeViewModel.updatePeriodo(
                     Periodo(
                         periodo.id,
@@ -195,13 +193,14 @@ class NewActivity : AppCompatActivity() {
             }
 
             withContext(Dispatchers.Main) {
-                if(periodidalevare.isNotEmpty())
-                {
+                if (periodidalevare.isNotEmpty()) {
                     val infoRipPeriodoDialog = MaterialAlertDialogBuilder(this@NewActivity)
                         .setTitle("Info")
-                        .setMessage("Sono stati trovati degli orari non più disponibili sul server per il download. " +
-                                "\nAl prossimo avvio dell'app verranno rimossi dal database soltanto quelli non scaricati." +
-                                "\nQuelli già scaricati rimarranno intatti.")
+                        .setMessage(
+                            "Sono stati trovati degli orari non più disponibili sul server per il download. " +
+                                    "\nAl prossimo avvio dell'app verranno rimossi dal database soltanto quelli non scaricati." +
+                                    "\nQuelli già scaricati rimarranno intatti."
+                        )
                         .setPositiveButton("OK") { _, _ ->
                         }
                     infoRipPeriodoDialog.create().show()
@@ -211,7 +210,6 @@ class NewActivity : AppCompatActivity() {
             snackaggiornamento.dismiss()
         }
     }
-
 
 
     class NoSwipeBehavior : BaseTransientBottomBar.Behavior() {

@@ -14,8 +14,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.color.MaterialColors
-import ga.gabboxl.pininorario.*
+import ga.gabboxl.pininorario.ConnectivityUtils
+import ga.gabboxl.pininorario.PeriodoWithClasse
+import ga.gabboxl.pininorario.R
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Matcher
@@ -157,7 +158,7 @@ class PeriodoAdapter() : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHo
                     val color: Int = typedValue.data
 
                     DrawableCompat.setTint(wrappedDrawable,color)
-                    
+
 
                     holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_queue_24)
                 } else {

@@ -29,10 +29,15 @@ import java.io.File
 import java.io.IOException
 
 
-class OnClickAdaptersImplementations(val context : Context, private val classeViewModel: ClasseViewModel) : PeriodoAdapter.OnClickListenersPeriodoAdapter, ClasseAdapter.OnClickListenersClasseAdapter {
+class OnClickAdaptersImplementations(
+    val context: Context,
+    private val classeViewModel: ClasseViewModel
+) : PeriodoAdapter.OnClickListenersPeriodoAdapter, ClasseAdapter.OnClickListenersClasseAdapter {
 
 
-    override fun onPeriodoAvailabilityButtonClick(periodo: PeriodoWithClasse, holder: PeriodoAdapter.PeriodoHolder) {
+    override fun onPeriodoAvailabilityButtonClick(
+        periodo: PeriodoWithClasse,
+        holder: PeriodoAdapter.PeriodoHolder) {
         val isConnected = ConnectivityUtils.isInternetAvailable.value
 
         if (isConnected!!) {
@@ -68,7 +73,10 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
     }
 
 
-    override fun onPeriodoScaricaButtonClick(periodo: PeriodoWithClasse, holder: PeriodoAdapter.PeriodoHolder) {
+    override fun onPeriodoScaricaButtonClick(
+        periodo: PeriodoWithClasse,
+        holder: PeriodoAdapter.PeriodoHolder
+    ) {
 
 /*      Con downloadmanager non è possibile salvare nella cartella dedicata dell'app: https://stackoverflow.com/a/71341789/9008381
 
@@ -92,7 +100,7 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
 
         downloadManager.enqueue(request)*/
 
-        val nomefileorario = periodo.classe.nomeClasse + " " + periodo.periodo.nomePeriodo +".png"
+        val nomefileorario = periodo.classe.nomeClasse + " " + periodo.periodo.nomePeriodo + ".png"
 
         holder.scaricaButton.visibility = View.INVISIBLE
         holder.scaricaPeriodoProgressBar.visibility = View.VISIBLE
@@ -104,7 +112,7 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
                 .url("https://orario.itispininfarina.it/classi/" + periodo.periodo.periodoSemiLinkImg + ".png")
                 .get()
                 .build()
-            val respok = clientok.newCall(reqimg).enqueue(object : Callback{
+            val respok = clientok.newCall(reqimg).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     classeViewModel.viewModelScope.launch(Dispatchers.Default) {
                         withContext(Dispatchers.Main) {
@@ -123,27 +131,27 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
 
                 override fun onResponse(call: Call, response: Response) {
                     classeViewModel.viewModelScope.launch(Dispatchers.Default) {
-                    val filex = File(context.filesDir, nomefileorario)
-                    //if (filex.exists()) {
+                        val filex = File(context.filesDir, nomefileorario)
+                        //if (filex.exists()) {
                         //nice
-                    //}
-                    val fileCreated: Boolean = filex.createNewFile()
-                    val sink: BufferedSink = filex.sink().buffer()
-                    sink.writeAll(response.body!!.source())
-                    sink.close()
+                        //}
+                        val fileCreated: Boolean = filex.createNewFile()
+                        val sink: BufferedSink = filex.sink().buffer()
+                        sink.writeAll(response.body!!.source())
+                        sink.close()
 
 
-                    //aggiorno il database per il periodo
-                    classeViewModel.updatePeriodo(
-                        Periodo(
-                            periodo.periodo.id,
-                            periodo.periodo.codiceClassePeriodo,
-                            periodo.periodo.nomePeriodo,
-                            periodo.periodo.periodoSemiLinkImg,
-                            isAvailableOnServer = true,
-                            isDownloaded = true
+                        //aggiorno il database per il periodo
+                        classeViewModel.updatePeriodo(
+                            Periodo(
+                                periodo.periodo.id,
+                                periodo.periodo.codiceClassePeriodo,
+                                periodo.periodo.nomePeriodo,
+                                periodo.periodo.periodoSemiLinkImg,
+                                isAvailableOnServer = true,
+                                isDownloaded = true
+                            )
                         )
-                    )
                     }
                 }
             })
@@ -153,7 +161,7 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
     }
 
     override fun onPeriodoApriButtonClick(periodo: PeriodoWithClasse) {
-        val nomefileorario = periodo.classe.nomeClasse + " " + periodo.periodo.nomePeriodo +".png"
+        val nomefileorario = periodo.classe.nomeClasse + " " + periodo.periodo.nomePeriodo + ".png"
 
         val file = File(context.filesDir, nomefileorario)
         val intent = Intent(Intent.ACTION_VIEW)
@@ -169,7 +177,7 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
     }
 
     override fun onPeriodoCondividiOptionClick(periodo: PeriodoWithClasse) {
-        val nomefileorario = periodo.classe.nomeClasse + " " + periodo.periodo.nomePeriodo +".png"
+        val nomefileorario = periodo.classe.nomeClasse + " " + periodo.periodo.nomePeriodo + ".png"
 
         val file = File(context.filesDir, nomefileorario)
         val asd = FileProvider.getUriForFile(context, context.packageName + ".provider", file)
@@ -180,49 +188,63 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
             type = "image/png"
             //flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
         }
-        context.startActivity(Intent.createChooser(shareIntent, "Orario " + periodo.classe.nomeClasse))
+        context.startActivity(
+            Intent.createChooser(
+                shareIntent,
+                "Orario " + periodo.classe.nomeClasse
+            )
+        )
 
         //nun si sa se i permessi di accesso al file rimangono all'app di destinazione scelta ma vabb
     }
 
     override fun onPeriodoSalvaOptionClick(periodo: PeriodoWithClasse) {
-        val nomefileorario = periodo.classe.nomeClasse + " " + periodo.periodo.nomePeriodo +".png"
+        val nomefileorario = periodo.classe.nomeClasse + " " + periodo.periodo.nomePeriodo + ".png"
 
         classeViewModel.viewModelScope.launch(Dispatchers.Default) {
 
 
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q && (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q && (ContextCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED)
+            ) {
 
-                    if (ActivityCompat.shouldShowRequestPermissionRationale( // questo check si mette per questo motivo https://stackoverflow.com/questions/32347532/android-m-permissions-confused-on-the-usage-of-shouldshowrequestpermissionrati
-                            context as Activity,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale( // questo check si mette per questo motivo https://stackoverflow.com/questions/32347532/android-m-permissions-confused-on-the-usage-of-shouldshowrequestpermissionrati
+                        context as Activity,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    )
+                ) {
 
-                        val alertpermesso = MaterialAlertDialogBuilder(context)
-                            .setTitle(context.getString(R.string.permesso_richiesto))
-                            .setMessage(context.getString(R.string.richiesta_permesso_WRITE_EXTERNAL_STORAGE))
-                            .setPositiveButton("Concedi") { _, _ ->
-                                ActivityCompat.requestPermissions(  // onlick funzione
-                                    context,
-                                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                                    777
-                                )
-                            }
-                            .setNegativeButton("Annulla") { dialog, _ -> dialog.dismiss() } //onlick funzione
+                    val alertpermesso = MaterialAlertDialogBuilder(context)
+                        .setTitle(context.getString(R.string.permesso_richiesto))
+                        .setMessage(context.getString(R.string.richiesta_permesso_WRITE_EXTERNAL_STORAGE))
+                        .setPositiveButton("Concedi") { _, _ ->
+                            ActivityCompat.requestPermissions(  // onlick funzione
+                                context,
+                                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                                777
+                            )
+                        }
+                        .setNegativeButton("Annulla") { dialog, _ -> dialog.dismiss() } //onlick funzione
 
-                        withContext(Dispatchers.Main) { alertpermesso.create().show() }
-                    } else {
-                        ActivityCompat.requestPermissions(
-                            context,
-                            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                            777
-                        )
-                    }
+                    withContext(Dispatchers.Main) { alertpermesso.create().show() }
+                } else {
+                    ActivityCompat.requestPermissions(
+                        context,
+                        arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                        777
+                    )
+                }
 
             } else {
                 //forse aggiornare mediastore per farlo vedere fin da subito nella galleria?
 
 
-                val destinationFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "/PininOrario/" + nomefileorario)
+                val destinationFile = File(
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                    "/PininOrario/" + nomefileorario
+                )
                 //destinationFile.createNewFile() penso sia inutile in ogni caso
 
                 try {
@@ -231,10 +253,22 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
 
                     //forse aggiornare mediastore per farlo vedere fin da subito nella galleria? solo per API Q?
 
-                    withContext(Dispatchers.Main) { Toasty.success(context, "Orario salvato nella galleria.", Toasty.LENGTH_SHORT).show() }
+                    withContext(Dispatchers.Main) {
+                        Toasty.success(
+                            context,
+                            "Orario salvato nella galleria.",
+                            Toasty.LENGTH_SHORT
+                        ).show()
+                    }
 
-                }catch (e: FileAlreadyExistsException){
-                    withContext(Dispatchers.Main) { Toasty.info(context, "Orario già salvato in galleria!", Toasty.LENGTH_SHORT).show() }
+                } catch (e: FileAlreadyExistsException) {
+                    withContext(Dispatchers.Main) {
+                        Toasty.info(
+                            context,
+                            "Orario già salvato in galleria!",
+                            Toasty.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
         }
@@ -279,7 +313,6 @@ class OnClickAdaptersImplementations(val context : Context, private val classeVi
     override fun onPeriodoEliminaOptionClick(periodo: PeriodoWithClasse) {
         Toast.makeText(context, "eliminax", Toast.LENGTH_SHORT).show()
     }
-
 
 
     override fun onRimuoviPrefClick(classeWithPeriodi: ClasseWithPeriodi) {
