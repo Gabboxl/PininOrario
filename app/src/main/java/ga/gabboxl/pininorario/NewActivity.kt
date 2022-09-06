@@ -58,6 +58,8 @@ class NewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new)
 
+
+        //TODO("colori forse da levare e implementare una custom materialappbar con magari animazioni allo scorrimento")
         val color = SurfaceColors.SURFACE_2.getColor(this)
         window.statusBarColor = color
         window.navigationBarColor = color
