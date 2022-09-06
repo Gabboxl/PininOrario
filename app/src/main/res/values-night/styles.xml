@@ -34,6 +34,5 @@
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
 
 
-        <item name="android:navigationBarColor">@color/md_theme_dark_onSecondary</item>
     </style>
 </resources>

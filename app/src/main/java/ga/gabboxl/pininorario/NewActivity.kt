@@ -16,6 +16,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.elevation.SurfaceColors
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import ga.gabboxl.pininparse.PininParse
@@ -56,6 +57,10 @@ class NewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new)
+
+        val color = SurfaceColors.SURFACE_2.getColor(this)
+        window.statusBarColor = color
+        window.navigationBarColor = color
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
