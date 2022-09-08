@@ -104,7 +104,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-    def lifecycle_version = "2.6.0-alpha01"
+    def lifecycle_version = "2.6.0-alpha02"
 
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
