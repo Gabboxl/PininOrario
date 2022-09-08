@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     defaultConfig {
         applicationId "ga.gabboxl.pininorario"
         minSdkVersion 21
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode 170
         versionName '1.7.0'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
