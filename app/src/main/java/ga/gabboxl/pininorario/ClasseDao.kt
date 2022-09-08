@@ -6,6 +6,16 @@ import androidx.room.*
 @Dao
 interface ClasseDao {
 
+    //metaaggiornamento
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertMetaAggiornamento(metaAggiornamento: MetaAggiornamento)
+
+    @Update
+    fun updateMetaAggiornamento(metaAggiornamento: MetaAggiornamento)
+
+    @Delete
+    fun deleteMetaAggiornamento(metaAggiornamento: MetaAggiornamento)
+
     //classe
     @Insert
     fun insertClasse(classe: Classe)
@@ -70,5 +80,8 @@ interface ClasseDao {
     @Query("DELETE FROM TabellaPeriodi WHERE isAvailableOnServer = 0 AND isDownloaded = 0")
     fun deletePeriodiMorti()
 
+    //aggiornamenti methods
+    @Query("SELECT dataAggiornamento FROM TabellaAggiornamenti ORDER BY ID DESC LIMIT 1") //also https://stackoverflow.com/a/5191525/9008381
+    fun getLatestMetaAggiornamentoDate(): String?
 }
 

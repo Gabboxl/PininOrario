@@ -5,6 +5,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 
+@Entity(tableName = "TabellaAggiornamenti")
+data class MetaAggiornamento(
+    val id: Int = 0,
+    @PrimaryKey val dataAggiornamento: String
+)
+
 @Entity(tableName = "TabellaClassi")
 data class Classe(
     val id: Int = 0,

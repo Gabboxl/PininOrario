@@ -3,8 +3,13 @@ package ga.gabboxl.pininorario
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ClasseViewModel(application: Application) : AndroidViewModel(application) {
+
+    //TODO("forse da levare tutte queste inizializzazioni e metterle nei return delle rispettive funzioni? anche in ClasseRepository cmq")
     private var repository: ClasseRepository = ClasseRepository(application)
     private var allClassi: LiveData<List<Classe>> = repository.getAllClassi()
     private var allPinnedClassesWithPeriodi: LiveData<List<ClasseWithPeriodi>> =
@@ -14,6 +19,10 @@ class ClasseViewModel(application: Application) : AndroidViewModel(application) 
 
     private var allNomiClassi: LiveData<List<String>> = repository.getAllNomiClassi()
 
+
+    fun getLatestMetaAggiornamento(): String? {
+        return repository.getLatestMetaAggiornamento()
+    }
 
     fun deletePeriodiMorti() {
         repository.deletePeriodiMorti()
@@ -29,6 +38,20 @@ class ClasseViewModel(application: Application) : AndroidViewModel(application) 
 
     fun doesPeriodoExist(codiceClassePeriodo: String, nomePeriodo: String): Boolean {
         return repository.doesPeriodoExist(codiceClassePeriodo, nomePeriodo)
+    }
+
+
+    //agg
+    fun insertMetaAggiornamento(metaAggiornamento: MetaAggiornamento) {
+        repository.insertMetaAggiornamento(metaAggiornamento)
+    }
+
+    fun updateMetaAggiornamento(metaAggiornamento: MetaAggiornamento) {
+        repository.updateMetaAggiornamento(metaAggiornamento)
+    }
+
+    fun deleteMetaAggiornamento(metaAggiornamento: MetaAggiornamento) {
+        repository.deleteMetaAggiornamento(metaAggiornamento)
     }
 
 

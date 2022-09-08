@@ -34,6 +34,11 @@ class ClasseRepository(application: Application) {
         }
     }
 
+    //agg
+    fun getLatestMetaAggiornamento(): String? {
+        return classeDao.getLatestMetaAggiornamentoDate()
+    }
+
 
     //check methods
 
@@ -43,6 +48,25 @@ class ClasseRepository(application: Application) {
 
     fun doesPeriodoExist(codiceClassePeriodo: String, nomePeriodo: String): Boolean {
         return classeDao.doesPeriodoExist(codiceClassePeriodo, nomePeriodo)
+    }
+
+    //Aggiornamenti
+    fun insertMetaAggiornamento(metaAggiornamento: MetaAggiornamento) {
+        CoroutineScope(Dispatchers.Default).launch {
+            classeDao.insertMetaAggiornamento(metaAggiornamento)
+        }
+    }
+
+    fun updateMetaAggiornamento(metaAggiornamento: MetaAggiornamento) {
+        CoroutineScope(Dispatchers.Default).launch {
+            classeDao.updateMetaAggiornamento(metaAggiornamento)
+        }
+    }
+
+    fun deleteMetaAggiornamento(metaAggiornamento: MetaAggiornamento) {
+        CoroutineScope(Dispatchers.Default).launch {
+            classeDao.deleteMetaAggiornamento(metaAggiornamento)
+        }
     }
 
     fun insertClasse(classe: Classe) {

@@ -22,7 +22,9 @@ import com.google.android.material.snackbar.Snackbar
 import ga.gabboxl.pininparse.PininParse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
 
 
 class NewActivity : AppCompatActivity() {
@@ -82,8 +84,11 @@ class NewActivity : AppCompatActivity() {
         ConnectivityUtils.isInternetAvailable.observe(this, Observer { isConnected ->
             if (isConnected != null && isConnected) {
 
-                //TODO("levare inizializzaorari() e mettere una funzione che controlla l'ultima data di aggiornamento del sito cosi' si risparmia energia preziosa")
-                inizializzaOrari()
+                classeViewModel.viewModelScope.launch(Dispatchers.Default) {
+                    if (isAggiornamentoOrariDisponibile()) {
+                        inizializzaOrari()
+                    }
+                }
             } else if (isConnected == false) {
                 val snackaggiornamento = Snackbar.make(
                     findViewById(R.id.fragmentContainerView),
@@ -107,8 +112,48 @@ class NewActivity : AppCompatActivity() {
     }
 
 
-    fun inizializzaOrari() {
-        classeViewModel.viewModelScope.launch(Dispatchers.Default) {
+
+    suspend fun isAggiornamentoOrariDisponibile(): Boolean {
+            //snackbar
+            val snackaggiornamento = Snackbar.make(
+                findViewById(R.id.fragmentContainerView),
+                "Controllo aggiornamenti...",
+                Snackbar.LENGTH_INDEFINITE)
+                .setBehavior(NoSwipeBehavior())
+            val contentLay: ViewGroup =
+                snackaggiornamento.view.findViewById<View>(com.google.android.material.R.id.snackbar_text).parent as ViewGroup
+            val item = ProgressBar(applicationContext).also { it.setPadding(24, 24, 24, 24) }
+            contentLay.addView(item)
+            snackaggiornamento.show()
+
+
+            PininParse.Update.init()
+
+            val serveraggiornamento = PininParse.Update.list()!!
+
+            val latestSavedMetaAggiornamento = classeViewModel.getLatestMetaAggiornamento()
+
+            if (latestSavedMetaAggiornamento == null) {
+                classeViewModel.insertMetaAggiornamento(MetaAggiornamento(
+                    0,
+                    serveraggiornamento
+                ))
+                return true
+            }
+
+            val sdf = SimpleDateFormat("dd/mm/yyyy")
+            val timedb = sdf.parse(latestSavedMetaAggiornamento)
+            val timeserver = sdf.parse(serveraggiornamento)
+
+            if (timeserver!!.compareTo(timedb) == 0) {
+                return false
+            }
+
+            return true
+    }
+
+
+    suspend fun inizializzaOrari() {
 
             //inizializzo i database con le classi e periodi (forse utilizzare un metodo migliore per l'aggiunta al database)
 
@@ -215,7 +260,6 @@ class NewActivity : AppCompatActivity() {
             }
 
             snackaggiornamento.dismiss()
-        }
     }
 
 
