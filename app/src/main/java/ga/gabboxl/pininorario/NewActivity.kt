@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -166,8 +167,9 @@ class NewActivity : AppCompatActivity() {
         val timeserver = sdf.parse(serveraggiornamento)
 
         if (timeserver!!.compareTo(timedb) == 0) {
-
             snackaggiornamento.dismiss()
+
+            withContext(Dispatchers.Main) { Toast.makeText(this@NewActivity, "Gli orari sono aggiornati.", Toast.LENGTH_SHORT).show() }
             return false
         }
 
