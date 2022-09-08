@@ -36,6 +36,23 @@ class NewActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+
+        R.id.appbar_option_checkdataaggiornamentoorari -> {
+            classeViewModel.viewModelScope.launch(Dispatchers.Default) {
+                if (isAggiornamentoOrariDisponibile()) {
+                    inizializzaOrari()
+                }
+            }
+            true
+        }
+
+        R.id.appbar_option_refreshallorari -> {
+            classeViewModel.viewModelScope.launch(Dispatchers.Default) {
+                    inizializzaOrari()
+            }
+            true
+        }
+
         R.id.options_settings -> {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
@@ -139,6 +156,8 @@ class NewActivity : AppCompatActivity() {
                     serveraggiornamento
                 )
             )
+
+            snackaggiornamento.dismiss()
             return true
         }
 
@@ -147,9 +166,12 @@ class NewActivity : AppCompatActivity() {
         val timeserver = sdf.parse(serveraggiornamento)
 
         if (timeserver!!.compareTo(timedb) == 0) {
+
+            snackaggiornamento.dismiss()
             return false
         }
 
+        snackaggiornamento.dismiss()
         return true
     }
 
