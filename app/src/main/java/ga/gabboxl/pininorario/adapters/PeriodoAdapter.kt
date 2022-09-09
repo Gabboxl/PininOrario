@@ -193,7 +193,7 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
         }
 
         val pattern = "dd/MM/yyyy"
-        val simpleDateFormat = SimpleDateFormat(pattern)
+        val simpleDateFormat = SimpleDateFormat(pattern, Locale.ITALY)
 
         cal.add(Calendar.WEEK_OF_YEAR, somma)
         val dateinizio: String = simpleDateFormat.format(cal.time)
