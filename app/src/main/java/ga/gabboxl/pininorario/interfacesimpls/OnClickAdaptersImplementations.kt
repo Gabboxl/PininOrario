@@ -243,7 +243,7 @@ class OnClickAdaptersImplementations(
 
                 val destinationFile = File(
                     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                    "/PininOrario/" + nomefileorario
+                    "/PininOrario/$nomefileorario"
                 )
                 //destinationFile.createNewFile() penso sia inutile in ogni caso
 

@@ -98,7 +98,7 @@ class NewActivity : AppCompatActivity() {
         //inizializzo il controllo della connettivita'
         ConnectivityUtils.init(this)
 
-        ConnectivityUtils.isInternetAvailable.observe(this, Observer { isConnected ->
+        ConnectivityUtils.isInternetAvailable.observe(this) { isConnected ->
             if (isConnected != null && isConnected) {
 
                 classeViewModel.viewModelScope.launch(Dispatchers.Default) {
@@ -121,7 +121,7 @@ class NewActivity : AppCompatActivity() {
 
                 snackaggiornamento.show()
             }
-        })
+        }
 
 
         //levo i periodi rippati TODO("forse da mettere in un onStart dell'app ?? + un controllo se esistono periodi rippati prima di eseguire?")

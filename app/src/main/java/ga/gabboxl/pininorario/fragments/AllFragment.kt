@@ -40,7 +40,7 @@ class AllFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
 
 
-        val adapterClassi: ClasseAdapter = ClasseAdapter()
+        val adapterClassi = ClasseAdapter()
         recyclerView.adapter = adapterClassi
 
 

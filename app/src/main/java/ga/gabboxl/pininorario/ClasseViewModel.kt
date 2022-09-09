@@ -3,9 +3,6 @@ package ga.gabboxl.pininorario
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class ClasseViewModel(application: Application) : AndroidViewModel(application) {
 

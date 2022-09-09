@@ -120,7 +120,7 @@ class ClasseAdapter :
         holder.popupclasse.menu.findItem(R.id.addcardmenuoption).isVisible = !currentClasse.classe.isPinned //inverto il valore
         holder.popupclasse.menu.findItem(R.id.deletecardmenuoption).isVisible = currentClasse.classe.isPinned
 
-        val periodiadapter: PeriodoAdapter = PeriodoAdapter()
+        val periodiadapter = PeriodoAdapter()
         holder.recyclerViewPeriodi.adapter = periodiadapter
 
         periodiadapter.submitList(currentClasse.periodi)

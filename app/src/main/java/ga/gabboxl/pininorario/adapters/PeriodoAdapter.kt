@@ -23,7 +23,7 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 
-class PeriodoAdapter() : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHolder>(DIFF_CALLBACK) {
+class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHolder>(DIFF_CALLBACK) {
 
     private lateinit var listenersPeriodoAdapter: OnClickListenersPeriodoAdapter
     var posizioneitem: Int = -1
@@ -153,7 +153,7 @@ class PeriodoAdapter() : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHo
 
 
                     val typedValue = TypedValue()
-                    val theme: Theme = holder.itemView.context.getTheme()
+                    val theme: Theme = holder.itemView.context.theme
                     theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
                     val color: Int = typedValue.data
 
