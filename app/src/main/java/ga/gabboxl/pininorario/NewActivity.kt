@@ -25,6 +25,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 class NewActivity : AppCompatActivity() {
@@ -162,7 +163,7 @@ class NewActivity : AppCompatActivity() {
             return true
         }
 
-        val sdf = SimpleDateFormat("dd/mm/yyyy")
+        val sdf = SimpleDateFormat("dd/mm/yyyy", Locale.ITALY)
         val timedb = sdf.parse(latestSavedMetaAggiornamento)
         val timeserver = sdf.parse(serveraggiornamento)
 
