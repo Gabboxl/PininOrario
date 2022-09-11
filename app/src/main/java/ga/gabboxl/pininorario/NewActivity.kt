@@ -193,7 +193,7 @@ class NewActivity : AppCompatActivity() {
         if (timeserver!!.compareTo(timedb) == 0) {
             snackaggiornamento.dismiss()
 
-            withContext(Dispatchers.Main) { Toast.makeText(this@NewActivity, "Gli orari sono aggiornati.", Toast.LENGTH_SHORT).show() }
+            withContext(Dispatchers.Main) { Toast.makeText(this@NewActivity, "Gli orari sono aggiornati", Toast.LENGTH_SHORT).show() }
             return false
         }
 
@@ -287,25 +287,7 @@ class NewActivity : AppCompatActivity() {
               isDownloaded = false
           )
       )
-
-
-
-                 classeViewModel.updatePeriodo(
-                Periodo(
-                    777,
-                    "heldens",
-                    "darksideperiodo", //nome periodo
-                    "jojo", //nome griglia
-                    isAvailableOnServer = true,
-                    isDownloaded = false
-                )
-            )
             */
-
-
-
-
-
 
 
         val classidalevare = classeViewModel.getClassiNonInLista(listaCodiciClassiNuovi)
