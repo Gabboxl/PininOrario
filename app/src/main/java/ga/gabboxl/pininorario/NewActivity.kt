@@ -49,7 +49,11 @@ class NewActivity : AppCompatActivity() {
 
         R.id.appbar_option_refreshallorari -> {
             classeViewModel.viewModelScope.launch(Dispatchers.Default) {
+                withContext(Dispatchers.Main){ item.isEnabled = false }
+
                     inizializzaOrari()
+
+                withContext(Dispatchers.Main){ item.isEnabled = true }
             }
             true
         }
