@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
@@ -96,6 +95,12 @@ class NewActivity : AppCompatActivity() {
         classeViewModel = ViewModelProvider(this).get(ClasseViewModel::class.java)
 
 
+        //levo i periodi rippati TODO("forse da mettere in un onStart dell'app ?? + un controllo se esistono periodi rippati prima di eseguire?")
+        //nono anzi forse lasciarlo prima dell'aggiornamento del database altrimenti elimina anche gli orari appena segnati come non disponibili senza che l'utente ne venga informato
+        classeViewModel.deletePeriodiMorti()
+        classeViewModel.deleteClassiRippateSenzaPeriodi()
+
+
         //inizializzo il controllo della connettivita'
         ConnectivityUtils.init(this)
 
@@ -125,8 +130,26 @@ class NewActivity : AppCompatActivity() {
         }
 
 
-        //levo i periodi rippati TODO("forse da mettere in un onStart dell'app ?? + un controllo se esistono periodi rippati prima di eseguire?")
-        classeViewModel.deletePeriodiMorti()
+        classeViewModel.viewModelScope.launch(Dispatchers.Default) {
+        val asd = classeViewModel.getClassiWithPeriodiScaricati()
+
+
+    withContext(Dispatchers.Main) {
+
+        val infoRipPeriodoDialog = MaterialAlertDialogBuilder(this@NewActivity)
+            .setTitle("Info")
+            .setMessage(
+                asd.toString()
+            )
+            .setPositiveButton("OK") { _, _ ->
+            }
+        infoRipPeriodoDialog.create().show()
+    }
+
+}
+
+
+
     }
 
 
@@ -201,24 +224,27 @@ class NewActivity : AppCompatActivity() {
         PininParse.Periodi.init()
 
 
-        var contatorewhileclassi = 0
-        while (contatorewhileclassi < PininParse.Classi.list().size) {
+        val listaCodiciClassiNuovi = mutableListOf<String>()
 
-            if (!classeViewModel.doesClasseExist(PininParse.Classi.list()[contatorewhileclassi][2])) { //controllo il codice classe
+        for ((indexattuale, classe) in PininParse.Classi.list().withIndex()) {
+
+            if (!classeViewModel.doesClasseExist(classe[2])) { //controllo il codice classe
                 classeViewModel.insertClasse(
                     Classe(
-                        contatorewhileclassi,
-                        PininParse.Classi.list()[contatorewhileclassi][1], //nome classe
-                        PininParse.Classi.list()[contatorewhileclassi][2], //codice classe
-                        false
+                        indexattuale,
+                        classe[1], //nome classe
+                        classe[2], //codice classe
+                        isAvailableOnServer = true,
+                        isPinned = false
                     )
                 )
             }
-            contatorewhileclassi++
+
+            listaCodiciClassiNuovi.add(classe[2])
         }
 
 
-        val listaPeriodi = mutableListOf<String>()
+        val listaSemiLinkPeriodiNuovi = mutableListOf<String>()
 
         for ((indexattuale, periodo) in PininParse.Periodi.list().withIndex()) {
             if (!classeViewModel.doesPeriodoExist(
@@ -238,23 +264,66 @@ class NewActivity : AppCompatActivity() {
                 )
             }
 
-            listaPeriodi.add(periodo[2])
+            listaSemiLinkPeriodiNuovi.add(periodo[2])
+        }
+
+        /* classeViewModel.insertClasse(
+             Classe(
+                 777,
+                 "oliverclasse",
+                 "heldens",
+                 isAvailableOnServer = true,
+                 isPinned = false
+             )
+         )
+
+         classeViewModel.insertPeriodo(
+          Periodo(
+              777,
+              "heldens",
+              "darksideperiodo", //nome periodo
+              "jojo", //nome griglia
+              isAvailableOnServer = true,
+              isDownloaded = false
+          )
+      )
+
+
+
+                 classeViewModel.updatePeriodo(
+                Periodo(
+                    777,
+                    "heldens",
+                    "darksideperiodo", //nome periodo
+                    "jojo", //nome griglia
+                    isAvailableOnServer = true,
+                    isDownloaded = false
+                )
+            )
+            */
+
+
+
+
+
+
+
+        val classidalevare = classeViewModel.getClassiNonInLista(listaCodiciClassiNuovi)
+
+        for(classe in classidalevare) {
+            classeViewModel.updateClasse(
+                Classe(
+                    classe.id,
+                    classe.nomeClasse,
+                    classe.codiceClasse,
+                    isAvailableOnServer = false,
+                    classe.isPinned
+                )
+            )
         }
 
 
-        /*     classeViewModel.insertPeriodo(
-                 Periodo(
-                     777,
-                     "oliver",
-                     "heldens", //nome periodo
-                     "jojo", //nome griglia
-                     isAvailableOnServer = true,
-                     isDownloaded = true
-                 )
-             ) */
-
-
-        val periodidalevare = classeViewModel.getPeriodiNonSulServer(listaPeriodi)
+        val periodidalevare = classeViewModel.getPeriodiNonSulServer(listaSemiLinkPeriodiNuovi)
 
         //imposto i periodi morti come non piu' disponibili per il download
         for (periodo in periodidalevare) {
@@ -270,10 +339,24 @@ class NewActivity : AppCompatActivity() {
             )
         }
 
+
         withContext(Dispatchers.Main) {
+            if (classidalevare.isNotEmpty()) {
+                val infoRipPeriodoDialog = MaterialAlertDialogBuilder(this@NewActivity)
+                    .setTitle("Info classi")
+                    .setMessage(
+                        "Sono stati trovati delle classi non più disponibili sul server per il download. " +
+                                "\nAl prossimo avvio dell'app verranno rimosse dal database soltanto quelle con orari non scaricati." +
+                                "\nLe altre rimarranno intatte."
+                    )
+                    .setPositiveButton("OK") { _, _ ->
+                    }
+                infoRipPeriodoDialog.create().show()
+            }
+
             if (periodidalevare.isNotEmpty()) {
                 val infoRipPeriodoDialog = MaterialAlertDialogBuilder(this@NewActivity)
-                    .setTitle("Info")
+                    .setTitle("Info periodi")
                     .setMessage(
                         "Sono stati trovati degli orari non più disponibili sul server per il download. " +
                                 "\nAl prossimo avvio dell'app verranno rimossi dal database soltanto quelli non scaricati." +

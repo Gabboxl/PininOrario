@@ -99,7 +99,8 @@ class PinnedFragment : Fragment() {
                                     i + 1,
                                     arrayClassi[i].nomeClasse, //nome classe
                                     arrayClassi[i].codiceClasse, //codice classe
-                                    true
+                                    isAvailableOnServer = arrayClassi[i].isAvailableOnServer,
+                                    isPinned = true
                                 )
                                 classeViewModel.updateClasse(updatedpinnedclasse)
 

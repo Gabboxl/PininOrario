@@ -17,8 +17,23 @@ class ClasseViewModel(application: Application) : AndroidViewModel(application) 
     private var allNomiClassi: LiveData<List<String>> = repository.getAllNomiClassi()
 
 
+
+
+    fun getClassiWithPeriodiScaricati(): List<ClasseWithPeriodi> {
+        return repository.getClassiWithPeriodiScaricati()
+    }
+
+
+    fun getClassiNonInLista(codiciClassiScaricateNuove: List<String>): List<Classe> {
+        return repository.getClassiNonInLista(codiciClassiScaricateNuove)
+    }
+
     fun getLatestMetaAggiornamento(): String? {
         return repository.getLatestMetaAggiornamento()
+    }
+
+    fun deleteClassiRippateSenzaPeriodi() {
+        repository.deleteClassiRippateSenzaPeriodi()
     }
 
     fun deletePeriodiMorti() {

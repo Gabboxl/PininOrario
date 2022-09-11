@@ -23,9 +23,25 @@ class ClasseRepository(application: Application) {
         allNomiClassi = classeDao.getAllNomiClassi()
     }
 
+
+
+    fun getClassiWithPeriodiScaricati(): List<ClasseWithPeriodi>{
+        return classeDao.getClassiWithPeriodiScaricati()
+    }
+
+    fun getClassiNonInLista(codiciClassiScaricateNuove: List<String>): List<Classe> {
+        return classeDao.getClassiNonInLista(codiciClassiScaricateNuove)
+    }
+
     //rip methods
     fun getPeriodiNonSulServer(periodiScaricati: List<String>): List<Periodo>{
         return classeDao.getPeriodiNonSulServer(periodiScaricati)
+    }
+
+    fun deleteClassiRippateSenzaPeriodi() {
+        CoroutineScope(Dispatchers.Default).launch {
+            classeDao.deleteClassiRippateSenzaPeriodi()
+        }
     }
 
     fun deletePeriodiMorti(){

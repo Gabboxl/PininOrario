@@ -142,8 +142,8 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
 
         ConnectivityUtils.isInternetAvailable.observe(holder.itemView.context as LifecycleOwner) { isConnected ->
             if (isConnected) {
-                holder.scaricaButton.isEnabled = true
                 if (currentPeriodo.periodo.isAvailableOnServer) {
+                    holder.scaricaButton.isEnabled = true
 
                     //getDrawable(holder.itemView.context, R.drawable.ic_baseline_cloud_queue_24)!!.setTint(getColor(holder.itemView.context, R.color.md_theme_dark_primary))
 
@@ -162,17 +162,26 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
 
                     holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_queue_24)
                 } else {
+                    holder.scaricaButton.isEnabled = false
+
+                    /*
+
                     getDrawable(holder.itemView.context, R.drawable.ic_baseline_cloud_off_24)!!.setTint(getColor(holder.itemView.context, R.color.md_theme_light_error))
+                    */
 
                     holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_off_24)
+                    holder.periodoButtonAvailability.drawable.setTint(getColor(holder.itemView.context, R.color.md_theme_light_error))
                 }
 
             } else {
                 holder.scaricaButton.isEnabled = false
 
+                /*
                 getDrawable(holder.itemView.context, R.drawable.ic_baseline_cloud_off_24)!!.setTint(getColor(holder.itemView.context, R.color.CustomColor1))
+                */
 
                 holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_off_24)
+                holder.periodoButtonAvailability.drawable.setTint(getColor(holder.itemView.context, R.color.CustomColor1))
             }
         }
 

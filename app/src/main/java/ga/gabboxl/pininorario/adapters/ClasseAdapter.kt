@@ -1,17 +1,25 @@
 package ga.gabboxl.pininorario.adapters
 
 
+import android.content.res.Resources
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ga.gabboxl.pininorario.ClasseWithPeriodi
+import ga.gabboxl.pininorario.ConnectivityUtils
+import ga.gabboxl.pininorario.PeriodoWithClasse
 import ga.gabboxl.pininorario.R
 
 
@@ -36,8 +44,9 @@ class ClasseAdapter :
                 oldItem: ClasseWithPeriodi,
                 newItem: ClasseWithPeriodi
             ): Boolean {
-                return oldItem.classe.nomeClasse == newItem.classe.nomeClasse &&
-                        oldItem.classe.codiceClasse == newItem.classe.codiceClasse && oldItem.classe.isPinned == newItem.classe.isPinned && oldItem.periodi == newItem.periodi //questo check dei periodi controlla che la lista dei periodi a cui sono associati alla classe non siano cambiati, altrimenti aggiorna la lsita dei periodi
+                return oldItem.classe == newItem.classe &&
+                        oldItem.classe.codiceClasse == newItem.classe.codiceClasse && oldItem.classe.isPinned == newItem.classe.isPinned &&
+                        oldItem.classe.isAvailableOnServer == newItem.classe.isAvailableOnServer && oldItem.periodi == newItem.periodi //questo check dei periodi controlla che la lista dei periodi a cui sono associati alla classe non siano cambiati, altrimenti aggiorna la lsita dei periodi
             }
         }
     }
@@ -48,6 +57,7 @@ class ClasseAdapter :
         var optionButton: ImageButton
         var recyclerViewPeriodi: RecyclerView
         val popupclasse: PopupMenu
+        val classeButtonAvailability: ImageButton
 
 
         init {
@@ -55,6 +65,13 @@ class ClasseAdapter :
             textViewNomeClasse = itemView.findViewById(R.id.text_view_nomeclasse)
             optionButton = itemView.findViewById(R.id.cardoptionbutton)
             recyclerViewPeriodi = itemView.findViewById(R.id.recyclerview_periodi)
+            classeButtonAvailability = itemView.findViewById(R.id.classeButtonAvailability)
+
+
+            classeButtonAvailability.setOnClickListener{
+                posizioneitem = absoluteAdapterPosition
+                listenersClasseAdapter.onClasseAvailabilityButtonClick(getItem(posizioneitem), this)
+            }
 
 
             //la creazione del popup meglio lasciarla fuori dall'onclick listener del pulsante opzioni, altrimenti il codice della creazione verrebbe eseguito ogni volta premuto il pulsante. Avviamo soltanto la visualizzazaione piuttosto con il metodo .show()
@@ -120,6 +137,64 @@ class ClasseAdapter :
         holder.popupclasse.menu.findItem(R.id.addcardmenuoption).isVisible = !currentClasse.classe.isPinned //inverto il valore
         holder.popupclasse.menu.findItem(R.id.deletecardmenuoption).isVisible = currentClasse.classe.isPinned
 
+
+        ConnectivityUtils.isInternetAvailable.observe(holder.itemView.context as LifecycleOwner) { isConnected ->
+            if (isConnected) {
+                if (currentClasse.classe.isAvailableOnServer) {
+
+                    //getDrawable(holder.itemView.context, R.drawable.ic_baseline_cloud_queue_24)!!.setTint(getColor(holder.itemView.context, R.color.md_theme_dark_primary))
+
+                    val unwrappedDrawable = AppCompatResources.getDrawable(
+                        holder.itemView.context,
+                        R.drawable.ic_baseline_cloud_queue_24
+                    )
+
+                    val wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable!!)
+
+
+                    val typedValue = TypedValue()
+                    val theme: Resources.Theme = holder.itemView.context.theme
+                    theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
+                    val color: Int = typedValue.data
+
+                    DrawableCompat.setTint(wrappedDrawable,color)
+
+
+                    holder.classeButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_queue_24)
+                } else {
+                    //TODO("Magari colorare la scheda di colore rosso se non [ disponibile?")
+
+           /*         AppCompatResources.getDrawable(
+                        holder.itemView.context,
+                        R.drawable.ic_baseline_cloud_off_24
+                    )!!.setTint(
+                        ContextCompat.getColor(
+                            holder.itemView.context,
+                            R.color.md_theme_light_error
+                        )
+                    )*/
+
+                    holder.classeButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_off_24)
+                    holder.classeButtonAvailability.drawable.setTint(ContextCompat.getColor(
+                        holder.itemView.context,
+                        R.color.md_theme_light_error
+                    ))
+                }
+
+            } else {
+                /*
+                AppCompatResources.getDrawable(
+                    holder.itemView.context,
+                    R.drawable.ic_baseline_cloud_off_24
+                )!!.setTint(ContextCompat.getColor(holder.itemView.context, R.color.CustomColor1)) */
+
+                holder.classeButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_off_24)
+                holder.classeButtonAvailability.drawable.setTint(ContextCompat.getColor(holder.itemView.context, R.color.CustomColor1))
+            }
+        }
+
+
+
         val periodiadapter = PeriodoAdapter()
         holder.recyclerViewPeriodi.adapter = periodiadapter
 
@@ -139,6 +214,7 @@ class ClasseAdapter :
     interface OnClickListenersClasseAdapter {
         fun onRimuoviPrefClick(classeWithPeriodi: ClasseWithPeriodi)
         fun onAggiungiPrefClick(classeWithPeriodi: ClasseWithPeriodi)
+        fun onClasseAvailabilityButtonClick(classeWithPeriodi: ClasseWithPeriodi, holder: ClasseAdapter.ClasseHolder)
     }
 
     fun setOnClickListenersClasseAdapter(listenersClasseAdapter: OnClickListenersClasseAdapter) {

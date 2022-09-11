@@ -34,6 +34,43 @@ class OnClickAdaptersImplementations(
     private val classeViewModel: ClasseViewModel
 ) : PeriodoAdapter.OnClickListenersPeriodoAdapter, ClasseAdapter.OnClickListenersClasseAdapter {
 
+    override fun onClasseAvailabilityButtonClick(
+        classeWithPeriodi: ClasseWithPeriodi,
+        holder: ClasseAdapter.ClasseHolder) {
+        val isConnected = ConnectivityUtils.isInternetAvailable.value
+
+        if (isConnected!!) {
+
+            if (classeWithPeriodi.classe.isAvailableOnServer) {
+                val infoPeriodoDialog = MaterialAlertDialogBuilder(context)
+                    .setTitle("Stato classe")
+                    .setMessage("Questa classe è ancora disponibile sul server.")
+                    .setPositiveButton("OK") { _, _ ->
+                    }
+
+                infoPeriodoDialog.create().show()
+            } else {
+                val infoPeriodoDialog = MaterialAlertDialogBuilder(context)
+                    .setTitle("Stato classe")
+                    .setMessage("Questa classe è stata rimossa dal server degli orari della scuola, se non hai scaricato orari di relativi ad essa verrà eliminata dal database al prossimo avvio dell'app.")
+                    .setPositiveButton("OK") { _, _ ->
+                    }
+
+                infoPeriodoDialog.create().show()
+            }
+
+        } else {
+            val infoPeriodoDialog = MaterialAlertDialogBuilder(context)
+                .setTitle("Stato classe")
+                .setMessage("Non sei connesso ad internet. Connettiti per controllare lo stato di questa classe.")
+                .setPositiveButton("OK") { _, _ ->
+                }
+
+            infoPeriodoDialog.create().show()
+
+        }
+    }
+
 
     override fun onPeriodoAvailabilityButtonClick(
         periodo: PeriodoWithClasse,
@@ -53,7 +90,8 @@ class OnClickAdaptersImplementations(
             } else {
                 val infoPeriodoDialog = MaterialAlertDialogBuilder(context)
                     .setTitle("Stato periodo")
-                    .setMessage("Questo periodo è stato rimosso dal server della scuola, per cui non è più disponibile per il download.")
+                    .setMessage("Questo periodo è stato rimosso dal server della scuola, per cui non è più disponibile per il download." +
+                            "\n Gli orari non scaricati verranno eliminati dal database al prossimo avvio dell'app.")
                     .setPositiveButton("OK") { _, _ ->
                     }
 
@@ -322,7 +360,8 @@ class OnClickAdaptersImplementations(
                 classeWithPeriodi.classe.id,
                 classeWithPeriodi.classe.nomeClasse,
                 classeWithPeriodi.classe.codiceClasse,
-                false
+                isAvailableOnServer = classeWithPeriodi.classe.isAvailableOnServer,
+                isPinned = false
             )
         )
         //huge thanks to https://www.youtube.com/watch?v=dYbbTGiZ2sA
@@ -334,7 +373,8 @@ class OnClickAdaptersImplementations(
                 classeWithPeriodi.classe.id,
                 classeWithPeriodi.classe.nomeClasse,
                 classeWithPeriodi.classe.codiceClasse,
-                true
+                isAvailableOnServer = classeWithPeriodi.classe.isAvailableOnServer,
+                isPinned = true
             )
         )
     }

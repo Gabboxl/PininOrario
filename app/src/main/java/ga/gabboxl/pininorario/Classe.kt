@@ -16,6 +16,7 @@ data class Classe(
     val id: Int = 0,
     val nomeClasse: String,
     @PrimaryKey val codiceClasse: String,
+    var isAvailableOnServer: Boolean,
     var isPinned: Boolean,
 )
 
@@ -48,3 +49,4 @@ data class ClasseWithPeriodi(
         entityColumn = "codiceClassePeriodo"
     ) val periodi: List<PeriodoWithClasse>
 )
+
