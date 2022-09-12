@@ -134,26 +134,6 @@ class NewActivity : AppCompatActivity() {
         }
 
 
-        classeViewModel.viewModelScope.launch(Dispatchers.Default) {
-        val asd = classeViewModel.getClassiWithPeriodiScaricati()
-
-
-    withContext(Dispatchers.Main) {
-
-        val infoRipPeriodoDialog = MaterialAlertDialogBuilder(this@NewActivity)
-            .setTitle("Info")
-            .setMessage(
-                asd.toString()
-            )
-            .setPositiveButton("OK") { _, _ ->
-            }
-        infoRipPeriodoDialog.create().show()
-    }
-
-}
-
-
-
     }
 
 
