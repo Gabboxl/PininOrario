@@ -93,7 +93,6 @@ class NewActivity : AppCompatActivity() {
         val color = SurfaceColors.SURFACE_2.getColor(this)
         //window.statusBarColor = Color.TRANSPARENT
         //window.navigationBarColor = color
-
         findViewById<AppBarLayout>(R.id.mainCustomBarLayout).setBackgroundColor(color)
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
