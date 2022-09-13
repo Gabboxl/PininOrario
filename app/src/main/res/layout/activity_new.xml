@@ -6,26 +6,10 @@
         android:layout_height="match_parent"
         tools:context=".NewActivity"
         android:id="@+id/newActivityConstraintLayout"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="false">
 
-   <!-- <com.google.android.material.appbar.AppBarLayout
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/barra"
-            android:fitsSystemWindows="true">
 
-        <com.google.android.material.appbar.MaterialToolbar
-                android:background="@android:color/transparent"
-                android:id="@+id/topAppBar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:title="@string/app_name"
-                app:menu="@menu/main_menu" />
-
-    </com.google.android.material.appbar.AppBarLayout> -->
-
+    <include layout="@layout/appbar_layout" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottom_navigation"
@@ -46,7 +30,7 @@
             app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mainCustomBarLayout"
             app:navGraph="@navigation/main_nav" />
 
 

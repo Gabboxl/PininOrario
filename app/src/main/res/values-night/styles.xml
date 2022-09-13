@@ -1,6 +1,6 @@
 
 <resources>
-    <style name="AppTheme" parent="Theme.Material3.Dark">
+    <style name="AppTheme" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/md_theme_dark_primary</item>
         <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer</item>
@@ -30,8 +30,14 @@
         <item name="colorOnCustomColor1">#402d00</item>
         <item name="colorCustomColor1Container">#5c4200</item>
         <item name="colorOnCustomColor1Container">#ffdea2</item>
-        <item name="harmonizeCustomColor1">false</item>
+        <item name="harmonizeCustomColor1">true</item>
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
+
+        <item name="android:navigationBarColor">
+            @android:color/transparent
+        </item>
+
+        <item name="android:statusBarColor">@android:color/transparent</item>
 
 
     </style>

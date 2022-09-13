@@ -24,6 +24,10 @@ class SettingsActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.settingsframe, SettingsFragment())
             .commit()
+
+        setSupportActionBar(findViewById(R.id.mainCustomBarraTop))
+        supportActionBar?.title = this.title
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -41,6 +45,8 @@ class SettingsActivity : AppCompatActivity() {
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.app_preferences, rootKey)
+
+
 
             val listprefshortcut = findPreference<ListPreference>("shortclassi_pref")!!
             val modifyloginpref = findPreference<Preference>("modify_login")!!

@@ -1,19 +1,19 @@
 package ga.gabboxl.pininorario
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.elevation.SurfaceColors
@@ -29,6 +29,7 @@ import java.util.*
 
 class NewActivity : AppCompatActivity() {
     private lateinit var classeViewModel: ClasseViewModel
+
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -81,11 +82,19 @@ class NewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new)
 
+        setSupportActionBar(findViewById(R.id.mainCustomBarraTop))
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
+
+
 
         //TODO("colori forse da levare e implementare una custom materialappbar con magari animazioni allo scorrimento")
         val color = SurfaceColors.SURFACE_2.getColor(this)
-        window.statusBarColor = color
-        window.navigationBarColor = color
+        //window.statusBarColor = Color.TRANSPARENT
+        //window.navigationBarColor = color
+
+        findViewById<AppBarLayout>(R.id.mainCustomBarLayout).setBackgroundColor(color)
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
