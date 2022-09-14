@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.ProgressBar
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +20,7 @@ import com.github.javiersantos.appupdater.AppUpdater
 import com.github.javiersantos.appupdater.enums.Display
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.elevation.SurfaceColors
@@ -41,6 +43,19 @@ class NewActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
+
+        ConnectivityUtils.isInternetAvailable.observe(this) { isConnected ->
+            if (isConnected != null && isConnected) {
+                menu.findItem(R.id.appbar_option_refreshallorari).isEnabled = true
+                menu.findItem(R.id.appbar_option_checkdataaggiornamentoorari).isEnabled = true
+            } else if (isConnected == false) {
+                menu.findItem(R.id.appbar_option_refreshallorari).isEnabled = false
+                menu.findItem(R.id.appbar_option_checkdataaggiornamentoorari).isEnabled = false
+            }
+
+        }
+
+
         return super.onCreateOptionsMenu(menu)
     }
 
