@@ -66,7 +66,7 @@ interface ClasseDao {
     fun getClasseWithPeriodi(codiceClasse: String): LiveData<List<ClasseWithPeriodi>>
 
 
-    
+
 
 
 
