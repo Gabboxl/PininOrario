@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class ClasseRepository(application: Application) {
@@ -50,9 +51,13 @@ class ClasseRepository(application: Application) {
         }
     }
 
-    //agg
-    fun getLatestMetaAggiornamento(): String? {
-        return classeDao.getLatestMetaAggiornamentoDate()
+    //data aggiornamento
+    fun getLatestMetaAggiornamentoDateSync(): String? {
+        return classeDao.getLatestMetaAggiornamentoDateSync()
+    }
+
+    fun getLatestMetaAggiornamentoDateAsync(): LiveData<String?> {
+        return classeDao.getLatestMetaAggiornamentoDateAsync()
     }
 
 

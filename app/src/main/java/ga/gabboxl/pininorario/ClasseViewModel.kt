@@ -3,6 +3,9 @@ package ga.gabboxl.pininorario
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharedFlow
 
 class ClasseViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -28,9 +31,14 @@ class ClasseViewModel(application: Application) : AndroidViewModel(application) 
         return repository.getClassiNonInLista(codiciClassiScaricateNuove)
     }
 
-    fun getLatestMetaAggiornamento(): String? {
-        return repository.getLatestMetaAggiornamento()
+    fun getLatestMetaAggiornamentoDateSync(): String? {
+        return repository.getLatestMetaAggiornamentoDateSync()
     }
+
+    fun getLatestMetaAggiornamentoDateAsync(): LiveData<String?> {
+        return repository.getLatestMetaAggiornamentoDateAsync()
+    }
+
 
     fun deleteClassiRippateSenzaPeriodi() {
         repository.deleteClassiRippateSenzaPeriodi()

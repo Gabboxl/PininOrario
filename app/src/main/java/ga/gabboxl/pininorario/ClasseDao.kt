@@ -1,7 +1,10 @@
 package ga.gabboxl.pininorario
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharedFlow
 
 @Dao
 interface ClasseDao {
@@ -122,6 +125,9 @@ interface ClasseDao {
     //aggiornamenti methods
 
     @Query("SELECT dataAggiornamento FROM TabellaAggiornamenti ORDER BY ID DESC LIMIT 1") //also https://stackoverflow.com/a/5191525/9008381
-    fun getLatestMetaAggiornamentoDate(): String?
+    fun getLatestMetaAggiornamentoDateSync(): String?
+
+    @Query("SELECT dataAggiornamento FROM TabellaAggiornamenti ORDER BY ID DESC LIMIT 1")
+    fun getLatestMetaAggiornamentoDateAsync(): LiveData<String?>
 }
 

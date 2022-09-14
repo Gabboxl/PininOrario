@@ -6,11 +6,13 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -29,6 +31,9 @@ import com.google.android.material.snackbar.Snackbar
 import es.dmoral.toasty.Toasty
 import ga.gabboxl.pininparse.PininParse
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
@@ -109,8 +114,6 @@ class NewActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
 
-
-
         //TODO("colori forse da levare e implementare una custom materialappbar con magari animazioni allo scorrimento")
         val color = SurfaceColors.SURFACE_2.getColor(this)
         //window.statusBarColor = Color.TRANSPARENT
@@ -177,6 +180,11 @@ class NewActivity : AppCompatActivity() {
             }
         }
 
+        //imposto l'ultima data di aggiornamento degli orari del server nel textview dell'appbar
+        classeViewModel.getLatestMetaAggiornamentoDateAsync().observe(this) { stringDataAggiornamento ->
+            findViewById<TextView>(R.id.textAggiornamentoAppBar).text = "Orari server aggiornati al: $stringDataAggiornamento"
+        }
+
     }
 
 
@@ -199,7 +207,7 @@ class NewActivity : AppCompatActivity() {
 
         val serveraggiornamento = PininParse.Update.list()!!
 
-        val latestSavedMetaAggiornamento = classeViewModel.getLatestMetaAggiornamento()
+        val latestSavedMetaAggiornamento = classeViewModel.getLatestMetaAggiornamentoDateSync()
 
         if (latestSavedMetaAggiornamento == null) {
             classeViewModel.insertMetaAggiornamento(

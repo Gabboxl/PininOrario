@@ -20,7 +20,7 @@
             android:id="@+id/textAggiornamentoAppBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Orari server aggiornati al: 2/12/2022"
+            android:text="test test test"
             android:textSize="16sp"
             android:layout_gravity="center"
             android:gravity="center"
