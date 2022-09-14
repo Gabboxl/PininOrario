@@ -3,9 +3,6 @@ package ga.gabboxl.pininorario
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharedFlow
 
 class ClasseViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -18,8 +15,6 @@ class ClasseViewModel(application: Application) : AndroidViewModel(application) 
         repository.getAllClassiWithPeriodi()
 
     private var allNomiClassi: LiveData<List<String>> = repository.getAllNomiClassi()
-
-
 
 
     fun getClassiWithPeriodiScaricati(): List<ClasseWithPeriodi> {

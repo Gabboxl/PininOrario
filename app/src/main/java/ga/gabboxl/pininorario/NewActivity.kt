@@ -2,17 +2,17 @@ package ga.gabboxl.pininorario
 
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Color
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -22,7 +22,6 @@ import com.github.javiersantos.appupdater.AppUpdater
 import com.github.javiersantos.appupdater.enums.Display
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.elevation.SurfaceColors
@@ -31,9 +30,6 @@ import com.google.android.material.snackbar.Snackbar
 import es.dmoral.toasty.Toasty
 import ga.gabboxl.pininparse.PininParse
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
@@ -43,7 +39,6 @@ import java.util.*
 class NewActivity : AppCompatActivity() {
     private lateinit var classeViewModel: ClasseViewModel
     private lateinit var sharedPreferences: SharedPreferences
-
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -77,11 +72,11 @@ class NewActivity : AppCompatActivity() {
 
         R.id.appbar_option_refreshallorari -> {
             classeViewModel.viewModelScope.launch(Dispatchers.Default) {
-                withContext(Dispatchers.Main){ item.isEnabled = false }
+                withContext(Dispatchers.Main) { item.isEnabled = false }
 
-                    inizializzaOrari()
+                inizializzaOrari()
 
-                withContext(Dispatchers.Main){ item.isEnabled = true }
+                withContext(Dispatchers.Main) { item.isEnabled = true }
             }
             true
         }
@@ -159,8 +154,12 @@ class NewActivity : AppCompatActivity() {
                         .setUpdateJSON("https://pinin.gabboxl.ga/versions/update.json")
                         .setWebviewChangelog(true)
                         .setButtonDoNotShowAgainClickListener { dialog, which ->
-                            sharedPreferences.edit().putBoolean("checkupdates_startup", false).apply()
-                            Toasty.info(this, getString(R.string.info_modifica_scelta_aggiornamenti)).show()
+                            sharedPreferences.edit().putBoolean("checkupdates_startup", false)
+                                .apply()
+                            Toasty.info(
+                                this,
+                                getString(R.string.info_modifica_scelta_aggiornamenti)
+                            ).show()
                         }
                         .start()
                 }
@@ -181,9 +180,11 @@ class NewActivity : AppCompatActivity() {
         }
 
         //imposto l'ultima data di aggiornamento degli orari del server nel textview dell'appbar
-        classeViewModel.getLatestMetaAggiornamentoDateAsync().observe(this) { stringDataAggiornamento ->
-            findViewById<TextView>(R.id.textAggiornamentoAppBar).text = "Orari server aggiornati al: $stringDataAggiornamento"
-        }
+        classeViewModel.getLatestMetaAggiornamentoDateAsync()
+            .observe(this) { stringDataAggiornamento ->
+                findViewById<TextView>(R.id.textAggiornamentoAppBar).text =
+                    "Orari server aggiornati al: $stringDataAggiornamento"
+            }
 
     }
 
@@ -228,7 +229,13 @@ class NewActivity : AppCompatActivity() {
         if (timeserver!!.compareTo(timedb) == 0) {
             snackaggiornamento.dismiss()
 
-            withContext(Dispatchers.Main) { Toast.makeText(this@NewActivity, "Gli orari sono aggiornati", Toast.LENGTH_SHORT).show() }
+            withContext(Dispatchers.Main) {
+                Toast.makeText(
+                    this@NewActivity,
+                    "Gli orari sono aggiornati",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
             return false
         }
 
@@ -327,7 +334,7 @@ class NewActivity : AppCompatActivity() {
 
         val classidalevare = classeViewModel.getClassiNonInLista(listaCodiciClassiNuovi)
 
-        for(classe in classidalevare) {
+        for (classe in classidalevare) {
             classeViewModel.updateClasse(
                 Classe(
                     classe.id,

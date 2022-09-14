@@ -32,11 +32,17 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
 
         private var DIFF_CALLBACK: DiffUtil.ItemCallback<PeriodoWithClasse> = object :
             DiffUtil.ItemCallback<PeriodoWithClasse>() {
-            override fun areItemsTheSame(oldItem: PeriodoWithClasse, newItem: PeriodoWithClasse): Boolean {
+            override fun areItemsTheSame(
+                oldItem: PeriodoWithClasse,
+                newItem: PeriodoWithClasse
+            ): Boolean {
                 return oldItem.periodo.id == newItem.periodo.id
             }
 
-            override fun areContentsTheSame(oldItem: PeriodoWithClasse, newItem: PeriodoWithClasse): Boolean {
+            override fun areContentsTheSame(
+                oldItem: PeriodoWithClasse,
+                newItem: PeriodoWithClasse
+            ): Boolean {
                 return oldItem.periodo.nomePeriodo == newItem.periodo.nomePeriodo
             }
         }
@@ -61,8 +67,6 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
             periodoButtonAvailability = itemView.findViewById(R.id.periodoButtonAvailability)
 
 
-
-
             //i setonclicklistener si devono implementeare nel viewholder e non nel onbind perche altrimenti verrebbe l'onbind chiamato ogni volta che il recyclerview deve visualizzare un nuovo elemento scorrendo verso il basso/alto, implementandolo nel viewholder viene implementato una sola volta per item
             scaricaButton.setOnClickListener {
                 posizioneitem = absoluteAdapterPosition
@@ -75,9 +79,12 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
                 listenersPeriodoAdapter.onPeriodoApriButtonClick(getItem(posizioneitem))
             }
 
-            periodoButtonAvailability.setOnClickListener{
+            periodoButtonAvailability.setOnClickListener {
                 posizioneitem = absoluteAdapterPosition
-                listenersPeriodoAdapter.onPeriodoAvailabilityButtonClick(getItem(posizioneitem), this)
+                listenersPeriodoAdapter.onPeriodoAvailabilityButtonClick(
+                    getItem(posizioneitem),
+                    this
+                )
             }
 
 
@@ -89,28 +96,37 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
             val pop = PopupMenu::class.java.getDeclaredField("mPopup")
             pop.isAccessible = true
             val menupop = pop.get(popupperiodo)
-            menupop.javaClass.getDeclaredMethod("setForceShowIcon", Boolean::class.java).invoke(menupop, true)
+            menupop.javaClass.getDeclaredMethod("setForceShowIcon", Boolean::class.java)
+                .invoke(menupop, true)
 
             popupperiodo.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.condividiperiodo_opt -> {
                         posizioneitem = absoluteAdapterPosition
                         if (posizioneitem != RecyclerView.NO_POSITION) {
-                            listenersPeriodoAdapter.onPeriodoCondividiOptionClick(getItem(posizioneitem))
+                            listenersPeriodoAdapter.onPeriodoCondividiOptionClick(
+                                getItem(
+                                    posizioneitem
+                                )
+                            )
                         }
                     }
 
                     R.id.salvaingalleriaperiodo_opt -> {
                         posizioneitem = absoluteAdapterPosition
                         if (posizioneitem != RecyclerView.NO_POSITION) {
-                        listenersPeriodoAdapter.onPeriodoSalvaOptionClick(getItem(posizioneitem))
+                            listenersPeriodoAdapter.onPeriodoSalvaOptionClick(getItem(posizioneitem))
                         }
                     }
 
                     R.id.eliminaperiodo_opt -> {
                         posizioneitem = absoluteAdapterPosition
                         if (posizioneitem != RecyclerView.NO_POSITION) {
-                        listenersPeriodoAdapter.onPeriodoEliminaOptionClick(getItem(posizioneitem))
+                            listenersPeriodoAdapter.onPeriodoEliminaOptionClick(
+                                getItem(
+                                    posizioneitem
+                                )
+                            )
                         }
                     }
                 }
@@ -147,7 +163,8 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
 
                     //getDrawable(holder.itemView.context, R.drawable.ic_baseline_cloud_queue_24)!!.setTint(getColor(holder.itemView.context, R.color.md_theme_dark_primary))
 
-                    val unwrappedDrawable = getDrawable(holder.itemView.context, R.drawable.ic_baseline_cloud_queue_24)
+                    val unwrappedDrawable =
+                        getDrawable(holder.itemView.context, R.drawable.ic_baseline_cloud_queue_24)
 
                     val wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable!!)
 
@@ -157,7 +174,7 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
                     theme.resolveAttribute(R.attr.colorPrimary, typedValue, true)
                     val color: Int = typedValue.data
 
-                    DrawableCompat.setTint(wrappedDrawable,color)
+                    DrawableCompat.setTint(wrappedDrawable, color)
 
 
                     holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_queue_24)
@@ -170,7 +187,12 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
                     */
 
                     holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_off_24)
-                    holder.periodoButtonAvailability.drawable.setTint(getColor(holder.itemView.context, R.color.md_theme_light_error))
+                    holder.periodoButtonAvailability.drawable.setTint(
+                        getColor(
+                            holder.itemView.context,
+                            R.color.md_theme_light_error
+                        )
+                    )
                 }
 
             } else {
@@ -181,7 +203,12 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
                 */
 
                 holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_off_24)
-                holder.periodoButtonAvailability.drawable.setTint(getColor(holder.itemView.context, R.color.CustomColor1))
+                holder.periodoButtonAvailability.drawable.setTint(
+                    getColor(
+                        holder.itemView.context,
+                        R.color.CustomColor1
+                    )
+                )
             }
         }
 

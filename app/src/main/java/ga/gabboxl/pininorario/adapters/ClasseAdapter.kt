@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ga.gabboxl.pininorario.ClasseWithPeriodi
 import ga.gabboxl.pininorario.ConnectivityUtils
-import ga.gabboxl.pininorario.PeriodoWithClasse
 import ga.gabboxl.pininorario.R
 
 
