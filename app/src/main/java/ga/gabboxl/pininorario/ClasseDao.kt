@@ -1,10 +1,7 @@
 package ga.gabboxl.pininorario
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharedFlow
 
 @Dao
 interface ClasseDao {
@@ -69,10 +66,7 @@ interface ClasseDao {
     fun getClasseWithPeriodi(codiceClasse: String): LiveData<List<ClasseWithPeriodi>>
 
 
-
-
-
-
+    
 
 
 
