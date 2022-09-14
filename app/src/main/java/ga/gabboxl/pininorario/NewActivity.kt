@@ -1,6 +1,7 @@
 package ga.gabboxl.pininorario
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
@@ -13,12 +14,17 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
+import com.github.javiersantos.appupdater.AppUpdater
+import com.github.javiersantos.appupdater.enums.Display
+import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.elevation.SurfaceColors
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import es.dmoral.toasty.Toasty
 import ga.gabboxl.pininparse.PininParse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,6 +35,7 @@ import java.util.*
 
 class NewActivity : AppCompatActivity() {
     private lateinit var classeViewModel: ClasseViewModel
+    private lateinit var sharedPreferences: SharedPreferences
 
 
 
@@ -105,6 +112,7 @@ class NewActivity : AppCompatActivity() {
 
 
         classeViewModel = ViewModelProvider(this).get(ClasseViewModel::class.java)
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
 
 
         //levo i periodi rippati TODO("forse da mettere in un onStart dell'app ?? + un controllo se esistono periodi rippati prima di eseguire?")
@@ -123,6 +131,20 @@ class NewActivity : AppCompatActivity() {
                     if (isAggiornamentoOrariDisponibile()) {
                         inizializzaOrari()
                     }
+                }
+
+                if (sharedPreferences.getBoolean("checkupdates_startup", true)) {
+                    //controllo se sono disponibili aggiornamenti
+                    AppUpdater(this)
+                        .setDisplay(Display.DIALOG)
+                        .setUpdateFrom(UpdateFrom.JSON)
+                        .setUpdateJSON("https://pinin.gabboxl.ga/versions/update.json")
+                        .setWebviewChangelog(true)
+                        .setButtonDoNotShowAgainClickListener { dialog, which ->
+                            sharedPreferences.edit().putBoolean("checkupdates_startup", false).apply()
+                            Toasty.info(this, getString(R.string.info_modifica_scelta_aggiornamenti)).show()
+                        }
+                        .start()
                 }
             } else if (isConnected == false) {
                 val snackaggiornamento = Snackbar.make(
