@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ga.gabboxl.pininorario.*
 import ga.gabboxl.pininorario.adapters.ClasseAdapter
 import ga.gabboxl.pininorario.interfacesimpls.OnClickAdaptersImplementations
+import me.zhanghai.android.fastscroll.FastScrollerBuilder
+import me.zhanghai.android.fastscroll.PopupTextProvider
 
 
 class AllFragment : Fragment() {
@@ -40,6 +42,7 @@ class AllFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
 
 
+
         val adapterClassi = ClasseAdapter()
         recyclerView.adapter = adapterClassi
 
@@ -48,7 +51,20 @@ class AllFragment : Fragment() {
         ) { t ->
             //Toast.makeText(applicationContext, "onChanged", Toast.LENGTH_SHORT).show()
             adapterClassi.submitList(t)
+
+            //scrollbar lib
+            FastScrollerBuilder(recyclerView)
+                .setPopupTextProvider(object : PopupTextProvider {
+                    override fun getPopupText(position: Int): String {
+                        return t[position].classe.nomeClasse
+                    }
+
+                })
+                .useMd2Style()
+                .build()
         }
+
+
 
         /*classeViewModel.viewModelScope.launch(Dispatchers.Default){
             sleep(6000)
