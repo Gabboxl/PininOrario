@@ -150,10 +150,9 @@ class NewActivity : AppCompatActivity() {
                 val snackaggiornamento = Snackbar.make(
                     findViewById(R.id.fragmentContainerView),
                     "Nessuna connessione ad internet.",
-                    Snackbar.LENGTH_INDEFINITE
+                    Snackbar.LENGTH_LONG
                 )
                     .setAction("OK") {}
-                    .setBehavior(NoSwipeBehavior())
 
                 val contentLay: ViewGroup =
                     snackaggiornamento.view.findViewById<View>(com.google.android.material.R.id.snackbar_text).parent as ViewGroup
@@ -162,7 +161,6 @@ class NewActivity : AppCompatActivity() {
                 snackaggiornamento.show()
             }
         }
-
 
     }
 
@@ -341,7 +339,7 @@ class NewActivity : AppCompatActivity() {
                 val infoRipPeriodoDialog = MaterialAlertDialogBuilder(this@NewActivity)
                     .setTitle("Info classi")
                     .setMessage(
-                        "Sono stati trovati delle classi non più disponibili sul server per il download. " +
+                        "Sono state trovate delle classi non più disponibili sul server per il download. " +
                                 "\nAl prossimo avvio dell'app verranno rimosse dal database soltanto quelle con orari non scaricati." +
                                 "\nLe altre rimarranno intatte."
                     )
