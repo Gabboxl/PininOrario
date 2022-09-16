@@ -21,7 +21,7 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning"
-            tools:targetApi="q">
+            tools:targetApi="m">
 
         <activity
                 android:name=".NewActivity"
