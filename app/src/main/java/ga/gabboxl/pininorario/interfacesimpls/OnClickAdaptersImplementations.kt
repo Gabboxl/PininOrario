@@ -147,7 +147,7 @@ class OnClickAdaptersImplementations(
             //scarico l'immagine con okhttp
             val clientok = OkHttpClient()
             val reqimg = Request.Builder()
-                .url("https://orario.itispininfarina.it/classi/" + periodo.periodo.periodoSemiLinkImg + ".png")
+                .url("https://testground.gabboxl.ga/classi/" + periodo.periodo.periodoSemiLinkImg + ".png")
                 .get()
                 .build()
             val respok = clientok.newCall(reqimg).enqueue(object : Callback {
