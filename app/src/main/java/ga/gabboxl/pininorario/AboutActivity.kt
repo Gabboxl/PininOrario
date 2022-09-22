@@ -11,7 +11,6 @@ import com.danielstone.materialaboutlibrary.model.MaterialAboutList
 import com.github.javiersantos.appupdater.AppUpdater
 import com.github.javiersantos.appupdater.enums.Display
 import com.github.javiersantos.appupdater.enums.UpdateFrom
-import com.google.android.material.elevation.SurfaceColors
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.community.material.CommunityMaterial
 import com.mikepenz.iconics.utils.sizeDp
@@ -26,14 +25,17 @@ class AboutActivity : MaterialAboutActivity() {
         buildMisc(context, miscCardBuilder)
 
 
-        return MaterialAboutList(miscCardBuilder.build(), authorCardBuilder.build()) // This creates an empty screen, add cards with .addCard()
+        return MaterialAboutList(
+            miscCardBuilder.build(),
+            authorCardBuilder.build()
+        ) // This creates an empty screen, add cards with .addCard()
     }
 
-    private fun buildMisc(context: Context, miscCardBuilder: MaterialAboutCard.Builder){
+    private fun buildMisc(context: Context, miscCardBuilder: MaterialAboutCard.Builder) {
         miscCardBuilder.addItem(MaterialAboutActionItem.Builder()
             .icon(ContextCompat.getDrawable(context, R.drawable.ic_update))
             .text(R.string.versione_about)
-            .subText(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE+ ")")
+            .subText(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")")
             .setOnClickAction {
                 AppUpdater(this)
                     .setDisplay(Display.DIALOG)
@@ -45,9 +47,11 @@ class AboutActivity : MaterialAboutActivity() {
                     .start()
             }
             .build())
-            .addItem(MaterialAboutActionItem.Builder()
-                .subText(R.string.credits_about)
-                .build())
+            .addItem(
+                MaterialAboutActionItem.Builder()
+                    .subText(R.string.credits_about)
+                    .build()
+            )
 
     }
 
@@ -60,10 +64,12 @@ class AboutActivity : MaterialAboutActivity() {
                 //colorInt = ContextCompat.getColor(context, R.color.defaultTextColor) single icon colors are auto-assigned by the library :(
                 sizeDp = 18
             })
-            .setOnClickAction{
+            .setOnClickAction {
                 val i = Intent(Intent.ACTION_VIEW)
                 i.data = Uri.parse("https://gabboxl.ga")
-                    context.startActivity(i) }
+
+                context.startActivity(i)
+            }
             .build())
             .addItem(MaterialAboutActionItem.Builder()
                 .text(getString(R.string.pininorario_su_github_about))
@@ -71,12 +77,13 @@ class AboutActivity : MaterialAboutActivity() {
                     //colorInt = ContextCompat.getColor(context, R.color.defaultTextColor) single icon colors are auto-assigned by the library :(
                     sizeDp = 18
                 })
-                .setOnClickAction{val i = Intent(Intent.ACTION_VIEW)
+                .setOnClickAction {
+                    val i = Intent(Intent.ACTION_VIEW)
                     i.data = Uri.parse("https://github.com/gabboxl/PininOrario")
-                    context.startActivity(i)}
+                    context.startActivity(i)
+                }
                 .build())
     }
-
 
 
     override fun getActivityTitle(): CharSequence {
