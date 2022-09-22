@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.viewModelScope
+import androidx.viewbinding.BuildConfig
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import es.dmoral.toasty.Toasty
 import ga.gabboxl.pininorario.*
@@ -148,6 +149,7 @@ class OnClickAdaptersImplementations(
             val clientok = OkHttpClient()
             val reqimg = Request.Builder()
                 .url("https://testground.gabboxl.ga/classi/" + periodo.periodo.periodoSemiLinkImg + ".png")
+                .addHeader("referer", "https://testground.gabboxl.ga/") //fix x server biz nf che non fa accedere ai file singoli senza questo header per questioni di policy free schifose
                 .get()
                 .build()
             val respok = clientok.newCall(reqimg).enqueue(object : Callback {
@@ -206,7 +208,7 @@ class OnClickAdaptersImplementations(
         intent.setDataAndType(
             FileProvider.getUriForFile(
                 context.applicationContext,
-                BuildConfig.APPLICATION_ID + ".provider",
+                context.packageName + ".provider",
                 file
             ), "image/png"
         )
