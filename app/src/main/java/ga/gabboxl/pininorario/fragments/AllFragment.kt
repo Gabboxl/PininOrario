@@ -33,7 +33,6 @@ class AllFragment : Fragment() {
         val fragmentView = inflater.inflate(R.layout.fragment_all, container, false)
 
 
-
         classeViewModel = ViewModelProvider(this).get(ClasseViewModel::class.java)
 
 

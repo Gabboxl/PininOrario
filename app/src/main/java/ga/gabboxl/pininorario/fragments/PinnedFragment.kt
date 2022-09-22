@@ -124,6 +124,4 @@ class PinnedFragment : Fragment() {
 
         return fragmentView
     }
-
-
 }

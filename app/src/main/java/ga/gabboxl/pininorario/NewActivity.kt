@@ -48,7 +48,7 @@ class NewActivity : AppCompatActivity() {
             if (isConnected != null && isConnected) {
                 menu.findItem(R.id.appbar_option_refreshallorari).isEnabled = true
                 menu.findItem(R.id.appbar_option_checkdataaggiornamentoorari).isEnabled = true
-            } else if (isConnected == false) {
+            } else {
                 menu.findItem(R.id.appbar_option_refreshallorari).isEnabled = false
                 menu.findItem(R.id.appbar_option_checkdataaggiornamentoorari).isEnabled = false
             }

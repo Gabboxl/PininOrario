@@ -17,13 +17,14 @@ import androidx.recyclerview.widget.RecyclerView
 import ga.gabboxl.pininorario.ConnectivityUtils
 import ga.gabboxl.pininorario.PeriodoWithClasse
 import ga.gabboxl.pininorario.R
+import ga.gabboxl.pininorario.interfacesimpls.OnClickAdaptersImplementations
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 
-class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHolder>(DIFF_CALLBACK) {
+class PeriodoDownloadsAdapter : ListAdapter<PeriodoWithClasse, PeriodoDownloadsAdapter.PeriodoHolder>(DIFF_CALLBACK) {
 
     private lateinit var listenersPeriodoAdapter: OnClickListenersPeriodoAdapter
     var posizioneitem: Int = -1
@@ -50,29 +51,19 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
 
 
     inner class PeriodoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        lateinit var textViewPeriodo: TextView
-        lateinit var scaricaButton: Button
+        lateinit var textViewNomePeriodo: TextView
+        lateinit var textViewNomeClasse: TextView
         lateinit var apriButton: Button
-        lateinit var scaricaPeriodoProgressBar: ProgressBar
         lateinit var periodoButtonAvailability: ImageButton
         val optionPeriodoButton: ImageButton
         val popupperiodo: PopupMenu
 
         init {
-            scaricaPeriodoProgressBar = itemView.findViewById(R.id.progressBarDownloadPeriodo)
-            textViewPeriodo = itemView.findViewById(R.id.textperiodo)
-            scaricaButton = itemView.findViewById(R.id.card_periodoscarica)
+            textViewNomePeriodo = itemView.findViewById(R.id.text_NomePeriodoDownloads)
+            textViewNomeClasse = itemView.findViewById(R.id.text_nomeClassePeridoDownloads)
             apriButton = itemView.findViewById(R.id.card_periodoapri)
             optionPeriodoButton = itemView.findViewById(R.id.periodoButtonOpzioni)
             periodoButtonAvailability = itemView.findViewById(R.id.periodoButtonAvailability)
-
-
-            //i setonclicklistener si devono implementeare nel viewholder e non nel onbind perche altrimenti verrebbe l'onbind chiamato ogni volta che il recyclerview deve visualizzare un nuovo elemento scorrendo verso il basso/alto, implementandolo nel viewholder viene implementato una sola volta per item
-            scaricaButton.setOnClickListener {
-                posizioneitem = absoluteAdapterPosition
-
-                listenersPeriodoAdapter.onPeriodoScaricaButtonClick(getItem(posizioneitem), this)
-            }
 
             apriButton.setOnClickListener {
                 posizioneitem = absoluteAdapterPosition
@@ -143,14 +134,13 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeriodoHolder {
         val itemView: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.periodo_card_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.standaloneperiododonwloaded_card_item, parent, false)
         return PeriodoHolder((itemView))
     }
 
     override fun onBindViewHolder(holder: PeriodoHolder, position: Int) {
         val currentPeriodo: PeriodoWithClasse = getItem(position)
 
-        holder.scaricaButton.isVisible = !currentPeriodo.periodo.isDownloaded
         holder.apriButton.isVisible = currentPeriodo.periodo.isDownloaded
         holder.optionPeriodoButton.isVisible = currentPeriodo.periodo.isDownloaded
 
@@ -158,7 +148,6 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
         ConnectivityUtils.isInternetAvailable.observe(holder.itemView.context as LifecycleOwner) { isConnected ->
             if (isConnected) {
                 if (currentPeriodo.periodo.isAvailableOnServer) {
-                    holder.scaricaButton.isEnabled = true
 
                     //getDrawable(holder.itemView.context, R.drawable.ic_baseline_cloud_queue_24)!!.setTint(getColor(holder.itemView.context, R.color.md_theme_dark_primary))
 
@@ -178,7 +167,6 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
 
                     holder.periodoButtonAvailability.setImageResource(R.drawable.ic_baseline_cloud_queue_24)
                 } else {
-                    holder.scaricaButton.isEnabled = false
 
                     /*
 
@@ -195,7 +183,6 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
                 }
 
             } else {
-                holder.scaricaButton.isEnabled = false
 
                 /*
                 getDrawable(holder.itemView.context, R.drawable.ic_baseline_cloud_off_24)!!.setTint(getColor(holder.itemView.context, R.color.CustomColor1))
@@ -238,10 +225,9 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
 
 
 
-        holder.textViewPeriodo.text = "$dateinizio -> $datafine"
+        holder.textViewNomePeriodo.text = "$dateinizio -> $datafine"
 
-        //holder.textViewPeriodo.text = currentPeriodo.periodo.nomePeriodo
-
+        holder.textViewNomeClasse.text = "[" + currentPeriodo.classe.nomeClasse + "]"
     }
 
     fun getPeriodoAt(position: Int): PeriodoWithClasse {
@@ -249,16 +235,10 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
     }
 
 
-    interface OnClickListenersPeriodoAdapter {
-        fun onPeriodoScaricaButtonClick(periodo: PeriodoWithClasse, holder: PeriodoHolder)
-        fun onPeriodoApriButtonClick(periodo: PeriodoWithClasse)
-        fun onPeriodoCondividiOptionClick(periodo: PeriodoWithClasse)
-        fun onPeriodoSalvaOptionClick(periodo: PeriodoWithClasse)
-        fun onPeriodoEliminaOptionClick(periodo: PeriodoWithClasse)
-        fun onPeriodoAvailabilityButtonClick(periodo: PeriodoWithClasse)
+    interface OnClickListenersPeriodoAdapter: PeriodoAdapter.OnClickListenersPeriodoAdapter {
     }
 
-    fun setOnClickListenersPeriodoAdapter(listenersPeriodoAdapter: OnClickListenersPeriodoAdapter) {
+    fun setOnClickListenersPeriodoDownloadsAdapter(listenersPeriodoAdapter: OnClickAdaptersImplementations) {
         this.listenersPeriodoAdapter = listenersPeriodoAdapter
     }
 

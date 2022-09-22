@@ -13,8 +13,8 @@ class ClasseViewModel(application: Application) : AndroidViewModel(application) 
         repository.getAllPinnedClassesWithPeriodi()
     private var allClassiWithPeriodi: LiveData<List<ClasseWithPeriodi>> =
         repository.getAllClassiWithPeriodi()
-
     private var allNomiClassi: LiveData<List<String>> = repository.getAllNomiClassi()
+    private var allDownloadedPeriodiWithClasse: LiveData<List<PeriodoWithClasse>> = repository.getAllDownloadedPeriodiWithClasse()
 
 
     fun getClassiWithPeriodiScaricati(): List<ClasseWithPeriodi> {
@@ -118,5 +118,9 @@ class ClasseViewModel(application: Application) : AndroidViewModel(application) 
 
     fun getAllPinnedClassesWithPeriodi(): LiveData<List<ClasseWithPeriodi>> {
         return allPinnedClassesWithPeriodi
+    }
+
+    fun getAllDownloadedPeriodiWithClasse(): LiveData<List<PeriodoWithClasse>> {
+        return allDownloadedPeriodiWithClasse
     }
 }

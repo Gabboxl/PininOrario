@@ -12,6 +12,7 @@ class ClasseRepository(application: Application) {
     private var allPinnedClasses: LiveData<List<ClasseWithPeriodi>>
     private var allClassiWithPeriodi: LiveData<List<ClasseWithPeriodi>>
     private var allNomiClassi: LiveData<List<String>>
+    private var allDownloadedPeriodiWithClasse: LiveData<List<PeriodoWithClasse>>
 
 
     init {
@@ -21,6 +22,7 @@ class ClasseRepository(application: Application) {
         allPinnedClasses = classeDao.getAllPinnedClassiWithPeriodi()
         allClassiWithPeriodi = classeDao.getAllClassiWithPeriodi()
         allNomiClassi = classeDao.getAllNomiClassi()
+        allDownloadedPeriodiWithClasse = classeDao.getAllDownloadedPeriodiWithClasse()
     }
 
 
@@ -151,6 +153,10 @@ class ClasseRepository(application: Application) {
 
     fun getAllPinnedClassesWithPeriodi(): LiveData<List<ClasseWithPeriodi>> {
         return allPinnedClasses
+    }
+
+    fun getAllDownloadedPeriodiWithClasse(): LiveData<List<PeriodoWithClasse>> {
+        return allDownloadedPeriodiWithClasse
     }
 
 

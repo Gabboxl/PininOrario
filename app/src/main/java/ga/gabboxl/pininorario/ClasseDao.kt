@@ -66,6 +66,9 @@ interface ClasseDao {
     fun getClasseWithPeriodi(codiceClasse: String): LiveData<List<ClasseWithPeriodi>>
 
 
+    @Transaction
+    @Query("SELECT * FROM TabellaPeriodi WHERE isDownloaded = 1")
+    fun getAllDownloadedPeriodiWithClasse(): LiveData<List<PeriodoWithClasse>>
 
 
 

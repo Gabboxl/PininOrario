@@ -19,6 +19,7 @@ import es.dmoral.toasty.Toasty
 import ga.gabboxl.pininorario.*
 import ga.gabboxl.pininorario.adapters.ClasseAdapter
 import ga.gabboxl.pininorario.adapters.PeriodoAdapter
+import ga.gabboxl.pininorario.adapters.PeriodoDownloadsAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -33,7 +34,7 @@ import java.io.IOException
 class OnClickAdaptersImplementations(
     val context: Context,
     private val classeViewModel: ClasseViewModel
-) : PeriodoAdapter.OnClickListenersPeriodoAdapter, ClasseAdapter.OnClickListenersClasseAdapter {
+) : PeriodoAdapter.OnClickListenersPeriodoAdapter, ClasseAdapter.OnClickListenersClasseAdapter, PeriodoDownloadsAdapter.OnClickListenersPeriodoAdapter  {
 
     override fun onClasseAvailabilityButtonClick(
         classeWithPeriodi: ClasseWithPeriodi,
@@ -74,8 +75,7 @@ class OnClickAdaptersImplementations(
 
 
     override fun onPeriodoAvailabilityButtonClick(
-        periodo: PeriodoWithClasse,
-        holder: PeriodoAdapter.PeriodoHolder) {
+        periodo: PeriodoWithClasse) {
         val isConnected = ConnectivityUtils.isInternetAvailable.value
 
         if (isConnected!!) {
