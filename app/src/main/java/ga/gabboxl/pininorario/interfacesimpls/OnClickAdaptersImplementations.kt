@@ -13,7 +13,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.viewModelScope
-import androidx.viewbinding.BuildConfig
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import es.dmoral.toasty.Toasty
 import ga.gabboxl.pininorario.*
@@ -139,7 +138,7 @@ class OnClickAdaptersImplementations(
 
         downloadManager.enqueue(request)*/
 
-        val nomefileorario = periodo.classe.nomeClasse + " " + periodo.periodo.nomePeriodo + ".png"
+        val nomefileorario = periodo.periodo.periodoSemiLinkImg + ".png"
 
         holder.scaricaButton.visibility = View.INVISIBLE
         holder.scaricaPeriodoProgressBar.visibility = View.VISIBLE
@@ -201,7 +200,7 @@ class OnClickAdaptersImplementations(
     }
 
     override fun onPeriodoApriButtonClick(periodo: PeriodoWithClasse) {
-        val nomefileorario = periodo.classe.nomeClasse + " " + periodo.periodo.nomePeriodo + ".png"
+        val nomefileorario = periodo.periodo.periodoSemiLinkImg + ".png"
 
         val file = File(context.filesDir, nomefileorario)
         val intent = Intent(Intent.ACTION_VIEW)
@@ -217,7 +216,7 @@ class OnClickAdaptersImplementations(
     }
 
     override fun onPeriodoCondividiOptionClick(periodo: PeriodoWithClasse) {
-        val nomefileorario = periodo.classe.nomeClasse + " " + periodo.periodo.nomePeriodo + ".png"
+        val nomefileorario = periodo.periodo.periodoSemiLinkImg + ".png"
 
         val file = File(context.filesDir, nomefileorario)
         val asd = FileProvider.getUriForFile(context, context.packageName + ".provider", file)
@@ -239,7 +238,7 @@ class OnClickAdaptersImplementations(
     }
 
     override fun onPeriodoSalvaOptionClick(periodo: PeriodoWithClasse) {
-        val nomefileorario = periodo.classe.nomeClasse + " " + periodo.periodo.nomePeriodo + ".png"
+        val nomefileorario = periodo.periodo.periodoSemiLinkImg + ".png"
 
         classeViewModel.viewModelScope.launch(Dispatchers.Default) {
 
@@ -351,7 +350,38 @@ class OnClickAdaptersImplementations(
     }
 
     override fun onPeriodoEliminaOptionClick(periodo: PeriodoWithClasse) {
-        Toast.makeText(context, "eliminax", Toast.LENGTH_SHORT).show()
+        classeViewModel.viewModelScope.launch(Dispatchers.Default) {
+
+
+            val alertpermesso = MaterialAlertDialogBuilder(context)
+                .setTitle("Eliminare il periodo?")
+                .setMessage("Sei sicuro di voler eliminare il periodo " + periodo.periodo.nomePeriodo + " dall'app?")
+                .setPositiveButton("Elimina") { _, _ ->
+
+                    val nomefileorario = periodo.periodo.periodoSemiLinkImg + ".png"
+
+                    //elimino il file dalla cartella interna dell'app
+                    File(context.filesDir, nomefileorario).delete()
+
+                    //aggiorno il database interno
+                    classeViewModel.updatePeriodo(
+                        Periodo(
+                            periodo.periodo.id,
+                            periodo.periodo.codiceClassePeriodo,
+                            periodo.periodo.nomePeriodo,
+                            periodo.periodo.periodoSemiLinkImg,
+                            periodo.periodo.isAvailableOnServer,
+                            isDownloaded = false
+                        )
+                    )
+
+                    Toast.makeText(context, "Periodo eliminato.", Toast.LENGTH_SHORT).show()
+                }
+                .setNegativeButton("Annulla") { dialog, _ -> dialog.dismiss() }
+
+            withContext(Dispatchers.Main) { alertpermesso.create().show() }
+        }
+
     }
 
 
