@@ -93,6 +93,7 @@
 
 
     <TextView
+            android:layout_marginTop="16dp"
             android:id="@+id/textviewtitoloperiodi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
