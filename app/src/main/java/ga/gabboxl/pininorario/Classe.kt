@@ -20,12 +20,13 @@ data class Classe(
     var isPinned: Boolean,
 )
 
-@Entity(tableName = "TabellaPeriodi", primaryKeys = ["codiceClassePeriodo", "nomePeriodo"])
+@Entity(tableName = "TabellaPeriodi", primaryKeys = ["codiceClassePeriodo", "nomePeriodo", "titoloPeriodo"])
 data class Periodo(
     val id: Int = 0,
     var codiceClassePeriodo: String,
     var nomePeriodo: String,
     var periodoSemiLinkImg: String,
+    var titoloPeriodo: String,
     var isAvailableOnServer: Boolean,
     var isDownloaded: Boolean,
 )

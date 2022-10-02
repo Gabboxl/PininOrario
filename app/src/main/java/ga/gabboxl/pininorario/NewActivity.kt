@@ -265,7 +265,6 @@ class NewActivity : AppCompatActivity() {
         PininParse.Classi.init()
         PininParse.Periodi.init()
 
-
         val listaCodiciClassiNuovi = mutableListOf<String>()
 
         for ((indexattuale, classe) in PininParse.Classi.list().withIndex()) {
@@ -296,10 +295,11 @@ class NewActivity : AppCompatActivity() {
             ) {
                 classeViewModel.insertPeriodo(
                     Periodo(
-                        indexattuale,
-                        periodo[0],
-                        periodo[1], //nome periodo
-                        periodo[2], //nome griglia
+                        id = indexattuale,
+                        codiceClassePeriodo = periodo[0],
+                        nomePeriodo = periodo[1], //nome periodo
+                        periodoSemiLinkImg = periodo[2], //nome griglia
+                        titoloPeriodo = periodo[3],
                         isAvailableOnServer = true,
                         isDownloaded = false
                     )
@@ -353,12 +353,13 @@ class NewActivity : AppCompatActivity() {
         for (periodo in periodidalevare) {
             classeViewModel.updatePeriodo(
                 Periodo(
-                    periodo.id,
-                    periodo.codiceClassePeriodo,
-                    periodo.nomePeriodo,
-                    periodo.periodoSemiLinkImg,
+                    id = periodo.id,
+                    codiceClassePeriodo = periodo.codiceClassePeriodo,
+                    nomePeriodo = periodo.nomePeriodo,
+                    periodoSemiLinkImg = periodo.periodoSemiLinkImg,
+                    titoloPeriodo = periodo.titoloPeriodo,
                     isAvailableOnServer = false,
-                    periodo.isDownloaded
+                    isDownloaded = periodo.isDownloaded
                 )
             )
         }

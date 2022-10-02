@@ -147,8 +147,8 @@ class OnClickAdaptersImplementations(
             //scarico l'immagine con okhttp
             val clientok = OkHttpClient()
             val reqimg = Request.Builder()
-                .url("https://testground.gabboxl.ga/classi/" + periodo.periodo.periodoSemiLinkImg + ".png")
-                .addHeader("referer", "https://testground.gabboxl.ga/") //fix x server biz nf che non fa accedere ai file singoli senza questo header per questioni di policy free schifose
+                .url("https://orario.itispininfarina.it/classi/" + periodo.periodo.periodoSemiLinkImg + ".png")
+                //.addHeader("referer", "https://testground.gabboxl.ga/") //fix x server biz nf che non fa accedere ai file singoli senza questo header per questioni di policy free schifose
                 .get()
                 .build()
             val respok = clientok.newCall(reqimg).enqueue(object : Callback {
@@ -183,10 +183,11 @@ class OnClickAdaptersImplementations(
                         //aggiorno il database per il periodo
                         classeViewModel.updatePeriodo(
                             Periodo(
-                                periodo.periodo.id,
-                                periodo.periodo.codiceClassePeriodo,
-                                periodo.periodo.nomePeriodo,
-                                periodo.periodo.periodoSemiLinkImg,
+                                id = periodo.periodo.id,
+                                codiceClassePeriodo = periodo.periodo.codiceClassePeriodo,
+                                nomePeriodo = periodo.periodo.nomePeriodo,
+                                periodoSemiLinkImg = periodo.periodo.periodoSemiLinkImg,
+                                titoloPeriodo = periodo.periodo.titoloPeriodo,
                                 isAvailableOnServer = true,
                                 isDownloaded = true
                             )
@@ -366,11 +367,12 @@ class OnClickAdaptersImplementations(
                     //aggiorno il database interno
                     classeViewModel.updatePeriodo(
                         Periodo(
-                            periodo.periodo.id,
-                            periodo.periodo.codiceClassePeriodo,
-                            periodo.periodo.nomePeriodo,
-                            periodo.periodo.periodoSemiLinkImg,
-                            periodo.periodo.isAvailableOnServer,
+                            id = periodo.periodo.id,
+                            codiceClassePeriodo = periodo.periodo.codiceClassePeriodo,
+                            nomePeriodo = periodo.periodo.nomePeriodo,
+                            periodoSemiLinkImg = periodo.periodo.periodoSemiLinkImg,
+                            titoloPeriodo = periodo.periodo.titoloPeriodo,
+                            isAvailableOnServer = periodo.periodo.isAvailableOnServer,
                             isDownloaded = false
                         )
                     )
