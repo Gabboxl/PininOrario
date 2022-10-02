@@ -13,7 +13,7 @@
         android:clickable="true"
         android:focusable="true"
         android:checkable="true"
-        style="?attr/materialCardViewOutlinedStyle">
+        style="?attr/materialCardViewElevatedStyle">
 
 <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
