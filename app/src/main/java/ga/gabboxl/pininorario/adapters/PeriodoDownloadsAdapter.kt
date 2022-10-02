@@ -199,33 +199,38 @@ class PeriodoDownloadsAdapter : ListAdapter<PeriodoWithClasse, PeriodoDownloadsA
         }
 
 
-        var somma = 0
+        val patternDatetitoloperiodo = Regex("""<<Nome>>\s-\s<<([^.]*)([^.]*)\s-\s([^.]*) ([^.]*)>>""") //https://regex101.com/r/N0AeGM/1
+        val gruppidatetitoloperiodo = patternDatetitoloperiodo.find(currentPeriodo.periodo.titoloPeriodo)!!
+
 
         val cal: Calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"))
-        val sdf = SimpleDateFormat("dd MM yyyy", Locale.ITALY)
-        cal.time = sdf.parse("5 07 2021") as Date // data inizio degli orari
-        //TODO("Magari prendere la data di inizio da server in modo da non dover aggiornare l'app in caso di modifica")
+
+        val simpleDateFormat = SimpleDateFormat("dd MMMMM yyyy", Locale.ITALY) //imposto la lingua italiana per i nomi dei mesi
 
 
-        val p: Pattern = Pattern.compile("\\d+")
-        val m: Matcher = p.matcher(currentPeriodo.periodo.nomePeriodo)
+        fun data1(): String { //a volte il nome del mese i tizi che fanno i titoli dell'orario lo omettono se e' so stesso della datafinoal per cui utilizziamo il nome del mese della datafinoal.
+            if(gruppidatetitoloperiodo.groupValues[2].isBlank()){
+                return "${gruppidatetitoloperiodo.groupValues[1]} ${gruppidatetitoloperiodo.groupValues[4]}";
+            }
 
-        while (m.find()) {
-            somma += m.group().toInt()
+            return "${gruppidatetitoloperiodo.groupValues[1]} ${gruppidatetitoloperiodo.groupValues[2]}";
         }
 
-        val pattern = "dd/MM/yyyy"
-        val simpleDateFormat = SimpleDateFormat(pattern, Locale.ITALY)
-
-        cal.add(Calendar.WEEK_OF_YEAR, somma)
-        val dateinizio: String = simpleDateFormat.format(cal.time)
-
-        cal.add(Calendar.DAY_OF_YEAR, 5)
-        val datafine: String = simpleDateFormat.format(cal.time)
+        val data2 = "${gruppidatetitoloperiodo.groupValues[3]} ${gruppidatetitoloperiodo.groupValues[4]}"
 
 
+        val dataDal = simpleDateFormat.parse(data1() + " " + cal.get(Calendar.YEAR))
+        val dataFinoal = simpleDateFormat.parse(data2 + " " + cal.get(Calendar.YEAR))
 
-        holder.textViewNomePeriodo.text = "$dateinizio -> $datafine"
+
+        //applico il formato di destinazione che voglio per le date
+        val patternFinalesdf = "dd/MM/yyyy"
+        simpleDateFormat.applyPattern(patternFinalesdf)
+
+        val dataDalfixata = simpleDateFormat.format(dataDal!!)
+        val dataFinoalfixata = simpleDateFormat.format(dataFinoal!!)
+
+        holder.textViewNomePeriodo.text = "$dataDalfixata -> $dataFinoalfixata"
 
         holder.textViewNomeClasse.text = "[" + currentPeriodo.classe.nomeClasse + "]"
     }
