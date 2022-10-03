@@ -40,31 +40,19 @@
         <activity
                 android:name=".SettingsActivity"
                 android:label="@string/title_activity_settings"
-                android:parentActivityName=".MainActivity">
+                android:parentActivityName=".NewActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="ga.gabboxl.pininorario.MainActivity" />
+                    android:value="ga.gabboxl.pininorario.NewActivity" />
         </activity>
         <activity
                 android:name=".AboutActivity"
                 android:label="@string/title_activity_about"
-                android:parentActivityName=".MainActivity"
+                android:parentActivityName=".NewActivity"
                 android:theme="@style/AppTheme.MaterialAboutActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value="ga.gabboxl.pininorario.MainActivity" />
-        </activity>
-        <activity
-                android:name=".MainActivity"
-                android:exported="true">
-
-            <!--
-              <intent-filter>
-                  <action android:name="android.intent.action.MAIN" />
-
-                  <category android:name="android.intent.category.LAUNCHER" />
-              </intent-filter>
-            -->
+                    android:value="ga.gabboxl.pininorario.NewActivity" />
         </activity>
 
         <provider
