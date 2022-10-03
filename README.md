@@ -5,10 +5,7 @@ A simpler way to consult ITIS Pininfarina's timetables
 ## Download
 ### The app is under a huge refactoring right now. You can follow the status on the branch https://github.com/Gabboxl/PininOrario/tree/pininorarioV2!
 
-## Note
-Google services are deactivated in *debug* builds (you can modify this in the app's build.gradle file).
-
-## Requirements
+## Requirements for building it
 ### Firebase services (Crashlytics, Perf)
 Put your *google-services.json* file in app/ .
 You can obtain it from the Firebase console by adding your app.
