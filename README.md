@@ -14,4 +14,4 @@ Put your *google-services.json* file in app/ .
 You can obtain it from the Firebase console by adding your app.
 
 ## Roadmap
-You can find this project's roadmap [here](https://github.com/Gabboxl/PininOrario/projects/2). :)
+You can find this project's roadmap [here](https://github.com/users/Gabboxl/projects/2/views/1). :)
