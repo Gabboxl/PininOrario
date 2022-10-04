@@ -151,7 +151,8 @@ class OnClickAdaptersImplementations(
                 //.addHeader("referer", "https://testground.gabboxl.ga/") //fix x server biz nf che non fa accedere ai file singoli senza questo header per questioni di policy free schifose
                 .get()
                 .build()
-            val respok = clientok.newCall(reqimg).enqueue(object : Callback {
+
+            clientok.newCall(reqimg).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     classeViewModel.viewModelScope.launch(Dispatchers.Default) {
                         withContext(Dispatchers.Main) {
@@ -288,8 +289,7 @@ class OnClickAdaptersImplementations(
                 //destinationFile.createNewFile() penso sia inutile in ogni caso
 
                 try {
-                    val filecopia = File(context.filesDir, nomefileorario)
-                        .copyTo(destinationFile)
+                    File(context.filesDir, nomefileorario).copyTo(destinationFile)
 
                     //forse aggiornare mediastore per farlo vedere fin da subito nella galleria? solo per API Q?
 
