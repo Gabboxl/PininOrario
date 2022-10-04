@@ -82,7 +82,7 @@ class PinnedFragment : Fragment() {
                         ) { dialoginterface, i ->
                             Toast.makeText(
                                 context,
-                                arrayClassi[i].nomeClasse,
+                                "Classe aggiunta.",
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
