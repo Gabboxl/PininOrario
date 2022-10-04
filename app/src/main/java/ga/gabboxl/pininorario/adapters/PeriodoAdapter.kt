@@ -43,7 +43,7 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
                 oldItem: PeriodoWithClasse,
                 newItem: PeriodoWithClasse
             ): Boolean {
-                return oldItem.periodo.nomePeriodo == newItem.periodo.nomePeriodo
+                return oldItem.periodo == newItem.periodo
             }
         }
     }
