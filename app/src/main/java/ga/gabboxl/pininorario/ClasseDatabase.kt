@@ -31,7 +31,7 @@ abstract class ClasseDatabase : RoomDatabase() {
         }
 
 
-        var roomCallback: RoomDatabase.Callback = object : RoomDatabase.Callback() {
+        var roomCallback: Callback = object : Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
 
