@@ -86,9 +86,7 @@ class ClasseAdapter :
 
             popupclasse.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
-                    R.id.movecardmenuoption -> {
-
-                    }
+                    //R.id.movecardmenuoption -> {}
 
                     R.id.addcardmenuoption -> {
                         posizioneitem = absoluteAdapterPosition
