@@ -84,7 +84,7 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    implementation 'com.github.Gabboxl:PininParse:f188869572'
+    implementation 'com.github.Gabboxl:PininParse:1.2.0'
 
     implementation 'me.zhanghai.android.fastscroll:library:1.1.8'
 
