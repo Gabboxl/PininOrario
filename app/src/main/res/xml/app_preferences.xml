@@ -1,44 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="Orari">
-        <SwitchPreferenceCompat
-                app:key="always_displaynames"
-                app:singleLineTitle="false"
-                app:title="@string/visualizza_sempre_nomi_settings_title" />
-
-        <ListPreference
-                app:defaultValue="0"
-                app:icon="@drawable/ic_launch_black_32dp"
-                app:key="shortclassi_pref"
-                app:summary="@string/seleziona_classe_summary"
-                app:title="@string/scorciatoia_classe_setting_title">
-
-        </ListPreference>
-        <Preference
-                app:allowDividerAbove="true"
-                app:icon="@drawable/ic_info_outline_black_24dp"
-                app:key="info_short"
-                app:selectable="false"
-                app:summary="@string/info_scorciatoia_classe_summary" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory app:title="@string/credenziali_setting_title">
-
-        <Preference
-                app:key="modify_login"
-                app:selectable="true"
-                app:summary="@string/modifica_credenziali_summary"
-                app:title="@string/modifica_credenziali_title" />
-        <Preference
-                app:allowDividerAbove="true"
-                app:icon="@drawable/ic_info_outline_black_24dp"
-                app:key="info_login"
-                app:selectable="false"
-                app:summary="@string/info_credenziali_summary" />
-    </PreferenceCategory>
-
     <PreferenceCategory app:title="Varie">
 
         <SwitchPreferenceCompat
