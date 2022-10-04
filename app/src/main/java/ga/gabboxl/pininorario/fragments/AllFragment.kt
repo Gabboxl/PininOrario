@@ -53,12 +53,7 @@ class AllFragment : Fragment() {
 
             //scrollbar lib
             FastScrollerBuilder(recyclerView)
-                .setPopupTextProvider(object : PopupTextProvider {
-                    override fun getPopupText(position: Int): String {
-                        return t[position].classe.nomeClasse
-                    }
-
-                })
+                .setPopupTextProvider { position -> t[position].classe.nomeClasse }
                 .useMd2Style()
                 .build()
         }
