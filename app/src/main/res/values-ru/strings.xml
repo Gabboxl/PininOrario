@@ -5,6 +5,7 @@
     <string name="credits_about">App creata da Gabboxl</string>
     <string name="title_activity_settings">Impostazioni</string>
     <string name="orario_apri">Apri</string>
+    <string name="seleziona_classe_summary">Seleziona una classe</string>
     <string name="controllo_aggiornamenti_title">Controlla aggiornamenti all\'avvio</string>
     <string name="info_modifica_scelta_aggiornamenti">Puoi modificare la tua scelta nelle Impostazioni.</string>
     <string name="permesso_richiesto">Permesso richiesto</string>
