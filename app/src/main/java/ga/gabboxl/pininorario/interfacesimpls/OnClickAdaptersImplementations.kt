@@ -138,7 +138,7 @@ class OnClickAdaptersImplementations(
 
         downloadManager.enqueue(request)*/
 
-        val titolofixato = periodo.periodo.titoloPeriodo.replace(("[^\\w\\d ]").toRegex(), "")
+        val titolofixato = periodo.periodo.titoloPeriodo.replace(("[^\\w\\d]").toRegex(), "")
         val nomefileorario = periodo.periodo.periodoSemiLinkImg + titolofixato + ".png"
 
         holder.scaricaButton.visibility = View.INVISIBLE
@@ -203,7 +203,7 @@ class OnClickAdaptersImplementations(
     }
 
     override fun onPeriodoApriButtonClick(periodo: PeriodoWithClasse) {
-        val titolofixato = periodo.periodo.titoloPeriodo.replace(("[^\\w\\d ]").toRegex(), "")
+        val titolofixato = periodo.periodo.titoloPeriodo.replace(("[^\\w\\d]").toRegex(), "")
         val nomefileorario = periodo.periodo.periodoSemiLinkImg + titolofixato + ".png"
 
         val file = File(context.filesDir, nomefileorario)
@@ -220,7 +220,7 @@ class OnClickAdaptersImplementations(
     }
 
     override fun onPeriodoCondividiOptionClick(periodo: PeriodoWithClasse) {
-        val titolofixato = periodo.periodo.titoloPeriodo.replace(("[^\\w\\d ]").toRegex(), "")
+        val titolofixato = periodo.periodo.titoloPeriodo.replace(("[^\\w\\d]").toRegex(), "")
         val nomefileorario = periodo.periodo.periodoSemiLinkImg + titolofixato + ".png"
 
         val file = File(context.filesDir, nomefileorario)
@@ -243,7 +243,7 @@ class OnClickAdaptersImplementations(
     }
 
     override fun onPeriodoSalvaOptionClick(periodo: PeriodoWithClasse) {
-        val titolofixato = periodo.periodo.titoloPeriodo.replace(("[^\\w\\d ]").toRegex(), "")
+        val titolofixato = periodo.periodo.titoloPeriodo.replace(("[^\\w\\d]").toRegex(), "")
         val nomefileorario = periodo.periodo.periodoSemiLinkImg + titolofixato + ".png"
 
         classeViewModel.viewModelScope.launch(Dispatchers.Default) {
@@ -364,7 +364,7 @@ class OnClickAdaptersImplementations(
                 .setPositiveButton("Elimina") { _, _ ->
 
 
-                    val titolofixato = periodo.periodo.titoloPeriodo.replace(("[^\\w\\d ]").toRegex(), "")
+                    val titolofixato = periodo.periodo.titoloPeriodo.replace(("[^\\w\\d]").toRegex(), "")
                     val nomefileorario = periodo.periodo.periodoSemiLinkImg + titolofixato + ".png"
 
                     //elimino il file dalla cartella interna dell'app
