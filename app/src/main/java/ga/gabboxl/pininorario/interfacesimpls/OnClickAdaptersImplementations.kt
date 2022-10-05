@@ -138,7 +138,7 @@ class OnClickAdaptersImplementations(
 
         downloadManager.enqueue(request)*/
 
-        val nomefileorario = periodo.periodo.periodoSemiLinkImg + ".png"
+        val nomefileorario = periodo.periodo.periodoSemiLinkImg + periodo.periodo.titoloPeriodo + ".png"
 
         holder.scaricaButton.visibility = View.INVISIBLE
         holder.scaricaPeriodoProgressBar.visibility = View.VISIBLE
@@ -202,7 +202,7 @@ class OnClickAdaptersImplementations(
     }
 
     override fun onPeriodoApriButtonClick(periodo: PeriodoWithClasse) {
-        val nomefileorario = periodo.periodo.periodoSemiLinkImg + ".png"
+        val nomefileorario = periodo.periodo.periodoSemiLinkImg + periodo.periodo.titoloPeriodo + ".png"
 
         val file = File(context.filesDir, nomefileorario)
         val intent = Intent(Intent.ACTION_VIEW)
@@ -218,7 +218,7 @@ class OnClickAdaptersImplementations(
     }
 
     override fun onPeriodoCondividiOptionClick(periodo: PeriodoWithClasse) {
-        val nomefileorario = periodo.periodo.periodoSemiLinkImg + ".png"
+        val nomefileorario = periodo.periodo.periodoSemiLinkImg + periodo.periodo.titoloPeriodo + ".png"
 
         val file = File(context.filesDir, nomefileorario)
         val asd = FileProvider.getUriForFile(context, context.packageName + ".provider", file)
@@ -240,7 +240,7 @@ class OnClickAdaptersImplementations(
     }
 
     override fun onPeriodoSalvaOptionClick(periodo: PeriodoWithClasse) {
-        val nomefileorario = periodo.periodo.periodoSemiLinkImg + ".png"
+        val nomefileorario = periodo.periodo.periodoSemiLinkImg + periodo.periodo.titoloPeriodo + ".png"
 
         classeViewModel.viewModelScope.launch(Dispatchers.Default) {
 
@@ -359,7 +359,7 @@ class OnClickAdaptersImplementations(
                 .setMessage("Sei sicuro di voler eliminare il periodo " + periodo.periodo.nomePeriodo + " dall'app?")
                 .setPositiveButton("Elimina") { _, _ ->
 
-                    val nomefileorario = periodo.periodo.periodoSemiLinkImg + ".png"
+                    val nomefileorario = periodo.periodo.periodoSemiLinkImg + periodo.periodo.titoloPeriodo + ".png"
 
                     //elimino il file dalla cartella interna dell'app
                     File(context.filesDir, nomefileorario).delete()
