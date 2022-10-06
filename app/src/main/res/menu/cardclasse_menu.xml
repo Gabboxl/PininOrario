@@ -8,13 +8,13 @@
 
     <item
             android:id="@+id/addcardmenuoption"
-            android:title="Aggiungi ai preferiti"
+            android:title="@string/aggiungi_ai_preferiti"
             android:icon="@drawable/ic_baseline_push_pin_24"
             app:showAsAction="never" />
 
     <item
             android:id="@+id/deletecardmenuoption"
-            android:title="Rimuovi dai preferiti"
+            android:title="@string/rimuovi_dai_preferiti"
             android:icon="@drawable/ic_baseline_bookmark_remove_24"
             app:showAsAction="never" />
 

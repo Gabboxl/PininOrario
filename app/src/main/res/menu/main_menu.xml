@@ -10,12 +10,12 @@
           app:showAsAction="never"/>
 
     <item android:id="@+id/appbar_option_checkdataaggiornamentoorari"
-            android:title="Cerca aggiornamenti orari"
+            android:title="@string/cerca_aggiornamenti_orari"
             android:icon="@drawable/ic_baseline_refresh_24"
             app:showAsAction="always"/>
 
     <item android:id="@+id/appbar_option_refreshallorari"
-            android:title="Forza aggiornamento database orari"
+            android:title="@string/forza_aggiornamento_database_orari"
             android:icon="@drawable/ic_baseline_sim_card_download_24"
             app:showAsAction="ifRoom"/>
 

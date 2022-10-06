@@ -4,16 +4,16 @@
             android:id="@+id/pinnedFragment"
             android:enabled="true"
             android:icon="@drawable/ic_baseline_push_pin_24"
-            android:title="Classi preferite"/>
+            android:title="@string/classi_preferite"/>
     <item
             android:id="@+id/allFragment"
             android:enabled="true"
             android:icon="@drawable/ic_baseline_reorder_24"
-            android:title="Tutte le classi"/>
+            android:title="@string/tutte_le_classi"/>
 
     <item
             android:id="@+id/downloadsFragment"
             android:enabled="true"
             android:icon="@drawable/ic_baseline_download_done_24"
-            android:title="Orari scaricati"/>
+            android:title="@string/orari_scaricati"/>
 </menu>

@@ -65,7 +65,7 @@
                     style="?attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Apri"
+                    android:text="@string/apri"
                     android:layout_marginEnd="8dp"
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"

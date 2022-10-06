@@ -4,7 +4,7 @@
     <string name="versione_about">Version</string>
     <string name="crediti_about">Appli créée par Gabboxl</string>
     <string name="title_activity_settings">Paramètres</string>
-    <string name="orario_apri">Ouvert</string>
+    <string name="apri">Ouvert</string>
     <string name="seleziona_classe">Seleziona una classe</string>
     <string name="controllo_aggiornamenti_titolo">Controlla aggiornamenti all\'avvio</string>
     <string name="info_modifica_scelta_aggiornamenti">Puoi modificare la tua scelta nelle Impostazioni.</string>
@@ -35,4 +35,16 @@
     <string name="orari_server_aggiornati_al_data">Orari server aggiornati al: %1$s</string>
     <string name="classi_non_piu_disponibili_messaggio_alert">Sono state trovate delle classi non più disponibili sul server per il download. \\nAl prossimo avvio dell\'app verranno rimosse dal database soltanto quelle con orari non scaricati.\\nLe altre rimarranno intatte.</string>
     <string name="periodi_non_piu_disponibili_messaggio_alert">Sono stati trovati degli orari non più disponibili sul server per il download. \\nAl prossimo avvio dell\'app verranno rimossi dal database soltanto quelli non scaricati.\\nQuelli già scaricati rimarranno intatti.</string>
+    <string name="condividi_menu">Condividi</string>
+    <string name="salva_nella_galleria">Salva nella galleria</string>
+    <string name="elimina">Elimina</string>
+    <string name="cerca_aggiornamenti_orari">Cerca aggiornamenti orari</string>
+    <string name="forza_aggiornamento_database_orari">Forza aggiornamento database orari</string>
+    <string name="aggiungi_ai_preferiti">Aggiungi ai preferiti</string>
+    <string name="rimuovi_dai_preferiti">Rimuovi dai preferiti</string>
+    <string name="classi_preferite">Classi preferite</string>
+    <string name="tutte_le_classi">Tutte le classi</string>
+    <string name="orari_scaricati">Orari scaricati</string>
+    <string name="scarica">Scarica</string>
+    <string name="periodi">Periodi</string>
 </resources>

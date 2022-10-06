@@ -2,20 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/condividiperiodo_opt"
-            android:title="Condividi"
+            android:title="@string/condividi_menu"
             android:icon="@drawable/ic_baseline_ios_share_24"
             app:showAsAction="never"
             />
 
     <item
             android:id="@+id/salvaingalleriaperiodo_opt"
-            android:title="Salva nella galleria"
+            android:title="@string/salva_nella_galleria"
             android:icon="@drawable/ic_baseline_save_24"
             app:showAsAction="never" />
 
     <item
             android:id="@+id/eliminaperiodo_opt"
-            android:title="Elimina"
+            android:title="@string/elimina"
             android:icon="@drawable/ic_baseline_delete_forever_24"
             app:showAsAction="never" />
 
