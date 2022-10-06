@@ -17,7 +17,7 @@
     <string name="salva">Salva</string>
     <string name="annulla">Annulla</string>
     <string name="nessun_orario_scaricato">Nessun orario scaricato.</string>
-    <string name="nessuna_classe_disponibile">Nessuna classe al momento disponibile. Prova ad aggiornare il database.</string>
+    <string name="nessuna_classe_disponibile">Nessuna classe al momento disponibile.\nProva ad aggiornare il database.</string>
     <string name="nessuna_classe_preferita">Nessuna classe preferita.</string>
     <string name="stato_classe_alert">Stato classe</string>
     <string name="no_internet_stato_classe_alert">Non sei connesso ad internet. Connettiti per controllare lo stato di questa classe.</string>

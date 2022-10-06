@@ -56,9 +56,7 @@ class NewActivity : AppCompatActivity() {
                 menu.findItem(R.id.appbar_option_refreshallorari).isEnabled = false
                 menu.findItem(R.id.appbar_option_checkdataaggiornamentoorari).isEnabled = false
             }
-
         }
-
 
         return super.onCreateOptionsMenu(menu)
     }
