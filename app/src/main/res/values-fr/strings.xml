@@ -32,7 +32,7 @@
     <string name="aggiornamento_database_classi_snackbar">Aggiornamento database classi...</string>
     <string name="info_classi_titolo_alert">Info classi</string>
     <string name="info_periodi_titolo_alert">Info periodi</string>
-    <string name="orari_server_aggiornati_al_data">\"Orari server aggiornati al: %1$s\"</string>
+    <string name="orari_server_aggiornati_al_data">Orari server aggiornati al: %1$s</string>
     <string name="classi_non_piu_disponibili_messaggio_alert">Sono state trovate delle classi non più disponibili sul server per il download. \\nAl prossimo avvio dell\'app verranno rimosse dal database soltanto quelle con orari non scaricati.\\nLe altre rimarranno intatte.</string>
     <string name="periodi_non_piu_disponibili_messaggio_alert">Sono stati trovati degli orari non più disponibili sul server per il download. \\nAl prossimo avvio dell\'app verranno rimossi dal database soltanto quelli non scaricati.\\nQuelli già scaricati rimarranno intatti.</string>
 </resources>
