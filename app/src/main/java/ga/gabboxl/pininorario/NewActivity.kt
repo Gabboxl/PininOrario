@@ -166,7 +166,7 @@ class NewActivity : AppCompatActivity() {
             } else if (isConnected == false) {
                 val snackaggiornamento = Snackbar.make(
                     findViewById(R.id.fragmentContainerView),
-                    "Nessuna connessione ad internet.",
+                    getString(R.string.nessuna_connessione_internet),
                     Snackbar.LENGTH_LONG
                 )
                     .setAction("OK") {}
@@ -183,7 +183,7 @@ class NewActivity : AppCompatActivity() {
         classeViewModel.getLatestMetaAggiornamentoDateAsync()
             .observe(this) { stringDataAggiornamento ->
                 findViewById<TextView>(R.id.textAggiornamentoAppBar).text =
-                    "Orari server aggiornati al: $stringDataAggiornamento"
+                    getString(R.string.orari_server_aggiornati_al_data, stringDataAggiornamento)
             }
 
     }
@@ -193,7 +193,7 @@ class NewActivity : AppCompatActivity() {
         //snackbar
         val snackaggiornamento = Snackbar.make(
             findViewById(R.id.fragmentContainerView),
-            "Controllo aggiornamenti...",
+            getString(R.string.controllo_aggiornamenti_snackbar),
             Snackbar.LENGTH_INDEFINITE
         )
             .setBehavior(NoSwipeBehavior())
@@ -232,7 +232,7 @@ class NewActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 Toast.makeText(
                     this@NewActivity,
-                    "Gli orari sono aggiornati",
+                    getString(R.string.orari_aggiornati_toast),
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -250,7 +250,7 @@ class NewActivity : AppCompatActivity() {
 
         val snackaggiornamento = Snackbar.make(
             findViewById(R.id.fragmentContainerView),
-            "Aggiornamento database classi...",
+            getString(R.string.aggiornamento_database_classi_snackbar),
             Snackbar.LENGTH_INDEFINITE
         )
             .setBehavior(NoSwipeBehavior())
@@ -368,26 +368,22 @@ class NewActivity : AppCompatActivity() {
         withContext(Dispatchers.Main) {
             if (classidalevare.isNotEmpty()) {
                 val infoRipPeriodoDialog = MaterialAlertDialogBuilder(this@NewActivity)
-                    .setTitle("Info classi")
+                    .setTitle(getString(R.string.info_classi_titolo_alert))
                     .setMessage(
-                        "Sono state trovate delle classi non più disponibili sul server per il download. " +
-                                "\nAl prossimo avvio dell'app verranno rimosse dal database soltanto quelle con orari non scaricati." +
-                                "\nLe altre rimarranno intatte."
+                        getString(R.string.classi_non_piu_disponibili_messaggio_alert)
                     )
-                    .setPositiveButton("OK") { _, _ ->
+                    .setPositiveButton(getString(R.string.OK)) { _, _ ->
                     }
                 infoRipPeriodoDialog.create().show()
             }
 
             if (periodidalevare.isNotEmpty()) {
                 val infoRipPeriodoDialog = MaterialAlertDialogBuilder(this@NewActivity)
-                    .setTitle("Info periodi")
+                    .setTitle(getString(R.string.info_periodi_titolo_alert))
                     .setMessage(
-                        "Sono stati trovati degli orari non più disponibili sul server per il download. " +
-                                "\nAl prossimo avvio dell'app verranno rimossi dal database soltanto quelli non scaricati." +
-                                "\nQuelli già scaricati rimarranno intatti."
+                        getString(R.string.periodi_non_piu_disponibili_messaggio_alert)
                     )
-                    .setPositiveButton("OK") { _, _ ->
+                    .setPositiveButton(getString(R.string.OK)) { _, _ ->
                     }
                 infoRipPeriodoDialog.create().show()
             }

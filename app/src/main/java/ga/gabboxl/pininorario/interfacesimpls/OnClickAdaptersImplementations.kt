@@ -83,7 +83,7 @@ class OnClickAdaptersImplementations(
             if (periodo.periodo.isAvailableOnServer) {
                 val infoPeriodoDialog = MaterialAlertDialogBuilder(context)
                     .setTitle(context.getString(R.string.stato_periodo_alert))
-                    .setMessage("Questo periodo è ancora disponibile sul server per il download.")
+                    .setMessage(context.getString(R.string.periodo_still_disponibile_alert))
                     .setPositiveButton(context.getString(R.string.OK)) { _, _ ->
                     }
 
