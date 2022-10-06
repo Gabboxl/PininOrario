@@ -4,8 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.view.Window
+import android.view.WindowManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
 import com.danielstone.materialaboutlibrary.MaterialAboutActivity
 import com.danielstone.materialaboutlibrary.items.MaterialAboutActionItem
 import com.danielstone.materialaboutlibrary.model.MaterialAboutCard
@@ -13,15 +16,24 @@ import com.danielstone.materialaboutlibrary.model.MaterialAboutList
 import com.github.javiersantos.appupdater.AppUpdater
 import com.github.javiersantos.appupdater.enums.Display
 import com.github.javiersantos.appupdater.enums.UpdateFrom
+import com.google.android.material.elevation.SurfaceColors
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.library.community.material.CommunityMaterial
 import com.mikepenz.iconics.utils.sizeDp
 
 
 class AboutActivity : MaterialAboutActivity() {
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
 
-        super.onCreate(savedInstanceState, persistentState)
+        //colori appbarra
+        val color = SurfaceColors.SURFACE_2.getColor(this)
+
+        val window: Window = this.window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = color
+
+
+        super.onCreate(savedInstanceState)
     }
     override fun getMaterialAboutList(context: Context): MaterialAboutList {
 
