@@ -40,9 +40,13 @@ class NewActivity : AppCompatActivity() {
     private lateinit var classeViewModel: ClasseViewModel
     private lateinit var sharedPreferences: SharedPreferences
 
+    private lateinit var menuOptions: Menu
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
+
+        menuOptions = menu
 
         ConnectivityUtils.isInternetAvailable.observe(this) { isConnected ->
             if (isConnected != null && isConnected) {
@@ -72,11 +76,17 @@ class NewActivity : AppCompatActivity() {
 
         R.id.appbar_option_refreshallorari -> {
             classeViewModel.viewModelScope.launch(Dispatchers.Default) {
-                withContext(Dispatchers.Main) { item.isEnabled = false }
+                withContext(Dispatchers.Main) {
+                    item.isEnabled = false
+                    menuOptions.findItem(R.id.appbar_option_checkdataaggiornamentoorari).isEnabled = false
+                }
 
                 inizializzaOrari()
 
-                withContext(Dispatchers.Main) { item.isEnabled = true }
+                withContext(Dispatchers.Main) {
+                    item.isEnabled = true
+                    menuOptions.findItem(R.id.appbar_option_checkdataaggiornamentoorari).isEnabled = true
+                }
             }
             true
         }
