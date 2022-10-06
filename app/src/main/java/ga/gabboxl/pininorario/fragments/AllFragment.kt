@@ -52,12 +52,6 @@ class AllFragment : Fragment() {
             //Toast.makeText(applicationContext, "onChanged", Toast.LENGTH_SHORT).show()
             adapterClassi.submitList(t)
 
-            //scrollbar lib
-            FastScrollerBuilder(recyclerView)
-                .setPopupTextProvider { position -> t[position].classe.nomeClasse }
-                .useMd2Style()
-                .build()
-
 
             if (t.isNullOrEmpty()){
                 recyclerView.visibility = View.GONE
@@ -65,6 +59,12 @@ class AllFragment : Fragment() {
             }else{
                 recyclerView.visibility = View.VISIBLE
                 fragmentView.findViewById<TextView>(R.id.textemptyall).visibility = View.GONE
+
+                //scrollbar lib
+                FastScrollerBuilder(recyclerView)
+                    .setPopupTextProvider { position -> t[position].classe.nomeClasse }
+                    .useMd2Style()
+                    .build()
             }
         }
 
