@@ -6,6 +6,15 @@
         android:layout_height="match_parent"
         tools:context=".NewActivity">
 
+    <TextView
+            android:id="@+id/textemptypinned"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nessuna classe preferita."
+            android:textSize="24sp"
+            android:visibility="visible"
+            android:layout_gravity="center" />
+
 
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"

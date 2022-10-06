@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.compose.ui.platform.AndroidUiDispatcher
+import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.findFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -56,6 +59,14 @@ class PinnedFragment : Fragment() {
         ) { t ->
             //Toast.makeText(applicationContext, "onChanged", Toast.LENGTH_SHORT).show()
             adapterClassi.submitList(t)
+
+            if (t.isNullOrEmpty()){
+                recyclerView.visibility = View.GONE
+                fragmentView.findViewById<TextView>(R.id.textemptypinned).visibility = View.VISIBLE
+            }else{
+                recyclerView.visibility = View.VISIBLE
+                fragmentView.findViewById<TextView>(R.id.textemptypinned).visibility = View.GONE
+            }
         }
 
 

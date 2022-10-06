@@ -3,6 +3,8 @@ package ga.gabboxl.pininorario
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.core.content.ContextCompat
 import com.danielstone.materialaboutlibrary.MaterialAboutActivity
 import com.danielstone.materialaboutlibrary.items.MaterialAboutActionItem
@@ -17,6 +19,10 @@ import com.mikepenz.iconics.utils.sizeDp
 
 
 class AboutActivity : MaterialAboutActivity() {
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+
+        super.onCreate(savedInstanceState, persistentState)
+    }
     override fun getMaterialAboutList(context: Context): MaterialAboutList {
 
         val miscCardBuilder: MaterialAboutCard.Builder = MaterialAboutCard.Builder()

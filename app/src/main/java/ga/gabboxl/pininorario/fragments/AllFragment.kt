@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -56,6 +57,15 @@ class AllFragment : Fragment() {
                 .setPopupTextProvider { position -> t[position].classe.nomeClasse }
                 .useMd2Style()
                 .build()
+
+
+            if (t.isNullOrEmpty()){
+                recyclerView.visibility = View.GONE
+                fragmentView.findViewById<TextView>(R.id.textemptyall).visibility = View.VISIBLE
+            }else{
+                recyclerView.visibility = View.VISIBLE
+                fragmentView.findViewById<TextView>(R.id.textemptyall).visibility = View.GONE
+            }
         }
 
 
