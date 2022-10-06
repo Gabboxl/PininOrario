@@ -1,5 +1,5 @@
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="AppTheme" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/md_theme_dark_primary</item>
         <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
@@ -39,6 +39,13 @@
 
         <item name="android:statusBarColor">@android:color/transparent</item>
 
+
+    </style>
+
+
+    <style name="AppTheme.MaterialAboutActivity" parent="Theme.Material3.DayNight">
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
 
     </style>
 </resources>
