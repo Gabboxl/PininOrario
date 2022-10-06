@@ -360,7 +360,7 @@ class OnClickAdaptersImplementations(
 
             val alertpermesso = MaterialAlertDialogBuilder(context)
                 .setTitle("Eliminare il periodo?")
-                .setMessage("Sei sicuro di voler eliminare il periodo " + periodo.periodo.nomePeriodo + " dall'app?")
+                .setMessage("Sei sicuro di voler eliminare il periodo dall'app?")
                 .setPositiveButton("Elimina") { _, _ ->
 
 
