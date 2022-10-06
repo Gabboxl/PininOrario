@@ -51,10 +51,10 @@ class PeriodoDownloadsAdapter : ListAdapter<PeriodoWithClasse, PeriodoDownloadsA
 
 
     inner class PeriodoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        lateinit var textViewNomePeriodo: TextView
-        lateinit var textViewNomeClasse: TextView
-        lateinit var apriButton: Button
-        lateinit var periodoButtonAvailability: ImageButton
+        var textViewNomePeriodo: TextView
+        var textViewNomeClasse: TextView
+        var apriButton: Button
+        var periodoButtonAvailability: ImageButton
         val optionPeriodoButton: ImageButton
         val popupperiodo: PopupMenu
 
@@ -210,10 +210,10 @@ class PeriodoDownloadsAdapter : ListAdapter<PeriodoWithClasse, PeriodoDownloadsA
 
         fun data1(): String { //a volte il nome del mese i tizi che fanno i titoli dell'orario lo omettono se e' so stesso della datafinoal per cui utilizziamo il nome del mese della datafinoal.
             if(gruppidatetitoloperiodo.groupValues[2].isBlank()){
-                return "${gruppidatetitoloperiodo.groupValues[1]} ${gruppidatetitoloperiodo.groupValues[4]}";
+                return "${gruppidatetitoloperiodo.groupValues[1]} ${gruppidatetitoloperiodo.groupValues[4]}"
             }
 
-            return "${gruppidatetitoloperiodo.groupValues[1]} ${gruppidatetitoloperiodo.groupValues[2]}";
+            return "${gruppidatetitoloperiodo.groupValues[1]} ${gruppidatetitoloperiodo.groupValues[2]}"
         }
 
         val data2 = "${gruppidatetitoloperiodo.groupValues[3]} ${gruppidatetitoloperiodo.groupValues[4]}"

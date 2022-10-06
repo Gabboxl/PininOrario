@@ -50,11 +50,11 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
 
 
     inner class PeriodoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        lateinit var textViewPeriodo: TextView
-        lateinit var scaricaButton: Button
-        lateinit var apriButton: Button
-        lateinit var scaricaPeriodoProgressBar: ProgressBar
-        lateinit var periodoButtonAvailability: ImageButton
+        var textViewPeriodo: TextView
+        var scaricaButton: Button
+        var apriButton: Button
+        var scaricaPeriodoProgressBar: ProgressBar
+        var periodoButtonAvailability: ImageButton
         val optionPeriodoButton: ImageButton
         val popupperiodo: PopupMenu
 
