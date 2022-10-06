@@ -10,7 +10,7 @@
             android:id="@+id/textemptyall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nessuna classe al momento disponibile. Prova ad aggiornare il database."
+            android:text="@string/nessuna_classe_disponibile"
             android:textSize="24sp"
             android:visibility="visible"
             android:layout_gravity="center" />

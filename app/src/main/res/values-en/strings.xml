@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_activity_about">About</string>
+    <string name="titolo_activity_about">About</string>
     <string name="versione_about">Version</string>
-    <string name="credits_about">App created by Gabboxl</string>
+    <string name="crediti_about">App created by Gabboxl</string>
     <string name="title_activity_settings">Settings</string>
     <string name="orario_apri">Open</string>
-    <string name="seleziona_classe_summary">Seleziona una classe</string>
-    <string name="controllo_aggiornamenti_title">Check for updates on startup</string>
+    <string name="seleziona_classe">Seleziona una classe</string>
+    <string name="controllo_aggiornamenti_titolo">Check for updates on startup</string>
     <string name="info_modifica_scelta_aggiornamenti">You can modify your choice in the settings.</string>
     <string name="permesso_richiesto">Permission required</string>
     <string name="richiesta_permesso_WRITE_EXTERNAL_STORAGE">Questa app ha bisogno del permesso WRITE_EXTERNAL_STORAGE per scaricare l\'orario!</string>
     <string name="indietro">back</string>
-    <string name="ok">OK</string>
+    <string name="OK">OK</string>
     <string name="autore_card_about">Author</string>
     <string name="pininorario_su_github_about">PininOrario on Github</string>
     <string name="salva">Save</string>
-    <string name="annulla_button">Cancel</string>
+    <string name="annulla">Cancel</string>
+    <string name="nessun_orario_scaricato">Nessun orario scaricato.</string>
+    <string name="stato_classe_alert">Stato classe</string>
+    <string name="no_internet_stato_classe_alert">Non sei connesso ad internet. Connettiti per controllare lo stato di questa classe.</string>
+    <string name="stato_periodo_alert">Stato periodo</string>
+    <string name="concedi">Concedi</string>
+    <string name="nessuna_classe_disponibile">Nessuna classe al momento disponibile. Prova ad aggiornare il database.</string>
+    <string name="nessuna_classe_preferita">Nessuna classe preferita.</string>
+    <string name="classe_aggiunta_toast">Classe aggiunta.</string>
+    <string name="aggiungi_classe">Aggiungi classe</string>
 </resources>

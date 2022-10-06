@@ -7,7 +7,7 @@
                 app:defaultValue="true"
                 app:key="checkupdates_startup"
                 app:singleLineTitle="false"
-                app:title="@string/controllo_aggiornamenti_title" />
+                app:title="@string/controllo_aggiornamenti_titolo" />
 
     </PreferenceCategory>
 

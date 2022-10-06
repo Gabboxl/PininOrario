@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.viewModelScope
+import com.google.android.datatransport.runtime.backends.BackendResponse.ok
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import es.dmoral.toasty.Toasty
 import ga.gabboxl.pininorario.*
@@ -44,17 +45,17 @@ class OnClickAdaptersImplementations(
 
             if (classeWithPeriodi.classe.isAvailableOnServer) {
                 val infoPeriodoDialog = MaterialAlertDialogBuilder(context)
-                    .setTitle("Stato classe")
+                    .setTitle(context.getString(R.string.stato_classe_alert))
                     .setMessage("Questa classe è ancora disponibile sul server.")
-                    .setPositiveButton("OK") { _, _ ->
+                    .setPositiveButton(context.getString(R.string.OK)) { _, _ ->
                     }
 
                 infoPeriodoDialog.create().show()
             } else {
                 val infoPeriodoDialog = MaterialAlertDialogBuilder(context)
-                    .setTitle("Stato classe")
+                    .setTitle(context.getString(R.string.stato_classe_alert))
                     .setMessage("Questa classe è stata rimossa dal server degli orari della scuola, se non hai scaricato orari di relativi ad essa verrà eliminata dal database al prossimo avvio dell'app.")
-                    .setPositiveButton("OK") { _, _ ->
+                    .setPositiveButton(context.getString(R.string.OK)) { _, _ ->
                     }
 
                 infoPeriodoDialog.create().show()
@@ -62,9 +63,9 @@ class OnClickAdaptersImplementations(
 
         } else {
             val infoPeriodoDialog = MaterialAlertDialogBuilder(context)
-                .setTitle("Stato classe")
-                .setMessage("Non sei connesso ad internet. Connettiti per controllare lo stato di questa classe.")
-                .setPositiveButton("OK") { _, _ ->
+                .setTitle(context.getString(R.string.stato_classe_alert))
+                .setMessage(context.getString(R.string.no_internet_stato_classe_alert))
+                .setPositiveButton(context.getString(R.string.OK)) { _, _ ->
                 }
 
             infoPeriodoDialog.create().show()
@@ -81,18 +82,18 @@ class OnClickAdaptersImplementations(
 
             if (periodo.periodo.isAvailableOnServer) {
                 val infoPeriodoDialog = MaterialAlertDialogBuilder(context)
-                    .setTitle("Stato periodo")
+                    .setTitle(context.getString(R.string.stato_periodo_alert))
                     .setMessage("Questo periodo è ancora disponibile sul server per il download.")
-                    .setPositiveButton("OK") { _, _ ->
+                    .setPositiveButton(context.getString(R.string.OK)) { _, _ ->
                     }
 
                 infoPeriodoDialog.create().show()
             } else {
                 val infoPeriodoDialog = MaterialAlertDialogBuilder(context)
-                    .setTitle("Stato periodo")
+                    .setTitle(context.getString(R.string.stato_periodo_alert))
                     .setMessage("Questo periodo è stato rimosso dal server della scuola, per cui non è più disponibile per il download." +
                             "\n Gli orari non scaricati verranno eliminati dal database al prossimo avvio dell'app.")
-                    .setPositiveButton("OK") { _, _ ->
+                    .setPositiveButton(context.getString(R.string.OK)) { _, _ ->
                     }
 
                 infoPeriodoDialog.create().show()
@@ -100,9 +101,9 @@ class OnClickAdaptersImplementations(
 
         } else {
             val infoPeriodoDialog = MaterialAlertDialogBuilder(context)
-                .setTitle("Stato periodo")
+                .setTitle(context.getString(R.string.stato_periodo_alert))
                 .setMessage("Non sei connesso ad internet. Connettiti per controllare lo stato di questo periodo.")
-                .setPositiveButton("OK") { _, _ ->
+                .setPositiveButton(context.getString(R.string.OK)) { _, _ ->
                 }
 
             infoPeriodoDialog.create().show()
@@ -264,14 +265,14 @@ class OnClickAdaptersImplementations(
                     val alertpermesso = MaterialAlertDialogBuilder(context)
                         .setTitle(context.getString(R.string.permesso_richiesto))
                         .setMessage(context.getString(R.string.richiesta_permesso_WRITE_EXTERNAL_STORAGE))
-                        .setPositiveButton("Concedi") { _, _ ->
+                        .setPositiveButton(context.getString(R.string.concedi)) { _, _ ->
                             ActivityCompat.requestPermissions(  // onlick funzione
                                 context,
                                 arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
                                 777
                             )
                         }
-                        .setNegativeButton("Annulla") { dialog, _ -> dialog.dismiss() } //onlick funzione
+                        .setNegativeButton(context.getString(R.string.annulla)) { dialog, _ -> dialog.dismiss() } //onlick funzione
 
                     withContext(Dispatchers.Main) { alertpermesso.create().show() }
                 } else {

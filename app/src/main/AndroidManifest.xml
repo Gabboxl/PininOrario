@@ -47,7 +47,7 @@
         </activity>
         <activity
                 android:name=".AboutActivity"
-                android:label="@string/title_activity_about"
+                android:label="@string/titolo_activity_about"
                 android:parentActivityName=".NewActivity"
                 android:theme="@style/AppTheme.MaterialAboutActivity">
             <meta-data

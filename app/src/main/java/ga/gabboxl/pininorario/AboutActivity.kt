@@ -55,7 +55,7 @@ class AboutActivity : MaterialAboutActivity() {
             .build())
             .addItem(
                 MaterialAboutActionItem.Builder()
-                    .subText(R.string.credits_about)
+                    .subText(R.string.crediti_about)
                     .build()
             )
 
@@ -93,6 +93,6 @@ class AboutActivity : MaterialAboutActivity() {
 
 
     override fun getActivityTitle(): CharSequence {
-        return getString(R.string.title_activity_about)
+        return getString(R.string.titolo_activity_about)
     }
 }

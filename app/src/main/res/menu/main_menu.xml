@@ -6,7 +6,7 @@
           app:showAsAction="never"/>
 
     <item android:id="@+id/options_about"
-          android:title="@string/title_activity_about"
+          android:title="@string/titolo_activity_about"
           app:showAsAction="never"/>
 
     <item android:id="@+id/appbar_option_checkdataaggiornamentoorari"

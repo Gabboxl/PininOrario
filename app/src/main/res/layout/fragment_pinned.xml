@@ -10,7 +10,7 @@
             android:id="@+id/textemptypinned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nessuna classe preferita."
+            android:text="@string/nessuna_classe_preferita"
             android:textSize="24sp"
             android:visibility="visible"
             android:layout_gravity="center" />
@@ -43,7 +43,7 @@
                     android:layout_margin="16dp"
                     android:layout_gravity="bottom|end"
                     android:contentDescription="descrizionenonvisibile"
-                    android:text="Aggiungi classe"
+                    android:text="@string/aggiungi_classe"
                     app:icon="@drawable/ic_baseline_add_24"
                     />
 

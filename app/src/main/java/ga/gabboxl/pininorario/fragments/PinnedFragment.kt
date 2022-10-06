@@ -84,15 +84,15 @@ class PinnedFragment : Fragment() {
             extfab.setOnClickListener {
                 val alertDialogBuilder: MaterialAlertDialogBuilder =
                     MaterialAlertDialogBuilder(requireContext())
-                        .setTitle("Seleziona una classe")
+                        .setTitle(getString(R.string.seleziona_classe))
                         //.setPositiveButton("Aggiungi", null)
-                        .setNeutralButton("Annulla", null)
+                        .setNeutralButton(getString(R.string.annulla), null)
                         .setSingleChoiceItems(
                             customarraynomi.toTypedArray(), -1
                         ) { dialoginterface, i ->
                             Toast.makeText(
                                 context,
-                                "Classe aggiunta.",
+                                getString(R.string.classe_aggiunta_toast),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
