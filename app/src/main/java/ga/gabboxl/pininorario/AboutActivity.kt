@@ -33,7 +33,9 @@ class AboutActivity : MaterialAboutActivity() {
         window.statusBarColor = color
 
 
-        super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState) /* regarding to https://github.com/Gabboxl/PininOrario/commit/64c34c07bf5eb4094d42ccc539c080ff57e0b284 message
+        this function calls the overrided super method so nothing changes, i am only extendind the logic with something mine of the original onCreate function of this about library
+        */
     }
     override fun getMaterialAboutList(context: Context): MaterialAboutList {
 
