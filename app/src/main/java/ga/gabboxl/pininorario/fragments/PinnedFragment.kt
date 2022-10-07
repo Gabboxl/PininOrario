@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.compose.ui.platform.AndroidUiDispatcher
-import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

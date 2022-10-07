@@ -19,8 +19,6 @@ import ga.gabboxl.pininorario.PeriodoWithClasse
 import ga.gabboxl.pininorario.R
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 
 
 class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHolder>(DIFF_CALLBACK) {

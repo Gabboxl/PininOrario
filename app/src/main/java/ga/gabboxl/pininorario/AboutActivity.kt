@@ -6,9 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
 import com.danielstone.materialaboutlibrary.MaterialAboutActivity
 import com.danielstone.materialaboutlibrary.items.MaterialAboutActionItem
 import com.danielstone.materialaboutlibrary.model.MaterialAboutCard

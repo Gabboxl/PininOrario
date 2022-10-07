@@ -5,7 +5,10 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.PopupMenu
+import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.graphics.drawable.DrawableCompat
@@ -20,8 +23,6 @@ import ga.gabboxl.pininorario.R
 import ga.gabboxl.pininorario.interfacesimpls.OnClickAdaptersImplementations
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 
 
 class PeriodoDownloadsAdapter : ListAdapter<PeriodoWithClasse, PeriodoDownloadsAdapter.PeriodoHolder>(DIFF_CALLBACK) {

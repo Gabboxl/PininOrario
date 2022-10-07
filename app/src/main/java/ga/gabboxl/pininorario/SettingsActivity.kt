@@ -1,24 +1,14 @@
 package ga.gabboxl.pininorario
 
-import android.content.Intent
-import android.content.pm.ShortcutInfo
-import android.content.pm.ShortcutManager
-import android.graphics.drawable.Icon
-import android.opengl.Visibility
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.WindowCompat
-import androidx.preference.ListPreference
-import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.elevation.SurfaceColors
-import es.dmoral.toasty.Toasty
 
 
 class SettingsActivity : AppCompatActivity() {

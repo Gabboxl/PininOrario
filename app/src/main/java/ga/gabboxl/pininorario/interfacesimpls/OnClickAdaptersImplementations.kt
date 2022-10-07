@@ -13,7 +13,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.viewModelScope
-import com.google.android.datatransport.runtime.backends.BackendResponse.ok
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import es.dmoral.toasty.Toasty
 import ga.gabboxl.pininorario.*

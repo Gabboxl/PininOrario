@@ -197,7 +197,7 @@ class NewActivity : AppCompatActivity() {
     }
 
 
-    suspend fun isAggiornamentoOrariDisponibile(): Boolean {
+    private suspend fun isAggiornamentoOrariDisponibile(): Boolean {
         //snackbar
         val snackaggiornamento = Snackbar.make(
             findViewById(R.id.fragmentContainerView),
@@ -252,7 +252,7 @@ class NewActivity : AppCompatActivity() {
     }
 
 
-    suspend fun inizializzaOrari() {
+    private suspend fun inizializzaOrari() {
 
         //inizializzo i database con le classi e periodi (forse utilizzare un metodo migliore per l'aggiunta al database)
 

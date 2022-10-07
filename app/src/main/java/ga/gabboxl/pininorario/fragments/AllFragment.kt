@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ga.gabboxl.pininorario.*
+import ga.gabboxl.pininorario.ClasseViewModel
+import ga.gabboxl.pininorario.R
 import ga.gabboxl.pininorario.adapters.ClasseAdapter
 import ga.gabboxl.pininorario.interfacesimpls.OnClickAdaptersImplementations
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
-import me.zhanghai.android.fastscroll.PopupTextProvider
 
 
 class AllFragment : Fragment() {
