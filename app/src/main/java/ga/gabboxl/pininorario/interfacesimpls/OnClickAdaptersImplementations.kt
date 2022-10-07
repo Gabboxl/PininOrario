@@ -172,7 +172,7 @@ class OnClickAdaptersImplementations(
                 }
 
                 override fun onResponse(call: Call, response: Response) {
-                    classeViewModel.viewModelScope.launch(Dispatchers.Default) {
+                    classeViewModel.viewModelScope.launch(Dispatchers.IO) { //use IO dispatcher as it is more efficient for this reason: https://stackoverflow.com/a/59040920/9008381
                         val filex = File(context.filesDir, nomefileorario)
                         //if (filex.exists()) {
                         //nice
