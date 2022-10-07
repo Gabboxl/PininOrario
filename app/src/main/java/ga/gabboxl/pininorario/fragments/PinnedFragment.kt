@@ -36,7 +36,7 @@ class PinnedFragment : Fragment() {
         val fragmentView = inflater.inflate(R.layout.fragment_pinned, container, false)
 
 
-        classeViewModel = ViewModelProvider(this).get(ClasseViewModel::class.java)
+        classeViewModel = ViewModelProvider(this)[ClasseViewModel::class.java]
 
 
         val recyclerView: RecyclerView = fragmentView.findViewById(R.id.recycler_view)

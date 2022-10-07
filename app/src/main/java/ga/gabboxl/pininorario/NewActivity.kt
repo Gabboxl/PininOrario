@@ -132,7 +132,7 @@ class NewActivity : AppCompatActivity() {
         bottomNav.setupWithNavController(navController)
 
 
-        classeViewModel = ViewModelProvider(this).get(ClasseViewModel::class.java)
+        classeViewModel = ViewModelProvider(this)[ClasseViewModel::class.java]
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
 
 

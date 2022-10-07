@@ -26,7 +26,7 @@ class DownloadsFragment : Fragment() {
         // Inflate the layout for this fragment
         val fragmentView =  inflater.inflate(R.layout.fragment_downloads, container, false)
 
-        classeViewModel = ViewModelProvider(this).get(ClasseViewModel::class.java)
+        classeViewModel = ViewModelProvider(this)[ClasseViewModel::class.java]
 
         val recyclerView: RecyclerView = fragmentView.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)

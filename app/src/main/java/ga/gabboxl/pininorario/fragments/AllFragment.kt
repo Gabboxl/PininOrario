@@ -29,7 +29,7 @@ class AllFragment : Fragment() {
         val fragmentView = inflater.inflate(R.layout.fragment_all, container, false)
 
 
-        classeViewModel = ViewModelProvider(this).get(ClasseViewModel::class.java)
+        classeViewModel = ViewModelProvider(this)[ClasseViewModel::class.java]
 
 
         val recyclerView: RecyclerView = fragmentView.findViewById(R.id.recycler_view)
