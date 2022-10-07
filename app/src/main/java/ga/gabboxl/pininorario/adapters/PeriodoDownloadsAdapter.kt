@@ -240,8 +240,7 @@ class PeriodoDownloadsAdapter : ListAdapter<PeriodoWithClasse, PeriodoDownloadsA
     }
 
 
-    interface OnClickListenersPeriodoAdapter: PeriodoAdapter.OnClickListenersPeriodoAdapter {
-    }
+    interface OnClickListenersPeriodoAdapter: PeriodoAdapter.OnClickListenersPeriodoAdapter
 
     fun setOnClickListenersPeriodoDownloadsAdapter(listenersPeriodoAdapter: OnClickAdaptersImplementations) {
         this.listenersPeriodoAdapter = listenersPeriodoAdapter
