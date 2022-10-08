@@ -43,16 +43,16 @@ class ClasseViewModel(application: Application) : AndroidViewModel(application) 
         repository.deletePeriodiMorti()
     }
 
-    fun getPeriodiNonSulServer(periodiScaricati: List<String>): List<Periodo> {
-        return repository.getPeriodiNonSulServer(periodiScaricati)
+    fun getPeriodiNonSulServer(periodiScaricati: List<String>, titoliPeriodiScaricatiNuovi: List<String>): List<Periodo> {
+        return repository.getPeriodiNonSulServer(periodiScaricati, titoliPeriodiScaricatiNuovi)
     }
 
     fun doesClasseExist(codiceClasse: String): Boolean {
         return repository.doesClasseExist(codiceClasse)
     }
 
-    fun doesPeriodoExist(codiceClassePeriodo: String, nomePeriodo: String): Boolean {
-        return repository.doesPeriodoExist(codiceClassePeriodo, nomePeriodo)
+    fun doesPeriodoExist(codiceClassePeriodo: String, nomePeriodo: String, titoloPeriodo: String): Boolean {
+        return repository.doesPeriodoExist(codiceClassePeriodo, nomePeriodo, titoloPeriodo)
     }
 
 

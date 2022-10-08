@@ -1,14 +1,11 @@
 package ga.gabboxl.pininorario
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.Relation
+import androidx.room.*
 
-@Entity(tableName = "TabellaAggiornamenti")
+@Entity(tableName = "TabellaAggiornamenti", indices = [Index(value = ["dataAggiornamento"], unique = true)])
 data class MetaAggiornamento(
-    val id: Int = 0,
-    @PrimaryKey val dataAggiornamento: String
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val dataAggiornamento: String
 )
 
 @Entity(tableName = "TabellaClassi")

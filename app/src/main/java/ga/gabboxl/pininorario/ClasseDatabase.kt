@@ -1,13 +1,14 @@
 package ga.gabboxl.pininorario
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
+import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-@Database(entities = [Classe::class, Periodo::class, MetaAggiornamento::class], version = 10)
+@Database(entities = [Classe::class, Periodo::class, MetaAggiornamento::class], version = 12, exportSchema = true,
+    autoMigrations = [
+        AutoMigration (from = 10, to = 11),
+        AutoMigration (from = 11, to = 12),
+    ])
 @TypeConverters(Converters::class)
 abstract class ClasseDatabase : RoomDatabase() {
 

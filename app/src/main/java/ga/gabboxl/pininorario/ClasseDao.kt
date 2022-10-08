@@ -108,13 +108,13 @@ interface ClasseDao {
     @Query("SELECT EXISTS(SELECT * FROM TabellaClassi WHERE codiceClasse = :codiceClasse)")
     fun doesClasseExist(codiceClasse: String): Boolean
 
-    @Query("SELECT EXISTS(SELECT * FROM TabellaPeriodi WHERE codiceClassePeriodo = :codiceClassePeriodo AND nomePeriodo = :nomePeriodo)")
-    fun doesPeriodoExist(codiceClassePeriodo: String, nomePeriodo: String): Boolean
+    @Query("SELECT EXISTS(SELECT * FROM TabellaPeriodi WHERE codiceClassePeriodo = :codiceClassePeriodo AND nomePeriodo = :nomePeriodo AND titoloPeriodo = :titoloPeriodo)")
+    fun doesPeriodoExist(codiceClassePeriodo: String, nomePeriodo: String, titoloPeriodo: String): Boolean
 
     //rip periodi methods
 
-    @Query("SELECT * FROM TabellaPeriodi WHERE periodoSemiLinkImg NOT IN (:semilinkPeriodiScaricatiNuovi)")
-    fun getPeriodiNonSulServer(semilinkPeriodiScaricatiNuovi: List<String>): List<Periodo>
+    @Query("SELECT * FROM TabellaPeriodi WHERE periodoSemiLinkImg NOT IN (:semilinkPeriodiScaricatiNuovi) OR titoloPeriodo NOT IN (:titoliPeriodiScaricatiNuovi)")
+    fun getPeriodiNonSulServer(semilinkPeriodiScaricatiNuovi: List<String>, titoliPeriodiScaricatiNuovi: List<String>): List<Periodo>
 
     @Query("DELETE FROM TabellaPeriodi WHERE isAvailableOnServer = 0 AND isDownloaded = 0")
     fun deletePeriodiMorti()

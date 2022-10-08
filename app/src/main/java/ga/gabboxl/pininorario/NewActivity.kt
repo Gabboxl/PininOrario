@@ -226,6 +226,7 @@ class NewActivity : AppCompatActivity() {
                 )
             )
 
+
             snackaggiornamento.dismiss()
             return true
         }
@@ -246,6 +247,13 @@ class NewActivity : AppCompatActivity() {
             }
             return false
         }
+
+        classeViewModel.insertMetaAggiornamento(
+            MetaAggiornamento(
+                0, //tanto e' auto incrementato
+                serveraggiornamento
+            )
+        )
 
         snackaggiornamento.dismiss()
         return true
@@ -294,11 +302,13 @@ class NewActivity : AppCompatActivity() {
 
 
         val listaSemiLinkPeriodiNuovi = mutableListOf<String>()
+        val listaTitoliPeriodiNuovi = mutableListOf<String>()
 
         for ((indexattuale, periodo) in PininParse.Periodi.list().withIndex()) {
             if (!classeViewModel.doesPeriodoExist(
                     periodo[0], //codice classe periodo
-                    periodo[1] //nome periodo
+                    periodo[1], //nome periodo
+                    periodo[3] //titolo periodo
                 )
             ) {
                 classeViewModel.insertPeriodo(
@@ -315,6 +325,7 @@ class NewActivity : AppCompatActivity() {
             }
 
             listaSemiLinkPeriodiNuovi.add(periodo[2])
+            listaTitoliPeriodiNuovi.add(periodo[3])
         }
 
         /* classeViewModel.insertClasse(
@@ -355,7 +366,7 @@ class NewActivity : AppCompatActivity() {
         }
 
 
-        val periodidalevare = classeViewModel.getPeriodiNonSulServer(listaSemiLinkPeriodiNuovi)
+        val periodidalevare = classeViewModel.getPeriodiNonSulServer(listaSemiLinkPeriodiNuovi, listaTitoliPeriodiNuovi) //ora e' necessario fornire il titolo degli orari siccome il semilink ormai non basta piu' visto che ogni settimana cambiano solo piu' il titolo dell'orario al posto del nome/link dell'orario
 
         //imposto i periodi morti come non piu' disponibili per il download
         for (periodo in periodidalevare) {

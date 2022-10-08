@@ -36,8 +36,8 @@ class ClasseRepository(application: Application) {
     }
 
     //rip methods
-    fun getPeriodiNonSulServer(periodiScaricati: List<String>): List<Periodo>{
-        return classeDao.getPeriodiNonSulServer(periodiScaricati)
+    fun getPeriodiNonSulServer(periodiScaricati: List<String>, titoliPeriodiScaricatiNuovi: List<String>): List<Periodo>{
+        return classeDao.getPeriodiNonSulServer(periodiScaricati, titoliPeriodiScaricatiNuovi)
     }
 
     fun deleteClassiRippateSenzaPeriodi() {
@@ -68,8 +68,8 @@ class ClasseRepository(application: Application) {
         return classeDao.doesClasseExist(codiceClasse)
     }
 
-    fun doesPeriodoExist(codiceClassePeriodo: String, nomePeriodo: String): Boolean {
-        return classeDao.doesPeriodoExist(codiceClassePeriodo, nomePeriodo)
+    fun doesPeriodoExist(codiceClassePeriodo: String, nomePeriodo: String, titoloPeriodo: String): Boolean {
+        return classeDao.doesPeriodoExist(codiceClassePeriodo, nomePeriodo, titoloPeriodo)
     }
 
     //Aggiornamenti

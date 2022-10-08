@@ -1,0 +1,152 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 12,
+    "identityHash": "96d6da0c9ca047676e804d1c4c40114f",
+    "entities": [
+      {
+        "tableName": "TabellaClassi",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `nomeClasse` TEXT NOT NULL, `codiceClasse` TEXT NOT NULL, `isAvailableOnServer` INTEGER NOT NULL, `isPinned` INTEGER NOT NULL, PRIMARY KEY(`codiceClasse`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nomeClasse",
+            "columnName": "nomeClasse",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "codiceClasse",
+            "columnName": "codiceClasse",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isAvailableOnServer",
+            "columnName": "isAvailableOnServer",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isPinned",
+            "columnName": "isPinned",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "codiceClasse"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "TabellaPeriodi",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `codiceClassePeriodo` TEXT NOT NULL, `nomePeriodo` TEXT NOT NULL, `periodoSemiLinkImg` TEXT NOT NULL, `titoloPeriodo` TEXT NOT NULL, `isAvailableOnServer` INTEGER NOT NULL, `isDownloaded` INTEGER NOT NULL, PRIMARY KEY(`codiceClassePeriodo`, `nomePeriodo`, `titoloPeriodo`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "codiceClassePeriodo",
+            "columnName": "codiceClassePeriodo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nomePeriodo",
+            "columnName": "nomePeriodo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "periodoSemiLinkImg",
+            "columnName": "periodoSemiLinkImg",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "titoloPeriodo",
+            "columnName": "titoloPeriodo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isAvailableOnServer",
+            "columnName": "isAvailableOnServer",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isDownloaded",
+            "columnName": "isDownloaded",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "codiceClassePeriodo",
+            "nomePeriodo",
+            "titoloPeriodo"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "TabellaAggiornamenti",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `dataAggiornamento` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataAggiornamento",
+            "columnName": "dataAggiornamento",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_TabellaAggiornamenti_dataAggiornamento",
+            "unique": true,
+            "columnNames": [
+              "dataAggiornamento"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_TabellaAggiornamenti_dataAggiornamento` ON `${TABLE_NAME}` (`dataAggiornamento`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '96d6da0c9ca047676e804d1c4c40114f')"
+    ]
+  }
+}
