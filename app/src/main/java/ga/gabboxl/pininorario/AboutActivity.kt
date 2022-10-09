@@ -59,7 +59,7 @@ class AboutActivity : MaterialAboutActivity() {
                     .setDisplay(Display.DIALOG)
                     .setUpdateFrom(UpdateFrom.JSON)
                     .setUpdateJSON("https://pinin.gabboxl.ga/versions/update.json")
-                    .setWebviewChangelog(true)
+                    .setWebviewChangelog(false)
                     .showAppUpdated(true)
                     .setButtonDoNotShowAgain("")
                     .start()

@@ -160,7 +160,7 @@ class NewActivity : AppCompatActivity() {
                         .setDisplay(Display.DIALOG)
                         .setUpdateFrom(UpdateFrom.JSON)
                         .setUpdateJSON("https://pinin.gabboxl.ga/versions/update.json")
-                        .setWebviewChangelog(true)
+                        .setWebviewChangelog(false)
                         .setButtonDoNotShowAgainClickListener { dialog, which ->
                             sharedPreferences.edit().putBoolean("checkupdates_startup", false)
                                 .apply()
