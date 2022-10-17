@@ -282,12 +282,19 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
 
         } catch (e: Exception){ //regex titolo di fallback in caso dovesse fallire il regex quello bello
 
-            val patternTitoloFallback =
-                Regex(""".*<<(.*)>>""") //https://regex101.com/r/3mhZ8O/1  ///// si potrebbe utilizzare anche questo pero' non si sa mai - https://regex101.com/r/3mhZ8O/1
-            val gruppidatetitoloperiodofallback =
-                patternTitoloFallback.find(currentPeriodo.periodo.titoloPeriodo)!!
+            try {
+                val patternTitoloFallback =
+                    Regex(""".*<<(.*)>>""") //https://regex101.com/r/3mhZ8O/1  ///// si potrebbe utilizzare anche questo pero' non si sa mai - https://regex101.com/r/3mhZ8O/1
+                val gruppidatetitoloperiodofallback =
+                    patternTitoloFallback.find(currentPeriodo.periodo.titoloPeriodo)!!
 
-            holder.textViewPeriodo.text = gruppidatetitoloperiodofallback.groupValues[1]
+                holder.textViewPeriodo.text = gruppidatetitoloperiodofallback.groupValues[1]
+
+
+            } catch (e: Exception) { //in caso facciano gli infami stravolgendo il pattern almeno siamo a posto
+
+                holder.textViewPeriodo.text = currentPeriodo.periodo.titoloPeriodo
+            }
         }
 
 
