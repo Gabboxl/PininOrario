@@ -44,6 +44,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
 
+        coreLibraryDesugaringEnabled true
     }
 
 
@@ -92,9 +93,12 @@ android {
 }
 
 dependencies {
+    //per l'android gradle plugin 7.3.0 funziona solo la versione 1.2.0 per il desugaring //// la versione 2.0.0 richiede almeno l'agp 7.4.0
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:1.2.0" //https://developer.android.com/studio/write/java8-support#library-desugaring-versions
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    implementation 'com.github.Gabboxl:PininParse:52a92e90f5'
+    implementation 'com.github.Gabboxl:PininParse:2d4de7f832'
 
     implementation 'me.zhanghai.android.fastscroll:library:1.1.8'
 

@@ -21,6 +21,7 @@ import ga.gabboxl.pininorario.ConnectivityUtils
 import ga.gabboxl.pininorario.PeriodoWithClasse
 import ga.gabboxl.pininorario.R
 import ga.gabboxl.pininorario.interfacesimpls.OnClickAdaptersImplementations
+import ga.gabboxl.pininorario.utils.DatePeriodoParsing
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -200,55 +201,8 @@ class PeriodoDownloadsAdapter : ListAdapter<PeriodoWithClasse, PeriodoDownloadsA
         }
 
 
-        try {
-            val patternDatetitoloperiodo = Regex("""<<Nome>>\s-\s<<([^.]*)([^.]*)\s-\s([^.]*) ([^.]*)>>""") //https://regex101.com/r/N0AeGM/1
-            val gruppidatetitoloperiodo = patternDatetitoloperiodo.find(currentPeriodo.periodo.titoloPeriodo)!!
-
-
-            val cal: Calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Rome"))
-
-            val simpleDateFormat = SimpleDateFormat("dd MMMMM yyyy", Locale.ITALY) //imposto la lingua italiana per i nomi dei mesi
-
-
-            fun data1(): String { //a volte il nome del mese i tizi che fanno i titoli dell'orario lo omettono se e' so stesso della datafinoal per cui utilizziamo il nome del mese della datafinoal.
-                if(gruppidatetitoloperiodo.groupValues[2].isBlank()){
-                    return "${gruppidatetitoloperiodo.groupValues[1]} ${gruppidatetitoloperiodo.groupValues[4]}"
-                }
-
-                return "${gruppidatetitoloperiodo.groupValues[1]} ${gruppidatetitoloperiodo.groupValues[2]}"
-            }
-
-            val data2 = "${gruppidatetitoloperiodo.groupValues[3]} ${gruppidatetitoloperiodo.groupValues[4]}"
-
-
-            val dataDal = simpleDateFormat.parse(data1() + " " + cal.get(Calendar.YEAR))
-            val dataFinoal = simpleDateFormat.parse(data2 + " " + cal.get(Calendar.YEAR))
-
-
-            //applico il formato di destinazione che voglio per le date
-            val patternFinalesdf = "dd/MM/yyyy"
-            simpleDateFormat.applyPattern(patternFinalesdf)
-
-            val dataDalfixata = simpleDateFormat.format(dataDal!!)
-            val dataFinoalfixata = simpleDateFormat.format(dataFinoal!!)
-
-            holder.textViewNomePeriodo.text = "$dataDalfixata -> $dataFinoalfixata"
-
-        } catch (e: Exception){ //regex titolo di fallback in caso dovesse fallire il regex quello bello
-
-            try {
-                val patternTitoloFallback =
-                    Regex(""".*<<(.*)>>""") //https://regex101.com/r/3mhZ8O/1  ///// si potrebbe utilizzare anche questo pero' non si sa mai - https://regex101.com/r/3mhZ8O/1
-                val gruppidatetitoloperiodofallback =
-                    patternTitoloFallback.find(currentPeriodo.periodo.titoloPeriodo)!!
-
-                holder.textViewNomePeriodo.text = gruppidatetitoloperiodofallback.groupValues[1]
-
-            } catch (e: Exception){ //in caso facciano gli infami stravolgendo il pattern almeno siamo a posto
-
-                holder.textViewNomePeriodo.text = currentPeriodo.periodo.titoloPeriodo
-            }
-        }
+        //imposto il titolo al textview del periodo
+        DatePeriodoParsing.parseAndSetTitles(currentPeriodo, holder.textViewNomePeriodo)
 
         //textview nome classe
         holder.textViewNomeClasse.text = "[" + currentPeriodo.classe.nomeClasse + "]"
