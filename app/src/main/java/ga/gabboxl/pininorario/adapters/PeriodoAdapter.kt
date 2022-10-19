@@ -14,15 +14,10 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import ga.gabboxl.pininorario.ConnectivityUtils
 import ga.gabboxl.pininorario.PeriodoWithClasse
 import ga.gabboxl.pininorario.R
 import ga.gabboxl.pininorario.utils.DatePeriodoParsing
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 
 class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHolder>(DIFF_CALLBACK) {

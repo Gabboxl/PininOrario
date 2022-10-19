@@ -22,8 +22,6 @@ import ga.gabboxl.pininorario.PeriodoWithClasse
 import ga.gabboxl.pininorario.R
 import ga.gabboxl.pininorario.interfacesimpls.OnClickAdaptersImplementations
 import ga.gabboxl.pininorario.utils.DatePeriodoParsing
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class PeriodoDownloadsAdapter : ListAdapter<PeriodoWithClasse, PeriodoDownloadsAdapter.PeriodoHolder>(DIFF_CALLBACK) {
