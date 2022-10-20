@@ -6,7 +6,9 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.elevation.SurfaceColors
 
@@ -50,9 +52,22 @@ class SettingsActivity : AppCompatActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.app_preferences, rootKey)
 
+            val editserverlinkpref = findPreference<Preference>("edit_server_link")!!
+
+            val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            editserverlinkpref.summary = sharedPreferences.getString("server_link", "")
 
 
+            editserverlinkpref.setOnPreferenceClickListener {
+                openDialog()
+                true
+            }
         }
 
+
+        private fun openDialog(){
+            val dialog = ServerLinkDialog()
+            dialog.show(requireActivity().supportFragmentManager, "serverlink_dialog")
+        }
     }
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:orientation="vertical">
+
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressBar_editserveralert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:indeterminate="true" />
+
+    <TextView
+            android:id="@+id/textview_titolo_editserveralert"
+            android:layout_width="wrap_content"
+            android:text="titoloalertdummy"
+            android:paddingTop="16dp"
+            android:paddingStart="?dialogPreferredPadding"
+            android:paddingEnd="?dialogPreferredPadding"
+            android:textSize="20dp"
+            style="@style/MaterialAlertDialog.Material3.Title.Text"
+            android:layout_height="wrap_content">
+
+    </TextView>
+</LinearLayout>

@@ -212,7 +212,7 @@ class NewActivity : AppCompatActivity() {
         snackaggiornamento.show()
 
 
-        PininParse.Update.init()
+        PininParse.Update.init(sharedPreferences.getString("server_link", null))
 
         val serveraggiornamento = PininParse.Update.list()!!
 
@@ -278,8 +278,8 @@ class NewActivity : AppCompatActivity() {
 
         snackaggiornamento.show()
 
-        PininParse.Classi.init()
-        PininParse.Periodi.init()
+        PininParse.Classi.init(sharedPreferences.getString("server_link", null))
+        PininParse.Periodi.init(sharedPreferences.getString("server_link", null))
 
         val listaCodiciClassiNuovi = mutableListOf<String>()
 

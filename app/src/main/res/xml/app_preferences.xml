@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+    <PreferenceCategory app:title="Server orari">
+
+        <Preference
+                app:key="edit_server_link"
+                app:selectable="true"
+                app:summary="asd"
+                app:title="Modifica server orari" />
+
+    </PreferenceCategory>
+
     <PreferenceCategory app:title="Varie">
 
         <SwitchPreferenceCompat
