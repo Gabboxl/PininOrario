@@ -15,7 +15,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import es.dmoral.toasty.Toasty
 import ga.gabboxl.pininorario.databinding.EditserverlinkAlertdialogBinding
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
@@ -39,7 +38,7 @@ class ServerLinkDialog : DialogFragment() {
         val viewtitolo: View = inflater.inflate(R.layout.serverlinkdialog_title_layout, null)
 
         //imposto il titolo dell'alert
-        viewtitolo.findViewById<TextView>(R.id.textview_titolo_editserveralert).text = "Modifica link server orari"
+        viewtitolo.findViewById<TextView>(R.id.textview_titolo_editserveralert).text = getString(R.string.modifica_link_server_title_alert)
 
 
         val dialog = MaterialAlertDialogBuilder(requireContext()).setView(binding.root)
@@ -60,7 +59,7 @@ class ServerLinkDialog : DialogFragment() {
 
         //imposto un mio comportamento personalizzato per il pulsante positivo in modo che il dialog non sparisca al cliccare di esso
         dialog.getButton(Dialog.BUTTON_POSITIVE).setOnClickListener { it as Button //imposto il tipo del parametro di default "it" come buttoon, siccome e' considerato solo view per qualche motivo
-            lifecycleScope.launch(Dispatchers.IO){
+            lifecycleScope.launch(IO){
                 val pulsantenegativodialog = dialog.getButton(Dialog.BUTTON_NEGATIVE)
                 val progressbar = viewtitolo.findViewById<LinearProgressIndicator>(R.id.progressBar_editserveralert)
 
@@ -68,7 +67,7 @@ class ServerLinkDialog : DialogFragment() {
                     progressbar.visibility = View.VISIBLE
                     it.isEnabled = false //disabilito anche il pulsante positivo
                     pulsantenegativodialog.isEnabled = false //e anche quello negativo nel dubbio
-                    it.text = "Controllo..."
+                    it.text = getString(R.string.controllo)
                 }
 
                 //controllo che il link inserito sia diverso da quello gia' salvato o meno
@@ -80,7 +79,7 @@ class ServerLinkDialog : DialogFragment() {
                         withContext(Main) {
                             Toasty.error(
                                 requireContext(),
-                                "Url inserito non valido.",
+                                getString(R.string.url_inserito_non_valido),
                                 Toasty.LENGTH_SHORT
                             ).show()
                         }
@@ -91,11 +90,11 @@ class ServerLinkDialog : DialogFragment() {
 
                             val cambiareServerConfermaDialog =
                                 MaterialAlertDialogBuilder(requireContext())
-                                    .setTitle("Cambiare server?")
+                                    .setTitle(getString(R.string.cambiare_server))
                                     .setMessage(
-                                        "Cambiare il server richiede la reinizializzazione del database interno contenente classi e periodi. \n Procedendo il database interno verra' reinizializzato perdendo i preferiti ecc."
+                                        "Cambiare il server richiede la reinizializzazione del database interno contenente classi e periodi. \n Procedendo il database interno verra' reinizializzato comportando la perdita dei preferiti ecc."
                                     )
-                                    .setPositiveButton("Procedi") { _, _ ->
+                                    .setPositiveButton(getString(R.string.procedi)) { _, _ ->
 
                                         lifecycleScope.launch(IO) {
                                             //imposto il server nuovo
@@ -111,7 +110,7 @@ class ServerLinkDialog : DialogFragment() {
                                             withContext(Main) {
                                                 Toasty.success(
                                                     contextAcaso,
-                                                    "Database reinizializzato.",
+                                                    getString(R.string.database_reinizializzato),
                                                     Toasty.LENGTH_SHORT
                                                 ).show()
                                             }
@@ -119,7 +118,7 @@ class ServerLinkDialog : DialogFragment() {
 
                                         dismiss() //dismisso anche il dialog di modifica del server al di sotto di questo
                                     }
-                                    .setNegativeButton("No") { _, _ ->
+                                    .setNegativeButton(getString(R.string.no)) { _, _ ->
 
                                     }
                             cambiareServerConfermaDialog.create().show()
@@ -135,7 +134,7 @@ class ServerLinkDialog : DialogFragment() {
                     progressbar.visibility = View.INVISIBLE
                     it.isEnabled = true
                     pulsantenegativodialog.isEnabled = true
-                    it.text = "Salva"
+                    it.text = getString(R.string.salva)
                 }
             }
 
