@@ -47,4 +47,11 @@
     <string name="orari_scaricati">Orari scaricati</string>
     <string name="scarica">Scarica</string>
     <string name="periodi">Periodi</string>
+    <string name="controllo">Controllo...</string>
+    <string name="cambiare_server">Cambiare server?</string>
+    <string name="procedi">Procedi</string>
+    <string name="database_reinizializzato">Database reinizializzato.</string>
+    <string name="no">No</string>
+    <string name="url_inserito_non_valido">Url inserito non valido.</string>
+    <string name="modifica_link_server_title_alert">Modifica link server orari</string>
 </resources>
