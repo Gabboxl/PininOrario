@@ -236,7 +236,6 @@ class PeriodoAdapter : ListAdapter<PeriodoWithClasse, PeriodoAdapter.PeriodoHold
 
         holder.textViewPeriodo.text = "$dateinizio -> $datafine" */
 
-
         //imposto il titolo al textview del periodo
         DatePeriodoParsing.parseAndSetTitles(currentPeriodo, holder.textViewPeriodo)
 

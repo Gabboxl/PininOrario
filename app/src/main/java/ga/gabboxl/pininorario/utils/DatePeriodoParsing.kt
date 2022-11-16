@@ -13,6 +13,8 @@ class DatePeriodoParsing {
     companion object{
         fun parseAndSetTitles(currentPeriodo: PeriodoWithClasse, textViewPeriodo: TextView){
 
+
+
             try {
                 val patternnumeri = Regex("""[0-9]+""") //https://regex101.com/r/29Hof6/1
                 val matchesnumerititoloperiodo = patternnumeri.findAll(currentPeriodo.periodo.titoloPeriodo)
@@ -55,6 +57,8 @@ class DatePeriodoParsing {
                     val dataDalfixata = simpleDateFormat.format(dataDal!!)
                     val dataFinoalfixata = simpleDateFormat.format(dataFinoal!!)
 
+
+
                     textViewPeriodo.text = "$dataDalfixata -> $dataFinoalfixata"
 
                 } else if (matchesnumerititoloperiodo.count() == 3) {
@@ -72,6 +76,9 @@ class DatePeriodoParsing {
 
 
                     textViewPeriodo.text = "$datainizio -> $datafine"
+                } else {
+                    //lancio un'eccezione perche' altrimenti non entra nel catch per eseguire il regex di fallback
+                    throw Exception()
                 }
 
             } catch (e: Exception){ //regex titolo di fallback in caso dovesse fallire il regex quello bello
@@ -82,7 +89,10 @@ class DatePeriodoParsing {
                     val gruppidatetitoloperiodofallback =
                         patternTitoloFallback.find(currentPeriodo.periodo.titoloPeriodo)!!
 
-                    textViewPeriodo.text = gruppidatetitoloperiodofallback.groupValues[1]
+                    //funzione inline per capitalizzare ogni parola
+                    fun String.capitalizeWords(): String = split(" ").map { it.capitalize() }.joinToString(" ")
+
+                    textViewPeriodo.text = gruppidatetitoloperiodofallback.groupValues[1].lowercase().capitalizeWords()
 
 
                 } catch (e: Exception) { //in caso facciano gli infami stravolgendo il pattern almeno siamo a posto
