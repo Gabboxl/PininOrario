@@ -1,7 +1,6 @@
 package ga.gabboxl.pininorario.utils
 
 import android.widget.TextView
-import ga.gabboxl.pininorario.Periodo
 import ga.gabboxl.pininorario.PeriodoWithClasse
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -90,9 +89,9 @@ class DatePeriodoParsing {
                         patternTitoloFallback.find(currentPeriodo.periodo.titoloPeriodo)!!
 
                     //funzione inline per capitalizzare ogni parola
-                    fun String.capitalizeWords(): String = split(" ").map { it.capitalize() }.joinToString(" ")
+                    //fun String.capitalizeWords(): String = split(" ").map { it.capitalize() }.joinToString(" ")
 
-                    textViewPeriodo.text = gruppidatetitoloperiodofallback.groupValues[1].lowercase().capitalizeWords()
+                    textViewPeriodo.text = gruppidatetitoloperiodofallback.groupValues[1].lowercase().capitalize()
 
 
                 } catch (e: Exception) { //in caso facciano gli infami stravolgendo il pattern almeno siamo a posto
