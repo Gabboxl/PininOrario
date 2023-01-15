@@ -171,7 +171,7 @@ class NewActivity : AppCompatActivity() {
                         }
                         .start()
                 }
-            } else if (isConnected == false) {
+            } else {
                 val snackaggiornamento = Snackbar.make(
                     findViewById(R.id.fragmentContainerView),
                     getString(R.string.nessuna_connessione_internet),
