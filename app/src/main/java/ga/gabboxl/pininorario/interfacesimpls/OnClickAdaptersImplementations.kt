@@ -2,11 +2,14 @@ package ga.gabboxl.pininorario.interfacesimpls
 
 import android.Manifest
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Environment
+import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -28,6 +31,8 @@ import okio.buffer
 import okio.sink
 import java.io.File
 import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
 
 
 class OnClickAdaptersImplementations(
@@ -283,19 +288,51 @@ class OnClickAdaptersImplementations(
                 }
 
             } else {
-                //forse aggiornare mediastore per farlo vedere fin da subito nella galleria?
+
+                val baseFile = File(context.filesDir, nomefileorario)
 
 
                 val destinationFile = File(
                     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
                     "/PininOrario/$nomefileorario"
                 )
-                //destinationFile.createNewFile() penso sia inutile in ogni caso
 
-                try {
-                    File(context.filesDir, nomefileorario).copyTo(destinationFile)
+                if (!destinationFile.exists()) {
 
-                    //forse aggiornare mediastore per farlo vedere fin da subito nella galleria? solo per API Q?
+                var uri: Uri? = null
+                val values = ContentValues()
+
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+                    values.put(MediaStore.Images.Media.MIME_TYPE, "image/png")
+                    values.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000)
+                    values.put(MediaStore.Images.Media.TITLE, nomefileorario)
+                    values.put(MediaStore.Images.Media.DISPLAY_NAME, nomefileorario)
+                    values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis())
+                    values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/PininOrario")
+                    values.put(MediaStore.Images.Media.IS_PENDING, 1)
+                    uri= context.contentResolver.insert(MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY),values)
+                }
+
+
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+
+                        baseFile.copyTo(destinationFile)
+
+                    } else {
+                        uri?.let {
+                            val outputStream: OutputStream? =
+                                context.contentResolver.openOutputStream(uri)
+                            outputStream?.let {
+                                val inputStream: InputStream = baseFile.inputStream()
+                                inputStream.copyTo(outputStream, 1024)
+                            }
+                            values.clear()
+                            values.put(MediaStore.Images.Media.IS_PENDING, 0)
+                            context.contentResolver.update(uri, values, null, null)
+                        }
+                    }
+
+
 
                     withContext(Dispatchers.Main) {
                         Toasty.success(
@@ -305,7 +342,7 @@ class OnClickAdaptersImplementations(
                         ).show()
                     }
 
-                } catch (e: FileAlreadyExistsException) {
+                } else {
                     withContext(Dispatchers.Main) {
                         Toasty.info(
                             context,
