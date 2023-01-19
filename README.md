@@ -2,7 +2,7 @@
 
 A simpler way to consult ITIS Pininfarina's timetables
 
-<img src="https://user-images.githubusercontent.com/26819478/213557977-c7e04948-6fe4-4d0e-98cd-c9fd1051eddc.PNG" width=35% height=35%>
+<img src="https://user-images.githubusercontent.com/26819478/213557977-c7e04948-6fe4-4d0e-98cd-c9fd1051eddc.PNG" width=40% height=40%>
 
 # Download
 You can download [the APK here](https://github.com/Gabboxl/PininOrario/releases/latest)!
