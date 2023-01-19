@@ -2,8 +2,10 @@
 
 A simpler way to consult ITIS Pininfarina's timetables
 
-## Download
-### The app is under a huge refactoring right now. You can follow the status on the branch https://github.com/Gabboxl/PininOrario/tree/pininorarioV2!
+<img src="https://user-images.githubusercontent.com/26819478/213557977-c7e04948-6fe4-4d0e-98cd-c9fd1051eddc.PNG" width=35% height=35%>
+
+# Download
+You can download [the APK here](https://github.com/Gabboxl/PininOrario/releases/latest)!
 
 ## Requirements for building it
 ### Firebase services (Crashlytics, Perf)
@@ -12,3 +14,4 @@ You can obtain it from the Firebase console by adding your app.
 
 ## Roadmap
 You can find this project's roadmap [here](https://github.com/users/Gabboxl/projects/2/views/1). :)
+
