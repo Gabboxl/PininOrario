@@ -51,7 +51,7 @@ class ServerLinkDialog : DialogFragment() {
             .show()
 
         //questa funzione permette di prevenire il dismiss del dialog con il pulsante indietro della navbar di sistema
-        isCancelable = false //si usa setCancelable() NON sul dialog, ma si usa nella classe perche' essa estende DialogFragment. e dobbiamo dire che il dialogfragment non e' cancellabile
+        //isCancelable = false //si usa setCancelable() NON sul dialog, ma si usa nella classe perche' essa estende DialogFragment. e dobbiamo dire che il dialogfragment non e' cancellabile
 
         //cosi' non sparisce se si clicca al di fuori del dialog
         dialog.setCanceledOnTouchOutside(false)
