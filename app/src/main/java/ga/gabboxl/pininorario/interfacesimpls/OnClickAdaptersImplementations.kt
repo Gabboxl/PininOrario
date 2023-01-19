@@ -38,11 +38,13 @@ import java.io.OutputStream
 class OnClickAdaptersImplementations(
     val context: Context,
     private val classeViewModel: ClasseViewModel
-) : PeriodoAdapter.OnClickListenersPeriodoAdapter, ClasseAdapter.OnClickListenersClasseAdapter, PeriodoDownloadsAdapter.OnClickListenersPeriodoAdapter  {
+) : PeriodoAdapter.OnClickListenersPeriodoAdapter, ClasseAdapter.OnClickListenersClasseAdapter,
+    PeriodoDownloadsAdapter.OnClickListenersPeriodoAdapter {
 
     override fun onClasseAvailabilityButtonClick(
         classeWithPeriodi: ClasseWithPeriodi,
-        holder: ClasseAdapter.ClasseHolder) {
+        holder: ClasseAdapter.ClasseHolder
+    ) {
         val isConnected = ConnectivityUtils.isInternetAvailable.value
 
         if (isConnected!!) {
@@ -79,7 +81,8 @@ class OnClickAdaptersImplementations(
 
 
     override fun onPeriodoAvailabilityButtonClick(
-        periodo: PeriodoWithClasse) {
+        periodo: PeriodoWithClasse
+    ) {
         val isConnected = ConnectivityUtils.isInternetAvailable.value
 
         if (isConnected!!) {
@@ -95,8 +98,10 @@ class OnClickAdaptersImplementations(
             } else {
                 val infoPeriodoDialog = MaterialAlertDialogBuilder(context)
                     .setTitle(context.getString(R.string.stato_periodo_alert))
-                    .setMessage("Questo periodo è stato rimosso dal server della scuola, per cui non è più disponibile per il download." +
-                            "\n Gli orari non scaricati verranno eliminati dal database al prossimo avvio dell'app.")
+                    .setMessage(
+                        "Questo periodo è stato rimosso dal server della scuola, per cui non è più disponibile per il download." +
+                                "\n Gli orari non scaricati verranno eliminati dal database al prossimo avvio dell'app."
+                    )
                     .setPositiveButton(context.getString(R.string.OK)) { _, _ ->
                     }
 
@@ -299,19 +304,28 @@ class OnClickAdaptersImplementations(
 
                 if (!destinationFile.exists()) {
 
-                var uri: Uri? = null
-                val values = ContentValues()
+                    var uri: Uri? = null
+                    val values = ContentValues()
 
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-                    values.put(MediaStore.Images.Media.MIME_TYPE, "image/png")
-                    values.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000)
-                    values.put(MediaStore.Images.Media.TITLE, nomefileorario)
-                    values.put(MediaStore.Images.Media.DISPLAY_NAME, nomefileorario)
-                    values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis())
-                    values.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/PininOrario")
-                    values.put(MediaStore.Images.Media.IS_PENDING, 1)
-                    uri= context.contentResolver.insert(MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY),values)
-                }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        values.put(MediaStore.Images.Media.MIME_TYPE, "image/png")
+                        values.put(
+                            MediaStore.Images.Media.DATE_ADDED,
+                            System.currentTimeMillis() / 1000
+                        )
+                        values.put(MediaStore.Images.Media.TITLE, nomefileorario)
+                        values.put(MediaStore.Images.Media.DISPLAY_NAME, nomefileorario)
+                        values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis())
+                        values.put(
+                            MediaStore.Images.Media.RELATIVE_PATH,
+                            Environment.DIRECTORY_PICTURES + "/PininOrario"
+                        )
+                        values.put(MediaStore.Images.Media.IS_PENDING, 1)
+                        uri = context.contentResolver.insert(
+                            MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY),
+                            values
+                        )
+                    }
 
 
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
@@ -401,7 +415,8 @@ class OnClickAdaptersImplementations(
                 .setPositiveButton("Elimina") { _, _ ->
 
 
-                    val titolofixato = periodo.periodo.titoloPeriodo.replace(("[^\\w\\d]").toRegex(), "")
+                    val titolofixato =
+                        periodo.periodo.titoloPeriodo.replace(("[^\\w\\d]").toRegex(), "")
                     val nomefileorario = periodo.periodo.periodoSemiLinkImg + titolofixato + ".png"
 
                     //elimino il file dalla cartella interna dell'app
