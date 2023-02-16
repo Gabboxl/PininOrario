@@ -108,7 +108,7 @@ dependencies {
     //Firebase dependencies
     implementation 'com.google.firebase:firebase-analytics-ktx:21.2.0'
     implementation 'com.google.firebase:firebase-perf-ktx:20.3.0'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.2'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.3.5'
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
