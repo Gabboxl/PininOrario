@@ -17,12 +17,12 @@
     <string name="salva">Salva</string>
     <string name="annulla">Annulla</string>
     <string name="nessun_orario_scaricato">Nessun orario scaricato.</string>
+    <string name="nessuna_classe_disponibile">Nessuna classe al momento disponibile.\nProva ad aggiornare il database.</string>
+    <string name="nessuna_classe_preferita">Nessuna classe preferita.</string>
     <string name="stato_classe_alert">Stato classe</string>
     <string name="no_internet_stato_classe_alert">Non sei connesso ad internet. Connettiti per controllare lo stato di questa classe.</string>
     <string name="stato_periodo_alert">Stato periodo</string>
     <string name="concedi">Concedi</string>
-    <string name="nessuna_classe_disponibile">Nessuna classe al momento disponibile.\nProva ad aggiornare il database.</string>
-    <string name="nessuna_classe_preferita">Nessuna classe preferita.</string>
     <string name="classe_aggiunta_toast">Classe aggiunta.</string>
     <string name="aggiungi_classe">Aggiungi classe</string>
     <string name="periodo_still_disponibile_alert">Questo periodo è ancora disponibile sul server per il download.</string>
